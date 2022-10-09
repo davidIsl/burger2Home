@@ -8,5 +8,5 @@
 - [x] 2022/10/02: Mise au point du design page Accueil
 
 ## Semaine 40
-- [ ] 2022/10/05: Début de l'analyse du projet en groupe avec Lionnel et Nathan
-- [ ] 
+- [x] 2022/10/05: Début de l'analyse du projet en groupe avec Lionnel et Nathan
+- [ ] 2022/10/09: Design de la modal menu, connection, de la page d'inscrition, de la page produits
