@@ -13,4 +13,10 @@
 ## Semaine 40
 
 - [x] 2022/10/05: Début de l'analyse du projet en groupe avec Lionel et Nathan
-- [ ] 2022/10/09: Design de la modal menu, connection, de la page d'inscrition, de la page produits
+- [x] 2022/10/09: Design de la modal menu, connection, de la page d'inscrition, de la page produits
+
+## Semaine 41
+
+- [x] 2022/10/12: Ligne de conduite de l'analyse (table des matieres) et suite analyse
+- [x] 2022/10/15: Conception des écrans du site(suite)
+- [x] 2022/10/16: Conception des écrans du site(suite)
