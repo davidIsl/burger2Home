@@ -20,3 +20,7 @@
 - [x] 2022/10/12: Ligne de conduite de l'analyse (table des matieres) et suite analyse
 - [x] 2022/10/15: Conception des écrans du site(suite)
 - [x] 2022/10/16: Conception des écrans du site(suite)
+
+## Semaine 42
+
+- []
