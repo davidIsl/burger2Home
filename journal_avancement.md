@@ -23,4 +23,4 @@
 
 ## Semaine 42
 
-- []
+- [x] 2022/10/20: Diagramme de séquence du workFlow Commande
