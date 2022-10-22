@@ -24,3 +24,4 @@
 ## Semaine 42
 
 - [x] 2022/10/20: Diagramme de séquence du workFlow Commande
+- [x] 2022/10/22: Conception des écrans gestion produit et marketing
