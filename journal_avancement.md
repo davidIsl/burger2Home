@@ -25,3 +25,4 @@
 
 - [x] 2022/10/20: Diagramme de séquence du workFlow Commande
 - [x] 2022/10/22: Conception des écrans gestion produit et marketing
+- [x] 2022/10/23: Suite Réunion avec Mr Martel, modification du diagramme de séquence et explication des cas d'utilisation.
