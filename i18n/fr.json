@@ -1,0 +1,608 @@
+{
+  "example": {
+    "title": "FR - Lorem ipsum dolor sit amet",
+    "text": "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  "menu": {
+    "title1": "Accueil",
+    "title2": "Bootstrap-Vue",
+    "title2sub1": "Général",
+    "title2sub2": "Tableau",
+    "title2sub3": "Formulaire",
+    "title2sub4": "Espace membre",
+    "title3": "Plugin",
+    "title3sub1": "Particles",
+    "title3sub2": "AOS",
+    "title3sub3": "SweetAlert",
+    "title3sub4": "Gmaps",
+    "title4": "Layout-erreur"
+  },
+  "country": {
+    "belgium": "Belgique",
+    "france": "France",
+    "netherlands": "Pays-Bas",
+    "germany": "Allemagne",
+    "spain": "Espagne",
+    "italy": "Italie"
+  },
+  "swal": {
+    "confirmDelete": {
+      "title": "Êtes-vous sûr ?",
+      "text": "Vous ne pourrez pas revenir en arrière !",
+      "confirButton": "Oui, supprimez !",
+      "cancelButton": "Annuler",
+      "nextTitle": "Supprimé !",
+      "nextText": "Votre saisie a été supprimée."
+    }
+  },
+  "hero": {
+    "text": "Cette base de code est un exemple concret d’une configuration optimale de NuxtJS avec Bootstrap-vue, Color-mode, Pug, Sass, Vuelidate, ParticlesJS, AOS, SweetAlert, Gmaps et nuxt-property-decorator."
+  },
+  "pages": {
+    "index": {
+      "title": "AntelopeJS Nuxt : Bootstrap Template",
+      "text": [
+        "Cette base de code est un exemple concret d’une configuration optimale de NuxtJS avec Bootstrap-vue, Color-mode, Pug, Sass, Vuelidate, ParticlesJS, AOS, SweetAlert, Gmaps et nuxt-property-decorator. Notre base active automatiquement le HTTP/2.0 en production (sous https uniquement) via un patch custom. Tout l’environnement de développement est également préconfiguré pour Visual Studio Code avec les modules EsLint, StyleLint, CommitLint et Prettier ce qui vous permettra de vérifier et formater votre code en temps réel pendant l’écriture de celui-ci. La base inclut également un exemple d’intégration de I18N dans NuxtJS, le standard de la traduction multi-langues de votre site internet, pour vous faciliter la création de sites internet réalistes tel que les standards l’exigent à l’heure actuelle.",
+        "Cette base inclut toute la documentation de boostrap-vue au format Pug (balisage optimisé et intuitif), des exemples de Particles.js (un effet commun à beaucoup de sites internet qui donne un effet technologique plutôt sympa) et des exemples d’AOS (Animated On Scroll) pour des animations faciles à mettre en place sur n’importe quel élément de votre thème.",
+        "Pour votre information cette base a servi a réaliser le site internet et la documentation de AntelopeJs.io ainsi que la dashboard du framework AntelopeJS."
+      ],
+      "structure": {
+        "title": "Structure de la base :",
+        "text": "Seul les particularités de notre configuration sont détaillées dans ce résumé, pour le reste, les standards d'un projet nuxt sont conservés. Vous pouvez les retrouver sur le site officiel de nuxt.",
+        "subtitle": [
+          "Le dossier Assets :",
+          "Le dossier I18N :",
+          "Le dossier Layouts :",
+          "Le dossier Components :",
+          "Le dossier Pages :",
+          "Le dossier Static :"
+        ],
+        "subtext1": [
+          "Le dossier css contient le/les fichier(s) css contenant les variables css pour vous faciliter le multi-thème de votre site internet (default/dark/etc.).",
+          "Le dossier img contient les images utilisées pour réaliser votre template et non pas les images destinées à votre contenu qui devront se trouver dans le dossier \"./static/img\".",
+          "Le dossier scss contient les fichiers de configuration boostrap-vue (breakpoint, police size responsive, component color, etc.) ainsi que votre fichier main.scss qui sera la feuille de style principale de votre projet."
+        ],
+        "subtext2": [
+          "Le dossier contient les fichiers json contenant les traductions de vos textes statiques."
+        ],
+        "subtext3": [
+          "Le dossier contient les layouts de votre site internet par défaut, le layout principal (default) et le layout de la page d’erreur (error)."
+        ],
+        "subtext4": [
+          "Le dossier contient les components utilisés à plusieurs endroits dans votre template, généralement des components utilisés à de multiples reprises dans vos layouts et vos pages."
+        ],
+        "subtext5": [
+          "Le dossier contient en premier lieu un dossier \"_lang\" pour éviter de devoir créer les dossiers \"fr\", \"en\", etc. et de dupliquer toutes vos pages pour chaque langue, notre configuration i18n automatise le processus de création des url multi-langues de votre site à partir de ce dossier.",
+          "Le dossier \"_lang\" contient ensuite les dossiers de vos pages, chaque dossier de page ignore automatiquement le dossier \"_components\" qu'il contient de la \"supercharge\" de nuxt (non-interprété au niveau du routing) pour vous permettre d'y placer les components utilisés uniquement par cette page et d'éviter ainsi de surcharger le dossier \"./components\" l'architecture initiale de nuxt."
+        ],
+        "subtext6": [
+          "Le dossier \"img\" contient tous les éléments graphiques utilisés dans le contenu de vos pages (et non les éléments de design qui eux doivent être mis dans le dossier \"./assets/img/\").",
+          "Le dossier \"js\" contient vos fichiers javascript de vos librairies préférées.",
+          "La racine du dossier contient également vos fichiers dont le nom ne doit pas changer pendant le build tel que le favicon, le robot.txt, etc."
+        ]
+      }
+    },
+    "bootstrap": {
+      "title": "Bootstrap-vue",
+      "text": [
+        "Avec BootstrapVue, vous pouvez créer sur le web des projets responsive, mobile-first et accessibles ARIA en utilisant Vue.js et la bibliothèque CSS front-end la plus populaire au monde - Bootstrap v4.",
+        "Avec plus de 85 composants, plus de 45 plugins disponibles, plusieurs directives et plus de 1 200 icônes, BootstrapVue fournit l'une des implémentations les plus complètes du système de composants et de grille Bootstrap v4 disponible pour Vue.js v2.6, avec un balisage d'accessibilité WAI-ARIA étendu et automatisé."
+      ]
+    },
+    "particles": {
+      "title": "Particles.js",
+      "text": "tsParticles - Créez facilement des animations de particules hautement personnalisables et utilisez-les comme fonds animés pour votre site web. Composants prêts à l'emploi disponibles pour React, Vue.js (2.x et 3.x), Angular, Svelte, jQuery, Preact, Inferno."
+    },
+    "aos": {
+      "title": "Animation au défilement",
+      "text": "AOS est une bibliothèque CSS d'animation de défilement permettant d'animer des éléments sur un site Web pendant le défilement.  Elle fonctionne dans n'importe quelle direction, que ce soit lors d'un défilement vers le bas ou vers le haut."
+    },
+    "gmaps": {
+      "title": "Nuxt-gmaps",
+      "text": "Ajoutez et personnalisez facilement vos cartes Google avec ce paquet pour Nuxt.js.",
+      "viewOnMap": "Voir sur Google Maps",
+      "example": "Exemple"
+    },
+    "login": {
+      "title": "Se connecter",
+      "text": "S'il vous plait, entrez votre adresse e-mail et votre mot de passe pour vous connecter à votre compte.",
+      "buttonSubmit": "Connexion",
+      "buttonRegister": "Créer un compte",
+      "buttonForgotPassword": "Mot de passe oublié ?",
+
+      "email": {
+        "placeHolder": "Adresse e-mail",
+        "error": "L'adresse e-mail doit être valide."
+      },
+      "password": {
+        "placeHolder": "Mot de passe",
+        "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
+      },
+
+      "success": "Merci, vous êtes maintenant identifié. Vous allez être redirigé dans quelques instants...",
+      "pending": "Identification en cours...",
+      "error": {
+        "required": "Ce champ est requis.",
+        "form": "Veuillez remplir le formulaire de connexion correctement.",
+        "notMatch": "L'e-mail et le mot de passe ne correspondent pas, veuillez réessayer.",
+        "mailNotExist": "L'e-mail n'existe pas dans notre base de données, veuillez-vous inscrire via le lien ci-dessous.",
+        "mailNotActive": "Veuillez valider votre adresse e-mail avant de pouvoir vous connecter."
+      }
+    },
+    "register": {
+      "title": "S'inscrire sur notre site",
+      "text": "S'il vous plait, complétez le formulaire ci-dessous pour vous inscrire sur notre site.",
+      "buttonSubmit": "Créer mon compte",
+      "buttonCancel": "Vous avez déjà un compte ?",
+
+      "gender": {
+        "placeHolder": "Genre",
+        "option1": "Homme",
+        "option2": "Femme"
+      },
+      "status": {
+        "placeHolder": "Statut",
+        "option1": "Particulier",
+        "option2": "Professionel"
+      },
+      "company": {
+        "placeHolder": "Société"
+      },
+      "vat": {
+        "placeHolder": "TVA"
+      },
+      "lastName": {
+        "placeHolder": "Nom",
+        "minLenght_start": "Le nom doit contenir au moins ",
+        "minLenght_end": " lettres."
+      },
+      "firstName": {
+        "placeHolder": "Prénom",
+        "minLenght_start": "Le prénom doit contenir au moins ",
+        "minLenght_end": " lettres."
+      },
+      "email": {
+        "placeHolder": "E-mail",
+        "error": "L'adresse e-mail doit être valide."
+      },
+      "phone": {
+        "placeHolder": "Numéro de téléphone",
+        "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
+        "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
+        "minLenght_end": " chiffres."
+      },
+      "address": {
+        "placeHolder": "Adresse",
+        "minLenght_start": "L'adresse doit contenir au moins ",
+        "minLenght_end": " lettres."
+      },
+      "streetNum": {
+        "placeHolder": "n°",
+        "error": "Le numéro de l'adresse ne doit contenir que des chiffres."
+      },
+      "box": {
+        "placeHolder": "Boîte"
+      },
+      "zipCode": {
+        "placeHolder": "Code Postal",
+        "error": "Le code postal ne doit contenir que des chiffres ou des lettres.",
+        "minLenght_start": "Le code postal doit contenir au moins ",
+        "minLenght_end": " caractères."
+      },
+      "city": {
+        "placeHolder": "Ville",
+        "minLenght_start": "La ville doit contenir au moins ",
+        "minLenght_end": " lettres."
+      },
+      "country": {
+        "placeHolder": "Pays"
+      },
+      "password": {
+        "placeHolder": "Mot de passe",
+        "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
+      },
+      "password2": {
+        "placeHolder": "Confirmez mot de passe",
+        "error": "Les mots de passe ne correspondent pas."
+      },
+
+      "checkBox1": "Je déclare avoir lu et approuvé la ",
+      "checkBox1_link": "déclaration sur la protection des données.",
+      "checkBox2": "Je déclare avoir lu et approuvé les ",
+      "checkBox2_link": "conditions générales d'utilisation.",
+      "checkBox3": "Je déclare avoir lu et approuvé les ",
+      "checkBox3_link": "conditions générales de vente.",
+      "checkBox4": "Je souhaite être tenue informé des dernières offres et promotions par e-mail.",
+
+      "success": "Merci, votre compte a été créé, vous allez recevoir un e-mail avec un lien de confirmation sur l'e-mail mentionné.",
+      "pending": "Inscription en cours...",
+      "error": {
+        "required": "Ce champ est requis.",
+        "form": "Veuillez remplir le formulaire d'inscription correctement.",
+        "mailAlreadyExist": "L'e-mail existe déjà dans notre base de données.",
+        "mailNotActive": "L'e-mail existe dans notre base de données mais ne semble pas être activé."
+      }
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublié",
+      "text": "Pour réinitialiser votre mot de passe, veuillez entrer une adresse e-mail, un e-mail vous sera alors envoyé.",
+      "buttonSubmit": "Réinitialiser",
+      "buttonCancel": "Annuler",
+
+      "email": {
+        "placeHolder": "Entrez votre adresse e-mail",
+        "error": "L'adresse e-mail doit être valide."
+      },
+
+      "success": "Merci, vous allez recevoir un e-mail avec un lien de modification dans quelques minutes.",
+      "pending": "Envoie du lien de modification du mot de passe en cours...",
+      "error": {
+        "required": "Ce champ est requis.",
+        "form": "Veuillez remplir le formulaire de récupération de mot de passe correctement.",
+        "mailNotExist": "L'adresse e-mail n'existe pas dans notre base de données.",
+        "mailNotActive": "L'adresse e-mail existe dans notre base de données mais ne semble pas être activé."
+      }
+    },
+    "forgotPasswordSecure": {
+      "title": "Modifier votre mot de passe",
+      "text": "Pour modifier votre mot de passe, veuillez entrer votre nouveau mot de passe dans le formulaire ci-dessous.",
+      "buttonSubmit": "Modifier",
+      "buttonCancel": "Annuler",
+
+      "password": {
+        "placeHolder": "Mot de passe",
+        "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
+      },
+      "password2": {
+        "placeHolder": "Confirmez mot de passe",
+        "error": "Les mots de passe ne correspondent pas."
+      },
+
+      "success": "Merci, votre mot de passe a été modifié avec succès.",
+      "pending": "Modification du mot de passe en cours...",
+      "error": {
+        "required": "Ce champ est requis.",
+        "form": "Veuillez remplir le formulaire de modification de mot de passe correctement."
+      }
+    },
+    "contact": {
+      "title": "Contactez-nous !",
+      "text": "Nous sommes disponibles 24h/24 et 7j/7 par e-mail ou par téléphone. Vous pouvez également utiliser le formulaire de contact rapide pour poser une question sur nos services et produits. Nous serons heureux de répondre à vos questions et de vous offrir toute notre aide.",
+      "buttonSubmit": "Envoyer",
+
+      "lastName": {
+        "placeHolder": "Nom",
+        "minLenght_start": "Le nom doit contenir au moins ",
+        "minLenght_end": " lettres."
+      },
+      "firstName": {
+        "placeHolder": "Prénom",
+        "minLenght_start": "Le prénom doit contenir au moins ",
+        "minLenght_end": " lettres."
+      },
+      "email": {
+        "placeHolder": "E-mail",
+        "error": "L'adresse e-mail doit être valide."
+      },
+      "phone": {
+        "placeHolder": "Numéro de téléphone",
+        "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
+        "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
+        "minLenght_end": " chiffres."
+      },
+      "message": {
+        "placeHolder": "Votre message",
+        "minLenght_start": "Le message doit contenir au moins ",
+        "minLenght_end": " caractères."
+      },
+
+      "success": "Merci, votre message nous a bien été transmis, nous vous répondrons dans les plus brefs délais.",
+      "pending": "Votre message est en cours d'envoi...",
+      "error": {
+        "required": "Ce champ est requis.",
+        "form": "Veuillez remplir le formulaire de contact correctement."
+      }
+    },
+    "newsletter": {
+      "title": "Inscription à notre Newsletter",
+      "text": "Soyez toujours au fait de nos dernières offres et promotions !",
+      "buttonSubmit": "Je m'inscris !",
+
+      "email": {
+        "placeHolder": "Entrez votre adresse e-mail",
+        "error": "L'adresse e-mail doit être valide."
+      },
+
+      "success": "Merci, Vous serez tenu informé de nos dernières actualités et promotions directement sur votre adresse e-mail !",
+      "pending": "Inscription à la newsletter en cours...",
+      "error": {
+        "required": "Ce champ est requis.",
+        "form": "Veuillez remplir correctement le formulaire d'inscription à la newsletter.",
+        "mailAlreadyExist": "L'e-mail existe déjà dans notre base de données."
+      }
+    },
+    "account": {
+      "title": "Mon espace membre",
+      "text": "Votre espace membre vous permets de modifier vos informations personnelles, de changer votre mot de passe et de consulté l'état de vos commandes à tout moment.",
+
+      "menu": {
+        "title1": "Mes informations",
+        "title2": "Mes adresses de facturation",
+        "title3": "Mes adresses de livraison",
+        "title4": "Mes moyens de paiement",
+        "title5": "Modifier mon mot de passe",
+        "title6": "Mes commandes",
+        "title7": "Déconnexion"
+      },
+
+      "showProfil": {
+        "title": "Mes informations",
+        "text": "Les informations de facturation reprises sur vos factures lors de vos achats sur notre site.",
+        "buttonSubmit": "Modifier",
+
+        "gender": "Genre",
+        "company": "Société",
+        "lastName": "Nom",
+        "firstName": "Prénom",
+        "phone": "Téléphone",
+        "email": "E-mail",
+
+        "status": "Statut",
+        "vat": "TVA",
+        "country": "Pays",
+        "town": "Ville",
+        "zipCode": "Code Postal",
+        "address": "Adresse",
+        "box": "Boîte"
+      },
+      "editProfil": {
+        "title": "Modifier mes informations",
+        "buttonSubmit": "Modifier",
+        "buttonCancel": "Annuler",
+
+        "gender": {
+          "placeHolder": "Genre",
+          "option1": "Homme",
+          "option2": "Femme"
+        },
+        "status": {
+          "placeHolder": "Statut",
+          "option1": "Particulier",
+          "option2": "Professionel"
+        },
+        "company": {
+          "placeHolder": "Société"
+        },
+        "vat": {
+          "placeHolder": "TVA"
+        },
+        "lastName": {
+          "placeHolder": "Nom",
+          "minLenght_start": "Le nom doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "firstName": {
+          "placeHolder": "Prénom",
+          "minLenght_start": "Le prénom doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "email": {
+          "placeHolder": "E-mail",
+          "error": "L'adresse e-mail doit être valide."
+        },
+        "phone": {
+          "placeHolder": "Numéro de téléphone",
+          "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
+          "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
+          "minLenght_end": " chiffres."
+        },
+        "address": {
+          "placeHolder": "Adresse",
+          "minLenght_start": "L'adresse doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "streetNum": {
+          "placeHolder": "n°",
+          "error": "Le numéro de l'adresse ne doit contenir que des chiffres."
+        },
+        "box": {
+          "placeHolder": "Boîte"
+        },
+        "zipCode": {
+          "placeHolder": "Code Postal",
+          "error": "Le code postal ne doit contenir que des chiffres ou des lettres.",
+          "minLenght_start": "Le code postal doit contenir au moins ",
+          "minLenght_end": " caractères."
+        },
+        "city": {
+          "placeHolder": "Ville",
+          "minLenght_start": "La ville doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "country": {
+          "placeHolder": "Pays"
+        },
+
+        "checkBox1": "Je souhaite être tenue informé des dernières offres et promotions par e-mail.",
+
+        "success": "Merci, vos informations ont été modifiées.",
+        "pending": "Modification en cours...",
+        "error": {
+          "required": "Ce champ est requis.",
+          "form": "Veuillez remplir le formulaire d'édition de votre profile correctement."
+        }
+      },
+
+      "showDelivery": {
+        "title": "Mes adresses de livraison",
+        "buttonAdd": "Ajouter une adresse de livraison",
+        "buttonEdit": "Modifier",
+        "defaultLabel": "Par defaut",
+        "changeDefaultLabel": "Definir par defaut"
+      },
+      "addDelivery": {
+        "title": "Ajouter une adresse de livraison",
+        "buttonSubmit": "Ajouter",
+        "buttonCancel": "Annuler",
+
+        "success": "Merci, vous avez ajouté cette adresse de livraison avec succès.",
+        "pending": "Ajout en cours...",
+        "error": {
+          "required": "Ce champ est requis.",
+          "form": "Veuillez remplir le formulaire d'ajout d'adresse de livraison correctement."
+        }
+      },
+      "editDelivery": {
+        "title": "Modifier cette adresse de livraison",
+        "buttonSubmit": "Modifier",
+        "buttonCancel": "Annuler",
+
+        "lastName": {
+          "placeHolder": "Nom",
+          "minLenght_start": "Le nom doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "firstName": {
+          "placeHolder": "Prénom",
+          "minLenght_start": "Le prénom doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "email": {
+          "placeHolder": "E-mail",
+          "error": "L'adresse e-mail doit être valide."
+        },
+        "phone": {
+          "placeHolder": "Numéro de téléphone",
+          "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
+          "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
+          "minLenght_end": " chiffres."
+        },
+        "address": {
+          "placeHolder": "Adresse",
+          "minLenght_start": "L'adresse doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "streetNum": {
+          "placeHolder": "n°",
+          "error": "Le numéro de l'adresse ne doit contenir que des chiffres."
+        },
+        "box": {
+          "placeHolder": "Boîte"
+        },
+        "zipCode": {
+          "placeHolder": "Code Postal",
+          "error": "Le code postal ne doit contenir que des chiffres ou des lettres.",
+          "minLenght_start": "Le code postal doit contenir au moins ",
+          "minLenght_end": " caractères."
+        },
+        "city": {
+          "placeHolder": "Ville",
+          "minLenght_start": "La ville doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+        "country": {
+          "placeHolder": "Pays"
+        },
+
+        "checkBox1": "Définir comme adresse de livraison par défaut.",
+
+        "success": "Merci, cette adresse de livraison a été modifiée.",
+        "pending": "Modification en cours...",
+        "error": {
+          "required": "Ce champ est requis.",
+          "form": "Veuillez remplir le formulaire de modification d'adresse de livraison correctement."
+        }
+      },
+
+      "showPayment": {
+        "title": "Mes moyens de paiements",
+        "buttonAdd": "Ajouter un moyen de paiement",
+        "defaultLabel": "Par defaut",
+        "changeDefaultLabel": "Definir par defaut"
+      },
+      "addPayment": {
+        "title": "Ajouter un moyen de paiement",
+        "buttonSubmit": "Ajouter",
+        "buttonCancel": "Annuler",
+
+        "cardHolder": {
+          "placeHolder": "Titulaire de la carte",
+          "minLenght_start": "Le nom du titulaire de la carte doit contenir au moins ",
+          "minLenght_end": " lettres."
+        },
+
+        "checkBox1": "Définir comme moyen de paiement par défaut.",
+
+        "success": "Merci, vous avez ajouté ce moyen de paiement avec succès.",
+        "pending": "Ajout en cours...",
+        "error": {
+          "required": "Ce champ est requis.",
+          "form": "Veuillez remplir le formulaire d'ajout de moyen de paiement correctement."
+        }
+      },
+
+      "passwordUpdate": {
+        "title": "Modifier mon mot de passe",
+        "buttonEdit": "Modifier",
+        "text": [
+          "Votre mot de passe doit comporter :",
+          "- 8 Caractères",
+          "- Une lettre majuscule",
+          "- Une lettre minuscule",
+          "- Un chiffre"
+        ],
+
+        "password": {
+          "placeHolder": "Mot de passe",
+          "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
+        },
+        "password2": {
+          "placeHolder": "Confirmez mot de passe",
+          "error": "Les mots de passe ne correspondent pas."
+        },
+
+        "success": "Merci, votre mot de passe a été modifié avec succès.",
+        "pending": "Modification en cours...",
+        "error": {
+          "required": "Ce champ est requis.",
+          "form": "Veuillez remplir le formulaire de moficiation de mot de passe correctement."
+        }
+      },
+
+      "showOrders": {
+        "title": "Mon historique de commandes",
+
+        "field1": "Référence",
+        "field2": "Date",
+        "field3": "Montant",
+        "field4": "Méthode de paiement",
+        "field5": "État de la commande",
+        "field6": "Actions",
+
+        "VAT": "TVAC"
+      }
+    },
+    "privacy": {
+      "title": "Politique de confidentialité",
+      "text": [
+        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      ]
+    },
+    "error": {
+      "title": "Une erreur est survenue",
+      "label": "ERREUR",
+      "buttonBack": "Retour à la page d'accueil",
+      "404": "Cette page est introuvable ..."
+    }
+  },
+  "gdpr":{
+    "text": "AntelopeJS utilise des cookies pour personnaliser les fonctions relatives au marketing et aux réseaux sociaux.",
+    "readMore": "En savoir plus sur les cookies.",
+    "button": "ACCEPTER"
+  },
+  "copyright": "© 2020-2021 AntelopeJS - Tous droits réservés - ",
+  "privacy_link": "Politique de confidentialité"
+}

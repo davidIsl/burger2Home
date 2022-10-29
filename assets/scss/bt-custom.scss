@@ -1,0 +1,174 @@
+// Theming Bootstrap & BootstrapVue
+// https://bootstrap-vue.org/docs/reference/theming
+// Color variants and CSS class mapping
+// https://bootstrap-vue.org/docs/reference/color-variants
+
+// Base grayscale colors definitions
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+
+// Base colors definitions
+$antelopeColor: #7479f3 !default;
+$black: #000 !default;
+$white: #fff !default;
+$blue: #007bff !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+
+// Theme color default definitions
+$primary: $antelopeColor !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $white !default;
+$dark: $black !default;
+
+// This table defines the theme colors (variant names)
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    'primary': $primary,
+    'secondary': $secondary,
+    'success': $success,
+    'info': $info,
+    'warning': $warning,
+    'danger': $danger,
+    'light': $light,
+    'dark': $dark,
+  ),
+  $theme-colors
+);
+
+// Define your custom breakpoints
+$base-min: 0;
+// Default : 456px
+$phone-min: 456px;
+// Default : 789px
+$tablet-min: 789px;
+// Default : 999px
+$lg-desktop-min: 999px;
+// Default : 1234px
+$xl-desktop-min: 1234px;
+// Default : 2000px
+$xxl-desktop-min: 2000px;
+
+// Define your variable overrides here
+$grid-columns: 24;
+$enable-rounded: true;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-responsive-font-sizes: false;
+$enable-validation-icons: true;
+$grid-breakpoints: (
+  xs: $base-min,
+  sm: $phone-min,
+  md: $tablet-min,
+  lg: $lg-desktop-min,
+  xl: $xl-desktop-min,
+  xxl: $xxl-desktop-min,
+);
+$bv-enable-table-stacked: false;
+
+// Mixin Breakpoint : For
+@mixin for-phone-only {
+  @media (max-width: $phone-min) {
+    @content;
+  }
+}
+
+@mixin for-tablet-only {
+  @media (min-width: $phone-min) and (max-width: $tablet-min) {
+    @content;
+  }
+}
+
+@mixin for-md-desktop-only {
+  @media (min-width: $tablet-min) and (max-width: $lg-desktop-min) {
+    @content;
+  }
+}
+
+@mixin for-xl-desktop-only {
+  @media (min-width: $lg-desktop-min) and (max-width: $xl-desktop-min) {
+    @content;
+  }
+}
+
+@mixin for-xxl-desktop-only {
+  @media (min-width: $xl-desktop-min) and (max-width: $xxl-desktop-min) {
+    @content;
+  }
+}
+
+// Mixin Breakpoint : From
+@mixin from-phone-only {
+  @media (min-width: $phone-min) {
+    @content;
+  }
+}
+
+@mixin from-tablet-only {
+  @media (min-width: $tablet-min) {
+    @content;
+  }
+}
+
+@mixin from-md-desktop-only {
+  @media (min-width: $lg-desktop-min) {
+    @content;
+  }
+}
+
+@mixin from-xl-desktop-only {
+  @media (min-width: $xl-desktop-min) {
+    @content;
+  }
+}
+
+@mixin from-xxl-desktop-only {
+  @media (min-width: $xxl-desktop-min) {
+    @content;
+  }
+}
+
+// Mixin Breakpoint : Max
+@mixin max-phone-only {
+  @media (max-width: $tablet-min) {
+    @content;
+  }
+}
+
+@mixin max-tablet-only {
+  @media (max-width: $lg-desktop-min) {
+    @content;
+  }
+}
+
+@mixin max-md-desktop-only {
+  @media (max-width: $xl-desktop-min) {
+    @content;
+  }
+}
+
+@mixin max-lg-desktop-only {
+  @media (max-width: $xxl-desktop-min) {
+    @content;
+  }
+}

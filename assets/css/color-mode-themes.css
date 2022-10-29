@@ -1,0 +1,109 @@
+/* Default Template */
+:root {
+  /* Website Color */
+  --color: #23272c;
+  --colorInverted: #ecf0f1;
+  --colorError: #c0392b;
+  --colorLink: #5b60e9;
+
+  /* logo */
+  --logoColorLetter: #7479f3;
+  --logoColorAntelope: #7479f3;
+  --logoColorText: #000;
+
+  /* Intro loader custom */
+  --backgroundIntro: rgb(255, 255, 255);
+
+  /* Custom Scrollbar */
+  --colorScrollbar: rgba(116, 121, 243, 1);
+  --backgroundScrollbar: rgba(243, 244, 249, 1);
+
+  /* Website Background */
+  --background: rgb(255, 255, 255, 1);
+  --backgroundHero: rgb(248, 248, 248);
+  --backgroundFooter: rgb(248, 248, 248);
+
+  /* Menu */
+  --shadowMenu: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --colorMenu: #5b60e9;
+  --backgroundMenu: rgb(248, 248, 248);
+  --backgroundMenuDropdown: rgba(255, 255, 255, 1);
+  --backgroundMenuDropdownHover: rgba(116, 121, 243, 1);
+  --colorMenuDropdown: #434345;
+  --colorMenuDropdownHover: #fff;
+  --borderMenuDropdown: 3px solid #5b60e9;
+
+  /* Menu account */
+  --colorMenuAccountActive: #fff;
+  --backgroundMenuAccountActive: #7479f3;
+
+  /* Custom Forms / Input */
+  --colorForm: rgba(0, 0, 0, 1);
+  --backgroundForm: rgba(238, 239, 243, 1);
+  --backgroundTextareaToolbar: rgb(231, 231, 231);
+
+  /* ScrollTop */
+  --colorScrollTop: rgba(255, 255, 255, 1);
+  --backgroundScrollTop: rgba(116, 121, 243, 0.9);
+
+  /* GDRP Alert */
+  --colorGDPR: #23272c;
+  --backgroundGDPR: rgba(248, 248, 248, 1);
+
+  /* Website Custom */
+}
+
+/* Dark Template */
+.dark-mode {
+  /* Website Color */
+  --color: #ecf0f1;
+  --colorInverted: #23272c;
+  --colorError: #e74c3c;
+  --colorLink: #7479f3;
+
+  /* logo */
+  --logoColorLetter: #fff;
+  --logoColorAntelope: #7479f3;
+  --logoColorText: #fff;
+
+  /* Intro loader custom */
+  --backgroundIntro: rgba(20, 23, 31, 1);
+
+  /* Custom Scrollbar */
+  --colorScrollbar: rgba(116, 121, 243, 1);
+  --backgroundScrollbar: rgba(20, 23, 31, 1);
+
+  /* Website Background */
+  --background: rgba(20, 23, 31, 1);
+  --backgroundHero: rgba(32, 37, 51, 1);
+  --backgroundFooter: rgba(32, 37, 51, 1);
+
+  /* Menu */
+  --shadowMenu: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --colorMenu: #ecf0f1;
+  --backgroundMenu: rgba(32, 37, 51, 1);
+  --backgroundMenuDropdown: rgba(32, 37, 51, 1);
+  --backgroundMenuDropdownHover: rgba(116, 121, 243, 1);
+  --colorMenuDropdown: #ecf0f1;
+  --colorMenuDropdownHover: #fff;
+  --borderMenuDropdown: 3px solid #5b60e9;
+
+  /* Menu account */
+  --colorMenuAccountActive: #fff;
+  --backgroundMenuAccountActive: #7479f3;
+
+  /* Custom Forms / Input */
+  --colorForm: rgba(255, 255, 255, 1);
+  --backgroundForm: rgba(37, 41, 50, 1);
+  --backgroundTextareaToolbar: rgba(238, 239, 243, 1);
+
+  /* ScrollTop */
+  --colorScrollTop: rgba(255, 255, 255, 1);
+  --backgroundScrollTop: rgba(32, 37, 51, 0.9);
+
+  /* GDRP Alert */
+  --colorGDPR: #fff;
+  --backgroundGDPR: rgba(32, 37, 51, 1);
+
+  /* Website Custom */
+}
