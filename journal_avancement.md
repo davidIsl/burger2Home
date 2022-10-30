@@ -33,3 +33,7 @@
 - [x] 2022/10/25: Entretien avec Mr Martel et conception du diagramme de classe
 - [x] 2022/10/27: Ajout des maquettes et technologies qui seront utilisés pour le dev
 - [x] 2022/10/29: Préparation du Kit de dev sur Git 
+
+## Semaine 44
+
+- []
