@@ -5,17 +5,14 @@
   },
   "menu": {
     "title1": "Home",
-    "title2": "Bootstrap-Vue",
-    "title2sub1": "General",
-    "title2sub2": "Table",
-    "title2sub3": "Form",
-    "title2sub4": "Member area",
-    "title3": "Plugin",
-    "title3sub1": "Particles",
-    "title3sub2": "AOS",
-    "title3sub3": "SweetAlert",
-    "title3sub4": "Gmaps",
-    "title4": "Layout-error"
+    "title2": "Products",
+    "title2sub1": "Menu",
+    "title2sub2": "Burgers",
+    "title2sub3": "Fries",
+    "title2sub4": "Drinks",
+    "title3": "Administrations",
+    "title4": "Marketing",
+    "title5": "Contacts"
   },
   "country": {
     "belgium": "Belgium",
@@ -598,7 +595,7 @@
       "404": "This page could not be found..."
     }
   },
-  "gdpr":{
+  "gdpr": {
     "text": "AntelopeJS uses cookies to personalize marketing and social media functions.",
     "readMore": "Learn more about cookies.",
     "button": "ACCEPT"

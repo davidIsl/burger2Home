@@ -32,7 +32,7 @@ div
     )
       slot(:name='name' v-bind='slotData')
   b-pagination(
-    :pills='paginatioPills'
+    :pills='paginationPills'
     v-model='currentPage'
     :size='paginationSize'
     :align='paginationAlign'
@@ -63,7 +63,7 @@ export default class extends Vue {
   @Prop({ default: false }) tableOutlined?: boolean;
   // Pagination
   @Prop({ default: 10 }) perPage?: number;
-  @Prop({ default: false }) paginatioPills?: boolean;
+  @Prop({ default: false }) paginationPills?: boolean;
   @Prop({ default: 'md' }) paginationSize?: string;
   @Prop({ default: 'center' }) paginationAlign?: string;
   // Data

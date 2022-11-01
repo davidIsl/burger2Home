@@ -58,7 +58,7 @@
               perPage='10'
               paginationAlign='center'
               paginationSize='lg'
-              :paginatioPills='true'
+              :paginationPills='true'
               :tableSmall='false'
               :fields='fieldList'
               :items='itemList'

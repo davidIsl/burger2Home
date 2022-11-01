@@ -1,97 +1,92 @@
 <template lang="pug">
-.section-nav
-  .backdrop-menu(v-if='isMenuOpen' v-b-toggle.nav-collapse)
-  b-navbar.section-nav-bg(toggleable='md' type='light')
-    b-container.p-0
-      b-navbar-brand.custom-brand(
-        :to='`/${$i18n.locale}/`'
-        aria-label='AntelopeJS'
-      )
-        logoAntelopeBanner.w-100.
-      b-navbar-toggle(target='nav-collapse')
-      b-collapse#nav-collapse(
-        is-nav
-        ref='menuCollapse'
-        @show='onOpen'
-        @hide='onClose'
-      )
-        client-only
-          b-navbar-nav.mt-4.mt-md-0.ml-auto
-            b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-              :to='`/${$i18n.locale}/`'
-              :link-attrs='{ "aria-label": $t("menu.title1") }'
-            )
-              span.menu-color(
-                :class='{ "active-menu": "/" + $i18n.locale + "/" == $route.path }'
-              ) {{ $t('menu.title1') }}
-            b-nav-item-dropdown.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-              left
-              no-caret
-              menu-class='p-0'
-            )
-              template(v-slot:button-content)
-                nuxt-link.menu-color(
-                  :to='`/${$i18n.locale}/bootstrap-vue/`'
-                  :class='{ "active-menu": "/" + $i18n.locale + "/bootstrap-vue/" == $route.path || "/" + $i18n.locale + "/table/" == $route.path || "/" + $i18n.locale + "/form/" == $route.path || "/" + $i18n.locale + "/account/" == $route.path }'
-                ) {{ $t('menu.title2') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/bootstrap-vue/`') {{ $t('menu.title2sub1') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/table/`') {{ $t('menu.title2sub2') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/form/`') {{ $t('menu.title2sub3') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/account/`') {{ $t('menu.title2sub4') }}
-            b-nav-item-dropdown.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-              left
-              no-caret
-              menu-class='p-0'
-            )
-              template(v-slot:button-content)
+b-container
+  //- .d-inline.bg-success.text-secondary
+  //-   b-img.logo.bg-secondary(src='../static/img/logo-burger-white.png')
+  //- b-navbar.text-primary.bg-darkRed Menu
+
+  .section-nav
+    .backdrop-menu(v-if='isMenuOpen' v-b-toggle.nav-collapse)
+    b-navbar.section-nav-bg(toggleable='md' type='light')
+      b-container.p-0
+        b-navbar-brand.custom-brand(
+          :to='`/${$i18n.locale}/`'
+          aria-label='AntelopeJS'
+        )
+          logoAntelopeBanner.w-100.
+        b-navbar-toggle(target='nav-collapse')
+        b-collapse#nav-collapse(
+          is-nav
+          ref='menuCollapse'
+          @show='onOpen'
+          @hide='onClose'
+        )
+          client-only
+            b-navbar-nav.mt-4.mt-md-0.ml-auto
+              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                :to='`/${$i18n.locale}/`'
+                :link-attrs='{ "aria-label": $t("menu.title1") }'
+              )
+                span.menu-color(
+                  :class='{ "active-menu": "/" + $i18n.locale + "/" == $route.path }'
+                ) {{ $t('menu.title1') }}
+              b-nav-item-dropdown.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                left
+                no-caret
+                menu-class='p-0'
+              )
+                template(v-slot:button-content)
+                  nuxt-link.menu-color(
+                    :to='`/${$i18n.locale}/products/`'
+                    :class='{ "active-menu": "/" + $i18n.locale + "/bootstrap-vue/" == $route.path || "/" + $i18n.locale + "/table/" == $route.path || "/" + $i18n.locale + "/form/" == $route.path || "/" + $i18n.locale + "/account/" == $route.path }'
+                  ) {{ $t('menu.title2') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/bootstrap-vue/`') {{ $t('menu.title2sub1') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/table/`') {{ $t('menu.title2sub2') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/form/`') {{ $t('menu.title2sub3') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/account/`') {{ $t('menu.title2sub4') }}
+              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                left
+                no-caret
+                menu-class='p-0'
+              )
                 nuxt-link.menu-color(
                   :to='`/${$i18n.locale}/plugins/particles/`'
                   :class='{ "active-menu": "/" + $i18n.locale + "/plugins/particles/" == $route.path || "/" + $i18n.locale + "/plugins/aos/" == $route.path || "/" + $i18n.locale + "/plugins/swal/" == $route.path || "/" + $i18n.locale + "/plugins/gmaps/" == $route.path }'
                 ) {{ $t('menu.title3') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/plugins/particles/`') {{ $t('menu.title3sub1') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/plugins/aos/`') {{ $t('menu.title3sub2') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/plugins/swal/`') {{ $t('menu.title3sub3') }}
-              b-dropdown-item(:to='`/${$i18n.locale}/plugins/gmaps/`') {{ $t('menu.title3sub4') }}
-            b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-              :to='`/${$i18n.locale}/layout-error/`'
-              :link-attrs='{ "aria-label": $t("menu.title4") }'
-            )
-              span.menu-color(
-                :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
-              ) {{ $t('menu.title4') }}
-            b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-              href='https://gitlab.altab.io/antelopejs/nuxt2-bootstrap-template'
-              target='_blank'
-              :link-attrs='{ "aria-label": "Antelope GitHub" }'
-            )
-              span.menu-color 
-                font-awesome-icon.mr-2(:icon='["fab", "github"]')
-                | GitLab
-            b-nav-item-dropdown.ml-2.ml-md-0.mr-3.mb-2.mb-md-0(
-              right
-              no-caret
-              menu-class='p-0'
-            )
-              template(v-slot:button-content)
-                span.menu-color
-                  b-img.lang-icon(
-                    :src='`/img/flags/${currentLang.icon}`'
-                    :alt='`Current Language: ${currentLang.icon}`'
-                  )
-                  span.ml-2.d-md-none {{ currentLang.label }}
-              b-dropdown-item(
-                v-if='currentLang.lang != lang.lang'
-                v-for='lang in langList'
-                :key='lang.lang'
-                @click='changeLang(lang)'
-                aria-label='Switch Language'
+              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                :to='`/${$i18n.locale}/layout-error/`'
+                :link-attrs='{ "aria-label": $t("menu.title4") }'
               )
-                b-img.lang-icon-item(
-                  :src='`/img/flags/${lang.icon}`'
-                  :alt='`Language: ${lang.label}`'
-                ) 
-                span {{ lang.label }}
-          themeSwitcher.
+                span.menu-color(
+                  :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
+                ) {{ $t('menu.title4') }}
+              b-nav-item-dropdown.ml-2.ml-md-0.mr-3.mb-2.mb-md-0(
+                right
+                no-caret
+                menu-class='p-0'
+              )
+                template(v-slot:button-content)
+                  span.menu-color
+                    b-img.lang-icon(
+                      :src='`/img/flags/${currentLang.icon}`'
+                      :alt='`Current Language: ${currentLang.icon}`'
+                    )
+                    span.ml-2.d-md-none {{ currentLang.label }}
+                b-dropdown-item(
+                  v-if='currentLang.lang != lang.lang'
+                  v-for='lang in langList'
+                  :key='lang.lang'
+                  @click='changeLang(lang)'
+                  aria-label='Switch Language'
+                )
+                  b-img.lang-icon-item(
+                    :src='`/img/flags/${lang.icon}`'
+                    :alt='`Language: ${lang.label}`'
+                  ) 
+                  span {{ lang.label }}
+              b-avatar(variant='secondary')
+              div
+                //- b-img(:src='`/img/flags/${lang.icon}`')
+            //- themeSwitcher.
 </template>
 
 <script lang="ts" scoped>
@@ -175,7 +170,7 @@ export default class extends Vue {
 
 .section-nav {
   box-shadow: var(--shadowMenu);
-
+  background-image: url('../static/img/chalkboard.jpg');
   // Custom brand
   .custom-brand {
     max-width: 200px;
@@ -206,6 +201,7 @@ export default class extends Vue {
   .dropdown-menu {
     border-top: var(--borderMenuDropdown);
     background: var(--backgroundMenuDropdown);
+    // background-image: url('../static/img/charlkboard.jpg');
   }
   .dropdown-item {
     color: var(--colorMenuDropdown) !important;

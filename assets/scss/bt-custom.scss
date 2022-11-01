@@ -15,7 +15,7 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 
 // Base colors definitions
-$antelopeColor: #7479f3 !default;
+$primaryGrey: #D9D9D9 !default;
 $black: #000 !default;
 $white: #fff !default;
 $blue: #007bff !default;
@@ -28,16 +28,21 @@ $yellow: #ffc107 !default;
 $green: #28a745 !default;
 $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
+$yellow2: #D6C385 !default;
+$darkGray: #1A1C1D !default;
+$red2: #90351E !default;
 
 // Theme color default definitions
-$primary: $antelopeColor !default;
-$secondary: $gray-600 !default;
+$primary: $primaryGrey !default;
+$secondary: $yellow2 !default;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
 $danger: $red !default;
 $light: $white !default;
 $dark: $black !default;
+$gray: $darkGray !default;
+$darkRed: $red2 !default;
 
 // This table defines the theme colors (variant names)
 $theme-colors: () !default;
@@ -51,6 +56,8 @@ $theme-colors: map-merge(
     'danger': $danger,
     'light': $light,
     'dark': $dark,
+    'gray': $darkGray,
+    'darkRed': $red2
   ),
   $theme-colors
 );

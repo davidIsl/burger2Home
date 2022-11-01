@@ -17,6 +17,7 @@ body {
   background-color: var(--background) !important;
   color: var(--color) !important;
   transition: background-color 0.5s;
+  background-image: url('../../static/img/chalkboard.jpg');
 }
 
 .container-full-center {
@@ -135,4 +136,14 @@ pre {
   left: 50%;
   transform: translateX(-50%);
   background-color: $primary;
+}
+
+// #############
+// Custom Size #
+// #############
+
+.logo {
+  width: 7em;
+  height: 7em;
+  color: $secondary !important;
 }

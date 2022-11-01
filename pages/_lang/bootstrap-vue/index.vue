@@ -61,6 +61,8 @@
             b-alert(variant='info' show dismissible) Info Alert
             b-alert(variant='light' show dismissible) Light Alert
             b-alert(variant='dark' show dismissible) Dark Alert
+            b-alert(variant='grey' show dismissible) DarkGrey Alert
+            b-alert(variant='darkRed' show dismissible) DarkRed Alert
           .mt-4
             b-alert(variant='success' show dismissible)
               h4.alert-heading Well done!
@@ -233,6 +235,8 @@
             b-button.mr-2.mb-2(variant='info') Info
             b-button.mr-2.mb-2(variant='light') Light
             b-button.mr-2.mb-2(variant='dark') Dark
+            b-button.mr-2.mb-2(variant='gray') DarkGrey
+            b-button.mr-2.mb-2(variant='darkRed') Dark REd
             br.
             b-button.mr-2.mb-2(variant='outline-primary') Primary
             b-button.mr-2.mb-2(variant='outline-secondary') Secondary
@@ -242,6 +246,8 @@
             b-button.mr-2.mb-2(variant='outline-info') Info
             b-button.mr-2.mb-2(variant='outline-light') Light
             b-button.mr-2.mb-2(variant='outline-dark') Dark
+            b-button.mr-2.mb-2(variant='outline-gray') Dark Grey
+            b-button.mr-2.mb-2(variant='outline-darkRed') Dark REd
             br.
             b-button.mr-2.mb-2(variant='primary' size='sm') Small Button
             b-button.mr-2.mb-2(variant='primary' size='md') Default Button
