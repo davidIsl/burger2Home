@@ -37,6 +37,13 @@
   --colorMenuAccountActive: #fff;
   --backgroundMenuAccountActive: #7479f3;
 
+  /* Footer */
+  --colorText: #1A1C1D;
+  --colorFooterLink: #D9D9D9;
+  --colorTitleFooter: #D6C385;
+  --colorHoverFooter: #90351E;
+  --colorTextHoverFooter: #D9D9D9;
+
   /* Custom Forms / Input */
   --colorForm: rgba(0, 0, 0, 1);
   --backgroundForm: rgba(238, 239, 243, 1);

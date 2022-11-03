@@ -46,6 +46,7 @@
     "spdy": "^4.0.2",
     "tsparticles": "^1.30.4",
     "vue-i18n": "^8.24.4",
+    "vue-slick-carousel": "^1.0.6",
     "vue-sweetalert2": "^4.3.1",
     "vuelidate": "^0.7.6",
     "vuelidate-property-decorators": "^1.0.28"

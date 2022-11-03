@@ -12,7 +12,32 @@
     "title2sub4": "Drinks",
     "title3": "Administrations",
     "title4": "Marketing",
-    "title5": "Contacts"
+    "title5": "Contacts",
+    "title6": "About us"
+  },
+  "footer": {
+    "title1": "Informations",
+    "title2": "Opening Hours",
+    "title3": "Menu Link",
+    "text1": "Monday: 11:00 - 15:00 | 17:00 - 21:00",
+    "text2": "Tuesday: 11:00 - 15:00 | 17:00 - 21:00",
+    "text3": "Wesnesday: 11:00 - 15:00 | 17:00 - 21:00",
+    "text4": "Thursday: 11:00 - 15:00 | 17:00 - 21:00",
+    "text5": "Friday: 11:00 - 15:00 | 17:00 - 21:00",
+    "text6": "Saturday: 11:00 - 15:00 | 17:00 - 21:00",
+    "text7": "Sunday: 11:00 - 15:00 | 17:00 - 21:00",
+    "link1": "Home",
+    "link2": "Products",
+    "link3": "Menu",
+    "link4": "Burgers",
+    "link5": "Fries",
+    "link6": "Drinks",
+    "link7": "Administration",
+    "link8": "Marketing",
+    "link9": "Contacts",
+    "link10": "About us",
+    "viewOnMap": "See on Google Maps",
+    "contacts": "Contacts Us"
   },
   "country": {
     "belgium": "Belgium",

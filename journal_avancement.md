@@ -37,3 +37,5 @@
 ## Semaine 44
 
 - [x] 2022/11/01: Developpement de la page Accueil et de ses composants
+- [x] 2022/11/02: Developpement de la page Accueil et de ses composants
+- [x] 2022/11/03: Installation du module vue-slick-carousel pour le caroussel de la page Accueil

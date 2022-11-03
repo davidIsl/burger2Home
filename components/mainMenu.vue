@@ -1,5 +1,5 @@
 <template lang="pug">
-b-container
+b-container.m-0.p-0(fluid)
   //- .d-inline.bg-success.text-secondary
   //-   b-img.logo.bg-secondary(src='../static/img/logo-burger-white.png')
   //- b-navbar.text-primary.bg-darkRed Menu
@@ -59,6 +59,20 @@ b-container
                 span.menu-color(
                   :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
                 ) {{ $t('menu.title4') }}
+              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                :to='`/${$i18n.locale}/`'
+                :link-attrs='{ "aria-label": $t("menu.title5") }'
+              )
+                span.menu-color(
+                  :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
+                ) {{ $t('menu.title5') }}
+              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                :to='`/${$i18n.locale}/`'
+                :link-attrs='{ "aria-label": $t("menu.title6") }'
+              )
+                span.menu-color(
+                  :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
+                ) {{ $t('menu.title6') }}
               b-nav-item-dropdown.ml-2.ml-md-0.mr-3.mb-2.mb-md-0(
                 right
                 no-caret
@@ -86,7 +100,8 @@ b-container
               b-avatar(variant='secondary')
               div
                 //- b-img(:src='`/img/flags/${lang.icon}`')
-            //- themeSwitcher.
+            .pl-2
+              themeSwitcher
 </template>
 
 <script lang="ts" scoped>
@@ -171,6 +186,7 @@ export default class extends Vue {
 .section-nav {
   box-shadow: var(--shadowMenu);
   background-image: url('../static/img/chalkboard.jpg');
+  width: 100%;
   // Custom brand
   .custom-brand {
     max-width: 200px;
@@ -179,7 +195,7 @@ export default class extends Vue {
 
   // Custom section nav
   .section-nav-bg {
-    background: var(--backgroundMenu);
+    // background: var(--backgroundMenu);
     transition: background 0.5s;
   }
 

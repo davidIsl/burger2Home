@@ -1,69 +1,163 @@
 <template lang="pug">
-div
-  mainHero.
-  b-container.py-5(fluid)
-    b-container.mb-5
-      b-row
-        b-col(md='24')
-          h2 {{ $t('pages.index.title') }}
-          .mt-4
-            p.text-justify {{ $t('pages.index.text')[0] }}
-            p.text-justify {{ $t('pages.index.text')[1] }}
-            p.text-justify {{ $t('pages.index.text')[2] }}
-    b-container.mb-5
-      b-row
-        b-col(lg='15')
-          h2 {{ $t('pages.index.structure.title') }}
-          p {{ $t('pages.index.structure.text') }}
-          a(
-            href='https://fr.nuxtjs.org/docs/2.x/directory-structure/nuxt'
-            target='_blank'
-            rel='noopener'
-          ) https://fr.nuxtjs.org/docs/2.x/directory-structure/nuxt
-          .mt-4
-            ul
-              li {{ $t('pages.index.structure.subtitle')[0] }}
-                ul.mb-4
-                  li.mt-4 {{ $t('pages.index.structure.subtext1')[0] }}
-                  li.mt-4 {{ $t('pages.index.structure.subtext1')[1] }}
-                  li.mt-4 {{ $t('pages.index.structure.subtext1')[2] }}
-              li {{ $t('pages.index.structure.subtitle')[1] }}
-                ul.mb-4
-                  li.mt-4 {{ $t('pages.index.structure.subtext2')[0] }}
-              li {{ $t('pages.index.structure.subtitle')[2] }}
-                ul.mb-4
-                  li.mt-4 {{ $t('pages.index.structure.subtext3')[0] }}
-              li {{ $t('pages.index.structure.subtitle')[3] }}
-                ul.mb-4
-                  li.mt-4 {{ $t('pages.index.structure.subtext4')[0] }}
-              li {{ $t('pages.index.structure.subtitle')[4] }}
-                ul.mb-4
-                  li.mt-4 {{ $t('pages.index.structure.subtext5')[0] }}
-                  li.mt-4 {{ $t('pages.index.structure.subtext5')[1] }}
-              li {{ $t('pages.index.structure.subtitle')[5] }}
-                ul.mb-4
-                  li.mt-4 {{ $t('pages.index.structure.subtext6')[0] }}
-                  li.mt-4 {{ $t('pages.index.structure.subtext6')[1] }}
-                  li.mt-4 {{ $t('pages.index.structure.subtext6')[2] }}
-        b-col.d-none.d-lg-block(lg='9')
-          b-img-lazy(
-            src='/img/structure.png'
-            alt='Nuxt Structure preview'
-            width='397'
-            height='1665'
-            fluid
-          ).
+b-container.p-0(fluid)
+  b-row.bg-gray.p-3
+    b-col
+      b-carousel.carousel-1.mx-auto(
+        v-model='slide'
+        :interval='8000'
+        controls
+        indicators
+        style='text-shadow: 1px 1px 2px #333'
+        @sliding-start='onFirstSlideStart'
+        @sliding-end='onFirstSlideEnd'
+      )
+        b-carousel-slide.slide(
+          caption='First slide'
+          text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
+          img-src='../../static/img/accueil/burger_accueil1.jpg'
+        )
+        b-carousel-slide.slide(
+          caption='First slide'
+          text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
+          img-src='../../static/img/accueil/burger_accueil2.jpg'
+        )
+        b-carousel-slide.slide(
+          caption='First slide'
+          text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
+          img-src='../../static/img/accueil/burger_accueil3.jpg'
+        )
+  b-row
+    b-col
+      div
+        b-carousel.w-100(
+          v-model='slide1'
+          :interval='8000'
+          controls
+          indicators
+          background='#ababab'
+          style='text-shadow: 1px 1px 2px #333'
+          @sliding-start='onSecondSlideStart'
+          @sliding-end='onSecondSlideEnd'
+        )
+          b-carousel-slide
+            template(slot='img')
+              b-row
+                b-col.p-3.mx-auto(
+                  v-for='(product, index) in products'
+                  :key='index'
+                  md='4'
+                  cols='12'
+                )
+                  b-card.mb-2.m-2.text-center.card(
+                    :title='product.name'
+                    :img-src='product.image'
+                    img-alt='Image'
+                    img-top
+                    tag='article'
+                    text-variant='secondary'
+                    bg-variant='gray'
+                  )
+                    b-card-text.text-muted.text-center {{ product.description }}
+        //- .p-2(v-for='(product, index) in products' :key='index')
 </template>
 
 <script lang="ts">
 // https://github.com/nuxt-community/nuxt-property-decorator
 import { Vue, Component } from 'nuxt-property-decorator';
-import mainHero from '~/components/mainHero.vue';
+// import VueSlickCarousel from 'vue-slick-carousel';
+
+interface Product {
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+}
 
 @Component({
-  components: { mainHero },
+  components: {
+    // VueSlickCarousel,
+  },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  slide: number = 0;
+  slide1: number = 0;
+
+  firstSliding: boolean = false;
+  secondSliding: boolean = false;
+
+  onFirstSlideStart() {
+    this.firstSliding = true;
+  }
+
+  onFirstSlideEnd() {
+    this.firstSliding = false;
+  }
+
+  onSecondSlideStart() {
+    this.secondSliding = true;
+  }
+
+  onSecondSlideEnd() {
+    this.secondSliding = false;
+  }
+
+  products: Product[] = [
+    {
+      name: 'Le classico',
+      image: '../../img/produits/classico.jpg',
+      description:
+        'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+      price: 10.5,
+    },
+    {
+      name: 'Smokey Bacon',
+      image: '../../img/produits/smokey-bacon.jpg',
+      description:
+        'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+      price: 11,
+    },
+    {
+      name: 'Habibi',
+      image: '../../img/produits/habibi.jpg',
+      description:
+        "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
+      price: 11.5,
+    },
+    {
+      name: 'Double Decker',
+      image: '../../img/produits/double-dekker.jpg',
+      description:
+        'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+      price: 13,
+    },
+    {
+      name: 'El Sombrero',
+      image: '../../img/produits/el-sombrero.jpg',
+      description:
+        'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
+      price: 12,
+    },
+  ];
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.carousel-1 {
+  // @include for-phone-only {
+  //   width: 200px;
+  //   height: 300px;
+  // }
+  width: 1200px;
+  height: 600px;
+}
+
+.slide {
+  width: 1200px;
+  height: 600px;
+}
+.card {
+  width: 18em;
+  height: 32em;
+  font-size: 0.8em;
+}
+</style>

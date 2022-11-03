@@ -32,7 +32,7 @@ $text-light: 'Light';
 $text-dark: 'Dark';
 
 $bg-color-dark: #14171f;
-$bg-color-light: #676cdd;
+$bg-color-light: #d6c385;
 
 $btn-color-dark: #202533;
 $btn-color-light: #fff;

@@ -65,10 +65,10 @@
             )
               template(#cell(actions)='data')
                 a.ml-1(:href='data.item.id')
-                  b-button(variant='outline-primary' size='md')
+                  b-button(variant='outline-secondary' size='md')
                     font-awesome-icon(icon='edit')
                 a.ml-2(:href='data.item.id')
-                  b-button(variant='outline-danger' size='md')
+                  b-button(variant='outline-darkRed' size='md')
                     font-awesome-icon(icon='trash')
 </template>
 
