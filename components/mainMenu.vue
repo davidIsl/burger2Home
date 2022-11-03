@@ -97,11 +97,15 @@ b-container.m-0.p-0(fluid)
                     :alt='`Language: ${lang.label}`'
                   ) 
                   span {{ lang.label }}
-              b-avatar(variant='secondary')
+              b-avatar(
+                variant='secondary'
+                button
+                @click='goToUrl("../" + $i18n.locale + "/account/")'
+              )
               div
-                //- b-img(:src='`/img/flags/${lang.icon}`')
-            .pl-2
-              themeSwitcher
+                font-awesome-icon(:icon='["fa", "fa-shopping-basket"]')
+              .pl-2
+                themeSwitcher
 </template>
 
 <script lang="ts" scoped>
@@ -165,6 +169,10 @@ export default class extends Vue {
       '',
       currentPath.replace(`/${oldLocale}/`, `/${this.$i18n.locale}/`)
     );
+  }
+
+  goToUrl(url: string) {
+    this.$router.push(url);
   }
 }
 </script>

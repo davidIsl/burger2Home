@@ -1,125 +1,71 @@
 <template lang="pug">
-b-container.py-5(fluid)
+b-container.p-0(fluid)
   b-row
-    b-col.text-center(md='24')
-      h2.mb-4.underline-title {{ $t('pages.account.title') }}
-      p.mb-5 {{ $t('pages.account.text') }}
-      b-container
-        b-row
-          b-col.border(md='7')
-            accountMenu(
-              v-bind:currentAnchor='currentAnchor'
-              v-on:childChange='onChildChange'
-            ).
-          b-col.border.mt-4.mt-md-0(md='16' offset-md='1')
-            transition(name='fade' mode='out-in')
-              component(
-                v-bind:is='currentChild'
-                v-on:childChange='onChildChange'
-                v-bind:params='currentParams'
-              )
+    b-col(lg='12')
+      .p-3
+        b-img(
+          thumbnail
+          fluid
+          src='../../../static/img/inscription/burger_inscription.jpg'
+          alt='Image 1'
+        )
+    b-col(lg='12')
+      .text-center.pt-3
+        b-img.position-absolute.logo(
+          fluid
+          width=40
+          height=40
+          src='../../../static/img/logo-burger-white.png'
+        )
+        h4.title.text-gray.position-relative {{ $t('account.title1') }}
+      .p-3
+        b-form-group.text-gray(:label='$t("account.label1")' label-for='email')
+          b-form-input#email(
+            v-model='$v.email.$model'
+            type='text'
+            name='email'
+            @blur='$v.email.$touch()'
+          )
+        b-form-group.text-gray(
+          :label='$t("account.label2")'
+          label-for='password'
+        )
+          b-form-input#email(
+            v-model='$v.password.$model'
+            type='text'
+            name='password'
+            @blur='$v.password.$touch()'
+          )
+        .mx-auto 
+          b-button-group
+            b-button.m-2.button(variant='middleGray') {{ $t('account.button1') }}
+            b-button.m-2.button.text-middleGray(variant='outline-middleGray') {{ $t('account.button2') }}
 </template>
 
 <script lang="ts">
-// https://github.com/nuxt-community/nuxt-property-decorator
-import { Vue, Component } from 'nuxt-property-decorator';
-import accountMenu from './_components/accountMenu.vue';
-
-import profilShow from './_components/profilShow.vue';
-import profilUpdate from './_components/profilUpdate.vue';
-
-import deliveryShow from './_components/deliveryShow.vue';
-import deliveryUpdate from './_components/deliveryUpdate.vue';
-import deliveryAdd from './_components/deliveryAdd.vue';
-
-import paymentShow from './_components/paymentShow.vue';
-import paymentAdd from './_components/paymentAdd.vue';
-
-import passwordUpdate from './_components/passwordUpdate.vue';
-
-import orderShow from './_components/orderShow.vue';
+import { mixins, Component } from 'nuxt-property-decorator';
+import { validationMixin } from 'vuelidate';
+import { Validate } from 'vuelidate-property-decorators';
+import { required } from 'vuelidate/lib/validators';
 
 @Component({
-  components: {
-    accountMenu,
-    profilShow,
-    profilUpdate,
-    deliveryShow,
-    deliveryUpdate,
-    deliveryAdd,
-    paymentShow,
-    paymentAdd,
-    passwordUpdate,
-    orderShow,
-  },
+  components: {},
 })
-export default class extends Vue {
-  childs: Record<string, any> = {
-    'show-profil': profilShow,
-    'update-profil': profilUpdate,
-    'show-delivery': deliveryShow,
-    'update-delivery': deliveryUpdate,
-    'add-delivery': deliveryAdd,
-    'show-payment': paymentShow,
-    'add-payment': paymentAdd,
-    'update-password': passwordUpdate,
-    'show-orders': orderShow,
-  };
-
-  currentAnchor: string = 'show-profil';
-  currentChild: any = profilShow;
-  currentParams: any = null;
-
-  mounted() {
-    const that = this;
-    const hash = this.$route.hash;
-
-    this.currentChild = this.childs.profils;
-    this.onChildChange(hash.substring(1, hash.length));
-
-    window.onpopstate = function () {
-      that.onChildChange(
-        that.$route.hash.substring(1, that.$route.hash.length)
-      );
-    };
-  }
-
-  onChildChange(anchor: any, params?: any) {
-    if (!anchor) {
-      anchor = 'show-profil';
-    }
-
-    this.currentParams = params;
-
-    const child: any = this.childs[anchor];
-
-    if (!child) {
-      return;
-    }
-
-    this.currentAnchor = anchor;
-    this.currentChild = child;
-    if (this.$route.hash !== `#${anchor}`) {
-      this.$router.push({ hash: anchor });
-    }
-  }
+export default class extends mixins(validationMixin) {
+  @Validate({ required }) email: string = '';
+  @Validate({ required }) password: string = '';
 }
 </script>
 
 <style lang="scss" scoped>
-.fade-leave-active {
-  opacity: 0;
-  transition: 0.2s;
-}
-.fade-leave {
-  opacity: 1;
+.logo {
+  left: 9em;
+  width: 2em;
+  height: 2em;
+  background-color: #1a1c1d;
 }
 
-.fade-enter-active {
-  opacity: 1;
-  transition: 0.2s;
-}
-.fade-enter {
-  opacity: 0;
+.title {
+  left: 0.5em;
 }
 </style>

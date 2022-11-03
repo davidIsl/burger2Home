@@ -159,5 +159,6 @@ export default class extends Vue {
   width: 18em;
   height: 32em;
   font-size: 0.8em;
+  text-shadow: 1px 1px 1px var(--darkRed);
 }
 </style>

@@ -29,6 +29,7 @@ $green: #28a745 !default;
 $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
 $yellow2: #D6C385 !default;
+$grayMiddle: #777d7cad !default;
 $darkGray: #1A1C1D !default;
 $red2: #90351E !default;
 
@@ -42,6 +43,7 @@ $danger: $red !default;
 $light: $white !default;
 $dark: $black !default;
 $gray: $darkGray !default;
+$middleGray: $grayMiddle !default;
 $darkRed: $red2 !default;
 
 // This table defines the theme colors (variant names)
@@ -57,6 +59,7 @@ $theme-colors: map-merge(
     'light': $light,
     'dark': $dark,
     'gray': $darkGray,
+    'middleGray': $middleGray,
     'darkRed': $red2
   ),
   $theme-colors

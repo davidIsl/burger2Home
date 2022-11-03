@@ -195,6 +195,7 @@ export default {
         'faTrash',
         'faSearch',
         'faFilePdf',
+        'faShoppingBasket',
       ],
       regular: [],
       brands: ['faGithub'],

@@ -39,6 +39,13 @@
     "viewOnMap": "See on Google Maps",
     "contacts": "Contacts Us"
   },
+  "account": {
+    "title1": "Login to Burger2Home",
+    "label1": "Email",
+    "label2": "Password",
+    "button1": "Connect",
+    "button2": "Cancel"
+  },
   "country": {
     "belgium": "Belgium",
     "france": "France",

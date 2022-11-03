@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  background-color: var(--background) !important;
+  background-color: var(--primary) !important;
   color: var(--color) !important;
   transition: background-color 0.5s;
   // background-image: url('../../static/img/chalkboard.jpg');
@@ -146,4 +146,9 @@ pre {
   width: 7em;
   height: 7em;
   color: $secondary !important;
+}
+
+.button:hover {
+  background-color: var(--colorHoverFooter);
+  color: var(--colorTextHoverFooter) !important;
 }
