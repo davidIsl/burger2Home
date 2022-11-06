@@ -100,12 +100,12 @@ b-container.m-0.p-0(fluid)
               b-avatar(
                 variant='secondary'
                 button
-                @click='goToUrl("../" + $i18n.locale + "/account/")'
+                @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
               div
                 font-awesome-icon(:icon='["fa", "fa-shopping-basket"]')
-              .pl-2
-                themeSwitcher
+              //- .pl-2
+              //-   themeSwitcher
 </template>
 
 <script lang="ts" scoped>

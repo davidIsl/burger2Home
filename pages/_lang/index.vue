@@ -58,6 +58,25 @@ b-container.p-0(fluid)
                     bg-variant='gray'
                   )
                     b-card-text.text-muted.text-center {{ product.description }}
+  b-row
+    b-col
+      div
+        VueSlickCarousel.w-100(
+          v-if='products.length > 0'
+          v-for='(product, index) in products'
+          v-bind='carouselOptions'
+          ref='carousel'
+        )
+          b-card.mb-2.m-2.text-center.card(
+            :title='product.name'
+            :img-src='product.image'
+            img-alt='Image'
+            img-top
+            tag='article'
+            text-variant='secondary'
+            bg-variant='gray'
+          )
+            b-card-text.text-muted.text-center {{ product.description }}
         //- .p-2(v-for='(product, index) in products' :key='index')
 </template>
 
@@ -79,11 +98,44 @@ interface Product {
   },
 })
 export default class extends Vue {
+  VueSlickCarousel = require('vue-slick-carousel');
+  // carouselOptions = [];
   slide: number = 0;
   slide1: number = 0;
 
   firstSliding: boolean = false;
   secondSliding: boolean = false;
+
+  carouselOptions: any = {
+    dots: false,
+    arrows: false,
+    infinite: false,
+    draggable: false,
+    slidesToShow: 5,
+    slidesToScroll: 2,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 4,
+          draggable: true,
+        },
+      },
+      {
+        breakpoint: 789,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
+  };
 
   onFirstSlideStart() {
     this.firstSliding = true;

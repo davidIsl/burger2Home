@@ -109,6 +109,7 @@ export default {
     '@/assets/scss/main.scss',
     // https://color-mode.nuxtjs.org/
     '@/assets/css/color-mode-themes.css',
+    'vue-slick-carousel/dist/vue-slick-carousel.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -198,7 +199,7 @@ export default {
         'faShoppingBasket',
       ],
       regular: [],
-      brands: ['faGithub'],
+      brands: ['faFacebook', 'faGoogle', 'faGithub'],
     },
   },
 
@@ -225,6 +226,7 @@ export default {
       'BBadge',
       // https://bootstrap-vue.org/docs/components/button
       'BButton',
+      'BButtonGroup',
       // https://bootstrap-vue.org/docs/components/breadcrumb
       'BBreadcrumb',
       'BBreadcrumbItem',

@@ -1,6 +1,6 @@
 ## Page Accueil
 
-- [] Rework deuxieme slider avec nouveau caroussel
+- [] Rework deuxieme slider avec nouveau caroussel + module vue-slick-carousel
 - [] Responsive des sliders
 
 ## MainMenu
@@ -10,3 +10,7 @@
 ## Account
 
 - [] Changer la couleur du logo ???
+
+## Products
+
+-[] Responsive de la CARD

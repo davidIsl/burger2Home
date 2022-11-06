@@ -152,3 +152,32 @@ pre {
   background-color: var(--colorHoverFooter);
   color: var(--colorTextHoverFooter) !important;
 }
+
+.input-area {
+  width: auto;
+  height: 45px;
+}
+
+.content {
+  background-image: url('@/assets/img/chalkboard.jpg');
+  border: 1px #fff solid;
+  border-radius: 3%;
+}
+
+.button-social {
+  /* stylelint-disable */
+  &,
+  * {
+    color: var(--primary) !important;
+  }
+  border: 2px solid var(--primary) !important;
+  border-radius: 0.5rem;
+}
+
+.button-social:hover {
+  &,
+  * {
+    color: var(--secondary) !important;
+  }
+  border: 2px solid var(--secondary) !important;
+}

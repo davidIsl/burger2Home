@@ -1,8 +1,4 @@
 {
-  "example": {
-    "title": "EN - Lorem ipsum dolor sit amet",
-    "text": "EN - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-  },
   "menu": {
     "title1": "Home",
     "title2": "Products",
@@ -39,13 +35,7 @@
     "viewOnMap": "See on Google Maps",
     "contacts": "Contacts Us"
   },
-  "account": {
-    "title1": "Login to Burger2Home",
-    "label1": "Email",
-    "label2": "Password",
-    "button1": "Connect",
-    "button2": "Cancel"
-  },
+
   "country": {
     "belgium": "Belgium",
     "france": "France",
@@ -68,6 +58,69 @@
     "text": "This codebase is a concrete example of an optimal NuxtJS configuration with Bootstrap-vue, Color-mode, Pug, Sass, Vuelidate, ParticlesJS, AOS, SweetAlert, Gmaps and nuxt-property-decorator."
   },
   "pages": {
+    "login": {
+      "title1": "Login to Burger2Home",
+      "label1": "Email Adress",
+      "label2": "Password",
+      "button1": "Log in",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "text1": "Or ",
+      "text2": "Sign in if you don't already have an account ",
+      "text3": "Or continue with"
+    },
+    "register": {
+      "title1": "Sign in to Burger2Home",
+      "button1": "Sign in",
+      "label1": "Email Adress",
+      "label2": "Password",
+      "label3": "Confirm your password",
+      "text1": "Or ",
+      "text2": "Log in if you already have an account",
+      "text3": "Sign in with",
+      "text4": "Or continue with",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********"
+    },
+    "account": {
+      "title": "Sign in",
+      "text": "Please enter your e-mail address and password to sign in to your account.",
+      "buttonSubmit": "Sign in",
+      "buttonRegister": "Create an account",
+      "buttonForgotPassword": "Forgot your password ?",
+
+      "email": {
+        "placeHolder": "E-mail address",
+        "error": "The e-mail address must be valid."
+      },
+      "password": {
+        "placeHolder": "Password",
+        "error": "The password must contain 8 characters including at least one upper case, one lower case and one digit."
+      },
+
+      "success": "Thank you, you are now logged in. You will be redirected in a few moments...",
+      "pending": "Identification in progress...",
+      "error": {
+        "required": "This field is required.",
+        "form": "Please fill in the sign in form correctly.",
+        "notMatch": "The e-mail and password do not match, please try again.",
+        "mailNotExist": "The e-mail does not exist in our database, please register via the link below.",
+        "mailNotActive": "Please validate your e-mail address before logging in."
+      }
+    },
+    "products": {
+      "title1": "Top 10 of our best-selling products",
+      "filters1": "Filters",
+      "filters2": "Beef",
+      "filters3": "Chicken",
+      "filters4": "Fish",
+      "filters5": "Vegan",
+      "button1": "Add to basket",
+      "button2": "View Infos"
+    },
+    "errors": {
+      "required": "this field is required"
+    },
     "index": {
       "title": "AntelopeJS Nuxt : Bootstrap Template",
       "text": [
@@ -132,33 +185,8 @@
       "viewOnMap": "See on Google Maps",
       "example": "Example"
     },
-    "login": {
-      "title": "Sign in",
-      "text": "Please enter your e-mail address and password to sign in to your account.",
-      "buttonSubmit": "Sign in",
-      "buttonRegister": "Create an account",
-      "buttonForgotPassword": "Forgot your password ?",
 
-      "email": {
-        "placeHolder": "E-mail address",
-        "error": "The e-mail address must be valid."
-      },
-      "password": {
-        "placeHolder": "Password",
-        "error": "The password must contain 8 characters including at least one upper case, one lower case and one digit."
-      },
-
-      "success": "Thank you, you are now logged in. You will be redirected in a few moments...",
-      "pending": "Identification in progress...",
-      "error": {
-        "required": "This field is required.",
-        "form": "Please fill in the sign in form correctly.",
-        "notMatch": "The e-mail and password do not match, please try again.",
-        "mailNotExist": "The e-mail does not exist in our database, please register via the link below.",
-        "mailNotActive": "Please validate your e-mail address before logging in."
-      }
-    },
-    "register": {
+    "register1": {
       "title": "Sign up to our website",
       "text": "Please complete the form below to sign up to our website.",
       "buttonSubmit": "Create my account",
@@ -350,7 +378,7 @@
         "mailAlreadyExist": "The e-mail address already exists in our database."
       }
     },
-    "account": {
+    "account1": {
       "title": "My member area",
       "text": "Your member area allows you to modify your personal information, change your password and view the status of your orders at any time.",
 
