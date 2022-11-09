@@ -40,3 +40,7 @@
 - [x] 2022/11/02: Developpement de la page Accueil et de ses composants
 - [x] 2022/11/03: Installation du module vue-slick-carousel pour le caroussel de la page Accueil & login
 - [x] 2022/11/06; Pages Login, inscription et Top 10 products
+
+## Semaine 45
+
+- [x] 2022/11/09: Dev Modal Products

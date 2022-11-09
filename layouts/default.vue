@@ -4,7 +4,7 @@ b-container.m-0.p-0(fluid)
   mainMenu.sticky-top.
   nuxt.
   mainFooter.
-  scrollTop.
+  scrollTop.bg-secondary
   gdprAlert.
 </template>
 

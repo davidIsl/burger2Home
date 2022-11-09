@@ -197,6 +197,7 @@ export default {
         'faSearch',
         'faFilePdf',
         'faShoppingBasket',
+        'faMinus',
       ],
       regular: [],
       brands: ['faFacebook', 'faGoogle', 'faGithub'],

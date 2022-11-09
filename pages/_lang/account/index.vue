@@ -61,28 +61,27 @@ b-container.p-5(fluid)
                         )
                       .mx-auto.pt-2
                         b-button.w-100(variant='secondary' @click='onSubmit') {{ $t('pages.login.button1') }}
-                  b-container.mt-2
-                    b-row.pt-3
-                      b-col(lg='24')
-                        .line 
-                          span.text.text-faded {{ $t('pages.login.text3') }}
-                    b-row.pt-3
-                      b-col(cols='12')
-                        b-button.button-social(
-                          variant='white'
-                          size='md'
-                          @click='null'
-                          block
-                        ) 
-                          font-awesome-icon(:icon='["fab", "facebook"]')
-                      b-col(cols='12')
-                        b-button.button-social(
-                          variant='white'
-                          size='md'
-                          @click='null'
-                          block
-                        ) 
-                          font-awesome-icon(:icon='["fab", "google"]')
+                  b-row.pt-3
+                    b-col(lg='24')
+                      .line 
+                        span.text.text-faded {{ $t('pages.login.text3') }}
+                  b-row.pt-3
+                    b-col(cols='12')
+                      b-button.button-social(
+                        variant='white'
+                        size='md'
+                        @click='null'
+                        block
+                      ) 
+                        font-awesome-icon(:icon='["fab", "facebook"]')
+                    b-col(cols='12')
+                      b-button.button-social(
+                        variant='white'
+                        size='md'
+                        @click='null'
+                        block
+                      ) 
+                        font-awesome-icon(:icon='["fab", "google"]')
 </template>
 
 <script lang="ts">

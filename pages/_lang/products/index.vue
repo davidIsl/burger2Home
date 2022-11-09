@@ -26,7 +26,7 @@ b-container.bg-gray(fluid)
               b-card-text.text-muted.text-center {{ product.description }}
               //- b-button-group
               b-button.mr-2.button {{ $t('pages.products.button1') }}
-              b-button.button(@click='openDetails') {{ $t('pages.products.button2') }}
+              b-button.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
       //- dataTable(
       //-   perPage='8'
       //-   paginationAlign='right'
@@ -36,11 +36,32 @@ b-container.bg-gray(fluid)
       //- )
     //- b-col(md='4')
     //-   b-button.rounded-pill.w-100(variant='primary') Ajouter Panier
-  modal(v-if='viewDetails')
+  b-modal(v-if='viewDetails' v-model='viewDetails' centered)
+    template(#modal-title)
+      b-container
+        b-img(
+          thumbnail
+          body-bg-variant='darkRed'
+          src='/img/produits/smokey-bacon.jpg'
+        ) 
+    template(#modal-footer)
+      div
+        font-awesome-icon(:icon='["fas", "fa-minus"]')
+      b-button.button {{ $t('pages.products.button1') }}
+    b-container
+      h4.text-secondary.text-center {{ currentProduct.name }}
+      p.text-modal {{ currentProduct.description }}
+    .border-top
+      h6.pt-3.text-secondary Allergens
+      .pl-3.text-modal(
+        v-for='(allergen, index) in currentProduct.allergens'
+        :key='index'
+      )
+        li
+          ul.m-0.p-0 {{ allergen.name }}
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
-import dataTable from '@/components/dataTable.vue';
 
 export interface Field {
   key: string;
@@ -54,18 +75,48 @@ export interface Item {
   description: string;
 }
 
+interface Allergens {
+  name: string;
+}
+
 interface Product {
   name: string;
   image: string;
   description: string;
   price: number;
+  allergens: Allergens[];
 }
 
 @Component({
-  components: { dataTable },
+  components: {},
 })
 export default class extends Vue {
   viewDetails: boolean = false;
+  currentProduct: Product = {
+    name: '',
+    image: '',
+    description: '',
+    price: 0,
+    allergens: [{ name: '' }],
+  };
+
+  allergens: Allergens[] = [
+    {
+      name: 'Gluten',
+    },
+    {
+      name: 'Oeufs',
+    },
+    {
+      name: 'Poissons',
+    },
+    {
+      name: 'Soja',
+    },
+    {
+      name: 'Arachides',
+    },
+  ];
 
   products: Product[] = [
     {
@@ -74,6 +125,7 @@ export default class extends Vue {
       description:
         'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 10.5,
+      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
     },
     {
       name: 'Smokey Bacon',
@@ -81,6 +133,7 @@ export default class extends Vue {
       description:
         'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 11,
+      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
     },
     {
       name: 'Habibi',
@@ -88,6 +141,7 @@ export default class extends Vue {
       description:
         "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
       price: 11.5,
+      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
     },
     {
       name: 'Double Decker',
@@ -95,6 +149,7 @@ export default class extends Vue {
       description:
         'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 13,
+      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
     },
     {
       name: 'El Sombrero',
@@ -102,6 +157,7 @@ export default class extends Vue {
       description:
         'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
       price: 12,
+      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
     },
     {
       name: 'Le classico',
@@ -109,6 +165,7 @@ export default class extends Vue {
       description:
         'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 10.5,
+      allergens: [this.allergens[0], this.allergens[5], this.allergens[2]],
     },
     {
       name: 'Smokey Bacon',
@@ -116,6 +173,7 @@ export default class extends Vue {
       description:
         'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 11,
+      allergens: [this.allergens[0], this.allergens[1], this.allergens[5]],
     },
     {
       name: 'Habibi',
@@ -123,6 +181,7 @@ export default class extends Vue {
       description:
         "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
       price: 11.5,
+      allergens: [this.allergens[0], this.allergens[3], this.allergens[2]],
     },
     {
       name: 'Double Decker',
@@ -130,6 +189,7 @@ export default class extends Vue {
       description:
         'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 13,
+      allergens: [this.allergens[0], this.allergens[3]],
     },
     {
       name: 'El Sombrero',
@@ -137,6 +197,7 @@ export default class extends Vue {
       description:
         'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
       price: 12,
+      allergens: [this.allergens[0], this.allergens[1], this.allergens[2]],
     },
   ];
 
@@ -234,9 +295,11 @@ export default class extends Vue {
     },
   ];
 
-  openDetails() {
+  openDetails(product: any) {
     this.viewDetails = true;
-    console.log('MODAL');
+    this.currentProduct = product;
+    console.log('MODAL', product);
+    console.log('viewDetails', this.viewDetails);
   }
 }
 </script>
@@ -256,5 +319,9 @@ export default class extends Vue {
 
 .button {
   font-size: 0.9em;
+}
+
+.text-modal {
+  text-shadow: 1px 1px 1px var(--darkRed);
 }
 </style>
