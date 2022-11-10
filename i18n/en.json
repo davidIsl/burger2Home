@@ -116,7 +116,10 @@
       "filters4": "Fish",
       "filters5": "Vegan",
       "button1": "Add to basket",
-      "button2": "View Infos"
+      "button2": "View Infos",
+      "menu": {
+        "title1": "Here is a listing with our Burgers Menus"
+      }
     },
     "errors": {
       "required": "this field is required"

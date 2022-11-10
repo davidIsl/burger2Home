@@ -37,12 +37,12 @@ b-container.m-0.p-0(fluid)
                 template(v-slot:button-content)
                   nuxt-link.menu-color(
                     :to='`/${$i18n.locale}/products/`'
-                    :class='{ "active-menu": "/" + $i18n.locale + "/bootstrap-vue/" == $route.path || "/" + $i18n.locale + "/table/" == $route.path || "/" + $i18n.locale + "/form/" == $route.path || "/" + $i18n.locale + "/account/" == $route.path }'
+                    :class='{ "active-menu": "/" + $i18n.locale + "/products/" == $route.path || "/" + $i18n.locale + "/table/" == $route.path || "/" + $i18n.locale + "/form/" == $route.path || "/" + $i18n.locale + "/account/" == $route.path }'
                   ) {{ $t('menu.title2') }}
-                b-dropdown-item(:to='`/${$i18n.locale}/bootstrap-vue/`') {{ $t('menu.title2sub1') }}
-                b-dropdown-item(:to='`/${$i18n.locale}/table/`') {{ $t('menu.title2sub2') }}
-                b-dropdown-item(:to='`/${$i18n.locale}/form/`') {{ $t('menu.title2sub3') }}
-                b-dropdown-item(:to='`/${$i18n.locale}/account/`') {{ $t('menu.title2sub4') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/products/menu/`') {{ $t('menu.title2sub1') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/products/burgers/`') {{ $t('menu.title2sub2') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/products/fries/`') {{ $t('menu.title2sub3') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/products/drinks/`') {{ $t('menu.title2sub4') }}
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
                 left
                 no-caret
