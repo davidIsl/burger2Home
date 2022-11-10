@@ -27,13 +27,6 @@ b-container.bg-gray(fluid)
               //- b-button-group
               b-button.mr-2.button {{ $t('pages.products.button1') }}
               b-button.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
-      //- dataTable(
-      //-   perPage='8'
-      //-   paginationAlign='right'
-      //-   :paginationPills='true'
-      //-   :fields='fieldList'
-      //-   :items='itemList'
-      //- )
     //- b-col(md='4')
     //-   b-button.rounded-pill.w-100(variant='primary') Ajouter Panier
   b-modal(v-if='viewDetails' v-model='viewDetails' centered)
