@@ -1,7 +1,7 @@
 <template lang="pug">
 b-container(fluid)
   b-row.p-5
-    b-col(lg='12')
+    b-col.mt-3(lg='12')
       .content
         b-row
           b-col
@@ -17,8 +17,8 @@ b-container(fluid)
               nuxt-link.text-secondary(:to='`/${$i18n.locale}/account/`') {{ $t('pages.register.text2') }}
         b-row.mt-2(align-h='center')
           b-col(md='18')
-            form(ref='form' @submit.stop.prevent='onSubmit')
-              b-container.mt-2
+            b-container.mt-2.p-0(v-if='stepState === stepStateType.STEP1')
+              form(ref='form' @submit.stop.prevent='onSubmit')
                 b-row.mb-2 
                   b-col
                     h6 {{ $t('pages.register.text3') }}
@@ -45,7 +45,7 @@ b-container(fluid)
                       span.text.text-faded {{ $t('pages.register.text4') }}
         b-row
           b-col.mx-auto(cols='18')
-            form(ref='form' @submit.stop.prevent='onSubmit')
+            b-container.p-0(v-if='stepState === stepStateType.STEP1')
               .p-3.login-area
                 b-row
                   b-col
@@ -53,8 +53,9 @@ b-container(fluid)
                       :label='$t("pages.register.label1")'
                       label-for='email'
                     )
-                      b-form-input#email.mx-auto(
+                      b-form-input#email.input-form(
                         v-model='$v.email.$model'
+                        :class='{ "is-invalid": $v.email.$error, "is-valid": !$v.email.$invalid }'
                         :placeholder='$t("pages.register.placeholder1")'
                         type='text'
                         name='email'
@@ -65,44 +66,105 @@ b-container(fluid)
                           :icon='["fa", "exclamation-triangle"]'
                         )
                         | {{ $t('pages.errors.required') }}
+                      .input-error(v-if='!$v.email.email')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
+                        )
+                        | {{ $t('pages.errors.invalidEmail') }}
                     b-form-group.text-primary(
                       :label='$t("pages.register.label2")'
                       label-for='password'
                     )
-                      b-form-input#email.mx-auto(
+                      b-form-input#password.input-form(
                         v-model='$v.password.$model'
+                        :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
                         :placeholder='$t("pages.register.placeholder2")'
-                        type='text'
+                        :type='secure ? "password" : "text"'
                         name='password'
                         @blur='$v.password.$touch()'
                       )
-                      .input-error(
-                        v-if='$v.password.$error && $v.password.passRegex'
-                      )
-                        font-awesome-icon.mr-2(
-                          :icon='["fa", "exclamation-triangle"]'
+                      template
+                        font-awesome-icon.mt-auto.mb-auto.mr-2(
+                          :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
+                          @click='secure = !secure'
                         )
-                        | {{ $t('pages.errors.required') }}
+                    .input-error(
+                      v-if='$v.password.$error && $v.password.passRegex'
+                    )
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.required') }}
                     b-form-group.text-primary(
                       :label='$t("pages.register.label3")'
                       label-for='confirm-password'
                     )
-                      b-form-input#email.mx-auto(
+                      b-form-input#confirmPassword.input-form(
                         v-model='$v.confirmPassword.$model'
+                        :class='{ "is-invalid": $v.confirmPassword.$error, "is-valid": !$v.confirmPassword.$invalid }'
                         :placeholder='$t("pages.register.placeholder2")'
-                        type='text'
+                        :type='secure ? "password" : "text"'
                         name='confirmPassword'
                         @blur='$v.confirmPassword.$touch()'
                       )
-                      .input-error(
-                        v-if='$v.confirmPassword.$error && $v.confirmPassword.passRegex'
-                      )
-                        font-awesome-icon.mr-2(
-                          :icon='["fa", "exclamation-triangle"]'
+                      template
+                        font-awesome-icon.mt-auto.mb-auto.mr-2(
+                          :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
+                          @click='secure = !secure'
                         )
-                        | {{ $t('pages.errors.required') }}
-                    .mx-auto.pt-2.pb-3
-                      b-button.w-100(variant='secondary' @click='onSubmit') {{ $t('pages.register.button1') }}
+                    .input-error(
+                      v-if='$v.confirmPassword.$error && $v.confirmPassword.passRegex'
+                    )
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.required') }}
+            b-container.p-0(v-if='stepState === stepStateType.STEP2')
+              form(ref='form' @submit.stop.prevent='onSubmit')
+                .p-3.login-area
+                  b-row
+                    b-col
+                      b-form-group.text-primary(
+                        :label='$t("pages.register.label4")'
+                        label-for='lastname'
+                      )
+                        b-form-input#email.input-form(
+                          v-model='$v.lastname.$model'
+                          :class='{ "is-invalid": $v.lastname.$error, "is-valid": !$v.lastname.$invalid }'
+                          :placeholder='$t("pages.register.placeholder3")'
+                          type='text'
+                          name='lastname'
+                          @blur='$v.lastname.$touch()'
+                        )
+                        .input-error(
+                          v-if='$v.lastname.$error && $v.lastname.email'
+                        )
+                          font-awesome-icon.mr-2(
+                            :icon='["fa", "exclamation-triangle"]'
+                          )
+                          | {{ $t('pages.errors.required') }}
+                      b-form-group.text-primary(
+                        :label='$t("pages.register.label5")'
+                        label-for='firstname'
+                      )
+                        b-form-input#email.input-form(
+                          v-model='$v.firstname.$model'
+                          :class='{ "is-invalid": $v.firstname.$error, "is-valid": !$v.firstname.$invalid }'
+                          :placeholder='$t("pages.register.placeholder4")'
+                          type='text'
+                          name='firstname'
+                          @blur='$v.firstname.$touch()'
+                        )
+                        .input-error(
+                          v-if='$v.firstname.$error && $v.firstname.email'
+                        )
+                          font-awesome-icon.mr-2(
+                            :icon='["fa", "exclamation-triangle"]'
+                          )
+                          | {{ $t('pages.errors.required') }}
+
+            .mx-auto.p-3.pb-5
+              b-button.w-100.button(variant='secondary' @click='onSubmit') {{ $t('pages.register.button1') }}
 
     b-col.p-5(lg='12')
       div
@@ -117,17 +179,51 @@ b-container(fluid)
 import { mixins, Component } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
-import { required } from 'vuelidate/lib/validators';
+import { required, email, helpers } from 'vuelidate/lib/validators';
+
+const passRegex = helpers.regex(
+  'passRegex',
+  /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]))((?=.*[A-Z])).*$/
+);
+
+enum stepStateType {
+  STEP1,
+  STEP2,
+}
 
 @Component({
   components: {},
 })
 export default class extends mixins(validationMixin) {
-  @Validate({ required }) email: string = '';
-  @Validate({ required }) password: string = '';
-  @Validate({ required }) confirmPassword: string = '';
+  @Validate({ required, email }) email: string = '';
+  @Validate({ required, passRegex }) password: string = '';
+  @Validate({ required, passRegex }) confirmPassword: string = '';
+
+  @Validate({ required }) lastname: string = '';
+  @Validate({ required }) firstname: string = '';
+
+  stepStateType = stepStateType;
+  stepState = stepStateType.STEP1;
+  secure: boolean = true;
 
   onSubmit() {
+    if (this.stepState === stepStateType.STEP1) {
+      this.$v.email.$touch();
+      this.$v.password.$touch();
+      this.$v.confirmPassword.$touch();
+
+      if (
+        this.$v.email.$invalid ||
+        this.$v.password.$invalid ||
+        this.$v.confirmPassword.$invalid
+      ) {
+        return;
+      }
+
+      // TODO checkmail
+      this.stepState = stepStateType.STEP2;
+      return;
+    }
     this.$v.$touch();
     console.log('REGISTER');
   }

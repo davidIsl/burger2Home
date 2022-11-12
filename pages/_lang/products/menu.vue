@@ -2,10 +2,18 @@
 b-container.bg-gray(fluid)
   b-row
     b-col
-      h3.w-75.mx-auto.mt-3.p-3.text-secondary.text-center.border.content {{ $t('pages.products.menu.title1') }}
+      h3.w-100.mx-auto.mt-3.p-3.text-secondary.text-center.border.content {{ $t('pages.products.menu.title1') }}
+
   b-row.py-3
+    b-col.p-3(md='4')
+      //- div {{ $t('pages.products.filters1') }}
+      //-   span.d-block {{ $t('pages.products.filters2') }}
+      //-   span.d-block {{ $t('pages.products.filters3') }}
+      //-   span.d-block {{ $t('pages.products.filters4') }}
+      //-   span.d-block {{ $t('pages.products.filters5') }}
+      filters
     b-col
-      b-container.p-5.content
+      b-container.m-3.p-5.content
         b-row
           b-col(v-for='(product, index) in products' :key='index')
             b-card.m-3.p-2.text-center.card(
@@ -47,6 +55,7 @@ b-container.bg-gray(fluid)
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
+import filters from '@/components/global/filters.vue';
 
 export interface Field {
   key: string;
@@ -73,7 +82,7 @@ interface Product {
 }
 
 @Component({
-  components: {},
+  components: { filters },
 })
 export default class extends Vue {
   viewDetails: boolean = false;

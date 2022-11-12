@@ -5,11 +5,10 @@ b-container.p-5(fluid)
       div
         b-img(
           thumbnail
-          fluid
           src='/img/inscription/burger_inscription.jpg'
           alt='Connection'
         )
-    b-col(lg='12')
+    b-col.mt-5(lg='12')
       b-container
         .content
           b-row
@@ -29,73 +28,108 @@ b-container.p-5(fluid)
           b-row.pb-3
             b-col.mx-auto(cols='18')
               form(ref='form' @submit.stop.prevent='onSubmit')
-                .p-3.login-area
-                  b-row
-                    b-col
-                      b-form-group.text-primary(
-                        :label='$t("pages.login.label1")'
-                        label-for='email'
+                b-row
+                  b-col
+                    b-form-group.pt-3.text-primary(
+                      :label='$t("pages.login.label1")'
+                      label-for='email'
+                    )
+                      b-form-input#email.input-form(
+                        v-model='$v.email.$model'
+                        :class='{ "is-invalid": $v.email.$error, "is-valid": !$v.email.$invalid }'
+                        :placeholder='$t("pages.login.placeholder1")'
+                        type='text'
+                        name='email'
+                        @blur='$v.email.$touch()'
                       )
-                        b-form-input#email.mx-auto(
-                          v-model='$v.email.$model'
-                          :placeholder='$t("pages.login.placeholder1")'
-                          type='text'
-                          name='email'
-                          @blur='$v.email.$touch()'
+                      .input-error(v-if='$v.email.$error && $v.email.email')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
                         )
-                        .input-error(v-if='$v.email.$error && $v.email.email')
-                          font-awesome-icon.mr-2(
-                            :icon='["fa", "exclamation-triangle"]'
-                          )
-                          | {{ $t('pages.errors.required') }}
-                      b-form-group.text-primary(
-                        :label='$t("pages.login.label2")'
-                        label-for='password'
+                        | {{ $t('pages.errors.required') }}
+                      .input-error(v-if='!$v.email.email')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
+                        )
+                        | {{ $t('pages.errors.invalidEmail') }}
+                    b-form-group.text-primary(
+                      :label='$t("pages.login.label2")'
+                      label-for='password'
+                    )
+                      b-form-input#email.input-form(
+                        v-model='$v.password.$model'
+                        :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
+                        :placeholder='$t("pages.login.placeholder2")'
+                        type='text'
+                        name='password'
+                        @blur='$v.password.$touch()'
                       )
-                        b-form-input#email(
-                          v-model='$v.password.$model'
-                          :placeholder='$t("pages.login.placeholder2")'
-                          type='text'
-                          name='password'
-                          @blur='$v.password.$touch()'
+                      .input-error(v-if='$v.password.$error')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
                         )
-                      .mx-auto.pt-2
-                        b-button.w-100(variant='secondary' @click='onSubmit') {{ $t('pages.login.button1') }}
-                  b-row.pt-3
-                    b-col(lg='24')
-                      .line 
-                        span.text.text-faded {{ $t('pages.login.text3') }}
-                  b-row.pt-3
-                    b-col(cols='12')
-                      b-button.button-social(
-                        variant='white'
-                        size='md'
-                        @click='null'
-                        block
-                      ) 
-                        font-awesome-icon(:icon='["fab", "facebook"]')
-                    b-col(cols='12')
-                      b-button.button-social(
-                        variant='white'
-                        size='md'
-                        @click='null'
-                        block
-                      ) 
-                        font-awesome-icon(:icon='["fab", "google"]')
+                        | {{ $t('pages.errors.required') }}
+
+                    .mx-auto.pt-2
+                      b-button.w-100(variant='secondary' @click='onSubmit') {{ $t('pages.login.button1') }}
+                b-row.pt-3
+                  b-col(lg='24')
+                    .line 
+                      span.text.text-faded {{ $t('pages.login.text3') }}
+                b-row.pt-3
+                  b-col(cols='12')
+                    b-button.button-social(
+                      variant='white'
+                      size='md'
+                      @click='null'
+                      block
+                    ) 
+                      font-awesome-icon(:icon='["fab", "facebook"]')
+                  b-col(cols='12')
+                    b-button.button-social(
+                      variant='white'
+                      size='md'
+                      @click='null'
+                      block
+                    ) 
+                      font-awesome-icon(:icon='["fab", "google"]')
+          b-row.mt-5(align-h='center')
+            b-col(
+              sm='14'
+              md='10'
+              lg='8'
+              xl='6'
+            )
+              b-alert(
+                :show='submitState === submitStateType.ERROR || submitState === submitStateType.SUCCESS'
+                :variant='submitState === submitStateType.ERROR ? "error" : "success"'
+                :icon='submitState === submitStateType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+              )
+                h6.m-0.mb-2 {{ error }}
 </template>
 
 <script lang="ts">
-import { mixins, Component } from 'nuxt-property-decorator';
+import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
-import { required } from 'vuelidate/lib/validators';
+import { required, email } from 'vuelidate/lib/validators';
+import { submitStateType } from '@/utils/utils';
 
+// enum submitStateType {
+//   NONE,
+//   SUCCESS,
+//   PENDING,
+//   ERROR,
+// }
 @Component({
   components: {},
 })
 export default class extends mixins(validationMixin) {
-  @Validate({ required }) email: string = '';
+  @Validate({ required, email }) email: string = '';
   @Validate({ required }) password: string = '';
+  error?: boolean = false;
+  submitStateType = submitStateType;
+  submitState = submitStateType.NONE;
 
   onSubmit() {
     this.$v.$touch();
@@ -106,22 +140,13 @@ export default class extends mixins(validationMixin) {
 
 <style lang="scss" scoped>
 .logo {
-  // left: 9em;
   width: 5em;
   height: 5em;
-  // color: var(--secondary);
-  // background-color: #1a1c1d;
 }
 
 .title {
   left: 0.5em;
 }
-
-// .content {
-//   background-image: url('../../../static/img/chalkboard.jpg');
-//   border: 1px #fff solid;
-//   border-radius: 3%;
-// }
 
 .line {
   width: 100%;
@@ -135,22 +160,4 @@ export default class extends mixins(validationMixin) {
     padding: 0 10px;
   }
 }
-
-// .button-social {
-//   /* stylelint-disable */
-//   &,
-//   * {
-//     color: var(--primary) !important;
-//   }
-//   border: 2px solid var(--primary) !important;
-//   border-radius: 0.5rem;
-// }
-
-// .button-social:hover {
-//   &,
-//   * {
-//     color: var(--secondary) !important;
-//   }
-//   border: 2px solid var(--secondary) !important;
-// }
 </style>

@@ -75,12 +75,16 @@
       "label1": "Email Adress",
       "label2": "Password",
       "label3": "Confirm your password",
+      "label4": "Lastname",
+      "label5": "Firstname",
       "text1": "Or ",
       "text2": "Log in if you already have an account",
       "text3": "Sign in with",
       "text4": "Or continue with",
       "placeholder1": "you@example.com",
-      "placeholder2": "********"
+      "placeholder2": "********",
+      "placeholder3": "Enter your lastname",
+      "placeholder4": "Enter your firstname"
     },
     "account": {
       "title": "Sign in",
@@ -119,10 +123,24 @@
       "button2": "View Infos",
       "menu": {
         "title1": "Here is a listing with our Burgers Menus"
+      },
+      "burgers": {
+        "title1": "Here is a listing with our Burgers"
+      },
+      "fries": {
+        "title1": "Here is a listing with our Fries"
+      },
+      "drinks": {
+        "title1": "Here is a listing with our Drinks"
       }
     },
+    "filters": {
+      "title1": "Filters"
+    },
     "errors": {
-      "required": "this field is required"
+      "required": "This field is required",
+      "invalidEmail": "Please, enter a valid Email",
+      "password": "Please, enter a password Min 8 char, 1 number and 1 MAJ"
     },
     "index": {
       "title": "AntelopeJS Nuxt : Bootstrap Template",

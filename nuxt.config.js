@@ -39,17 +39,19 @@ export default {
 
   // Headers of the page: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'AntelopeJS Nuxt Bootstrap template',
+    title: 'Burger2Home',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: 'AntelopeJS nuxt bootstrap-template',
+        content: 'Burger2Home',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/logo-burger-test.png' },
+    ],
     script: [
       {
         // pathseg.js is used for particles on svg
@@ -198,6 +200,9 @@ export default {
         'faFilePdf',
         'faShoppingBasket',
         'faMinus',
+        'faTag',
+        'faEye',
+        'faEyeSlash',
       ],
       regular: [],
       brands: ['faFacebook', 'faGoogle', 'faGithub'],

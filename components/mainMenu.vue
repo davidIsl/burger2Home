@@ -49,8 +49,8 @@ b-container.m-0.p-0(fluid)
                 menu-class='p-0'
               )
                 nuxt-link.menu-color(
-                  :to='`/${$i18n.locale}/plugins/particles/`'
-                  :class='{ "active-menu": "/" + $i18n.locale + "/plugins/particles/" == $route.path || "/" + $i18n.locale + "/plugins/aos/" == $route.path || "/" + $i18n.locale + "/plugins/swal/" == $route.path || "/" + $i18n.locale + "/plugins/gmaps/" == $route.path }'
+                  :to='`/${$i18n.locale}/admin/`'
+                  :class='{ "active-menu": "/" + $i18n.locale + "/admin/" == $route.path || "/" + $i18n.locale + "/plugins/aos/" == $route.path || "/" + $i18n.locale + "/plugins/swal/" == $route.path || "/" + $i18n.locale + "/plugins/gmaps/" == $route.path }'
                 ) {{ $t('menu.title3') }}
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
                 :to='`/${$i18n.locale}/layout-error/`'
