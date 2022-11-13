@@ -12,7 +12,8 @@ b-container.m-0.p-0(fluid)
           :to='`/${$i18n.locale}/`'
           aria-label='AntelopeJS'
         )
-          logoAntelopeBanner.w-100.
+          //- logoAntelopeBanner.w-100.
+          b-img.logo.text-secondary(src='/img/logo-burger-white.png')
         b-navbar-toggle(target='nav-collapse')
         b-collapse#nav-collapse(
           is-nav
@@ -21,7 +22,7 @@ b-container.m-0.p-0(fluid)
           @hide='onClose'
         )
           client-only
-            b-navbar-nav.mt-4.mt-md-0.ml-auto
+            b-navbar-nav.mx-auto
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
                 :to='`/${$i18n.locale}/`'
                 :link-attrs='{ "aria-label": $t("menu.title1") }'
