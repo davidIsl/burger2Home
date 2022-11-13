@@ -53,7 +53,7 @@ b-container(fluid)
                       :label='$t("pages.register.label1")'
                       label-for='email'
                     )
-                      b-form-input#email.input-form(
+                      b-form-input#email.input-form.form-control(
                         v-model='$v.email.$model'
                         :class='{ "is-invalid": $v.email.$error, "is-valid": !$v.email.$invalid }'
                         :placeholder='$t("pages.register.placeholder1")'
@@ -124,11 +124,13 @@ b-container(fluid)
                 .p-3.login-area
                   b-row
                     b-col
+                      .line
+                        span.text.text-faded Informations
                       b-form-group.text-primary(
                         :label='$t("pages.register.label4")'
                         label-for='lastname'
                       )
-                        b-form-input#email.input-form(
+                        b-form-input#lastname.input-form(
                           v-model='$v.lastname.$model'
                           :class='{ "is-invalid": $v.lastname.$error, "is-valid": !$v.lastname.$invalid }'
                           :placeholder='$t("pages.register.placeholder3")'
@@ -136,9 +138,7 @@ b-container(fluid)
                           name='lastname'
                           @blur='$v.lastname.$touch()'
                         )
-                        .input-error(
-                          v-if='$v.lastname.$error && $v.lastname.email'
-                        )
+                        .input-error(v-if='$v.lastname.$error')
                           font-awesome-icon.mr-2(
                             :icon='["fa", "exclamation-triangle"]'
                           )
@@ -147,7 +147,7 @@ b-container(fluid)
                         :label='$t("pages.register.label5")'
                         label-for='firstname'
                       )
-                        b-form-input#email.input-form(
+                        b-form-input#firstname.input-form(
                           v-model='$v.firstname.$model'
                           :class='{ "is-invalid": $v.firstname.$error, "is-valid": !$v.firstname.$invalid }'
                           :placeholder='$t("pages.register.placeholder4")'
@@ -155,9 +155,61 @@ b-container(fluid)
                           name='firstname'
                           @blur='$v.firstname.$touch()'
                         )
-                        .input-error(
-                          v-if='$v.firstname.$error && $v.firstname.email'
+                        .input-error(v-if='$v.firstname.$error')
+                          font-awesome-icon.mr-2(
+                            :icon='["fa", "exclamation-triangle"]'
+                          )
+                          | {{ $t('pages.errors.required') }}
+                      .pb-2
+                      .line
+                        span.text.text-faded Address
+                      b-form-group.text-primary(
+                        :label='$t("pages.register.label6")'
+                        label-for='address'
+                      )
+                        b-form-input#address.input-form(
+                          v-model='$v.address.$model'
+                          :class='{ "is-invalid": $v.address.$error, "is-valid": !$v.address.$invalid }'
+                          :placeholder='$t("pages.register.placeholder5")'
+                          type='text'
+                          name='address'
+                          @blur='$v.address.$touch()'
                         )
+                        .input-error(v-if='$v.address.$error')
+                          font-awesome-icon.mr-2(
+                            :icon='["fa", "exclamation-triangle"]'
+                          )
+                          | {{ $t('pages.errors.required') }}
+                      b-form-group.text-primary(
+                        :label='$t("pages.register.label7")'
+                        label-for='zip'
+                      )
+                        b-form-input#zip.input-form(
+                          v-model='$v.zip.$model'
+                          :class='{ "is-invalid": $v.zip.$error, "is-valid": !$v.zip.$invalid }'
+                          :placeholder='$t("pages.register.placeholder6")'
+                          type='text'
+                          name='zip'
+                          @blur='$v.zip.$touch()'
+                        )
+                        .input-error(v-if='$v.zip.$error')
+                          font-awesome-icon.mr-2(
+                            :icon='["fa", "exclamation-triangle"]'
+                          )
+                          | {{ $t('pages.errors.required') }}
+                      b-form-group.text-primary(
+                        :label='$t("pages.register.label8")'
+                        label-for='city'
+                      )
+                        b-form-input#city.input-form(
+                          v-model='$v.city.$model'
+                          :class='{ "is-invalid": $v.city.$error, "is-valid": !$v.city.$invalid }'
+                          :placeholder='$t("pages.register.placeholder7")'
+                          type='text'
+                          name='city'
+                          @blur='$v.city.$touch()'
+                        )
+                        .input-error(v-if='$v.city.$error')
                           font-awesome-icon.mr-2(
                             :icon='["fa", "exclamation-triangle"]'
                           )
@@ -179,7 +231,7 @@ b-container(fluid)
 import { mixins, Component } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
-import { required, email, helpers } from 'vuelidate/lib/validators';
+import { required, email, helpers, sameAs } from 'vuelidate/lib/validators';
 
 const passRegex = helpers.regex(
   'passRegex',
@@ -197,14 +249,19 @@ enum stepStateType {
 export default class extends mixins(validationMixin) {
   @Validate({ required, email }) email: string = '';
   @Validate({ required, passRegex }) password: string = '';
-  @Validate({ required, passRegex }) confirmPassword: string = '';
+  @Validate({ required, passRegex, sameAsPassword: sameAs('password') })
+  confirmPassword: string = '';
 
   @Validate({ required }) lastname: string = '';
   @Validate({ required }) firstname: string = '';
+  @Validate({ required }) address: string = '';
+  @Validate({ required }) zip: string = '';
+  @Validate({ required }) city: string = '';
 
   stepStateType = stepStateType;
   stepState = stepStateType.STEP1;
   secure: boolean = true;
+  error: string = '';
 
   onSubmit() {
     if (this.stepState === stepStateType.STEP1) {
@@ -221,6 +278,7 @@ export default class extends mixins(validationMixin) {
       }
 
       // TODO checkmail
+
       this.stepState = stepStateType.STEP2;
       return;
     }
