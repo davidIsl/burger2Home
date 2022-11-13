@@ -203,6 +203,7 @@ export default {
         'faTag',
         'faEye',
         'faEyeSlash',
+        // 'fasBasketShopping',
       ],
       regular: [],
       brands: ['faFacebook', 'faGoogle', 'faGithub'],

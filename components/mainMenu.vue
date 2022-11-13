@@ -103,8 +103,8 @@ b-container.m-0.p-0(fluid)
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
-              div
-                font-awesome-icon(:icon='["fa", "fa-shopping-basket"]')
+              //- div
+              //-   font-awesome-icon(:icon='["fas", "fa-basket-shopping"]')
               //- .pl-2
               //-   themeSwitcher
 </template>

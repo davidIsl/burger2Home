@@ -4,3 +4,11 @@ export enum submitStateType {
   PENDING,
   ERROR,
 }
+
+export enum rolesType {
+  NONE,
+  ADMIN,
+  MARKETING,
+  STOCK,
+  CUSTOMER,
+}
