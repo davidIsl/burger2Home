@@ -46,4 +46,4 @@
 - [x] 2022/11/09: Dev Modal Products
 - [x] 2022/11/10: Add new pages and dev menu.vue
 - [x] 2022/11/12: Work on burgers, fries, drinks pages && login && register
-- [x] 2022/11/13: Register Step 2
+- [x] 2022/11/13: Register Step 2 & admin pages
