@@ -13,55 +13,53 @@ b-container.p-0(fluid)
       )
         b-carousel-slide.slide(
           caption='First slide'
-          text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
-          img-src='../../static/img/accueil/burger_accueil1.jpg'
+          :text='$t("pages.home.text1")'
+          img-src='/img/accueil/burger_accueil1.jpg'
         )
         b-carousel-slide.slide(
           caption='First slide'
           text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
-          img-src='../../static/img/accueil/burger_accueil2.jpg'
+          img-src='/img/accueil/burger_accueil4.jpg'
         )
         b-carousel-slide.slide(
           caption='First slide'
           text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
-          img-src='../../static/img/accueil/burger_accueil3.jpg'
+          img-src='/img/accueil/burger_accueil3.jpg'
         )
+  //- b-row
+    //- b-col
+    //-   div
+    //-     b-carousel.w-100(
+    //-       v-model='slide1'
+    //-       :interval='8000'
+    //-       controls
+    //-       indicators
+    //-       background='#ababab'
+    //-       style='text-shadow: 1px 1px 2px #333'
+    //-       @sliding-start='onSecondSlideStart'
+    //-       @sliding-end='onSecondSlideEnd'
+    //-     )
+    //-       b-carousel-slide
+    //-         template(slot='img')
+    //-           b-row
+    //-             b-col.p-3.mx-auto(
+    //-               v-for='(product, index) in products'
+    //-               :key='index'
+    //-             )
+    //-               b-card.mb-2.m-2.text-center.card(
+    //-                 :title='product.name'
+    //-                 :img-src='product.image'
+    //-                 img-alt='Image'
+    //-                 img-top
+    //-                 tag='article'
+    //-                 text-variant='secondary'
+    //-                 bg-variant='gray'
+    //-               )
+    //-                 b-card-text.text-muted.text-center {{ product.description }}
   b-row
     b-col
       div
-        b-carousel.w-100(
-          v-model='slide1'
-          :interval='8000'
-          controls
-          indicators
-          background='#ababab'
-          style='text-shadow: 1px 1px 2px #333'
-          @sliding-start='onSecondSlideStart'
-          @sliding-end='onSecondSlideEnd'
-        )
-          b-carousel-slide
-            template(slot='img')
-              b-row
-                b-col.p-3.mx-auto(
-                  v-for='(product, index) in products'
-                  :key='index'
-                  md='4'
-                  cols='12'
-                )
-                  b-card.mb-2.m-2.text-center.card(
-                    :title='product.name'
-                    :img-src='product.image'
-                    img-alt='Image'
-                    img-top
-                    tag='article'
-                    text-variant='secondary'
-                    bg-variant='gray'
-                  )
-                    b-card-text.text-muted.text-center {{ product.description }}
-  b-row
-    b-col
-      div
-        VueSlickCarousel.w-100(
+        VueSlickCarousel(
           v-if='products.length > 0'
           v-for='(product, index) in products'
           v-bind='carouselOptions'
@@ -83,7 +81,7 @@ b-container.p-0(fluid)
 <script lang="ts">
 // https://github.com/nuxt-community/nuxt-property-decorator
 import { Vue, Component } from 'nuxt-property-decorator';
-// import VueSlickCarousel from 'vue-slick-carousel';
+const VueSlickCarousel = require('vue-slick-carousel');
 
 interface Product {
   name: string;
@@ -94,11 +92,10 @@ interface Product {
 
 @Component({
   components: {
-    // VueSlickCarousel,
+    VueSlickCarousel,
   },
 })
 export default class extends Vue {
-  VueSlickCarousel = require('vue-slick-carousel');
   // carouselOptions = [];
   slide: number = 0;
   slide1: number = 0;
@@ -110,9 +107,10 @@ export default class extends Vue {
     dots: false,
     arrows: false,
     infinite: false,
+    speed: 500,
     draggable: false,
     slidesToShow: 5,
-    slidesToScroll: 2,
+    slidesToScroll: 5,
     initialSlide: 0,
     responsive: [
       {
@@ -206,10 +204,14 @@ export default class extends Vue {
 .slide {
   width: 1200px;
   height: 600px;
+  // @include for-phone-only {
+  //   width: 200px;
+  //   height: 300px;
+  // }
 }
 .card {
   width: 18em;
-  height: 32em;
+  height: 45em;
   font-size: 0.8em;
   text-shadow: 1px 1px 1px var(--darkRed);
 }

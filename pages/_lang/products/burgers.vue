@@ -5,18 +5,18 @@ b-container.bg-gray(fluid)
       h3.w-100.mx-auto.mt-3.p-3.text-secondary.text-center.border.content {{ $t('pages.products.burgers.title1') }}
 
   b-row.py-3
-    b-col.p-3(md='4')
+    b-col.p-3(lg='4')
       //- div {{ $t('pages.products.filters1') }}
       //-   span.d-block {{ $t('pages.products.filters2') }}
       //-   span.d-block {{ $t('pages.products.filters3') }}
       //-   span.d-block {{ $t('pages.products.filters4') }}
       //-   span.d-block {{ $t('pages.products.filters5') }}
       filters
-    b-col
-      b-container.m-3.p-5.content
+    b-col.bg-success(lg='20')
+      b-container.m-3.p-5.content.mx-auto
         b-row
-          b-col(v-for='(product, index) in products' :key='index')
-            b-card.m-3.p-2.text-center.card(
+          b-col.w-100(v-for='(product, index) in products' :key='index')
+            b-card.m-3.p-2.text-center.card.mx-auto(
               :title='product.name'
               :img-src='product.image'
               img-alt='Image'
@@ -26,17 +26,21 @@ b-container.bg-gray(fluid)
               bg-variant='gray'
             )
               b-card-text.text-muted.text-center {{ product.description }}
-              //- b-button-group
-              b-button.mr-2.button {{ $t('pages.products.button1') }}
-              b-button.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
-  b-modal(v-if='viewDetails' v-model='viewDetails' centered)
+              b-card-footer
+                b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
+                b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    cancel-variant='secondary'
+    v-if='viewDetails'
+    v-model='viewDetails'
+    centered
+  )
     template(#modal-title)
       b-container
-        b-img(
-          thumbnail
-          body-bg-variant='darkRed'
-          src='/img/produits/smokey-bacon.jpg'
-        ) 
+        b-img(thumbnail :src='currentProduct.image') 
     template(#modal-footer)
       div
         font-awesome-icon(:icon='["fas", "fa-minus"]')
@@ -115,7 +119,7 @@ export default class extends Vue {
   products: Product[] = [
     {
       name: 'Le classico',
-      image: '../../img/produits/classico.jpg',
+      image: '/img/produits/classico.jpg',
       description:
         'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 10.5,
@@ -123,7 +127,7 @@ export default class extends Vue {
     },
     {
       name: 'Smokey Bacon',
-      image: '../../img/produits/smokey-bacon.jpg',
+      image: '/img/produits/smokey-bacon.jpg',
       description:
         'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 11,
@@ -163,11 +167,11 @@ export default class extends Vue {
     },
     {
       name: 'Smokey Bacon',
-      image: '../../img/produits/smokey-bacon.jpg',
+      image: '/img/produits/smokey-bacon.jpg',
       description:
         'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
       price: 11,
-      allergens: [this.allergens[0], this.allergens[1], this.allergens[5]],
+      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
     },
     {
       name: 'Habibi',
@@ -300,8 +304,8 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .card {
-  width: 20em;
-  height: 40em;
+  width: 250px;
+  height: 550px;
   font-size: 0.8em;
   text-shadow: 1px 1px 1px var(--darkRed);
   border: 1px var(--primary) solid;

@@ -47,3 +47,7 @@
 - [x] 2022/11/10: Add new pages and dev menu.vue
 - [x] 2022/11/12: Work on burgers, fries, drinks pages && login && register
 - [x] 2022/11/13: Register Step 2 & admin pages
+
+## Semaine 46
+
+-[x] 2022/11/15: Reunion de groupe avec lionel et nathan, résolution de bug de responsive && add productsAdd pages

@@ -1,7 +1,7 @@
 <template lang="pug">
-b-container.p-3(fluid)
+b-container.p-3.bg-gray(fluid)
   b-row
-    b-col(md='4')
+    b-col.mt-3(lg='4')
       .p-3.content.text-secondary
         h6 Products interface
         ul
@@ -9,16 +9,13 @@ b-container.p-3(fluid)
           li Burgers
           li fries
           li Drinks
-    b-col(md='16')
+    b-col.mt-3(lg='16')
       .p-3.content.text-secondary
         h3.text-center Listing of our Products
         div
-          b-table.bg-gray(
-            striped
-            outlined
+          b-table.bg-gray.text-primary(
             hover
             borderless
-            selectable
             :items='items'
             :fields='fields'
           )
@@ -28,12 +25,17 @@ b-container.p-3(fluid)
                 @change='selectAllTableItems($event)'
               ).
             template(#cell(x)='data')
-              b-form-checkbox(
-                :id='`checkbox-${data.item.app_training_id}`'
-                :name='`checkbox-${data.item.app_training_id}`'
-                :checked='selectedAllItems'
-                @input='selectTableItem($event, data.item.app_training_id)'
-              )
+              b-form-checkbox(:checked='selectedAllItems')
+            //- template(#head(x)='data')
+            //-   b-form-checkbox#checkbox-header(
+            //-     name='checkbox-header'
+            //-     @change='selectAllTableItems($event)'
+            //-   ).
+            //- template(#cell(x)='data')
+            //-   b-form-checkbox(
+            //-     :checked='selectedAllItems'
+            //-     @input='selectTableItem($event, data.item.app_training_id)'
+            //-   )
           b-pagination(
             :pills='paginationPills'
             v-model='currentPage'
@@ -43,9 +45,9 @@ b-container.p-3(fluid)
             :per-page='perPage'
             aria-controls='my-table'
           )
-    b-col(md='4')
+    b-col.mt-3(lg='4')
       .p-3.content
-        b-button.w-100.button Add
+        b-button.w-100.button(:to='`/${$i18n.locale}/admin/productsAdd/`') Add
         b-button.w-100.mt-2.button Edit
         b-button.w-100.mt-2.button Delete
 </template>
@@ -58,6 +60,10 @@ export default class extends Vue {
   // roleType = rolesType;
   // role = rolesType.NONE;
   fields = [
+    {
+      key: 'x',
+      sortable: false,
+    },
     {
       key: 'Photos',
       sortable: false,

@@ -92,6 +92,11 @@
       "placeholder6": "4280",
       "placeholder7": "Hannut"
     },
+    "home": {
+      "text1": "You are welcome, order a burger ",
+      "text2": "You can order the burger of your choice 7 days a week",
+      "text3": "You are welcome, order a burger "
+    },
     "account": {
       "title": "Sign in",
       "text": "Please enter your e-mail address and password to sign in to your account.",
