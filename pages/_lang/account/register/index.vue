@@ -1,5 +1,5 @@
 <template lang="pug">
-b-container(fluid)
+b-container.bg-gray(fluid)
   b-row.p-5
     b-col.mt-3(lg='12')
       .content
@@ -46,174 +46,172 @@ b-container(fluid)
         b-row
           b-col.mx-auto(cols='18')
             b-container.p-0(v-if='stepState === stepStateType.STEP1')
-              .p-3.login-area
+              b-row
+                b-col
+                  b-form-group.text-primary(
+                    :label='$t("pages.register.label1")'
+                    label-for='email'
+                  )
+                    b-form-input#email.input-form.form-control(
+                      v-model='$v.email.$model'
+                      :class='{ "is-invalid": $v.email.$error, "is-valid": !$v.email.$invalid }'
+                      :placeholder='$t("pages.register.placeholder1")'
+                      type='text'
+                      name='email'
+                      @blur='$v.email.$touch()'
+                    )
+                    .input-error(v-if='$v.email.$error && $v.email.email')
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.required') }}
+                    .input-error(v-if='!$v.email.email')
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.invalidEmail') }}
+                  b-form-group.text-primary(
+                    :label='$t("pages.register.label2")'
+                    label-for='password'
+                  )
+                    b-form-input#password.input-form(
+                      v-model='$v.password.$model'
+                      :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
+                      :placeholder='$t("pages.register.placeholder2")'
+                      :type='secure ? "password" : "text"'
+                      name='password'
+                      @blur='$v.password.$touch()'
+                    )
+                    template
+                      font-awesome-icon.mt-auto.mb-auto.mr-2(
+                        :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
+                        @click='secure = !secure'
+                      )
+                  .input-error(
+                    v-if='$v.password.$error && $v.password.passRegex'
+                  )
+                    font-awesome-icon.mr-2(
+                      :icon='["fa", "exclamation-triangle"]'
+                    )
+                    | {{ $t('pages.errors.required') }}
+                  b-form-group.text-primary(
+                    :label='$t("pages.register.label3")'
+                    label-for='confirm-password'
+                  )
+                    b-form-input#confirmPassword.input-form(
+                      v-model='$v.confirmPassword.$model'
+                      :class='{ "is-invalid": $v.confirmPassword.$error, "is-valid": !$v.confirmPassword.$invalid }'
+                      :placeholder='$t("pages.register.placeholder2")'
+                      :type='secure ? "password" : "text"'
+                      name='confirmPassword'
+                      @blur='$v.confirmPassword.$touch()'
+                    )
+                    template
+                      font-awesome-icon.mt-auto.mb-auto.mr-2(
+                        :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
+                        @click='secure = !secure'
+                      )
+                  .input-error(
+                    v-if='$v.confirmPassword.$error && $v.confirmPassword.passRegex'
+                  )
+                    font-awesome-icon.mr-2(
+                      :icon='["fa", "exclamation-triangle"]'
+                    )
+                    | {{ $t('pages.errors.required') }}
+            b-container.p-0(v-if='stepState === stepStateType.STEP2')
+              form(ref='form' @submit.stop.prevent='onSubmit')
                 b-row
                   b-col
+                    .line
+                      span.text.text-faded Informations
                     b-form-group.text-primary(
-                      :label='$t("pages.register.label1")'
-                      label-for='email'
+                      :label='$t("pages.register.label4")'
+                      label-for='lastname'
                     )
-                      b-form-input#email.input-form.form-control(
-                        v-model='$v.email.$model'
-                        :class='{ "is-invalid": $v.email.$error, "is-valid": !$v.email.$invalid }'
-                        :placeholder='$t("pages.register.placeholder1")'
+                      b-form-input#lastname.input-form(
+                        v-model='$v.lastname.$model'
+                        :class='{ "is-invalid": $v.lastname.$error, "is-valid": !$v.lastname.$invalid }'
+                        :placeholder='$t("pages.register.placeholder3")'
                         type='text'
-                        name='email'
-                        @blur='$v.email.$touch()'
+                        name='lastname'
+                        @blur='$v.lastname.$touch()'
                       )
-                      .input-error(v-if='$v.email.$error && $v.email.email')
+                      .input-error(v-if='$v.lastname.$error')
                         font-awesome-icon.mr-2(
                           :icon='["fa", "exclamation-triangle"]'
                         )
                         | {{ $t('pages.errors.required') }}
-                      .input-error(v-if='!$v.email.email')
+                    b-form-group.text-primary(
+                      :label='$t("pages.register.label5")'
+                      label-for='firstname'
+                    )
+                      b-form-input#firstname.input-form(
+                        v-model='$v.firstname.$model'
+                        :class='{ "is-invalid": $v.firstname.$error, "is-valid": !$v.firstname.$invalid }'
+                        :placeholder='$t("pages.register.placeholder4")'
+                        type='text'
+                        name='firstname'
+                        @blur='$v.firstname.$touch()'
+                      )
+                      .input-error(v-if='$v.firstname.$error')
                         font-awesome-icon.mr-2(
                           :icon='["fa", "exclamation-triangle"]'
                         )
-                        | {{ $t('pages.errors.invalidEmail') }}
+                        | {{ $t('pages.errors.required') }}
+                    .pb-2
+                    .line
+                      span.text.text-faded Address
                     b-form-group.text-primary(
-                      :label='$t("pages.register.label2")'
-                      label-for='password'
+                      :label='$t("pages.register.label6")'
+                      label-for='address'
                     )
-                      b-form-input#password.input-form(
-                        v-model='$v.password.$model'
-                        :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
-                        :placeholder='$t("pages.register.placeholder2")'
-                        :type='secure ? "password" : "text"'
-                        name='password'
-                        @blur='$v.password.$touch()'
+                      b-form-input#address.input-form(
+                        v-model='$v.address.$model'
+                        :class='{ "is-invalid": $v.address.$error, "is-valid": !$v.address.$invalid }'
+                        :placeholder='$t("pages.register.placeholder5")'
+                        type='text'
+                        name='address'
+                        @blur='$v.address.$touch()'
                       )
-                      template
-                        font-awesome-icon.mt-auto.mb-auto.mr-2(
-                          :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
-                          @click='secure = !secure'
+                      .input-error(v-if='$v.address.$error')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
                         )
-                    .input-error(
-                      v-if='$v.password.$error && $v.password.passRegex'
-                    )
-                      font-awesome-icon.mr-2(
-                        :icon='["fa", "exclamation-triangle"]'
-                      )
-                      | {{ $t('pages.errors.required') }}
+                        | {{ $t('pages.errors.required') }}
                     b-form-group.text-primary(
-                      :label='$t("pages.register.label3")'
-                      label-for='confirm-password'
+                      :label='$t("pages.register.label7")'
+                      label-for='zip'
                     )
-                      b-form-input#confirmPassword.input-form(
-                        v-model='$v.confirmPassword.$model'
-                        :class='{ "is-invalid": $v.confirmPassword.$error, "is-valid": !$v.confirmPassword.$invalid }'
-                        :placeholder='$t("pages.register.placeholder2")'
-                        :type='secure ? "password" : "text"'
-                        name='confirmPassword'
-                        @blur='$v.confirmPassword.$touch()'
+                      b-form-input#zip.input-form(
+                        v-model='$v.zip.$model'
+                        :class='{ "is-invalid": $v.zip.$error, "is-valid": !$v.zip.$invalid }'
+                        :placeholder='$t("pages.register.placeholder6")'
+                        type='text'
+                        name='zip'
+                        @blur='$v.zip.$touch()'
                       )
-                      template
-                        font-awesome-icon.mt-auto.mb-auto.mr-2(
-                          :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
-                          @click='secure = !secure'
+                      .input-error(v-if='$v.zip.$error')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
                         )
-                    .input-error(
-                      v-if='$v.confirmPassword.$error && $v.confirmPassword.passRegex'
+                        | {{ $t('pages.errors.required') }}
+                    b-form-group.text-primary(
+                      :label='$t("pages.register.label8")'
+                      label-for='city'
                     )
-                      font-awesome-icon.mr-2(
-                        :icon='["fa", "exclamation-triangle"]'
+                      b-form-input#city.input-form(
+                        v-model='$v.city.$model'
+                        :class='{ "is-invalid": $v.city.$error, "is-valid": !$v.city.$invalid }'
+                        :placeholder='$t("pages.register.placeholder7")'
+                        type='text'
+                        name='city'
+                        @blur='$v.city.$touch()'
                       )
-                      | {{ $t('pages.errors.required') }}
-            b-container.p-0(v-if='stepState === stepStateType.STEP2')
-              form(ref='form' @submit.stop.prevent='onSubmit')
-                .p-3.login-area
-                  b-row
-                    b-col
-                      .line
-                        span.text.text-faded Informations
-                      b-form-group.text-primary(
-                        :label='$t("pages.register.label4")'
-                        label-for='lastname'
-                      )
-                        b-form-input#lastname.input-form(
-                          v-model='$v.lastname.$model'
-                          :class='{ "is-invalid": $v.lastname.$error, "is-valid": !$v.lastname.$invalid }'
-                          :placeholder='$t("pages.register.placeholder3")'
-                          type='text'
-                          name='lastname'
-                          @blur='$v.lastname.$touch()'
+                      .input-error(v-if='$v.city.$error')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
                         )
-                        .input-error(v-if='$v.lastname.$error')
-                          font-awesome-icon.mr-2(
-                            :icon='["fa", "exclamation-triangle"]'
-                          )
-                          | {{ $t('pages.errors.required') }}
-                      b-form-group.text-primary(
-                        :label='$t("pages.register.label5")'
-                        label-for='firstname'
-                      )
-                        b-form-input#firstname.input-form(
-                          v-model='$v.firstname.$model'
-                          :class='{ "is-invalid": $v.firstname.$error, "is-valid": !$v.firstname.$invalid }'
-                          :placeholder='$t("pages.register.placeholder4")'
-                          type='text'
-                          name='firstname'
-                          @blur='$v.firstname.$touch()'
-                        )
-                        .input-error(v-if='$v.firstname.$error')
-                          font-awesome-icon.mr-2(
-                            :icon='["fa", "exclamation-triangle"]'
-                          )
-                          | {{ $t('pages.errors.required') }}
-                      .pb-2
-                      .line
-                        span.text.text-faded Address
-                      b-form-group.text-primary(
-                        :label='$t("pages.register.label6")'
-                        label-for='address'
-                      )
-                        b-form-input#address.input-form(
-                          v-model='$v.address.$model'
-                          :class='{ "is-invalid": $v.address.$error, "is-valid": !$v.address.$invalid }'
-                          :placeholder='$t("pages.register.placeholder5")'
-                          type='text'
-                          name='address'
-                          @blur='$v.address.$touch()'
-                        )
-                        .input-error(v-if='$v.address.$error')
-                          font-awesome-icon.mr-2(
-                            :icon='["fa", "exclamation-triangle"]'
-                          )
-                          | {{ $t('pages.errors.required') }}
-                      b-form-group.text-primary(
-                        :label='$t("pages.register.label7")'
-                        label-for='zip'
-                      )
-                        b-form-input#zip.input-form(
-                          v-model='$v.zip.$model'
-                          :class='{ "is-invalid": $v.zip.$error, "is-valid": !$v.zip.$invalid }'
-                          :placeholder='$t("pages.register.placeholder6")'
-                          type='text'
-                          name='zip'
-                          @blur='$v.zip.$touch()'
-                        )
-                        .input-error(v-if='$v.zip.$error')
-                          font-awesome-icon.mr-2(
-                            :icon='["fa", "exclamation-triangle"]'
-                          )
-                          | {{ $t('pages.errors.required') }}
-                      b-form-group.text-primary(
-                        :label='$t("pages.register.label8")'
-                        label-for='city'
-                      )
-                        b-form-input#city.input-form(
-                          v-model='$v.city.$model'
-                          :class='{ "is-invalid": $v.city.$error, "is-valid": !$v.city.$invalid }'
-                          :placeholder='$t("pages.register.placeholder7")'
-                          type='text'
-                          name='city'
-                          @blur='$v.city.$touch()'
-                        )
-                        .input-error(v-if='$v.city.$error')
-                          font-awesome-icon.mr-2(
-                            :icon='["fa", "exclamation-triangle"]'
-                          )
-                          | {{ $t('pages.errors.required') }}
+                        | {{ $t('pages.errors.required') }}
 
             .mx-auto.p-3.pb-5
               b-button.w-100.button(variant='secondary' @click='onSubmit') {{ $t('pages.register.button1') }}
@@ -222,7 +220,8 @@ b-container(fluid)
       div
         b-img(
           thumbnail
-          fluid
+          width=650
+          height=650
           src='/img/inscription/burger_register.jpg'
           alt='Inscription'
         )

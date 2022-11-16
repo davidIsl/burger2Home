@@ -12,60 +12,31 @@ b-container.p-0(fluid)
         @sliding-end='onFirstSlideEnd'
       )
         b-carousel-slide.slide(
-          caption='First slide'
           :text='$t("pages.home.text1")'
           img-src='/img/accueil/burger_accueil1.jpg'
         )
         b-carousel-slide.slide(
-          caption='First slide'
-          text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
+          :text='$t("pages.home.text2")'
           img-src='/img/accueil/burger_accueil4.jpg'
         )
         b-carousel-slide.slide(
-          caption='First slide'
-          text='Nulla vitae elit libero, a pharetra augue mollis interdum.'
+          :text='$t("pages.home.text3")'
           img-src='/img/accueil/burger_accueil3.jpg'
         )
-  //- b-row
-    //- b-col
-    //-   div
-    //-     b-carousel.w-100(
-    //-       v-model='slide1'
-    //-       :interval='8000'
-    //-       controls
-    //-       indicators
-    //-       background='#ababab'
-    //-       style='text-shadow: 1px 1px 2px #333'
-    //-       @sliding-start='onSecondSlideStart'
-    //-       @sliding-end='onSecondSlideEnd'
-    //-     )
-    //-       b-carousel-slide
-    //-         template(slot='img')
-    //-           b-row
-    //-             b-col.p-3.mx-auto(
-    //-               v-for='(product, index) in products'
-    //-               :key='index'
-    //-             )
-    //-               b-card.mb-2.m-2.text-center.card(
-    //-                 :title='product.name'
-    //-                 :img-src='product.image'
-    //-                 img-alt='Image'
-    //-                 img-top
-    //-                 tag='article'
-    //-                 text-variant='secondary'
-    //-                 bg-variant='gray'
-    //-               )
-    //-                 b-card-text.text-muted.text-center {{ product.description }}
+  b-row.bg-gray
+    b-col
+      .text-secondary.text-center.p-2.m-2.content
+        h4 {{ $t('pages.home.title1') }}
   b-row
     b-col
-      div
-        VueSlickCarousel(
+      .p-0
+        VueSlickCarousel.w-100(
           v-if='products.length > 0'
-          v-for='(product, index) in products'
           v-bind='carouselOptions'
           ref='carousel'
         )
-          b-card.mb-2.m-2.text-center.card(
+          b-card.p-2.text-center.card(
+            v-for='(product, index) in products'
             :title='product.name'
             :img-src='product.image'
             img-alt='Image'
@@ -75,7 +46,7 @@ b-container.p-0(fluid)
             bg-variant='gray'
           )
             b-card-text.text-muted.text-center {{ product.description }}
-        //- .p-2(v-for='(product, index) in products' :key='index')
+      //- .p-2(v-for='(product, index) in products' :key='index')
 </template>
 
 <script lang="ts">
@@ -104,32 +75,45 @@ export default class extends Vue {
   secondSliding: boolean = false;
 
   carouselOptions: any = {
-    dots: false,
+    dots: true,
+    dotsClass: 'slick-dots custom-dot-class',
+    edgeFriction: 0.35,
     arrows: false,
     infinite: false,
-    speed: 500,
+    speed: 1000,
     draggable: false,
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
+    autoplay: 2000,
+
     responsive: [
       {
         breakpoint: 1100,
         settings: {
           slidesToShow: 4,
-          draggable: true,
+          slidesToScroll: 4,
         },
       },
       {
         breakpoint: 789,
         settings: {
           slidesToShow: 3,
+          slidesToScroll: 3,
         },
       },
       {
         breakpoint: 500,
         settings: {
           slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
     ],
@@ -192,6 +176,8 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/bt-custom.scss';
+
 .carousel-1 {
   // @include for-phone-only {
   //   width: 200px;
@@ -204,10 +190,27 @@ export default class extends Vue {
 .slide {
   width: 1200px;
   height: 600px;
-  // @include for-phone-only {
-  //   width: 200px;
-  //   height: 300px;
-  // }
+  font-size: 25px;
+  @include for-phone-only {
+    width: 300px;
+    height: 150px;
+    font-size: 15px;
+  }
+  @include for-tablet-only {
+    width: 430px;
+    height: 250px;
+    font-size: 17px;
+  }
+  @include for-md-desktop-only {
+    width: 760px;
+    height: 350px;
+    font-size: 20px;
+  }
+  @include for-xl-desktop-only {
+    width: 1000px;
+    height: 440px;
+    font-size: 22px;
+  }
 }
 .card {
   width: 18em;

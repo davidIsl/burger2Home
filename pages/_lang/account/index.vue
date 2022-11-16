@@ -1,10 +1,12 @@
 <template lang="pug">
-b-container.p-5(fluid)
+b-container.p-5.bg-gray(fluid)
   b-row
     b-col.p-5(lg='12')
       div
         b-img(
           thumbnail
+          width=650
+          height=450
           src='/img/inscription/burger_inscription.jpg'
           alt='Connection'
         )
@@ -12,7 +14,7 @@ b-container.p-5(fluid)
       b-container
         .content
           b-row
-            b-col
+            b-col.table-font-size
               .text-center
                 b-img.logo.mb-2(
                   fluid
@@ -20,7 +22,7 @@ b-container.p-5(fluid)
                   height=40
                   src='/img/logo-burger-white.png'
                 )
-                h2.font-weight-bold.title.text-primary {{ $t('pages.login.title1') }}
+                h3.font-weight-bold.title.text-primary {{ $t('pages.login.title1') }}
                 span.text-primay {{ $t('pages.login.text1') }}
                 nuxt-link.text-secondary(
                   :to='`/${$i18n.locale}/account/register/`'
