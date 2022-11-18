@@ -11,7 +11,7 @@ b-container.p-5.bg-gray(fluid)
           alt='Connection'
         )
     b-col.mt-5(lg='12')
-      b-container
+      b-container.p-0
         .content
           b-row
             b-col.table-font-size

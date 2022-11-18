@@ -12,3 +12,8 @@ export enum rolesType {
   STOCK,
   CUSTOMER,
 }
+
+export interface SelectOption {
+  // value: string | null;
+  text: string;
+}

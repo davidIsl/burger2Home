@@ -122,6 +122,8 @@ export default {
     { mode: 'all', src: '@/plugins/i18n.js' },
     // https://github.com/michalsnik/aos
     { mode: 'client', src: '@/plugins/aos.js' },
+    // https://vue-multiselect.js.org/
+    { mode: 'all', src: '@plugins/vue-multiselect.js' },
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules

@@ -149,6 +149,19 @@
     "filters": {
       "title1": "Filters"
     },
+    "admin": {
+      "title2": "Add a new product",
+      "label1": "Product Name",
+      "label2": "Product Description",
+      "label3": "Product Price",
+      "label4": "Product Ingredients",
+      "label5": "Product Photos",
+      "placeholder1": "Enter a name",
+      "placeholder2": "Enter a description",
+      "placeholder3": "Enter a price",
+      "placeholder4": "Select Ingredients",
+      "button1": "Add product"
+    },
     "errors": {
       "required": "This field is required",
       "invalidEmail": "Please, enter a valid Email",
