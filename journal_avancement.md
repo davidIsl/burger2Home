@@ -52,4 +52,4 @@
 
 - [x] 2022/11/15: Reunion de groupe avec lionel et nathan, résolution de bug de responsive && add productsAdd pages
 - [x] 2022/11/16: Responsive home pages
-- [x] 2022/11/18: ProductsAdd Pages
+- [x] 2022/11/18: ProductsAdd Pages, productsEdit pages & responsive index admin
