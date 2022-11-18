@@ -50,7 +50,6 @@ b-container.p-0(fluid)
 </template>
 
 <script lang="ts">
-// https://github.com/nuxt-community/nuxt-property-decorator
 import { Vue, Component } from 'nuxt-property-decorator';
 const VueSlickCarousel = require('vue-slick-carousel');
 
@@ -85,7 +84,7 @@ export default class extends Vue {
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
-    autoplay: 2000,
+    // autoplay: 2000,
 
     responsive: [
       {
