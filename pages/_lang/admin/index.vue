@@ -47,9 +47,11 @@ b-container.p-3.bg-gray(fluid)
           )
     b-col.mt-3(lg='4')
       .p-3.content
-        b-button.w-100.button(:to='`/${$i18n.locale}/admin/productsAdd/`') Add
-        b-button.w-100.mt-2.button Edit
-        b-button.w-100.mt-2.button Delete
+        b-button.w-100.button(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.button1') }}
+        b-button.w-100.mt-2.button(
+          :to='`/${$i18n.locale}/admin/productsEdit/`'
+        ) {{ $t('pages.admin.button2') }}
+        b-button.w-100.mt-2.button {{ $t('pages.admin.button3') }}
 </template>
 <script lang="ts">
 import { Vue } from 'nuxt-property-decorator';

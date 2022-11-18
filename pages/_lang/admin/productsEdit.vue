@@ -2,7 +2,7 @@
 b-container.p-3.bg-gray(fluid)
   b-row
     b-col
-      h3.p-3.text-center.text-secondary {{ $t('pages.admin.title2') }}
+      h3.p-3.text-center.text-secondary {{ $t('pages.admin.title3') }}
   b-row
     b-col.mx-auto(md='16' lg='12' xl='10')
       form(ref='form' @submit.stop.prevent='onSubmit')
@@ -98,7 +98,7 @@ b-container.p-3.bg-gray(fluid)
                 //-   )
                 //-   | {{ $t('pages.errors.required') }}
               .flex.text-center
-                b-button.button(variant='secondary' @click='onSubmit') {{ $t('pages.admin.button4') }}
+                b-button.button(variant='secondary' @click='onSubmit') {{ $t('pages.admin.button5') }}
 </template>
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';

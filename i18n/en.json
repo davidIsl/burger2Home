@@ -151,6 +151,7 @@
     },
     "admin": {
       "title2": "Add a new product",
+      "title3": "Edit a product",
       "label1": "Product Name",
       "label2": "Product Description",
       "label3": "Product Price",
@@ -160,7 +161,11 @@
       "placeholder2": "Enter a description",
       "placeholder3": "Enter a price",
       "placeholder4": "Select Ingredients",
-      "button1": "Add product"
+      "button1": "Add",
+      "button2": "Edit",
+      "button3": "Delete",
+      "button4": "Add Product",
+      "button5": "Edit Product"
     },
     "errors": {
       "required": "This field is required",
