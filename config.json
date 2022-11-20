@@ -30,7 +30,7 @@
   },
   "development": {
     "url": "http://127.0.0.1:3000/fr/",
-    "api_url": "http://127.0.0.1:4000",
+    "api_url": "http://burger2home.tech:8080",
     "base": "/",
     "namespace": "default",
     "engine": "website",

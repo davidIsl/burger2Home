@@ -29,6 +29,22 @@ b-container.bg-gray(fluid)
               b-card-footer
                 b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
                 b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+      b-container
+        b-row
+          b-col.w-100(v-for='(product, index) in productsTest' :key='index')
+            b-card.m-3.p-2.text-center.card.mx-auto(
+              :title='product.name'
+              :img-src='product.image'
+              img-alt='Image'
+              img-top
+              tag='article'
+              text-variant='secondary'
+              bg-variant='gray'
+            )
+              b-card-text.text-muted.text-center {{ product.description }}
+              b-card-footer
+                b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
+                b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -60,6 +76,7 @@ b-container.bg-gray(fluid)
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
+import { API } from '@/utils/javaBack';
 
 export interface Field {
   key: string;
@@ -292,6 +309,21 @@ export default class extends Vue {
       description: 'Viande de boeuf hachée',
     },
   ];
+
+  productsTest: Product[] = [];
+
+  mounted() {
+    this.getBurgers();
+  }
+
+  async getBurgers() {
+    const response = await API.burgerList();
+
+    if (response.status !== 200) {
+      return null;
+    }
+    this.productsTest = response.data;
+  }
 
   openDetails(product: any) {
     this.viewDetails = true;

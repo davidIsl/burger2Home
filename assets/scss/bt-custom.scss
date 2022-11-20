@@ -122,7 +122,7 @@ $bv-enable-table-stacked: false;
 }
 
 @mixin for-xxl-desktop-only {
-  @media (min-width: $xl-desktop-min) and (max-width: $xxl-desktop-min) {
+  @media (min-width: $xl-desktop-min)  {
     @content;
   }
 }

@@ -1,10 +1,15 @@
 <template lang="pug">
 b-container.bg-gray(fluid)
   b-row.p-5
-    b-col.mt-3(lg='12')
+    b-col.my-5.mx-auto(
+      md='18'
+      lg='12'
+      xl='10'
+      xxl='8'
+    )
       .content
         b-row
-          b-col
+          b-col.pt-2
             .text-center
               b-img.logo.mb-2(
                 fluid
@@ -16,12 +21,15 @@ b-container.bg-gray(fluid)
               span.text-primay {{ $t('pages.register.text1') }}
               nuxt-link.text-secondary(:to='`/${$i18n.locale}/account/`') {{ $t('pages.register.text2') }}
         b-row.mt-2(align-h='center')
-          b-col(md='18')
-            b-container.mt-2.p-0(v-if='stepState === stepStateType.STEP1')
+          b-col(cols='18')
+            b-container.mt-2.p-0.p-md-2(
+              v-if='stepState === stepStateType.STEP1'
+            )
               form(ref='form' @submit.stop.prevent='onSubmit')
                 b-row.mb-2 
                   b-col
-                    h6 {{ $t('pages.register.text3') }}
+                    .line
+                      span.text.text-faded {{ $t('pages.register.text3') }}
                 b-row.mb-4
                   b-col(cols='12')
                     b-button.button-social.text-faded(
@@ -123,7 +131,7 @@ b-container.bg-gray(fluid)
                 b-row
                   b-col
                     .line
-                      span.text.text-faded Informations
+                      span.text.text-faded {{ $t('pages.register.text5') }}
                     b-form-group.text-primary(
                       :label='$t("pages.register.label4")'
                       label-for='lastname'
@@ -160,7 +168,7 @@ b-container.bg-gray(fluid)
                         | {{ $t('pages.errors.required') }}
                     .pb-2
                     .line
-                      span.text.text-faded Address
+                      span.text.text-faded {{ $t('pages.register.text6') }}
                     b-form-group.text-primary(
                       :label='$t("pages.register.label6")'
                       label-for='address'
@@ -212,19 +220,20 @@ b-container.bg-gray(fluid)
                           :icon='["fa", "exclamation-triangle"]'
                         )
                         | {{ $t('pages.errors.required') }}
+            b-row
+              b-col.p-0(cols='24')
+                .mx-auto.p-3.pb-5
+                  b-button.w-100.button(variant='secondary' @click='onSubmit') {{ $t('pages.register.button1') }}
 
-            .mx-auto.p-3.pb-5
-              b-button.w-100.button(variant='secondary' @click='onSubmit') {{ $t('pages.register.button1') }}
-
-    b-col.p-5(lg='12')
-      div
-        b-img(
-          thumbnail
-          width=650
-          height=650
-          src='/img/inscription/burger_register.jpg'
-          alt='Inscription'
-        )
+    //- b-col.p-5(lg='12')
+    //-   div
+    //-     b-img(
+    //-       thumbnail
+    //-       width=650
+    //-       height=650
+    //-       src='/img/inscription/burger_register.jpg'
+    //-       alt='Inscription'
+    //-     )
 </template>
 <script lang="ts">
 import { mixins, Component } from 'nuxt-property-decorator';

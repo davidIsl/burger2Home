@@ -1,3 +1,12 @@
+export interface APIResponse<T = any> {
+  data: T;
+  status: number;
+}
+export interface SelectOption {
+  // value: string | null;
+  text: string;
+}
+
 export enum submitStateType {
   NONE,
   SUCCESS,
@@ -11,9 +20,4 @@ export enum rolesType {
   MARKETING,
   STOCK,
   CUSTOMER,
-}
-
-export interface SelectOption {
-  // value: string | null;
-  text: string;
 }

@@ -46,7 +46,6 @@ b-container.p-0(fluid)
             bg-variant='gray'
           )
             b-card-text.text-muted.text-center {{ product.description }}
-      //- .p-2(v-for='(product, index) in products' :key='index')
 </template>
 
 <script lang="ts">
@@ -68,10 +67,8 @@ interface Product {
 export default class extends Vue {
   // carouselOptions = [];
   slide: number = 0;
-  slide1: number = 0;
 
   firstSliding: boolean = false;
-  secondSliding: boolean = false;
 
   carouselOptions: any = {
     dots: true,
@@ -124,14 +121,6 @@ export default class extends Vue {
 
   onFirstSlideEnd() {
     this.firstSliding = false;
-  }
-
-  onSecondSlideStart() {
-    this.secondSliding = true;
-  }
-
-  onSecondSlideEnd() {
-    this.secondSliding = false;
   }
 
   products: Product[] = [
@@ -213,8 +202,13 @@ export default class extends Vue {
 }
 .card {
   width: 18em;
-  height: 45em;
+  height: 50em;
   font-size: 0.8em;
   text-shadow: 1px 1px 1px var(--darkRed);
+  @include for-xxl-desktop-only {
+    width: 1000px;
+    height: 740px;
+    font-size: 16px;
+  }
 }
 </style>
