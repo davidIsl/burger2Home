@@ -2,7 +2,7 @@
 b-container.p-3.bg-gray(fluid)
   b-row
     b-col
-      h3.p-3.text-center.text-secondary {{ $t('pages.admin.title2') }}
+      h3.p-3.text-center.text-secondary {{ $t('pages.admin.add.title1') }}
   b-row
     b-col.mx-auto(md='16' lg='12' xl='10')
       form(ref='form' @submit.stop.prevent='onSubmit')
@@ -10,13 +10,13 @@ b-container.p-3.bg-gray(fluid)
           b-col.pb-3
             b-container.p-4.content
               b-form-group.pt-3.text-primary(
-                :label='$t("pages.admin.label1")'
+                :label='$t("pages.admin.add.label1")'
                 label-for='name'
               )
                 b-form-input#name.input-form(
                   v-model='$v.name.$model'
                   :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
-                  :placeholder='$t("pages.admin.placeholder1")'
+                  :placeholder='$t("pages.admin.add.placeholder1")'
                   type='text'
                   name='name'
                   @blur='$v.name.$touch()'
@@ -27,13 +27,13 @@ b-container.p-3.bg-gray(fluid)
                   )
                   | {{ $t('pages.errors.required') }}
               b-form-group.pt-3.text-primary(
-                :label='$t("pages.admin.label2")'
+                :label='$t("pages.admin.add.label2")'
                 label-for='description'
               )
                 b-form-textarea#description.input-area(
                   v-model='$v.description.$model'
                   :class='{ "is-invalid": $v.description.$error, "is-valid": !$v.description.$invalid }'
-                  :placeholder='$t("pages.admin.placeholder2")'
+                  :placeholder='$t("pages.admin.add.placeholder2")'
                   name='description'
                   @blur='$v.description.$touch()'
                 )
@@ -43,13 +43,13 @@ b-container.p-3.bg-gray(fluid)
                   )
                   | {{ $t('pages.errors.required') }}
               b-form-group.pt-3.text-primary(
-                :label='$t("pages.admin.label3")'
+                :label='$t("pages.admin.add.label3")'
                 label-for='price'
               )
                 b-form-input#price.input-form(
                   v-model='$v.price.$model'
                   :class='{ "is-invalid": $v.price.$error, "is-valid": !$v.price.$invalid }'
-                  :placeholder='$t("pages.admin.placeholder3")'
+                  :placeholder='$t("pages.admin.add.placeholder3")'
                   type='number'
                   step='0.5'
                   name='price'
@@ -61,7 +61,7 @@ b-container.p-3.bg-gray(fluid)
                   )
                   | {{ $t('pages.errors.required') }}
               b-form-group.m-0(
-                :label='$t("pages.admin.label4")'
+                :label='$t("pages.admin.add.label4")'
                 label-for='ingredients'
               )
                 multiselect#ingredients(
@@ -83,7 +83,7 @@ b-container.p-3.bg-gray(fluid)
                   )
                   | {{ $t('pages.errors.required') }}
               b-form-group.pt-3.text-primary(
-                :label='$t("pages.admin.label5")'
+                :label='$t("pages.admin.add.label5")'
                 label-for='image'
               )
                 input(
@@ -98,7 +98,7 @@ b-container.p-3.bg-gray(fluid)
                 //-   )
                 //-   | {{ $t('pages.errors.required') }}
               .flex.text-center
-                b-button.button(variant='secondary' @click='onSubmit') {{ $t('pages.admin.button4') }}
+                b-button.button(variant='secondary' @click='onSubmit') {{ $t('pages.admin.add.button1') }}
 </template>
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';

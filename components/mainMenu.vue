@@ -103,8 +103,11 @@ b-container.m-0.p-0(fluid)
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
-              //- div
-              //-   font-awesome-icon(:icon='["fas", "fa-basket-shopping"]')
+              //- .basket.text-center.ml-md-2.mt-2.mt-md-0
+              b-button.basket.ml-md-2.mt-2.mt-md-0(
+                @click='goToUrl("/" + $i18n.locale + "/basket/")'
+              )
+                font-awesome-icon(:icon='["fa", "shopping-basket"]')
               //- .pl-2
               //-   themeSwitcher
 </template>
@@ -258,6 +261,14 @@ export default class extends Vue {
     margin-top: -3px;
     margin-left: -3px;
     margin-right: 10px;
+  }
+
+  .basket {
+    background-color: var(--secondary);
+    color: var(--gray);
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
   }
 }
 </style>
