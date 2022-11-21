@@ -36,11 +36,11 @@ b-container.p-4.bg-gray(fluid)
             template(#cell(x)='data')
               b-form-checkbox(:checked='selectedAllItems')
             template(#cell(image)='data')
-              b-img(:src='data.image')
+              b-img(:src='data.item.image' width='40' height='40')
             template(#cell(details)='data')
               font-awesome-icon.mt-1(
                 :icon='["fa", "eye"]'
-                @click='openDetails(data)'
+                @click='openDetails(data.item)'
               )
           b-pagination(
             pills='pills'
@@ -125,39 +125,39 @@ export default class extends Vue {
     },
   ];
 
-  items = [
-    {
-      id: '1',
-      Photos: '/img/products/classico.jpg',
-      Name: 'Le Classico',
-      Description: 'Blablablabla',
-      Price: '11',
-    },
-    {
-      Photos: '/img/products/classico.jpg',
-      Name: 'Le Classico',
-      Description: 'Blablablabla',
-      Price: '11',
-    },
-    {
-      Photos: '/img/products/classico.jpg',
-      Name: 'Le Classico',
-      Description: 'Blablablabla',
-      Price: '11',
-    },
-    {
-      Photos: '/img/products/classico.jpg',
-      Name: 'Le Classico',
-      Description: 'Blablablabla',
-      Price: '11',
-    },
-    {
-      Photos: '/img/products/classico.jpg',
-      Name: 'Le Classico',
-      Description: 'Blablablabla',
-      Price: '11',
-    },
-  ];
+  // items = [
+  //   {
+  //     id: '1',
+  //     Photos: '/img/products/classico.jpg',
+  //     Name: 'Le Classico',
+  //     Description: 'Blablablabla',
+  //     Price: '11',
+  //   },
+  //   {
+  //     Photos: '/img/products/classico.jpg',
+  //     Name: 'Le Classico',
+  //     Description: 'Blablablabla',
+  //     Price: '11',
+  //   },
+  //   {
+  //     Photos: '/img/products/classico.jpg',
+  //     Name: 'Le Classico',
+  //     Description: 'Blablablabla',
+  //     Price: '11',
+  //   },
+  //   {
+  //     Photos: '/img/products/classico.jpg',
+  //     Name: 'Le Classico',
+  //     Description: 'Blablablabla',
+  //     Price: '11',
+  //   },
+  //   {
+  //     Photos: '/img/products/classico.jpg',
+  //     Name: 'Le Classico',
+  //     Description: 'Blablablabla',
+  //     Price: '11',
+  //   },
+  // ];
 
   products: Product[] = [
     {

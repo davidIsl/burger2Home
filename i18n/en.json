@@ -60,14 +60,16 @@
   "pages": {
     "login": {
       "title1": "Login to Burger2Home",
-      "label1": "Email Adress",
+      "label1": "Email Address",
       "label2": "Password",
       "button1": "Log in",
       "placeholder1": "you@example.com",
       "placeholder2": "********",
       "text1": "Or ",
       "text2": "Sign in if you don't already have an account ",
-      "text3": "Or continue with"
+      "text3": "Or continue with",
+      "remember": "Remember me",
+      "forgot": "I forgot my password"
     },
     "register": {
       "title1": "Sign in to Burger2Home",

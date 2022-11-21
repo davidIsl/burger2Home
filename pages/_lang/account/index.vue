@@ -1,15 +1,5 @@
 <template lang="pug">
 b-container.p-5.bg-gray(fluid)
-  //- b-row
-  //-   b-col.p-5(lg='12')
-  //-     div
-  //-       b-img(
-  //-         thumbnail
-  //-         width=650
-  //-         height=450
-  //-         src='/img/inscription/burger_inscription.jpg'
-  //-         alt='Connection'
-  //-       )
   b-col.my-5.mx-auto(
     md='18'
     lg='12'
@@ -63,22 +53,40 @@ b-container.p-5.bg-gray(fluid)
                     :label='$t("pages.login.label2")'
                     label-for='password'
                   )
-                    b-form-input#email.input-form(
-                      v-model='$v.password.$model'
-                      :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
-                      :placeholder='$t("pages.login.placeholder2")'
-                      type='text'
-                      name='password'
-                      @blur='$v.password.$touch()'
-                    )
+                    b-input-group.password-group
+                      b-form-input#password.input-form(
+                        v-model='$v.password.$model'
+                        :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
+                        :placeholder='$t("pages.login.placeholder2")'
+                        :type='secure ? "password" : "text"'
+                        name='password'
+                        @blur='$v.password.$touch()'
+                      )
+                      template
+                        //- .bg-gray
+                        font-awesome-icon.mt-3(
+                          :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
+                          @click='secure = !secure'
+                        )
                     .input-error(v-if='$v.password.$error')
                       font-awesome-icon.mr-2(
                         :icon='["fa", "exclamation-triangle"]'
                       )
                       | {{ $t('pages.errors.required') }}
-
+                  b-form-group.py-2
+                    b-container.p-0
+                      b-row(no-gutters)
+                        b-col.text-left(cols='12')
+                          b-form-checkbox(size='md' v-model='rememberMe') {{ $t('pages.login.remember') }}
+                        b-col.text-right(cols='12')
+                          nuxt-link.text-secondary(
+                            :to='`/${$i18n.locale}/account/forgotPassword/`'
+                          ) {{ $t('pages.login.forgot') }}
                   .mx-auto.pt-2
-                    b-button.w-100(variant='secondary' @click='onSubmit') {{ $t('pages.login.button1') }}
+                    b-button.w-100.button(
+                      variant='secondary'
+                      @click='onSubmit'
+                    ) {{ $t('pages.login.button1') }}
               b-row.pt-3
                 b-col(lg='24')
                   .line 
@@ -137,6 +145,8 @@ export default class extends mixins(validationMixin) {
   error?: boolean = false;
   submitStateType = submitStateType;
   submitState = submitStateType.NONE;
+  secure: boolean = true;
+  rememberMe: boolean = false;
 
   onSubmit() {
     this.$v.$touch();
@@ -165,6 +175,15 @@ export default class extends mixins(validationMixin) {
     color: var(--gray);
     background: var(--primary);
     padding: 0 10px;
+  }
+}
+
+.password-group {
+  border: 1px solid var(--borderForm);
+  border-radius: 0.5rem !important;
+  padding-right: 10px;
+  #password-input {
+    border: none;
   }
 }
 </style>

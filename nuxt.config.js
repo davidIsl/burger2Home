@@ -315,6 +315,7 @@ export default {
       'BFormTextarea',
       // https://bootstrap-vue.org/docs/components/form-timepicker
       // 'BFormTimepicker',
+      'BInputGroup',
       // https://bootstrap-vue.org/docs/components/image
       'BImg',
       'BImgLazy',

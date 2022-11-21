@@ -54,3 +54,7 @@
 - [x] 2022/11/16: Responsive home pages
 - [x] 2022/11/18: ProductsAdd Pages, productsEdit pages & responsive index admin
 - [x] 2022/11/20: javaBack, responsive home pages, account & register, admin products rework & mainmene basket icon and create index basket
+
+## Semaine 47
+
+- [x] 2022/11/21: rework log in, index admin & add b-input-group
