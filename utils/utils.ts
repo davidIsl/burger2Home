@@ -22,6 +22,14 @@ export interface Product {
   allergens: Allergens[];
 }
 
+export interface Promo {
+  name: string;
+  description: string;
+  discount: number;
+  startDate: Date;
+  endDate: Date;
+}
+
 /*
  * ENUM
  */

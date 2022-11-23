@@ -179,10 +179,10 @@ export default class extends mixins(validationMixin) {
 }
 
 .password-group {
-  border: 1px solid var(--borderForm);
+  border: 1px solid var(--primary);
   border-radius: 0.5rem !important;
   padding-right: 10px;
-  #password-input {
+  #password {
     border: none;
   }
 }

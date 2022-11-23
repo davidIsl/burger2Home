@@ -155,11 +155,13 @@
     },
     "admin": {
       "title1": "Products Listing",
+      "title2": "Promos Listing",
       "placeholder1": "Search a product",
+      "placeholder2": "Search a promo",
       "button1": "Create a new product",
-      "button2": "Edit",
-      "button3": "Delete",
-      "button5": "Edit Product",
+      "button2": "Create a new promo",
+      "button3": "Delete a product",
+      "button4": "Delete a promo",
       "add": {
         "title1": "Add a new product",
         "label1": "Product Name",
@@ -185,6 +187,9 @@
         "placeholder3": "Enter a price",
         "placeholder4": "Select Ingredients",
         "button1": "Edit Product"
+      },
+      "promoAdd": {
+        "title1": "Add a new promo"
       }
     },
     "errors": {

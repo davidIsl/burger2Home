@@ -1,18 +1,20 @@
 <template lang="pug">
 b-container.bg-gray(fluid)
   b-row
-    b-col
+    b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
       h3.w-100.mx-auto.mt-3.p-3.text-secondary.text-center.border.content {{ $t('pages.products.menu.title1') }}
-
+  b-row
+    b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
+      b-form-input.input(
+        v-model='filterSearch'
+        :placeholder='$t("pages.admin.placeholder1")'
+      )
+    b-col.mt-3.mt-md-0(md='6')
+      b-button.button.w-100(variant='secondary' @click='filters = !filters') Show Filter
   b-row.py-3
-    b-col.p-3(md='4')
-      //- div {{ $t('pages.products.filters1') }}
-      //-   span.d-block {{ $t('pages.products.filters2') }}
-      //-   span.d-block {{ $t('pages.products.filters3') }}
-      //-   span.d-block {{ $t('pages.products.filters4') }}
-      //-   span.d-block {{ $t('pages.products.filters5') }}
+    b-col.p-3(v-if='filters' lg='4')
       filters
-    b-col
+    b-col(:offset-lg='filters ? "0" : "2"' lg='20')
       b-container.m-3.p-5.content
         b-row
           b-col(v-for='(product, index) in products' :key='index')

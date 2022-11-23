@@ -60,7 +60,7 @@ b-container.bg-gray(fluid)
                     :label='$t("pages.register.label1")'
                     label-for='email'
                   )
-                    b-form-input#email.input-form.form-control(
+                    b-form-input#email.input-form(
                       v-model='$v.email.$model'
                       :class='{ "is-invalid": $v.email.$error, "is-valid": !$v.email.$invalid }'
                       :placeholder='$t("pages.register.placeholder1")'
@@ -82,50 +82,62 @@ b-container.bg-gray(fluid)
                     :label='$t("pages.register.label2")'
                     label-for='password'
                   )
-                    b-form-input#password.input-form(
-                      v-model='$v.password.$model'
-                      :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
-                      :placeholder='$t("pages.register.placeholder2")'
-                      :type='secure ? "password" : "text"'
-                      name='password'
-                      @blur='$v.password.$touch()'
-                    )
-                    template
-                      font-awesome-icon.mt-auto.mb-auto.mr-2(
-                        :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
-                        @click='secure = !secure'
+                    b-input-group.password-group
+                      b-form-input#password.input-form(
+                        v-model='$v.password.$model'
+                        :class='{ "is-invalid": $v.password.$error, "is-valid": !$v.password.$invalid }'
+                        :placeholder='$t("pages.register.placeholder2")'
+                        :type='secure ? "password" : "text"'
+                        name='password'
+                        @blur='$v.password.$touch()'
                       )
-                  .input-error(
-                    v-if='$v.password.$error && $v.password.passRegex'
-                  )
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
+                      template
+                        font-awesome-icon.mt-auto.mb-auto.mr-2(
+                          :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
+                          @click='secure = !secure'
+                        )
+                    .input-error(
+                      v-if='$v.password.$error && $v.password.passRegex'
                     )
-                    | {{ $t('pages.errors.required') }}
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.required') }}
+                    .input-error(v-if='!$v.password.passRegex')
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('error.invalidPasswordFormat') }}
                   b-form-group.text-primary(
                     :label='$t("pages.register.label3")'
                     label-for='confirm-password'
                   )
-                    b-form-input#confirmPassword.input-form(
-                      v-model='$v.confirmPassword.$model'
-                      :class='{ "is-invalid": $v.confirmPassword.$error, "is-valid": !$v.confirmPassword.$invalid }'
-                      :placeholder='$t("pages.register.placeholder2")'
-                      :type='secure ? "password" : "text"'
-                      name='confirmPassword'
-                      @blur='$v.confirmPassword.$touch()'
-                    )
-                    template
-                      font-awesome-icon.mt-auto.mb-auto.mr-2(
-                        :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
-                        @click='secure = !secure'
+                    b-input-group.password-group
+                      b-form-input#confirmPassword.input-form(
+                        v-model='$v.confirmPassword.$model'
+                        :class='{ "is-invalid": $v.confirmPassword.$error, "is-valid": !$v.confirmPassword.$invalid }'
+                        :placeholder='$t("pages.register.placeholder2")'
+                        :type='secure ? "password" : "text"'
+                        name='confirmPassword'
+                        @blur='$v.confirmPassword.$touch()'
                       )
-                  .input-error(
-                    v-if='$v.confirmPassword.$error && $v.confirmPassword.passRegex'
-                  )
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
+                      template
+                        font-awesome-icon.mt-auto.mb-auto.mr-2(
+                          :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
+                          @click='secure = !secure'
+                        )
+                    .input-error(
+                      v-if='$v.confirmPassword.$error && $v.confirmPassword.passRegex'
                     )
-                    | {{ $t('pages.errors.required') }}
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.required') }}
+                    .input-error(v-if='!$v.confirmPassword.passRegex')
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('error.invalidConfirmPassword') }}
             b-container.p-0(v-if='stepState === stepStateType.STEP2')
               form(ref='form' @submit.stop.prevent='onSubmit')
                 b-row
@@ -307,5 +319,15 @@ export default class extends mixins(validationMixin) {
     background: var(--primary);
     padding: 0 10px;
   }
+}
+
+.password-group {
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem !important;
+  padding-right: 10px;
+  // #password,
+  // #confirmPassword {
+  //   border: none;
+  // }
 }
 </style>

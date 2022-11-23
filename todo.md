@@ -4,6 +4,8 @@
 
 ## MainMenu
 
+- [] create profile page when connected
+
 ## Account
 
 - [] Changer la couleur du logo ???
@@ -15,3 +17,4 @@
 ## Admin
 
 -[] hauteur input search
+-[] button delete table checkbox not good
