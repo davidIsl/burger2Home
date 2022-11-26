@@ -1,9 +1,5 @@
 <template lang="pug">
 b-container.m-0.p-0(fluid)
-  //- .d-inline.bg-success.text-secondary
-  //-   b-img.logo.bg-secondary(src='../static/img/logo-burger-white.png')
-  //- b-navbar.text-primary.bg-darkRed Menu
-
   .section-nav
     .backdrop-menu(v-if='isMenuOpen' v-b-toggle.nav-collapse)
     b-navbar.section-nav-bg(toggleable='md' type='light')
@@ -98,16 +94,34 @@ b-container.m-0.p-0(fluid)
                     :alt='`Language: ${lang.label}`'
                   ) 
                   span {{ lang.label }}
+              b-nav-item-dropdown.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                v-if='userConnected'
+                left
+                no-caret
+                menu-class='p-0'
+              )
+                template(v-slot:button-content)
+                  b-avatar(variant='secondary')
+                b-dropdown-item(:to='`/${$i18n.locale}/account/profile/`') {{ $t('menu.title7') }}
+                b-dropdown-item(:to='`/${$i18n.locale}/account/historyOrder/`') {{ $t('menu.title8') }}
+              //- .basket.text-center.ml-md-2.mt-2.mt-md-0
               b-avatar(
-                variant='secondary'
+                v-if='!userConnected'
+                vairant='secondary'
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
-              //- .basket.text-center.ml-md-2.mt-2.mt-md-0
-              b-button.basket.ml-md-2.mt-2.mt-md-0(
+              b-button.basket.ml-2.ml-md-0.mr-2.mb-1.mb-md-0.mt-md-2(
+                v-if='userConnected'
                 @click='goToUrl("/" + $i18n.locale + "/basket/")'
               )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
+              b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2.mt-md-0(
+                v-if='!userConnected'
+                @click='goToUrl("/" + $i18n.locale + "/basket/")'
+              )
+                font-awesome-icon(:icon='["fa", "shopping-basket"]')
+              //- b-button.ml-2 Identify
               //- .pl-2
               //-   themeSwitcher
 </template>
@@ -133,7 +147,7 @@ export interface BCollapse {
 })
 export default class extends Vue {
   isMenuOpen: boolean = false;
-
+  userConnected: boolean = true;
   get langList(): Lang[] {
     return [
       { lang: 'fr', icon: 'fr.png', label: 'Français' },
