@@ -59,4 +59,4 @@
 
 - [x] 2022/11/21: rework log in, index admin & add b-input-group
 - [x] 2022/11/23: admin page marketing role, button delete table admin (not finished), promoAdd pages
-- [x] 2022/11/26: rework products page add search bar and filters buttons
+- [x] 2022/11/26: rework products page add search bar and filters buttons, Add forgot password pages
