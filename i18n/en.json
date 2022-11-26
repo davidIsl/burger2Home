@@ -76,7 +76,7 @@
       "button1": "Sign in",
       "label1": "Email Adress",
       "label2": "Password",
-      "label3": "Confirm your password",
+      "label3": "Confirm Password",
       "label4": "Lastname",
       "label5": "Firstname",
       "label6": "Address",
@@ -95,6 +95,16 @@
       "placeholder5": "Station Street 15",
       "placeholder6": "4280",
       "placeholder7": "Hannut"
+    },
+    "forgot": {
+      "title1": "Forgotten password ?",
+      "text1": "Please, follow these instructions to change your password",
+      "label1": "Email Address",
+      "label2": "Password",
+      "label3": "Confirm Password",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "button1": "Change Password"
     },
     "home": {
       "title1": "Discover our TOP 5 burgers",
@@ -195,7 +205,8 @@
     "errors": {
       "required": "This field is required",
       "invalidEmail": "Please, enter a valid Email",
-      "password": "Please, enter a password Min 8 char, 1 number and 1 MAJ"
+      "invalidPasswordFormat": "The password must contain 8 characters including at least one upper case, one lower case and one digit.",
+      "invalidConfirmPassword": "The confirm password must be the same as the password."
     },
     "index": {
       "title": "AntelopeJS Nuxt : Bootstrap Template",

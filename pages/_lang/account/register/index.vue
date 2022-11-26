@@ -107,7 +107,7 @@ b-container.bg-gray(fluid)
                       font-awesome-icon.mr-2(
                         :icon='["fa", "exclamation-triangle"]'
                       )
-                      | {{ $t('error.invalidPasswordFormat') }}
+                      | {{ $t('pages.errors.invalidPasswordFormat') }}
                   b-form-group.text-primary(
                     :label='$t("pages.register.label3")'
                     label-for='confirm-password'
@@ -137,7 +137,7 @@ b-container.bg-gray(fluid)
                       font-awesome-icon.mr-2(
                         :icon='["fa", "exclamation-triangle"]'
                       )
-                      | {{ $t('error.invalidConfirmPassword') }}
+                      | {{ $t('pages.errors.invalidConfirmPassword') }}
             b-container.p-0(v-if='stepState === stepStateType.STEP2')
               form(ref='form' @submit.stop.prevent='onSubmit')
                 b-row
