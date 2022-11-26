@@ -1,22 +1,28 @@
 <template lang="pug">
 b-container.bg-gray(fluid)
+  .p-2
+    b-row
+      b-col.pb-3.text-center.text-md-left(
+        :offset-lg='filters ? "0" : "2"'
+        :md='filters ? "18" : "16"'
+      )
+        h2.text-secondary {{ $t('pages.products.fries.title1') }}
   b-row
-    b-col
-      h3.w-100.mx-auto.mt-3.p-3.text-secondary.text-center.border.content {{ $t('pages.products.fries.title1') }}
-
-  b-row.py-3
-    b-col.p-3(md='4')
-      //- div {{ $t('pages.products.filters1') }}
-      //-   span.d-block {{ $t('pages.products.filters2') }}
-      //-   span.d-block {{ $t('pages.products.filters3') }}
-      //-   span.d-block {{ $t('pages.products.filters4') }}
-      //-   span.d-block {{ $t('pages.products.filters5') }}
+    b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
+      b-form-input.input(
+        v-model='filterSearch'
+        :placeholder='$t("pages.admin.placeholder1")'
+      )
+    b-col.mt-3.mt-md-0(md='6')
+      b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
+  b-row
+    b-col.p-3(v-if='filters' lg='4')
       filters
-    b-col
-      b-container.m-3.p-5.content
+    b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
+      .m-3.p-5.content.mx-auto
         b-row
           b-col(v-for='(product, index) in products' :key='index')
-            b-card.m-3.p-2.text-center.card(
+            b-card.m-3.p-2.text-center.card.mx-auto(
               :title='product.name'
               :img-src='product.image'
               img-alt='Image'
@@ -26,7 +32,6 @@ b-container.bg-gray(fluid)
               bg-variant='gray'
             )
               b-card-text.text-muted.text-center {{ product.description }}
-              //- b-button-group
               b-button.mr-2.button {{ $t('pages.products.button1') }}
               b-button.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(v-if='viewDetails' v-model='viewDetails' centered)
@@ -86,6 +91,9 @@ interface Product {
 })
 export default class extends Vue {
   viewDetails: boolean = false;
+  filters: boolean = false;
+  filterSearch: string = '';
+
   currentProduct: Product = {
     name: '',
     image: '',

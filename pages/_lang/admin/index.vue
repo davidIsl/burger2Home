@@ -376,7 +376,7 @@ export default class extends Vue {
   // }
 }
 
-.input {
-  height: 40px !important;
-}
+// .input {
+//   height: 40px !important;
+// }
 </style>

@@ -1,50 +1,56 @@
 <template lang="pug">
 b-container.bg-gray(fluid)
-  b-row
-    b-col
-      h3.w-100.mx-auto.mt-3.p-3.text-secondary.text-center.border.content {{ $t('pages.products.burgers.title1') }}
-
-  b-row.py-3
-    b-col.p-3(lg='4')
-      //- div {{ $t('pages.products.filters1') }}
-      //-   span.d-block {{ $t('pages.products.filters2') }}
-      //-   span.d-block {{ $t('pages.products.filters3') }}
-      //-   span.d-block {{ $t('pages.products.filters4') }}
-      //-   span.d-block {{ $t('pages.products.filters5') }}
-      filters
-    b-col.bg-success(lg='20')
-      b-container.m-3.p-5.content.mx-auto
-        b-row
-          b-col.w-100(v-for='(product, index) in products' :key='index')
-            b-card.m-3.p-2.text-center.card.mx-auto(
-              :title='product.name'
-              :img-src='product.image'
-              img-alt='Image'
-              img-top
-              tag='article'
-              text-variant='secondary'
-              bg-variant='gray'
-            )
-              b-card-text.text-muted.text-center {{ product.description }}
-              b-card-footer
-                b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
-                b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
-      b-container
-        b-row
-          b-col.w-100(v-for='(product, index) in productsTest' :key='index')
-            b-card.m-3.p-2.text-center.card.mx-auto(
-              :title='product.name'
-              :img-src='product.image'
-              img-alt='Image'
-              img-top
-              tag='article'
-              text-variant='secondary'
-              bg-variant='gray'
-            )
-              b-card-text.text-muted.text-center {{ product.description }}
-              b-card-footer
-                b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
-                b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+  .p-2
+    b-row
+      b-col.pb-3.text-center.text-md-left(
+        :offset-lg='filters ? "0" : "2"'
+        :md='filters ? "18" : "16"'
+      )
+        h2.text-secondary {{ $t('pages.products.burgers.title1') }}
+    b-row
+      b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
+        b-form-input.input(
+          v-model='filterSearch'
+          :placeholder='$t("pages.admin.placeholder1")'
+        )
+      b-col.mt-3.mt-md-0(md='6')
+        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
+    b-row
+      b-col.mt-3(v-if='filters' lg='4')
+        filters
+      b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
+        .m-3.p-5.content.mx-auto
+          b-row
+            b-col.w-100(v-for='(product, index) in products' :key='index')
+              b-card.m-3.p-2.text-center.card.mx-auto(
+                :title='product.name'
+                :img-src='product.image'
+                img-alt='Image'
+                img-top
+                tag='article'
+                text-variant='secondary'
+                bg-variant='gray'
+              )
+                b-card-text.text-muted.text-center {{ product.description }}
+                b-card-footer
+                  b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
+                  b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+        b-container
+          b-row
+            b-col.w-100(v-for='(product, index) in productsTest' :key='index')
+              b-card.m-3.p-2.text-center.card.mx-auto(
+                :title='product.name'
+                :img-src='product.image'
+                img-alt='Image'
+                img-top
+                tag='article'
+                text-variant='secondary'
+                bg-variant='gray'
+              )
+                b-card-text.text-muted.text-center {{ product.description }}
+                b-card-footer
+                  b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
+                  b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -107,6 +113,9 @@ interface Product {
 })
 export default class extends Vue {
   viewDetails: boolean = false;
+  filters: boolean = false;
+  filterSearch: string = '';
+
   currentProduct: Product = {
     name: '',
     image: '',

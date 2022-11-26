@@ -1,8 +1,12 @@
 <template lang="pug">
 b-container.bg-gray(fluid)
-  b-row
-    b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
-      h3.w-100.mx-auto.mt-3.p-3.text-secondary.text-center.border.content {{ $t('pages.products.menu.title1') }}
+  .p-2
+    b-row
+      b-col.pb-3.text-center.text-md-left(
+        :offset-lg='filters ? "0" : "2"'
+        :md='filters ? "18" : "16"'
+      )
+        h2.text-secondary {{ $t('pages.products.menu.title1') }}
   b-row
     b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
       b-form-input.input(
@@ -10,15 +14,15 @@ b-container.bg-gray(fluid)
         :placeholder='$t("pages.admin.placeholder1")'
       )
     b-col.mt-3.mt-md-0(md='6')
-      b-button.button.w-100(variant='secondary' @click='filters = !filters') Show Filter
-  b-row.py-3
+      b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
+  b-row
     b-col.p-3(v-if='filters' lg='4')
       filters
-    b-col(:offset-lg='filters ? "0" : "2"' lg='20')
-      b-container.m-3.p-5.content
+    b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
+      .m-3.p-5.content.mx-auto
         b-row
           b-col(v-for='(product, index) in products' :key='index')
-            b-card.m-3.p-2.text-center.card(
+            b-card.m-3.p-2.text-center.card.mx-auto(
               :title='product.name'
               :img-src='product.image'
               img-alt='Image'
@@ -88,6 +92,9 @@ interface Product {
 })
 export default class extends Vue {
   viewDetails: boolean = false;
+  filters: boolean = false;
+  filterSearch: string = '';
+
   currentProduct: Product = {
     name: '',
     image: '',
