@@ -124,6 +124,8 @@ export default {
     { mode: 'client', src: '@/plugins/aos.js' },
     // https://vue-multiselect.js.org/
     { mode: 'all', src: '@plugins/vue-multiselect.js' },
+    // https://www.npmjs.com/package/vue2-datepicker
+    { mode: 'all', src: '@plugins/vue2-datepicker.js' },
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -205,6 +207,7 @@ export default {
         'faTag',
         'faEye',
         'faEyeSlash',
+        'faCamera',
         // 'fasBasketShopping',
       ],
       regular: [],

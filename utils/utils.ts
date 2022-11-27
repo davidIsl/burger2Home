@@ -30,6 +30,12 @@ export interface Promo {
   endDate: Date;
 }
 
+export interface Orders {
+  date: Date;
+  price: number;
+  status: string;
+}
+
 /*
  * ENUM
  */

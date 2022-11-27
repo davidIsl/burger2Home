@@ -57,7 +57,13 @@
   --colorGDPR: #23272c;
   --backgroundGDPR: rgba(248, 248, 248, 1);
 
-
+  /* Alert Compo */
+  --errorColor: rgba(252, 165, 165, 1);
+  --errorColorLight: rgba(252, 165, 165, 0.2);
+  --errorColorDark: rgba(153, 27, 27, 1);
+  --successColor: rgba(110, 231, 183, 1);
+  --successColorLight: rgba(110, 231, 183, 0.2);
+  --successColorDark: rgba(6, 95, 70, 1);
 }
 
 /* Dark Template */

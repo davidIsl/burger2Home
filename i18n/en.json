@@ -56,9 +56,6 @@
       "nextText": "Your input has been deleted."
     }
   },
-  "hero": {
-    "text": "This codebase is a concrete example of an optimal NuxtJS configuration with Bootstrap-vue, Color-mode, Pug, Sass, Vuelidate, ParticlesJS, AOS, SweetAlert, Gmaps and nuxt-property-decorator."
-  },
   "pages": {
     "login": {
       "title1": "Login to Burger2Home",
@@ -107,6 +104,35 @@
       "placeholder1": "you@example.com",
       "placeholder2": "********",
       "button1": "Change Password"
+    },
+    "profile": {
+      "title1": "My Profile",
+      "title2": "Personnal Informations",
+      "title3": "Address Informations",
+      "title4": "Payment Informations",
+      "label1": "FirstName",
+      "label2": "LastName",
+      "label3": "Email",
+      "label4": "Phone",
+      "label5": "Date of birth",
+      "label6": "Address",
+      "label7": "City",
+      "label8": "ZipCode",
+      "label9": "Country",
+      "label10": "Card Number",
+      "label11": "Card Name",
+      "label12": "Validity Date",
+      "label13": "CVV",
+      "button1": "Save",
+      "button2": "Reset Data",
+      "button3": "Add an address",
+      "button4": "Add a card"
+    },
+    "history": {
+      "title1": "My Orders",
+      "title2": "Order in progress",
+      "title3": "Order Listing",
+      "text1": "Hello, "
     },
     "home": {
       "title1": "Discover our TOP 5 burgers",

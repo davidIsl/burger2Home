@@ -207,6 +207,25 @@ pre {
   padding: 10px !important;
 }
 
+.title {
+  text-shadow: 2px 2px var(--darkRed);
+  text-decoration: underline;
+}
+
+.object-cover {
+  object-fit: cover !important;
+  object-position: center;
+}
+
+//datePicker
+.datePicker {
+  border-radius: 5px !important;
+  border: 1px solid #ced4da;
+  height: 45px;
+  padding: 10px !important;
+  width: 100%;
+  background-color: #eeeff3 !important;
+}
 // .password-group {
 //   border: 1px solid var(--primary);
 //   border-radius: 0.5rem !important;

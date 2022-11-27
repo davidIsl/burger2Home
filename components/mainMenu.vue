@@ -107,7 +107,7 @@ b-container.m-0.p-0(fluid)
               //- .basket.text-center.ml-md-2.mt-2.mt-md-0
               b-avatar(
                 v-if='!userConnected'
-                vairant='secondary'
+                variant='secondary'
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
