@@ -204,6 +204,7 @@ export default {
         'faFilePdf',
         'faShoppingBasket',
         'faMinus',
+        'faPlus',
         'faTag',
         'faEye',
         'faEyeSlash',

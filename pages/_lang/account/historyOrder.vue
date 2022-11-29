@@ -22,13 +22,11 @@ b-container.p-4.bg-gray(fluid)
             :items='ordersInProgress'
             :fields='fields'
           )
-            template(#head(x)='data')
-              b-form-checkbox#checkbox-header(
-                name='checkbox-header'
-                @change='selectItems($event)'
-              )
-            template(#cell(x)='data')
-              b-form-checkbox(v-model='itemSelected')
+            //- template(#head(x)='data')
+            //-   b-form-checkbox#checkbox-header(
+            //-     name='checkbox-header'
+            //-     @change='selectItems($event)'
+            //-   )
             template(#cell(image)='data')
               b-img(:src='data.item.image' width='40' height='40')
             template(#cell(details)='data')
@@ -66,8 +64,6 @@ b-container.p-4.bg-gray(fluid)
       b-col.mt-3(v-if='filters' lg='4')
         filters
       b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
-        div(v-if='itemSelected')
-          b-button(variant='outline-danger') Delete Product
         .p-3.content.text-secondary
           .m-2
             b-table(
@@ -101,12 +97,33 @@ b-container.p-4.bg-gray(fluid)
               aria-controls='my-table'
               align='right'
             )
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    cancel-variant='secondary'
+    v-if='viewOrderInProgress'
+    v-model='viewOrderInProgress'
+    right
+  )
+    template(#modal-title)
+      b-container
+        h3.text-secondary Order of {{ currentOrder.date }}
+    //- template(#modal-footer)
+    //-   .border.p-2
+    //-     font-awesome-icon(:icon='["fa", "minus"]')
+    //-     p.d-inline.my-3 {{ numberToAdd }}
+    //-     font-awesome-icon(:icon='["fa", "plus"]')
+    //-   b-button.button {{ $t('pages.products.button1') }}
+    b-container
+      h4.text-secondary.text-center {{ currentOrder.status }}
+      p.text-modal {{ currentOrder.price }}
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
 // import { rolesType } from '@/utils/utils';
 import filters from '@/components/global/filters.vue';
-import { Orders } from '@/utils/utils';
+import { Order } from '@/utils/utils';
 
 @Component({
   components: {
@@ -120,6 +137,7 @@ export default class extends Vue {
   viewOrderInProgress: boolean = false;
   itemSelected: boolean = false;
 
+  currentOrder: Order | null = null;
   // ordersList: Orders[] = [];
   // ordersInProgress: Orders[] = [];
 
@@ -147,7 +165,7 @@ export default class extends Vue {
     },
   ];
 
-  ordersList: Orders[] = [
+  ordersList: Order[] = [
     {
       date: new Date('2022-11-27'),
       price: 42,
@@ -170,13 +188,18 @@ export default class extends Vue {
     },
   ];
 
-  ordersInProgress: Orders[] = [
+  ordersInProgress: Order[] = [
     {
       date: new Date('2022-11-27'),
       price: 42,
       status: 'validated',
     },
   ];
+
+  openDetails(order: any) {
+    this.viewOrderInProgress = true;
+    this.currentOrder = order;
+  }
 }
 </script>
 <style scoped lang="scss">

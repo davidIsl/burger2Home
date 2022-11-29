@@ -64,8 +64,10 @@ b-container.bg-gray(fluid)
       b-container
         b-img(thumbnail :src='currentProduct.image') 
     template(#modal-footer)
-      div
-        font-awesome-icon(:icon='["fas", "fa-minus"]')
+      .border.p-2
+        font-awesome-icon(:icon='["fa", "minus"]')
+        p.d-inline.my-3 {{ numberToAdd }}
+        font-awesome-icon(:icon='["fa", "plus"]')
       b-button.button {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
@@ -115,6 +117,8 @@ export default class extends Vue {
   viewDetails: boolean = false;
   filters: boolean = false;
   filterSearch: string = '';
+
+  numberToAdd: number = 0;
 
   currentProduct: Product = {
     name: '',

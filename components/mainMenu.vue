@@ -111,16 +111,15 @@ b-container.m-0.p-0(fluid)
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
-              b-button.basket.ml-2.ml-md-0.mr-2.mb-1.mb-md-0.mt-md-2(
-                v-if='userConnected'
-                @click='goToUrl("/" + $i18n.locale + "/basket/")'
-              )
-                font-awesome-icon(:icon='["fa", "shopping-basket"]')
               b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2.mt-md-0(
-                v-if='!userConnected'
                 @click='goToUrl("/" + $i18n.locale + "/basket/")'
               )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
+              //- b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2.mt-md-0(
+              //-   @click='goToUrl("/" + $i18n.locale + "/basket/")'
+              //- )
+                font-awesome-icon(:icon='["fa", "shopping-basket"]')
+              b-button.button(@click='userConnected = !userConnected') Change User
               //- b-button.ml-2 Identify
               //- .pl-2
               //-   themeSwitcher
@@ -147,7 +146,7 @@ export interface BCollapse {
 })
 export default class extends Vue {
   isMenuOpen: boolean = false;
-  userConnected: boolean = true;
+  userConnected: boolean = false;
   get langList(): Lang[] {
     return [
       { lang: 'fr', icon: 'fr.png', label: 'Français' },

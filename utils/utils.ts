@@ -30,7 +30,7 @@ export interface Promo {
   endDate: Date;
 }
 
-export interface Orders {
+export interface Order {
   date: Date;
   price: number;
   status: string;
