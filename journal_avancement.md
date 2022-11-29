@@ -61,3 +61,7 @@
 - [x] 2022/11/23: admin page marketing role, button delete table admin (not finished), promoAdd pages
 - [x] 2022/11/26: rework products page add search bar and filters buttons, Add forgot password pages, rework mainmenu
 - [x] 2022/11/27: profile page & order history
+
+## Semaine 48
+
+- [x] 2022/11/29: Seach about google redirection
