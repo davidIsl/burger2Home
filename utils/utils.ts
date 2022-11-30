@@ -30,10 +30,18 @@ export interface Promo {
   endDate: Date;
 }
 
+export interface orderDetails {
+  number: number | string;
+  product: string;
+  productPrice: number;
+  quantity: number;
+  status: string;
+}
 export interface Order {
-  date: Date;
+  date: string;
   price: number;
   status: string;
+  details: orderDetails[];
 }
 
 /*

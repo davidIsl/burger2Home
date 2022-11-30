@@ -1,15 +1,15 @@
 <template lang="pug">
 b-container.p-4.bg-gray(fluid)
   b-row.line.pb-3
-    b-col(md='18')
-      h2.pb-2.text-secondary.text-center.text-sm-left {{ $t('pages.history.title1') }}
+    b-col.text-left(md='18')
+      h2.pb-2.text-secondary {{ $t('pages.history.title1') }}
 
     b-col.mt-2(md='6')
       span.text-secondary {{ $t('pages.history.text1' + ' David') }}
       //- b-button.button.my-2 {{ $t('pages.history.button1') }}
   b-row.pt-3
-    b-col
-      h2.text-center {{ $t('pages.history.title2') }}
+    b-col.pb-2.text-center.text-md-left(:offset-lg='2')
+      h2.text-secondary {{ $t('pages.history.title2') }}
   b-row
     b-col.pt-3(offset-lg='2' lg='20')
       .p-3.content.text-secondary
@@ -22,11 +22,6 @@ b-container.p-4.bg-gray(fluid)
             :items='ordersInProgress'
             :fields='fields'
           )
-            //- template(#head(x)='data')
-            //-   b-form-checkbox#checkbox-header(
-            //-     name='checkbox-header'
-            //-     @change='selectItems($event)'
-            //-   )
             template(#cell(image)='data')
               b-img(:src='data.item.image' width='40' height='40')
             template(#cell(details)='data')
@@ -105,25 +100,33 @@ b-container.p-4.bg-gray(fluid)
     v-if='viewOrderInProgress'
     v-model='viewOrderInProgress'
     right
+    size='lg'
   )
     template(#modal-title)
       b-container
         h3.text-secondary Order of {{ currentOrder.date }}
-    //- template(#modal-footer)
-    //-   .border.p-2
-    //-     font-awesome-icon(:icon='["fa", "minus"]')
-    //-     p.d-inline.my-3 {{ numberToAdd }}
-    //-     font-awesome-icon(:icon='["fa", "plus"]')
-    //-   b-button.button {{ $t('pages.products.button1') }}
     b-container
+      b-table(
+        hover
+        borderless
+        responsive
+        table-variant='secondary'
+        :items='ordersDetail'
+        :fields='fieldsOrder'
+      )
+        //- template(#cell(image)='data')
+        //-   b-img(:src='data.item.image' width='40' height='40')
+        //- template(#cell(number)='data')
+        //-   b-img(:src='data.item.number')
       h4.text-secondary.text-center {{ currentOrder.status }}
       p.text-modal {{ currentOrder.price }}
+      p.text-modal {{ currentOrder.details[0].product }}
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
 // import { rolesType } from '@/utils/utils';
 import filters from '@/components/global/filters.vue';
-import { Order } from '@/utils/utils';
+import { Order, orderDetails } from '@/utils/utils';
 
 @Component({
   components: {
@@ -165,40 +168,98 @@ export default class extends Vue {
     },
   ];
 
+  fieldsOrder = [
+    {
+      key: 'x',
+      sortable: false,
+    },
+
+    {
+      key: 'number',
+      sortable: true,
+    },
+    {
+      key: 'product',
+      sortable: true,
+    },
+    {
+      key: 'productPrice',
+      sortable: true,
+    },
+    {
+      key: 'quantity',
+      sortable: false,
+    },
+    {
+      key: 'status',
+      sortable: false,
+    },
+  ];
+
+  orderDetail: orderDetails[] = [
+    {
+      number: 2000001,
+      product: 'Le Habibi',
+      productPrice: 11,
+      quantity: 2,
+      status: 'delivered',
+    },
+    {
+      number: 2000001,
+      product: 'Le Classico',
+      productPrice: 11,
+      quantity: 1,
+      status: 'delivered',
+    },
+    {
+      number: 2000001,
+      product: 'Le Bacon',
+      productPrice: 12.5,
+      quantity: 3,
+      status: 'delivered',
+    },
+  ];
+
   ordersList: Order[] = [
     {
-      date: new Date('2022-11-27'),
+      date: new Date('2022-11-27').toLocaleDateString(),
       price: 42,
       status: 'delivered',
+      details: this.orderDetail,
     },
     {
-      date: new Date('2022-11-27'),
+      date: new Date('2022-11-27').toLocaleDateString(),
       price: 42,
       status: 'delivered',
+      details: this.orderDetail,
     },
     {
-      date: new Date('2022-11-27'),
+      date: new Date('2022-11-27').toLocaleDateString(),
       price: 42,
       status: 'delivered',
+      details: this.orderDetail,
     },
     {
-      date: new Date('2022-11-27'),
+      date: new Date('2022-11-27').toLocaleDateString(),
       price: 42,
       status: 'delivered',
+      details: this.orderDetail,
     },
   ];
 
   ordersInProgress: Order[] = [
     {
-      date: new Date('2022-11-27'),
+      date: new Date('2022-11-27').toLocaleDateString(),
       price: 42,
       status: 'validated',
+      details: this.orderDetail,
     },
   ];
 
-  openDetails(order: any) {
+  openDetails(order: Order) {
     this.viewOrderInProgress = true;
     this.currentOrder = order;
+    console.log('ORDER', this.currentOrder);
   }
 }
 </script>

@@ -65,3 +65,4 @@
 ## Semaine 48
 
 - [x] 2022/11/29: Seach about google redirection
+- [x] 2022/11/30: google Auth documentation & historyOrder pages but not finished !
