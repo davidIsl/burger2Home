@@ -34,7 +34,14 @@ b-container.bg-gray(fluid)
               b-card-text.text-muted.text-center {{ product.description }}
               b-button.mr-2.button {{ $t('pages.products.button1') }}
               b-button.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
-  b-modal(v-if='viewDetails' v-model='viewDetails' centered)
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    v-if='viewDetails'
+    v-model='viewDetails'
+    centered
+  )
     template(#modal-title)
       b-container
         b-img(
