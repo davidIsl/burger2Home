@@ -12,7 +12,8 @@
 
 ## Products
 
--[] Responsive de la CARD
+- [] Responsive de la CARD
+- [] CHECK responsive de toutes les autrs apges que index
 
 ## Admin
 
