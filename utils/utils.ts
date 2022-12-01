@@ -44,6 +44,13 @@ export interface Order {
   details: orderDetails[];
 }
 
+export interface Basket {
+  image: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 /*
  * ENUM
  */

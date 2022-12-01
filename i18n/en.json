@@ -193,6 +193,13 @@
         "title1": "Here is a listing with our Drinks"
       }
     },
+    "basket": {
+      "title1": "Your basket",
+      "title2": "Informations",
+      "button1": "Order",
+      "button2": "Log In",
+      "button3": "Sign In"
+    },
     "filters": {
       "title1": "Filters",
       "button1": "Show Filters"

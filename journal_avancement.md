@@ -66,4 +66,4 @@
 
 - [x] 2022/11/29: Seach about google redirection
 - [x] 2022/11/30: google Auth documentation & historyOrder pages but not finished !
-- [x] 2022/12/01: Rework modal Order
+- [x] 2022/12/01: Rework modal Order, basket pages
