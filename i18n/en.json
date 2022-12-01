@@ -132,7 +132,12 @@
       "title1": "My Orders",
       "title2": "Order in progress",
       "title3": "Order Listing",
-      "text1": "Hello, "
+      "placeholder1": "Search an order",
+      "text1": "Hello, ",
+      "modal": {
+        "text1": "Delivered to",
+        "text2": "Total amount"
+      }
     },
     "home": {
       "title1": "Discover our TOP 5 burgers",
@@ -189,7 +194,8 @@
       }
     },
     "filters": {
-      "title1": "Filters"
+      "title1": "Filters",
+      "button1": "Show Filters"
     },
     "admin": {
       "title1": "Products Listing",

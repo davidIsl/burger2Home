@@ -5,7 +5,7 @@ b-container.p-4.bg-gray(fluid)
       h2.pb-2.text-secondary {{ $t('pages.history.title1') }}
 
     b-col.mt-2(md='6')
-      span.text-secondary {{ $t('pages.history.text1' + ' David') }}
+      span.text-secondary {{ $t('pages.history.text1') }} David
       //- b-button.button.my-2 {{ $t('pages.history.button1') }}
   b-row.pt-3
     b-col.pb-2.text-center.text-md-left(:offset-lg='2')
@@ -53,8 +53,8 @@ b-container.p-4.bg-gray(fluid)
           v-model='filterSearch'
           :placeholder='$t("pages.history.placeholder1")'
         )
-      b-col.mt-3.mt-md-0(md='6')
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters') }}
+      b-col.mt-3.mt-md-0(:md='filters ? "6" : "8"' :lg='filters ? "6" : "4"')
+        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
         filters
@@ -111,16 +111,26 @@ b-container.p-4.bg-gray(fluid)
         borderless
         responsive
         table-variant='secondary'
-        :items='ordersDetail'
+        :items='orderList'
         :fields='fieldsOrder'
       )
         //- template(#cell(image)='data')
         //-   b-img(:src='data.item.image' width='40' height='40')
         //- template(#cell(number)='data')
         //-   b-img(:src='data.item.number')
-      h4.text-secondary.text-center {{ currentOrder.status }}
-      p.text-modal {{ currentOrder.price }}
-      p.text-modal {{ currentOrder.details[0].product }}
+        b-pagination(
+          pills='pills'
+          size='sm'
+          v-model='currentPage'
+          :total-rows='totalRows'
+          :per-page='perPage'
+          aria-controls='my-table'
+          align='right'
+        )
+      h3.text-secondary.line {{ $t('pages.history.modal.text1') }}
+      p.text-primary Rue Mapayon 7 4260 Braives
+      h3.text-secondary.line {{ $t('pages.history.modal.text2') }}
+      p.text-primary {{ currentOrder.price }} Euros TTC
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
@@ -169,11 +179,6 @@ export default class extends Vue {
   ];
 
   fieldsOrder = [
-    {
-      key: 'x',
-      sortable: false,
-    },
-
     {
       key: 'number',
       sortable: true,
