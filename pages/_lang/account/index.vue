@@ -64,7 +64,7 @@ b-container.p-5.bg-gray(fluid)
                       )
                       template
                         //- .bg-gray
-                        font-awesome-icon.mt-3(
+                        font-awesome-icon.my-auto(
                           :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
                           @click='secure = !secure'
                         )
@@ -182,8 +182,8 @@ export default class extends mixins(validationMixin) {
   border: 1px solid var(--primary);
   border-radius: 0.5rem !important;
   padding-right: 10px;
-  #password {
-    border: none;
-  }
+  // #password {
+  //   border: none;
+  // }
 }
 </style>
