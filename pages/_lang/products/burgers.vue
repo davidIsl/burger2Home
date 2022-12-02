@@ -4,16 +4,25 @@ b-container.bg-gray(fluid)
     b-row
       b-col.pb-3.text-center.text-md-left(
         :offset-lg='filters ? "0" : "2"'
-        :md='filters ? "18" : "16"'
+        md='24'
+        :lg='filters ? "24" : "20"'
       )
-        h2.text-secondary {{ $t('pages.products.burgers.title1') }}
+        h2.pb-2.text-secondary.title-line {{ $t('pages.products.burgers.title1') }}
     b-row
-      b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
+      b-col(
+        :offset-lg='filters ? "0" : "2"'
+        :md='filters ? "18" : "16"'
+        sm='16'
+      )
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder1")'
         )
-      b-col.mt-3.mt-md-0(md='6')
+      b-col.mt-3.mt-sm-0(
+        :md='filters ? "6" : "8"'
+        :lg='filters ? "6" : "4"'
+        sm='8'
+      )
         b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')

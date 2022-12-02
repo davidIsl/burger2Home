@@ -4,10 +4,10 @@ b-container.bg-gray(fluid)
     b-row
       b-col.pb-3.text-center.text-md-left(
         :offset-lg='filters ? "0" : "2"'
-        :md='filters ? "18" : "24"'
-        lg='20'
+        md='24'
+        :lg='filters ? "24" : "20"'
       )
-        h2.text-secondary.title-line {{ $t('pages.products.title1') }}
+        h2.pb-2.text-secondary.title-line {{ $t('pages.products.title1') }}
   b-row
     b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"' sm='16')
       b-form-input.input(
@@ -57,7 +57,9 @@ b-container.bg-gray(fluid)
         ) 
     template(#modal-footer)
       div
-        font-awesome-icon(:icon='["fas", "fa-minus"]')
+        font-awesome-icon(:icon='["fa", "minus"]')
+        p.d-inline.my-3 {{ numberToAdd }}
+        font-awesome-icon(:icon='["fa", "plus"]')
       b-button.button {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
@@ -106,6 +108,8 @@ export default class extends Vue {
   viewDetails: boolean = false;
   filters: boolean = false;
   filterSearch: string = '';
+
+  numberToAdd: number = 0;
 
   currentProduct: Product = {
     name: '',
