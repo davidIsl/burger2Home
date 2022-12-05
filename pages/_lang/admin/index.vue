@@ -105,7 +105,14 @@ b-container.p-4.bg-gray(fluid)
               aria-controls='my-table'
               align='right'
             )
-  b-modal(v-if='viewDetails' v-model='viewDetails' right)
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    v-if='viewDetails'
+    v-model='viewDetails'
+    right
+  )
     template(#modal-title)
       b-container
         b-img(thumbnail body-bg-variant='darkRed' :src='currentProduct.image') 
@@ -124,7 +131,14 @@ b-container.p-4.bg-gray(fluid)
       )
         li
           ul.m-0.p-0 {{ allergen.name }}
-  b-modal(v-if='viewDetailsPromo' v-model='viewDetailsPromo' right)
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    v-if='viewDetailsPromo'
+    v-model='viewDetailsPromo'
+    right
+  )
     template(#modal-title)
       h4.text-secondary.text-center {{ currentPromo.name }}
     template(#modal-footer)
