@@ -68,11 +68,18 @@ b-container.p-5.bg-gray(fluid)
                           :icon='secure ? ["fa", "eye"] : ["fa", "eye-slash"]'
                           @click='secure = !secure'
                         )
-                    .input-error(v-if='$v.password.$error')
+                    .input-error(
+                      v-if='$v.password.$error && $v.password.passRegex'
+                    )
                       font-awesome-icon.mr-2(
                         :icon='["fa", "exclamation-triangle"]'
                       )
                       | {{ $t('pages.errors.required') }}
+                    .input-error(v-if='!$v.password.passRegex')
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.invalidPasswordFormat') }}
                   b-form-group.py-2
                     b-container.p-0
                       b-row(no-gutters)
@@ -109,40 +116,36 @@ b-container.p-5.bg-gray(fluid)
                   ) 
                     font-awesome-icon(:icon='["fab", "google"]')
         b-row.mt-5(align-h='center')
-          b-col(
-            sm='14'
-            md='10'
-            lg='8'
-            xl='6'
-          )
-            b-alert(
-              :show='submitState === submitStateType.ERROR || submitState === submitStateType.SUCCESS'
-              :variant='submitState === submitStateType.ERROR ? "error" : "success"'
-              :icon='submitState === submitStateType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
-            )
-              h6.m-0.mb-2 {{ error }}
+          b-col(sm='16' md='12' lg='14')
+            b-container
+              alert(
+                :show='submitState === submitStateType.ERROR || submitState === submitStateType.SUCCESS'
+                :variant='submitState === submitStateType.ERROR ? "error" : "success"'
+                :icon='submitState === submitStateType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+              )
+                h6.m-0.mb-2.text-center {{ error }}
 </template>
 
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
-import { required, email } from 'vuelidate/lib/validators';
+import { required, email, helpers } from 'vuelidate/lib/validators';
 import { submitStateType } from '@/utils/utils';
+import alert from '@/components/global/alert.vue';
 
-// enum submitStateType {
-//   NONE,
-//   SUCCESS,
-//   PENDING,
-//   ERROR,
-// }
+const passRegex = helpers.regex(
+  'passRegex',
+  /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]))((?=.*[A-Z])).*$/
+);
+
 @Component({
-  components: {},
+  components: { alert },
 })
 export default class extends mixins(validationMixin) {
   @Validate({ required, email }) email: string = '';
-  @Validate({ required }) password: string = '';
-  error?: boolean = false;
+  @Validate({ required, passRegex }) password: string = '';
+  error?: string = '';
   submitStateType = submitStateType;
   submitState = submitStateType.NONE;
   secure: boolean = true;
@@ -150,6 +153,8 @@ export default class extends mixins(validationMixin) {
 
   onSubmit() {
     this.$v.$touch();
+    this.submitState = submitStateType.ERROR;
+    this.error = this.$tc('ERROR Connected');
     console.log('HELLO');
   }
 }

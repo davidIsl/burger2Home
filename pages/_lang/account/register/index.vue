@@ -236,22 +236,23 @@ b-container.bg-gray(fluid)
               b-col.p-0(cols='24')
                 .mx-auto.p-3.pb-5
                   b-button.w-100.button(variant='secondary' @click='onSubmit') {{ $t('pages.register.button1') }}
-
-    //- b-col.p-5(lg='12')
-    //-   div
-    //-     b-img(
-    //-       thumbnail
-    //-       width=650
-    //-       height=650
-    //-       src='/img/inscription/burger_register.jpg'
-    //-       alt='Inscription'
-    //-     )
+        b-row.mt-5(align-h='center')
+          b-col(sm='16' md='12' lg='14')
+            b-container
+              alert(
+                :show='submitState === submitStateType.ERROR || submitState === submitStateType.SUCCESS'
+                :variant='submitState === submitStateType.ERROR ? "error" : "success"'
+                :icon='submitState === submitStateType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+              )
+                h6.m-0.mb-2.text-center {{ error }}
 </template>
 <script lang="ts">
 import { mixins, Component } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required, email, helpers, sameAs } from 'vuelidate/lib/validators';
+import { submitStateType } from '@/utils/utils';
+import alert from '@/components/global/alert.vue';
 
 const passRegex = helpers.regex(
   'passRegex',
@@ -264,7 +265,7 @@ enum stepStateType {
 }
 
 @Component({
-  components: {},
+  components: { alert },
 })
 export default class extends mixins(validationMixin) {
   @Validate({ required, email }) email: string = '';
@@ -278,12 +279,16 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) zip: string = '';
   @Validate({ required }) city: string = '';
 
+  submitStateType = submitStateType;
+  submitState = submitStateType.NONE;
   stepStateType = stepStateType;
   stepState = stepStateType.STEP1;
   secure: boolean = true;
   error: string = '';
 
   onSubmit() {
+    this.submitState = submitStateType.SUCCESS;
+    this.error = this.$tc('ERROR Connected');
     if (this.stepState === stepStateType.STEP1) {
       this.$v.email.$touch();
       this.$v.password.$touch();

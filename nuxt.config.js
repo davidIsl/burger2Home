@@ -196,6 +196,7 @@ export default {
     icons: {
       solid: [
         'faCheckSquare',
+        'faCheckCircle',
         'faExclamationTriangle',
         'faAngleDoubleUp',
         'faEdit',
