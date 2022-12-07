@@ -68,3 +68,9 @@
 - [x] 2022/11/30: google Auth documentation & historyOrder pages but not finished !
 - [x] 2022/12/01: Rework modal Order, basket pages
 - [x] 2022/12/02: Responsive all products pages
+
+## Semaine 49
+
+- [x] 2022/12/05: Google OAuth documentation,link to google login
+- [x] 2022/12/06: Responsive admin pages
+- [x] 2022/12/07: Responsive marketing tables & delete modal admin & marketing

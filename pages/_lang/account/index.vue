@@ -104,7 +104,7 @@ b-container.p-5.bg-gray(fluid)
                   b-button.button-social(
                     variant='white'
                     size='md'
-                    @click='null'
+                    href='https://accounts.google.com/o/oauth2/auth?scope=email&access_type=online&redirect_uri=http://meteortest.com:3000/en/account/&response_type=code&client_id=710718771372-vfrtdjkiv8nv5e04n93qp79cnua0ref7.apps.googleusercontent.com'
                     block
                   ) 
                     font-awesome-icon(:icon='["fab", "google"]')

@@ -1,45 +1,59 @@
 <template lang="pug">
 b-container.p-4.bg-gray(fluid)
+  // ADMIN 
   .p-2
     b-row
-      b-col.pb-3.text-center.text-md-left(
+      b-col.pb-3.text-md-left(
         :offset-lg='filters ? "0" : "2"'
+        sm='16'
         :md='filters ? "18" : "16"'
+        :lg='filters ? "18" : "14"'
       )
         h2.text-secondary {{ $t('pages.admin.title1') }}
-      b-col.pb-3.text-center(md='6')
+      b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
         b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.button1') }}
     b-row
-      b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
+      b-col(
+        :offset-lg='filters ? "0" : "2"'
+        sm='16'
+        :md='filters ? "18" : "16"'
+        :lg='filters ? "18" : "14"'
+      )
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder1")'
         )
-      b-col.mt-3.mt-md-0(md='6')
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') Show Filter
+      b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
+        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
         filters
       b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
-        div(v-if='itemSelected')
-          b-button(variant='outline-danger') Delete Product
+        div(v-if='itemSelected.length > 0')
+          b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-2
             b-table(
               hover
               borderless
               responsive
+              perPage='8'
               table-variant='secondary'
               :items='products'
               :fields='fields'
+              :current='currentPage'
+              @pageChange='handleChangePage'
             )
               template(#head(x)='data')
                 b-form-checkbox#checkbox-header(
                   name='checkbox-header'
-                  @change='selectItems($event)'
+                  @change='selectAllTableItems($event)'
                 )
               template(#cell(x)='data')
-                b-form-checkbox(v-model='itemSelected')
+                b-form-checkbox(
+                  :checked='selectedAllItems'
+                  @input='selectTableItem($event, data.name)'
+                )
               template(#cell(image)='data')
                 b-img(:src='data.item.image' width='40' height='40')
               template(#cell(details)='data')
@@ -52,45 +66,63 @@ b-container.p-4.bg-gray(fluid)
               size='sm'
               v-model='currentPage'
               :total-rows='totalRows'
-              :per-page='perPage'
-              aria-controls='my-table'
+              :per-page='8'
               align='right'
             )
+  // MARKETING
   .p-2
     b-row
-      b-col.pb-3.text-center.text-md-left(
+      b-col.pb-3.text-md-left(
         :offset-lg='filters ? "0" : "2"'
+        sm='16'
         :md='filters ? "18" : "16"'
+        :lg='filters ? "18" : "14"'
       )
         h2.text-secondary {{ $t('pages.admin.title2') }}
-      b-col.pb-3.text-center(md='6')
+      b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
         b-button.button.w-100(:to='`/${$i18n.locale}/admin/promoAdd/`') {{ $t('pages.admin.button2') }}
     b-row
-      b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"')
+      b-col(
+        :offset-lg='filters ? "0" : "2"'
+        sm='16'
+        :md='filters ? "18" : "16"'
+        :lg='filters ? "18" : "14"'
+      )
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder2")'
         )
-      b-col.mt-3.mt-md-0(md='6')
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') Show Filter
+      b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
+        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
         filters
       b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
+        div(v-if='itemSelected.length > 0')
+          b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-2
             b-table(
               hover
               borderless
               responsive
+              perPage='8'
               table-variant='secondary'
               :items='promos'
               :fields='fieldsPromo'
+              :current='currentPage'
+              @pageChange='handleChangePage'
             )
               template(#head(x)='data')
-                b-form-checkbox#checkbox-header(name='checkbox-header').
+                b-form-checkbox#checkbox-header(
+                  name='checkbox-header'
+                  @change='selectAllTableItems($event)'
+                )
               template(#cell(x)='data')
-                b-form-checkbox(:checked='selectedAllItems')
+                b-form-checkbox(
+                  :checked='selectedAllItems'
+                  @input='selectTableItem($event, data.name)'
+                )
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
                   :icon='["fa", "eye"]'
@@ -105,6 +137,7 @@ b-container.p-4.bg-gray(fluid)
               aria-controls='my-table'
               align='right'
             )
+  // MODAL DETAILS PRODUCT
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -131,6 +164,7 @@ b-container.p-4.bg-gray(fluid)
       )
         li
           ul.m-0.p-0 {{ allergen.name }}
+  // MODAL DETAILS PROMO
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -148,6 +182,24 @@ b-container.p-4.bg-gray(fluid)
       p.text-modal {{ 'Reduction: ' + currentPromo.discount + ' %' }}
       p.text-modal {{ 'StartDate: ' + currentPromo.startDate }}
       p.text-modal {{ 'EndDAte: ' + currentPromo.endDate }}
+  // DELETE MODAL
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    v-model='deleteAlert'
+    centered
+  )
+    template(#modal-title)
+      div {{ $t('pages.admin.alert.title1') }}
+    .d-flex.align-items-center.gap-1
+      div
+        .modal-error
+          font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
+      h5 {{ $t('pages.admin.alert.text1') }}
+    template(#modal-footer)
+      b-button.w-48(variant='outline-danger' @click='deleteDistributor()') {{ $t('pages.admin.alert.button1') }}
+      b-button.w-48(variant='primary' @click='deleteAlert = false') {{ $t('pages.admin.alert.button1') }}
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
@@ -168,7 +220,12 @@ export default class extends Vue {
   filterSearch: string = '';
   viewDetails: boolean = false;
   viewDetailsPromo: boolean = false;
-  itemSelected: boolean = false;
+  itemSelected: string[] = [];
+  selectedAllItems: boolean = false;
+  deleteAlert: boolean = false;
+
+  currentPage: number = 1;
+  totalrows: number = 0;
 
   allergens: Allergens[] = [];
   currentProduct: Product = {
@@ -363,11 +420,24 @@ export default class extends Vue {
     this.currentPromo = promo;
   }
 
-  selectItems(event: boolean) {
-    if (!this.itemSelected) {
-      this.itemSelected = event;
+  handleChangePage(e: number) {
+    this.currentPage = e;
+  }
+
+  selectAllTableItems(event: boolean) {
+    this.selectedAllItems = event;
+  }
+
+  selectTableItem(event: boolean, id: string) {
+    if (event) {
+      this.itemSelected.push(id);
+      return;
     }
-    console.log('HELLO');
+    this.itemSelected = this.itemSelected.filter((item) => item !== id);
+  }
+
+  handleDelete() {
+    this.deleteAlert = true;
   }
 }
 </script>

@@ -238,3 +238,24 @@ pre {
 //     border: none;
 //   }
 // }
+
+.modal-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-inline: 1rem;
+  justify-content: center;
+  font-size: 1.3em;
+}
+
+.gap-1 {
+  gap: 1rem !important;
+}
+
+.w-48 {
+  width: 48%;
+}
