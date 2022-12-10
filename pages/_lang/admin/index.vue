@@ -137,6 +137,74 @@ b-container.p-4.bg-gray(fluid)
               aria-controls='my-table'
               align='right'
             )
+  // STOCK
+  .p-2
+  b-row
+    b-col.pb-3.text-md-left(
+      :offset-lg='filters ? "0" : "2"'
+      sm='16'
+      :md='filters ? "18" : "16"'
+      :lg='filters ? "18" : "14"'
+    )
+      h2.text-secondary {{ $t('pages.admin.title3') }}
+    b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
+      b-button.button.w-100(:to='`/${$i18n.locale}/admin/stockAdd/`') {{ $t('pages.admin.button5') }}
+  b-row
+    b-col(
+      :offset-lg='filters ? "0" : "2"'
+      sm='16'
+      :md='filters ? "18" : "16"'
+      :lg='filters ? "18" : "14"'
+    )
+      b-form-input.input(
+        v-model='filterSearch'
+        :placeholder='$t("pages.admin.placeholder2")'
+      )
+    b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
+      b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+  b-row
+    b-col.mt-3(v-if='filters' lg='4')
+      filters
+    b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
+      div(v-if='itemSelected.length > 0')
+        b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
+      .p-3.content.text-secondary
+        .m-2
+          b-table(
+            hover
+            borderless
+            responsive
+            perPage='8'
+            table-variant='secondary'
+            :items='stocks'
+            :fields='fieldsStock'
+            :current='currentPage'
+            @pageChange='handleChangePage'
+          )
+            template(#head(x)='data')
+              b-form-checkbox#checkbox-header(
+                name='checkbox-header'
+                @change='selectAllTableItems($event)'
+              )
+            template(#cell(x)='data')
+              b-form-checkbox(
+                :checked='selectedAllItems'
+                @input='selectTableItem($event, data.name)'
+              )
+            template(#cell(details)='data')
+              font-awesome-icon.mt-1(
+                :icon='["fa", "pencil-alt"]'
+                @click='openDetailsStock(data.item)'
+              )
+          b-pagination(
+            pills='pills'
+            size='sm'
+            v-model='currentPage'
+            :total-rows='totalRows'
+            :per-page='perPage'
+            aria-controls='my-table'
+            align='right'
+          )
   // MODAL DETAILS PRODUCT
   b-modal(
     body-bg-variant='gray'
@@ -182,6 +250,73 @@ b-container.p-4.bg-gray(fluid)
       p.text-modal {{ 'Reduction: ' + currentPromo.discount + ' %' }}
       p.text-modal {{ 'StartDate: ' + currentPromo.startDate }}
       p.text-modal {{ 'EndDAte: ' + currentPromo.endDate }}
+  // MODAL EDITING STOCK
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    v-model='editingStock'
+    right
+  )
+    template(#modal-title)
+      h4.text-secondary.text-center {{ $t('pages.admin.title4') }}
+    template(#modal-footer)
+      b-button.button {{ $t('pages.admin.button6') }}
+    b-container
+      b-form-group.pt-3.text-primary(
+        :label='$t("pages.admin.label1")'
+        label-for='name'
+      )
+        b-form-input#name.input-form(
+          v-model='$v.name.$model'
+          :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
+          :placeholder='$t("pages.admin.placeholder4")'
+          type='text'
+          name='name'
+          @blur='$v.name.$touch()'
+        )
+        .input-error(v-if='$v.name.$error')
+          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
+      b-form-group.pt-3.text-primary(
+        :label='$t("pages.admin.label2")'
+        label-for='description'
+      )
+        b-form-textarea#description.input-area(
+          v-model='$v.description.$model'
+          :class='{ "is-invalid": $v.description.$error, "is-valid": !$v.description.$invalid }'
+          :placeholder='$t("pages.admin.placeholder5")'
+          type='text'
+          name='description'
+          @blur='$v.description.$touch()'
+        )
+        .input-error(v-if='$v.description.$error')
+          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+          | {{ $t('pages.errors.required') }}
+      b-form-group.pt-3.text-primary(
+        :label='$t("pages.admin.label3")'
+        label-for='quantity'
+      )
+        b-form-input#quantity.input-form(
+          v-model='quantity'
+          readonly='true'
+          type='text'
+          name='quantity'
+        )
+      b-form-group.pt-3.text-primary(
+        :label='$t("pages.admin.label4")'
+        label-for='newQuantity'
+      )
+        b-form-input#newQuantity.input-form(
+          v-model='$v.newQuantity.$model'
+          :class='{ "is-invalid": $v.newQuantity.$error, "is-valid": !$v.newQuantity.$invalid }'
+          :placeholder='$t("pages.admin.placeholder5")'
+          type='number'
+          name='newQuantity'
+          @blur='$v.newQuantity.$touch()'
+        )
+        .input-error(v-if='$v.newQuantity.$error')
+          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
+
   // DELETE MODAL
   b-modal(
     body-bg-variant='gray'
@@ -202,24 +337,33 @@ b-container.p-4.bg-gray(fluid)
       b-button.w-48(variant='primary' @click='deleteAlert = false') {{ $t('pages.admin.alert.button1') }}
 </template>
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Component, mixins } from 'nuxt-property-decorator';
+import { validationMixin } from 'vuelidate';
+import { Validate } from 'vuelidate-property-decorators';
+import { required } from 'vuelidate/lib/validators';
 // import { rolesType } from '@/utils/utils';
 import filters from '@/components/global/filters.vue';
-import { Product, Allergens, Promo } from '@/utils/utils';
+import { Product, Allergens, Promo, Stock } from '@/utils/utils';
 
 @Component({
   components: {
     filters,
   },
 })
-export default class extends Vue {
+export default class extends mixins(validationMixin) {
   // user: rolesType = rolesType.ADMIN;
   // roleType = rolesType;
   // role = rolesType.NONE;
+  @Validate({ required }) name: string = '';
+  @Validate({ required }) description: string = '';
+  @Validate({ required }) newQuantity: string = '';
+  quantity: number = 0;
+
   filters: boolean = false;
   filterSearch: string = '';
   viewDetails: boolean = false;
   viewDetailsPromo: boolean = false;
+  editingStock: boolean = false;
   itemSelected: string[] = [];
   selectedAllItems: boolean = false;
   deleteAlert: boolean = false;
@@ -228,15 +372,10 @@ export default class extends Vue {
   totalrows: number = 0;
 
   allergens: Allergens[] = [];
-  currentProduct: Product = {
-    name: '',
-    image: '',
-    description: '',
-    price: 0,
-    allergens: [{ name: '' }],
-  };
 
+  currentProduct: Product | null = null;
   currentPromo: Promo | null = null;
+  currentStock: Stock | null = null;
 
   fields = [
     {
@@ -288,6 +427,29 @@ export default class extends Vue {
     },
     {
       key: 'endDate',
+      sortable: true,
+    },
+    {
+      key: 'details',
+      sortable: false,
+    },
+  ];
+
+  fieldsStock = [
+    {
+      key: 'x',
+      sortable: false,
+    },
+    {
+      key: 'name',
+      sortable: true,
+    },
+    {
+      key: 'description',
+      sortable: false,
+    },
+    {
+      key: 'quantity',
       sortable: true,
     },
     {
@@ -410,6 +572,44 @@ export default class extends Vue {
     },
   ];
 
+  stocks: Stock[] = [
+    {
+      name: 'Boeuf',
+      description: 'Viande de boeuf hachée',
+      quantity: 15,
+    },
+    {
+      name: 'Poulet',
+      description: 'Viande de poulet',
+      quantity: 25,
+    },
+    {
+      name: 'Tomates',
+      description: 'Tomates fraiches',
+      quantity: 10,
+    },
+    {
+      name: 'Cornichons',
+      description: 'Cornichons frais',
+      quantity: 15,
+    },
+    {
+      name: 'Oignons',
+      description: 'Oignons frais de la région',
+      quantity: 15,
+    },
+    {
+      name: 'Bacon',
+      description: 'Viande de porc',
+      quantity: 35,
+    },
+    {
+      name: 'Pain',
+      description: 'Pain de seigle',
+      quantity: 40,
+    },
+  ];
+
   openDetails(product: Product) {
     this.viewDetails = true;
     this.currentProduct = product;
@@ -418,6 +618,11 @@ export default class extends Vue {
   openDetailsPromo(promo: Promo) {
     this.viewDetailsPromo = true;
     this.currentPromo = promo;
+  }
+
+  openDetailsStock(stock: Stock) {
+    this.editingStock = true;
+    this.currentStock = stock;
   }
 
   handleChangePage(e: number) {

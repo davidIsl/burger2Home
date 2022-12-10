@@ -116,7 +116,7 @@ b-container.p-5.bg-gray(fluid)
                   ) 
                     font-awesome-icon(:icon='["fab", "google"]')
         b-row.mt-5(align-h='center')
-          b-col(sm='16' md='12' lg='14')
+          b-col(cols='20')
             b-container
               alert(
                 :show='submitState === submitStateType.ERROR || submitState === submitStateType.SUCCESS'

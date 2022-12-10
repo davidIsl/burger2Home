@@ -43,6 +43,7 @@ b-container.bg-gray(fluid)
                     b-button.button-social.text-faded(
                       variant='white'
                       size='md'
+                      href='https://accounts.google.com/o/oauth2/auth?scope=email&access_type=online&redirect_uri=http://meteortest.com:3000/en/&response_type=code&client_id=710718771372-vfrtdjkiv8nv5e04n93qp79cnua0ref7.apps.googleusercontent.com'
                       @click='null'
                       block
                     ) 
@@ -237,7 +238,7 @@ b-container.bg-gray(fluid)
                 .mx-auto.p-3.pb-5
                   b-button.w-100.button(variant='secondary' @click='onSubmit') {{ $t('pages.register.button1') }}
         b-row.mt-5(align-h='center')
-          b-col(sm='16' md='12' lg='14')
+          b-col(cols='20')
             b-container
               alert(
                 :show='submitState === submitStateType.ERROR || submitState === submitStateType.SUCCESS'

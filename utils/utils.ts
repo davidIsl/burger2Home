@@ -30,6 +30,12 @@ export interface Promo {
   endDate: Date;
 }
 
+export interface Stock {
+  name: string;
+  description: string;
+  quantity: number;
+}
+
 export interface orderDetails {
   number: number | string;
   product: string;
