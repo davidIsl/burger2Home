@@ -230,14 +230,6 @@ pre {
   width: 100%;
   background-color: #eeeff3 !important;
 }
-// .password-group {
-//   border: 1px solid var(--primary);
-//   border-radius: 0.5rem !important;
-//   padding-right: 10px;
-//   #password {
-//     border: none;
-//   }
-// }
 
 .modal-error {
   background-color: #fee2e2;
@@ -258,4 +250,17 @@ pre {
 
 .w-48 {
   width: 48%;
+}
+
+// CARD
+.text-card {
+  height: 110px;
+}
+
+.card {
+  width: 275px;
+  height: 575px;
+  font-size: 0.8em;
+  text-shadow: 1px 1px 1px var(--darkRed);
+  border: 1px var(--primary) solid;
 }

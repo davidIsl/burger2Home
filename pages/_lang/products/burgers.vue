@@ -28,7 +28,7 @@ b-container.bg-gray(fluid)
       b-col.mt-3(v-if='filters' lg='4')
         filters
       b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
-        .m-3.p-5.content.mx-auto
+        .m-3.p-sm-5.content.mx-auto
           b-row
             b-col.w-100(v-for='(product, index) in products' :key='index')
               b-card.m-3.p-2.text-center.card.mx-auto(
@@ -40,26 +40,24 @@ b-container.bg-gray(fluid)
                 text-variant='secondary'
                 bg-variant='gray'
               )
-                b-card-text.text-muted.text-center {{ product.description }}
-                b-card-footer
-                  b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
-                  b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
-        b-container
-          b-row
-            b-col.w-100(v-for='(product, index) in productsTest' :key='index')
-              b-card.m-3.p-2.text-center.card.mx-auto(
-                :title='product.name'
-                :img-src='product.image'
-                img-alt='Image'
-                img-top
-                tag='article'
-                text-variant='secondary'
-                bg-variant='gray'
-              )
-                b-card-text.text-muted.text-center {{ product.description }}
-                b-card-footer
-                  b-button.mr-2.w-100.button {{ $t('pages.products.button1') }}
-                  b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+                b-card-text.text-muted.text-center.text-card {{ product.description }}
+                b-button.w-100.button.justify-content-between {{ $t('pages.products.button1') }}
+                b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+        //- b-container
+        //-   b-row
+        //-     b-col.w-100(v-for='(product, index) in productsTest' :key='index')
+        //-       b-card.m-3.p-2.text-center.card.mx-auto(
+        //-         :title='product.name'
+        //-         :img-src='product.image'
+        //-         img-alt='Image'
+        //-         img-top
+        //-         tag='article'
+        //-         text-variant='secondary'
+        //-         bg-variant='gray'
+        //-       )
+        //-         b-card-text.text-muted.text-center {{ product.description }}
+        //-         b-button.w-100.button {{ $t('pages.products.button1') }}
+        //-         b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -357,14 +355,6 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  width: 250px;
-  height: 550px;
-  font-size: 0.8em;
-  text-shadow: 1px 1px 1px var(--darkRed);
-  border: 1px var(--primary) solid;
-}
-
 .title {
   background-image: url('/img/chalkboard.jpg');
 }

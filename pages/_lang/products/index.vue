@@ -24,7 +24,7 @@ b-container.bg-gray(fluid)
     b-col.p-3(v-if='filters' lg='4')
       filters
     b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
-      .m-3.p-5.content.mx-auto
+      .m-3.p-sm-5.content.mx-auto
         b-row
           b-col(v-for='(product, index) in products' :key='index')
             b-card.m-3.p-2.text-center.card.mx-auto(
@@ -36,8 +36,7 @@ b-container.bg-gray(fluid)
               text-variant='secondary'
               bg-variant='gray'
             )
-              b-card-text.text-muted.text-center {{ product.description }}
-              //- b-button-group
+              b-card-text.text-muted.text-center.text-card {{ product.description }}
               b-button.mr-2.button {{ $t('pages.products.button1') }}
               b-button.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
@@ -324,14 +323,6 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  width: 20em;
-  height: 40em;
-  font-size: 0.8em;
-  text-shadow: 1px 1px 1px var(--darkRed);
-  border: 1px var(--primary) solid;
-}
-
 .title {
   background-image: url('/img/chalkboard.jpg');
 }
