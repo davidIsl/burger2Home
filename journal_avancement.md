@@ -74,3 +74,4 @@
 - [x] 2022/12/05: Google OAuth documentation,link to google login
 - [x] 2022/12/06: Responsive admin pages
 - [x] 2022/12/07: Responsive marketing tables & delete modal admin & marketing
+- [x] 2022/12/10: Documentation on store vuex , basket & user store

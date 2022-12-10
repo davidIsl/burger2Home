@@ -44,11 +44,18 @@ export interface Order {
   details: orderDetails[];
 }
 
+export interface User {
+  id: string;
+  lastName: string;
+  firstName: string;
+  role: string;
+}
 export interface Basket {
+  products: Product;
   image: string;
   name: string;
-  price: number;
   quantity: number;
+  totalPrice: number;
 }
 
 /*
