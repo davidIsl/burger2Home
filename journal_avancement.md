@@ -75,3 +75,8 @@
 - [x] 2022/12/06: Responsive admin pages
 - [x] 2022/12/07: Responsive marketing tables & delete modal admin & marketing
 - [x] 2022/12/10: Documentation on store vuex , basket & user store, responsive card, align buttons, redirection google
+
+## Semaine 50
+
+- [x] 2022/12/12: meeting with Lionel and Nathan => Back explanation and soft needed
+- [x] 2022/12/13: Mysql, Workbench, intellij and postman installation and configuration, AXIOS Configuration
