@@ -80,3 +80,5 @@
 
 - [x] 2022/12/12: meeting with Lionel and Nathan => Back explanation and soft needed
 - [x] 2022/12/13: Mysql, Workbench, intellij and postman installation and configuration, AXIOS Configuration
+- [x] 2022/12/14: Cors Missing Error Try to resolve it
+- [x] 2022/12/15: Cors Problem with endpoint
