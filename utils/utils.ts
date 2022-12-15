@@ -6,6 +6,11 @@ export interface APIResponse<T = any> {
   data: T;
   status: number;
 }
+
+export interface APIDataResponse<T = any> {
+  data: T[];
+  status: number;
+}
 export interface SelectOption {
   // value: string | null;
   text: string;

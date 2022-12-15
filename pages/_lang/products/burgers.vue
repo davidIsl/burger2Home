@@ -43,21 +43,21 @@ b-container.bg-gray(fluid)
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
                 b-button.w-100.button.justify-content-between {{ $t('pages.products.button1') }}
                 b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
-        //- b-container
-        //-   b-row
-        //-     b-col.w-100(v-for='(product, index) in productsTest' :key='index')
-        //-       b-card.m-3.p-2.text-center.card.mx-auto(
-        //-         :title='product.name'
-        //-         :img-src='product.image'
-        //-         img-alt='Image'
-        //-         img-top
-        //-         tag='article'
-        //-         text-variant='secondary'
-        //-         bg-variant='gray'
-        //-       )
-        //-         b-card-text.text-muted.text-center {{ product.description }}
-        //-         b-button.w-100.button {{ $t('pages.products.button1') }}
-        //-         b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+        b-container
+          b-row
+            b-col.w-100(v-for='(product, index) in productsTest' :key='index')
+              b-card.m-3.p-2.text-center.card.mx-auto(
+                :title='product.name'
+                :img-src='product.image'
+                img-alt='Image'
+                img-top
+                tag='article'
+                text-variant='secondary'
+                bg-variant='gray'
+              )
+                b-card-text.text-muted.text-center {{ product.description }}
+                b-button.w-100.button {{ $t('pages.products.button1') }}
+                b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -340,9 +340,14 @@ export default class extends Vue {
     const response = await API.burgerList();
 
     if (response.status !== 200) {
+      console.log('LOG ERROR');
+      console.log('RESPONSE', response.data);
+
       return null;
     }
     this.productsTest = response.data;
+    console.log('LOG SUCCESS');
+    console.log('RESPONSE', response.data);
   }
 
   openDetails(product: any) {

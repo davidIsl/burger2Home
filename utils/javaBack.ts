@@ -1,6 +1,6 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
 import Vue from 'vue';
-import { APIResponse } from '@/utils/utils';
+import { APIDataResponse, APIResponse, Product } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
 
@@ -13,13 +13,16 @@ export class API {
 
   private static async get(endpoint: string): Promise<APIResponse> {
     const { data, status } = await this.axios.get(config.api_url + endpoint, {
-      withCredentials: true,
-      validateStatus: () => true,
+      // withCredentials: true,
+      // validateStatus: () => true,
       headers: {
+        'Access-Control-Allow-Origin': 'http://meteortest.com',
+        // 'Access-Control-Allow-Methods':
+        //   'GET, PUT, POST, DELETE, OPTIONS, post, get',
         'Content-Type': 'application/json',
-        'x-antelopejs-namespace': config.datatable_namespace,
-        'x-antelopejs-webauth':
-          Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
+        // 'x-antelopejs-namespace': config.datatable_namespace,
+        // 'x-antelopejs-webauth':
+        //   Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
       },
     });
     return { data, status };
@@ -49,7 +52,9 @@ export class API {
     return { data, status };
   }
 
-  static burgerList(): Promise<APIResponse> {
-    return this.get('/api/products/burgers');
+  static burgerList(): Promise<APIDataResponse<Product>> {
+    return this.get(
+      '/products/summaries?language=EN&availableProductsOnly=false'
+    );
   }
 }
