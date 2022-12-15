@@ -118,6 +118,8 @@ export default {
   plugins: [
     // https://analytics.google.com/
     // { mode: 'client', src: '@plugins/ga.js' },
+    // Init AXIOS
+    { mode: 'all', src: '@/plugins/initAPI.js' },
     // https://github.com/kazupon/vue-i18n#readme
     { mode: 'all', src: '@/plugins/i18n.js' },
     // https://github.com/michalsnik/aos
