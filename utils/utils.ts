@@ -19,12 +19,18 @@ export interface Allergens {
   name: string;
 }
 
+export interface Ingredients {}
 export interface Product {
-  name: string;
-  image: string;
-  description: string;
-  price: number;
+  actualPrice: number;
   allergens: Allergens[];
+  available: boolean;
+  currentDiscount: number;
+  currentPrice: number;
+  description: string;
+  id: number;
+  imageUrl: string;
+  ingredients: Ingredients[];
+  name: string;
 }
 
 export interface Promo {

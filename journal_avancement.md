@@ -82,3 +82,5 @@
 - [x] 2022/12/13: Mysql, Workbench, intellij and postman installation and configuration, AXIOS Configuration
 - [x] 2022/12/14: Cors Missing Error Try to resolve it
 - [x] 2022/12/15: Cors Problem with endpoint
+- [x] 2022/12/16: Always Cors Error 403 back refuse autorization
+- [x] 2022/12/17: Configuration Cors in BACK, link first endpoint products burgers pages, modify endpoint

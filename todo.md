@@ -19,3 +19,8 @@
 
 -[] hauteur input search
 -[] button delete table checkbox not good
+-[] Si le temps faire un projet a part ou alors bien protégé les routes admin en testant le role du user
+
+## Site
+
+-[] Pas de reset de la page quand je change de langue

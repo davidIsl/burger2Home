@@ -13,12 +13,13 @@ export class API {
 
   private static async get(endpoint: string): Promise<APIResponse> {
     const { data, status } = await this.axios.get(config.api_url + endpoint, {
-      // withCredentials: true,
+      withCredentials: true,
       // validateStatus: () => true,
       headers: {
-        'Access-Control-Allow-Origin': 'http://meteortest.com',
+        // 'Access-Control-Allow-Origin': '*',
         // 'Access-Control-Allow-Methods':
         //   'GET, PUT, POST, DELETE, OPTIONS, post, get',
+        // 'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
         'Content-Type': 'application/json',
         // 'x-antelopejs-namespace': config.datatable_namespace,
         // 'x-antelopejs-webauth':
@@ -52,9 +53,11 @@ export class API {
     return { data, status };
   }
 
-  static burgerList(): Promise<APIDataResponse<Product>> {
+  static burgerList(lang: string): Promise<APIDataResponse<Product>> {
     return this.get(
-      '/products/summaries?language=EN&availableProductsOnly=false'
+      '/products/summaries?language=' +
+        lang.toUpperCase() +
+        '&availableProductsOnly=false'
     );
   }
 }
