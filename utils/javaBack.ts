@@ -16,14 +16,7 @@ export class API {
       withCredentials: true,
       // validateStatus: () => true,
       headers: {
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Methods':
-        //   'GET, PUT, POST, DELETE, OPTIONS, post, get',
-        // 'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
         'Content-Type': 'application/json',
-        // 'x-antelopejs-namespace': config.datatable_namespace,
-        // 'x-antelopejs-webauth':
-        //   Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
       },
     });
     return { data, status };
@@ -53,11 +46,22 @@ export class API {
     return { data, status };
   }
 
+  /*
+   * ENDPOINT PRODUCT SUMMARY
+   */
   static burgerList(lang: string): Promise<APIDataResponse<Product>> {
     return this.get(
       '/products/summaries?language=' +
         lang.toUpperCase() +
         '&availableProductsOnly=false'
     );
+  }
+
+  /*
+   * ENDPOINT PRODUCTS FAMILY (FILTERS)
+   */
+
+  static filters(): Promise<APIResponse> {
+    return this.get('/products/families/translations');
   }
 }

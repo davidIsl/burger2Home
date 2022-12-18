@@ -117,6 +117,9 @@ export default class extends Vue {
     this.getBurgers();
   }
 
+  /*
+   * END POINT GET PRODUCTS SUMMARY
+   */
   async getBurgers() {
     const response = await API.burgerList(this.$i18n.locale);
 
@@ -131,6 +134,9 @@ export default class extends Vue {
     console.log('RESPONSE', response.data);
   }
 
+  /*
+   * VIEW PRODUCTS INFOS
+   */
   openDetails(product: any) {
     this.viewDetails = true;
     this.currentProduct = product;

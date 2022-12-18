@@ -81,6 +81,9 @@ export interface Basket {
   basketLines: BasketLine[];
 }
 
+export interface Filters {
+  name: string[];
+}
 /*
  * ENUM
  */
