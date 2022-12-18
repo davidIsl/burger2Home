@@ -1,15 +1,15 @@
-import { Basket } from '~/utils/utils';
+import { Basket, BasketLine, Product } from '~/utils/utils';
 
 export const state = () => ({
-  products: [],
+  basketLine: [],
   totalPrice: 0,
   quantity: 0,
 });
 
 export const mutations = {
   setBasket(state: any, basket: Basket) {
-    state.products = basket.products;
-    state.price = basket.totalPrice;
+    state.basketLine = basket.basketLines;
+    state.totalPrice = basket.basketLines;
   },
 
   resetBasket(state: any) {

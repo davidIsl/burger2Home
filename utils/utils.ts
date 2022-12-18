@@ -67,12 +67,18 @@ export interface User {
   firstName: string;
   role: string;
 }
+
+export interface BasketLine {
+  id: number;
+  basketId: number;
+  productId: Product;
+  amount: number;
+}
 export interface Basket {
-  products: Product;
-  image: string;
-  name: string;
-  quantity: number;
-  totalPrice: number;
+  id: number;
+  lastUpdate: Date;
+  userId: number;
+  basketLines: BasketLine[];
 }
 
 /*

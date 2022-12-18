@@ -258,9 +258,17 @@ pre {
 }
 
 .card {
-  width: 275px;
-  height: 575px;
+  width: 22em;
+  height: 40em;
   font-size: 0.8em;
   text-shadow: 1px 1px 1px var(--darkRed);
   border: 1px var(--primary) solid;
+}
+
+.text-modal {
+  font-size: 0.8em;
+}
+
+.crossed-text {
+  text-decoration: line-through var(--darkRed) solid;
 }

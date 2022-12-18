@@ -173,6 +173,7 @@
     },
     "products": {
       "title1": "Top 10 of our best-selling products",
+      "title2": "Current Promo",
       "filters1": "Filters",
       "filters2": "Beef",
       "filters3": "Chicken",
@@ -191,6 +192,11 @@
       },
       "drinks": {
         "title1": "Here is a listing with our Drinks"
+      },
+      "modal": {
+        "title1": "Actual Price",
+        "title2": "Allergens",
+        "text1": "No Allergens"
       }
     },
     "basket": {
