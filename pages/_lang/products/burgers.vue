@@ -33,7 +33,7 @@ b-container.bg-gray(fluid)
             b-col.w-100(v-for='(product, index) in products' :key='index')
               b-card.m-3.p-2.text-center.card.mx-auto(
                 :title='product.name'
-                :img-src='product.image'
+                :img-src='product.imageUrl'
                 img-alt='Image'
                 img-top
                 tag='article'
@@ -43,21 +43,21 @@ b-container.bg-gray(fluid)
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
                 b-button.w-100.button.justify-content-between {{ $t('pages.products.button1') }}
                 b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
-        b-container
-          b-row
-            b-col.w-100(v-for='(product, index) in productsTest' :key='index')
-              b-card.m-3.p-2.text-center.card.mx-auto(
-                :title='product.name'
-                :img-src='product.image'
-                img-alt='Image'
-                img-top
-                tag='article'
-                text-variant='secondary'
-                bg-variant='gray'
-              )
-                b-card-text.text-muted.text-center {{ product.description }}
-                b-button.w-100.button {{ $t('pages.products.button1') }}
-                b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+        //- b-container
+        //-   b-row
+        //-     b-col.w-100(v-for='(product, index) in productsTest' :key='index')
+        //-       b-card.m-3.p-2.text-center.card.mx-auto(
+        //-         :title='product.name'
+        //-         :img-src='product.imageUrl'
+        //-         img-alt='Image'
+        //-         img-top
+        //-         tag='article'
+        //-         text-variant='secondary'
+        //-         bg-variant='gray'
+        //-       )
+        //-         b-card-text.text-muted.text-center {{ product.description }}
+        //-         b-button.w-100.button {{ $t('pages.products.button1') }}
+        //-         b-button.mt-2.w-100.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -69,11 +69,11 @@ b-container.bg-gray(fluid)
   )
     template(#modal-title)
       b-container
-        b-img(thumbnail :src='currentProduct.image') 
+        b-img(thumbnail :src='currentProduct.imageUrl') 
     template(#modal-footer)
       .border.p-2
         font-awesome-icon(:icon='["fa", "minus"]')
-        p.d-inline.my-3 {{ numberToAdd }}
+        p.d-inline.my-3 &nbsp;{{ numberToAdd }}&nbsp;
         font-awesome-icon(:icon='["fa", "plus"]')
       b-button.button {{ $t('pages.products.button1') }}
     b-container
@@ -92,6 +92,7 @@ b-container.bg-gray(fluid)
 import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
+import { Product, Allergens } from '@/utils/utils';
 
 export interface Field {
   key: string;
@@ -105,17 +106,22 @@ export interface Item {
   description: string;
 }
 
-interface Allergens {
-  name: string;
-}
+// interface Allergens {
+//   name: string;
+// }
 
-interface Product {
-  name: string;
-  image: string;
-  description: string;
-  price: number;
-  allergens: Allergens[];
-}
+// interface Product {
+//   actualPrice: number;
+//   allergens: Allergens[];
+//   available: boolean;
+//   currentDiscount: number;
+//   currentPrice: number;
+//   description: string;
+//   id: number;
+//   imageUrl: string;
+//   ingredients: Ingredients[];
+//   name: string;
+// }
 
 @Component({
   components: { filters },
@@ -127,13 +133,8 @@ export default class extends Vue {
 
   numberToAdd: number = 0;
 
-  currentProduct: Product = {
-    name: '',
-    image: '',
-    description: '',
-    price: 0,
-    allergens: [{ name: '' }],
-  };
+  products: Product[] | null = null;
+  currentProduct: Product | null = null;
 
   allergens: Allergens[] = [
     {
@@ -153,88 +154,88 @@ export default class extends Vue {
     },
   ];
 
-  products: Product[] = [
-    {
-      name: 'Le classico',
-      image: '/img/produits/classico.jpg',
-      description:
-        'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 10.5,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Smokey Bacon',
-      image: '/img/produits/smokey-bacon.jpg',
-      description:
-        'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 11,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Habibi',
-      image: '../../img/produits/habibi.jpg',
-      description:
-        "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
-      price: 11.5,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Double Decker',
-      image: '../../img/produits/double-dekker.jpg',
-      description:
-        'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 13,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'El Sombrero',
-      image: '../../img/produits/el-sombrero.jpg',
-      description:
-        'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
-      price: 12,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Le classico',
-      image: '../../img/produits/classico.jpg',
-      description:
-        'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 10.5,
-      allergens: [this.allergens[0], this.allergens[5], this.allergens[2]],
-    },
-    {
-      name: 'Smokey Bacon',
-      image: '/img/produits/smokey-bacon.jpg',
-      description:
-        'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 11,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Habibi',
-      image: '../../img/produits/habibi.jpg',
-      description:
-        "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
-      price: 11.5,
-      allergens: [this.allergens[0], this.allergens[3], this.allergens[2]],
-    },
-    {
-      name: 'Double Decker',
-      image: '../../img/produits/double-dekker.jpg',
-      description:
-        'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 13,
-      allergens: [this.allergens[0], this.allergens[3]],
-    },
-    {
-      name: 'El Sombrero',
-      image: '../../img/produits/el-sombrero.jpg',
-      description:
-        'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
-      price: 12,
-      allergens: [this.allergens[0], this.allergens[1], this.allergens[2]],
-    },
-  ];
+  // products: Product[] = [
+  //   {
+  //     name: 'Le classico',
+  //     image: '/img/produits/classico.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, oignons frits, sauce barbecue',
+  //     price: 10.5,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Smokey Bacon',
+  //     image: '/img/produits/smokey-bacon.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 11,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Habibi',
+  //     image: '../../img/produits/habibi.jpg',
+  //     description:
+  //       "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
+  //     price: 11.5,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Double Decker',
+  //     image: '../../img/produits/double-dekker.jpg',
+  //     description:
+  //       'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 13,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'El Sombrero',
+  //     image: '../../img/produits/el-sombrero.jpg',
+  //     description:
+  //       'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
+  //     price: 12,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Le classico',
+  //     image: '../../img/produits/classico.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 10.5,
+  //     allergens: [this.allergens[0], this.allergens[5], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Smokey Bacon',
+  //     image: '/img/produits/smokey-bacon.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 11,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Habibi',
+  //     image: '../../img/produits/habibi.jpg',
+  //     description:
+  //       "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
+  //     price: 11.5,
+  //     allergens: [this.allergens[0], this.allergens[3], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Double Decker',
+  //     image: '../../img/produits/double-dekker.jpg',
+  //     description:
+  //       'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 13,
+  //     allergens: [this.allergens[0], this.allergens[3]],
+  //   },
+  //   {
+  //     name: 'El Sombrero',
+  //     image: '../../img/produits/el-sombrero.jpg',
+  //     description:
+  //       'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
+  //     price: 12,
+  //     allergens: [this.allergens[0], this.allergens[1], this.allergens[2]],
+  //   },
+  // ];
 
   fieldList: Field[] = [
     {
@@ -337,7 +338,7 @@ export default class extends Vue {
   }
 
   async getBurgers() {
-    const response = await API.burgerList();
+    const response = await API.burgerList(this.$i18n.locale);
 
     if (response.status !== 200) {
       console.log('LOG ERROR');
@@ -345,7 +346,7 @@ export default class extends Vue {
 
       return null;
     }
-    this.productsTest = response.data;
+    this.products = response.data;
     console.log('LOG SUCCESS');
     console.log('RESPONSE', response.data);
   }

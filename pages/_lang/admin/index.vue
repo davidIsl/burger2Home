@@ -372,7 +372,7 @@ export default class extends mixins(validationMixin) {
   totalrows: number = 0;
 
   allergens: Allergens[] = [];
-
+  products: Product[] | null = null;
   currentProduct: Product | null = null;
   currentPromo: Promo | null = null;
   currentStock: Stock | null = null;
@@ -458,88 +458,88 @@ export default class extends mixins(validationMixin) {
     },
   ];
 
-  products: Product[] = [
-    {
-      name: 'Le classico',
-      image: '/img/produits/classico.jpg',
-      description:
-        'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 10.5,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Smokey Bacon',
-      image: '/img/produits/smokey-bacon.jpg',
-      description:
-        'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 11,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Habibi',
-      image: '/img/produits/habibi.jpg',
-      description:
-        "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
-      price: 11.5,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Double Decker',
-      image: '/img/produits/double-dekker.jpg',
-      description:
-        'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 13,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'El Sombrero',
-      image: '/img/produits/el-sombrero.jpg',
-      description:
-        'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
-      price: 12,
-      allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-    },
-    {
-      name: 'Le classico',
-      image: '/img/produits/classico.jpg',
-      description:
-        'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 10.5,
-      allergens: [this.allergens[0], this.allergens[5], this.allergens[2]],
-    },
-    {
-      name: 'Smokey Bacon',
-      image: '/img/produits/smokey-bacon.jpg',
-      description:
-        'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 11,
-      allergens: [this.allergens[0], this.allergens[1], this.allergens[5]],
-    },
-    {
-      name: 'Habibi',
-      image: '/img/produits/habibi.jpg',
-      description:
-        "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
-      price: 11.5,
-      allergens: [this.allergens[0], this.allergens[3], this.allergens[2]],
-    },
-    {
-      name: 'Double Decker',
-      image: '/img/produits/double-dekker.jpg',
-      description:
-        'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-      price: 13,
-      allergens: [this.allergens[0], this.allergens[3]],
-    },
-    {
-      name: 'El Sombrero',
-      image: '/img/produits/el-sombrero.jpg',
-      description:
-        'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
-      price: 12,
-      allergens: [this.allergens[0], this.allergens[1], this.allergens[2]],
-    },
-  ];
+  // products: Product[] = [
+  //   {
+  //     name: 'Le classico',
+  //     image: '/img/produits/classico.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 10.5,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Smokey Bacon',
+  //     image: '/img/produits/smokey-bacon.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 11,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Habibi',
+  //     image: '/img/produits/habibi.jpg',
+  //     description:
+  //       "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
+  //     price: 11.5,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Double Decker',
+  //     image: '/img/produits/double-dekker.jpg',
+  //     description:
+  //       'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 13,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'El Sombrero',
+  //     image: '/img/produits/el-sombrero.jpg',
+  //     description:
+  //       'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
+  //     price: 12,
+  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Le classico',
+  //     image: '/img/produits/classico.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 10.5,
+  //     allergens: [this.allergens[0], this.allergens[5], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Smokey Bacon',
+  //     image: '/img/produits/smokey-bacon.jpg',
+  //     description:
+  //       'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 11,
+  //     allergens: [this.allergens[0], this.allergens[1], this.allergens[5]],
+  //   },
+  //   {
+  //     name: 'Habibi',
+  //     image: '/img/produits/habibi.jpg',
+  //     description:
+  //       "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
+  //     price: 11.5,
+  //     allergens: [this.allergens[0], this.allergens[3], this.allergens[2]],
+  //   },
+  //   {
+  //     name: 'Double Decker',
+  //     image: '/img/produits/double-dekker.jpg',
+  //     description:
+  //       'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
+  //     price: 13,
+  //     allergens: [this.allergens[0], this.allergens[3]],
+  //   },
+  //   {
+  //     name: 'El Sombrero',
+  //     image: '/img/produits/el-sombrero.jpg',
+  //     description:
+  //       'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
+  //     price: 12,
+  //     allergens: [this.allergens[0], this.allergens[1], this.allergens[2]],
+  //   },
+  // ];
 
   promos: Promo[] = [
     {

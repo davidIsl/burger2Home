@@ -23,12 +23,12 @@ b-container.p-0(fluid)
           :text='$t("pages.home.text3")'
           img-src='/img/accueil/burger_accueil3.jpg'
         )
-  b-row.bg-gray
-    b-col
+  b-row.bg-gray.p-3
+    b-col.mx-auto(lg='22' xl='20')
       .text-secondary.text-center.p-2.m-2.content
         h4 {{ $t('pages.home.title1') }}
-  b-row
-    b-col
+  b-row.bg-gray.p-3
+    b-col.mx-auto(lg='22' xl='20')
       .p-0
         VueSlickCarousel.w-100(
           v-if='products.length > 0'
@@ -200,15 +200,15 @@ export default class extends Vue {
     font-size: 22px;
   }
 }
-.card {
-  width: 18em;
-  height: 50em;
-  font-size: 0.8em;
-  text-shadow: 1px 1px 1px var(--darkRed);
-  @include for-xxl-desktop-only {
-    width: 1000px;
-    height: 740px;
-    font-size: 16px;
-  }
-}
+// .card {
+//   width: 18em;
+//   height: 50em;
+//   font-size: 0.8em;
+//   text-shadow: 1px 1px 1px var(--darkRed);
+//   @include for-xxl-desktop-only {
+//     width: 1000px;
+//     height: 740px;
+//     font-size: 16px;
+//   }
+// }
 </style>
