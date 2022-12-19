@@ -26,7 +26,7 @@ b-container.bg-gray(fluid)
         b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
-        filters
+        filters(:filters='products' @change='handleChangeFilter')
       b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
         .m-3.p-sm-5.content.mx-auto
           b-row
@@ -118,100 +118,6 @@ export default class extends Vue {
   products: Product[] | null = null;
   currentProduct: Product | null = null;
 
-  // fieldList: Field[] = [
-  //   {
-  //     key: 'id',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'product_name',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'price',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'description',
-  //     sortable: true,
-  //   },
-  // ];
-
-  // itemList: Item[] = [
-  //   {
-  //     id: 1,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 2,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 3,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 4,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 5,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 6,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 7,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 8,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 9,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 10,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 11,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 12,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  // ];
-
   mounted() {
     this.getBurgers();
   }
@@ -251,6 +157,10 @@ export default class extends Vue {
   // addToBasket(product: Product) {
   //   // this.$store.state.basket
   // }
+
+  handleChangeFilter(event: Product[]) {
+    this.products = event;
+  }
 }
 </script>
 

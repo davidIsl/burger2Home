@@ -64,4 +64,8 @@ export class API {
   static filters(): Promise<APIResponse> {
     return this.get('/products/families/translations');
   }
+
+  static getProductsByFamily(id: number): Promise<APIDataResponse<Product>> {
+    return this.get('/products/families/' + id + '/products');
+  }
 }

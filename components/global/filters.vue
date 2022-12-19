@@ -1,20 +1,23 @@
 <template lang="pug">
 .text-secondary.filters.p-3
-  h3.font-weight-bold {{ $t('pages.filters.title1') }}
+  h3.title {{ $t('pages.filters.title1') }}
   div
-    div(v-for='(filter, index) in filters')
-      p {{ filter.name }}
-
+    div(v-for='(filter, index) in currentFilters')
+      b-form-checkbox(@change='selectFilters(filter.productFamilyId)') {{ filter.name }}
+        //- b-badge.ml-2.bg-darkRed {{  }}
       //- font-awesome-icon.mr-3.mt-1.ml-1(:icon='["fa", "tag"]')
 </template>
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import { API } from '@/utils/javaBack';
-import { Filters } from '@/utils/utils';
+import { Filters, Product } from '@/utils/utils';
 
 @Component({})
 export default class extends Vue {
-  filters: Filters | null = null;
+  @Prop() filters!: Product[];
+  // @Prop() numberFilterProduct!: number;
+
+  currentFilters: Filters | null = null;
 
   mounted() {
     this.filtersList();
@@ -27,10 +30,23 @@ export default class extends Vue {
     const response = await API.filters();
 
     if (response.status !== 200) {
-      return;
+      return null;
     }
 
-    this.filters = response.data;
+    this.currentFilters = response.data;
+    console.log('FiltersCurrent', this.currentFilters);
+  }
+
+  async selectFilters(id: number) {
+    const response = await API.getProductsByFamily(id);
+
+    if (response.status !== 200) {
+      return null;
+    }
+    // this.filters = response.data;
+    // console.log('Filters', this.filters);
+
+    this.$emit('change', response.data);
   }
 }
 </script>
