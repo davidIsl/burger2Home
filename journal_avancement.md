@@ -85,3 +85,7 @@
 - [x] 2022/12/16: Always Cors Error 403 back refuse autorization
 - [x] 2022/12/17: Configuration Cors in BACK, link first endpoint products burgers pages, modify endpoint
 - [x] 2022/12/18: burgers pages link endpoint summary product, changes modal and card, create Data to Database, filters end points not finish
+
+## Semaine 51
+
+-[x] 2022/12/19: Filters end point not finished
