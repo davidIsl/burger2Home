@@ -88,4 +88,4 @@
 
 ## Semaine 51
 
--[x] 2022/12/19: Filters end point not finished
+-[x] 2022/12/19: Filters end point not finished, create product endpoints

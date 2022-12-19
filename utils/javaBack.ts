@@ -1,6 +1,11 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
-import Vue from 'vue';
-import { APIDataResponse, APIResponse, Product } from '@/utils/utils';
+// import Vue from 'vue';
+import {
+  APIDataResponse,
+  APIResponse,
+  Ingredients,
+  Product,
+} from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
 
@@ -30,16 +35,16 @@ export class API {
       config.api_url + endpoint,
       {
         ...body,
-        lang: (body && body.lang) ?? Vue.prototype.i18n.locale,
+        // lang: (body && body.lang) ?? Vue.prototype.i18n.locale,
       },
       {
         validateStatus: () => true,
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-          'x-antelopejs-namespace': config.datatable_namespace,
-          'x-antelopejs-webauth':
-            Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
+          // 'x-antelopejs-namespace': config.datatable_namespace,
+          // 'x-antelopejs-webauth':
+          //   Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
         },
       }
     );
@@ -67,5 +72,29 @@ export class API {
 
   static getProductsByFamily(id: number): Promise<APIDataResponse<Product>> {
     return this.get('/products/families/' + id + '/products');
+  }
+
+  /*
+   * ENDPOINT INGREDIENTS
+   */
+
+  static ingredientsList(): Promise<APIDataResponse<Ingredients>> {
+    return this.get('/ingredients/translations');
+  }
+
+  /*
+   * CREATE PRODUCTS
+   */
+
+  static addProducts(
+    image: string,
+    ingredients: number[],
+    families: number[]
+  ): Promise<APIResponse> {
+    return this.post('/products', { image, ingredients, families });
+  }
+
+  static addProductsTranslation(): Promise<APIResponse> {
+    return this.get('/products/translations');
   }
 }

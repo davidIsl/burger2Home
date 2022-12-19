@@ -19,7 +19,11 @@ export interface Allergens {
   name: string;
 }
 
-export interface Ingredients {}
+export interface Ingredients {
+  id: number;
+  name: string;
+  allergens: Allergens[];
+}
 export interface Product {
   actualPrice: number;
   allergens: Allergens[];

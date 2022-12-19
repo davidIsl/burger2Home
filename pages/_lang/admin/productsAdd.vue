@@ -73,8 +73,8 @@ b-container.p-3.bg-gray(fluid)
                   :deselectLabel='$t("pages.admin.deselectLabel")'
                   :searchable='false'
                   :class='{ "is-invalid": $v.ingredients.$error }'
-                  label='text'
-                  track-by='text'
+                  label='name'
+                  track-by='name'
                   @blur='$v.ingredients.$touch()'
                 )
                 .input-error.my-2(v-if='$v.ingredients.$error')
@@ -106,7 +106,8 @@ import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
 
-import { SelectOption } from '@/utils/utils';
+import { Ingredients } from '@/utils/utils';
+import { API } from '@/utils/javaBack';
 
 @Component({
   components: {},
@@ -115,51 +116,45 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) name: string = '';
   @Validate({ required }) description: string = '';
   @Validate({ required }) price: number = 0;
-  @Validate({ required }) ingredients: SelectOption[] = [];
+  @Validate({ required }) ingredients: Ingredients[] = [];
+
+  ingredientsId: number[] = [];
   image: any = '';
   maxSize: number = 10;
 
   error?: boolean = false;
 
   mounted() {
-    this.ingredients = [
-      {
-        text: 'Beef',
-      },
-      {
-        text: 'Chicken',
-      },
-      {
-        text: 'Onions',
-      },
-      {
-        text: 'Fish',
-      },
-      {
-        text: 'Tomato',
-      },
-      {
-        text: 'Salad',
-      },
-      {
-        text: 'Bacon',
-      },
-      {
-        text: 'Cheese',
-      },
-      {
-        text: 'Pickles',
-      },
-    ];
+    this.getIngredients();
   }
 
   checkMaxSize(file: File): boolean {
     return file.size / 1048576 <= this.maxSize;
   }
 
-  onSubmit() {
+  async getIngredients() {
+    const response = await API.ingredientsList();
+
+    if (response.status !== 200) {
+      return null;
+    }
+
+    this.ingredients = response.data;
+  }
+
+  async onSubmit() {
     this.$v.$touch();
     console.log('ADD PRODUCT');
+
+    for (let x = 0; x < this.ingredients.length; x++) {
+      this.ingredientsId.push(this.ingredients[x].id);
+    }
+    const response = await API.addProducts(this.image, this.ingredientsId, [1]);
+
+    if (response.status !== 200) {
+      return null;
+    }
+
     console.log('FILE', this.image.size);
   }
 }
