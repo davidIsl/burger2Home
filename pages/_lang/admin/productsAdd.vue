@@ -86,11 +86,17 @@ b-container.p-3.bg-gray(fluid)
                 :label='$t("pages.admin.add.label5")'
                 label-for='image'
               )
-                input(
-                  :value='image'
-                  accept='image/jpg, image/jpeg, image/png'
-                  type='file'
-                  required
+                //- input(
+                //-   :value='image'
+                //-   accept='image/jpg, image/jpeg, image/png'
+                //-   type='file'
+                //-   required
+                //- )
+
+                uploadAvatar(
+                  :preview='$v.image.$model'
+                  :error='$v.image.$error'
+                  @change='$v.image.$model = $event'
                 )
                 //- .input-error.my-2(v-if='!image')
                 //-   font-awesome-icon.mr-2(
@@ -105,21 +111,22 @@ import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
-
+import uploadAvatar from '@/components/global/uploadAvatar.vue';
 import { Ingredients } from '@/utils/utils';
 import { API } from '@/utils/javaBack';
 
 @Component({
-  components: {},
+  components: { uploadAvatar },
 })
 export default class extends mixins(validationMixin) {
   @Validate({ required }) name: string = '';
   @Validate({ required }) description: string = '';
   @Validate({ required }) price: number = 0;
   @Validate({ required }) ingredients: Ingredients[] = [];
+  @Validate({ required }) image: string = '';
 
   ingredientsId: number[] = [];
-  image: any = '';
+  // image: any = '';
   maxSize: number = 10;
 
   error?: boolean = false;
@@ -149,13 +156,18 @@ export default class extends mixins(validationMixin) {
     for (let x = 0; x < this.ingredients.length; x++) {
       this.ingredientsId.push(this.ingredients[x].id);
     }
-    const response = await API.addProducts(this.image, this.ingredientsId, [1]);
+    const response = await API.addProducts(
+      this.image,
+      this.ingredientsId,
+      [1],
+      true
+    );
 
     if (response.status !== 200) {
       return null;
     }
 
-    console.log('FILE', this.image.size);
+    console.log('FILE', this.image);
   }
 }
 </script>
