@@ -38,7 +38,7 @@ export class API {
         // lang: (body && body.lang) ?? Vue.prototype.i18n.locale,
       },
       {
-        validateStatus: () => true,
+        // validateStatus: () => true,
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
@@ -89,9 +89,10 @@ export class API {
   static addProducts(
     image: string,
     ingredients: number[],
-    families: number[]
+    families: number[],
+    onMenu: boolean
   ): Promise<APIResponse> {
-    return this.post('/products', { image, ingredients, families });
+    return this.post('/products', { image, ingredients, families, onMenu });
   }
 
   static addProductsTranslation(): Promise<APIResponse> {
