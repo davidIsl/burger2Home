@@ -46,7 +46,7 @@ b-container.p-4.bg-gray(fluid)
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
-import { Allergens, Basket, Product } from '@/utils/utils';
+import { Basket, Product } from '@/utils/utils';
 
 @Component({
   components: {},
@@ -84,23 +84,23 @@ export default class extends Vue {
     },
   ];
 
-  allergens: Allergens[] = [
-    {
-      name: 'Gluten',
-    },
-    {
-      name: 'Oeufs',
-    },
-    {
-      name: 'Poissons',
-    },
-    {
-      name: 'Soja',
-    },
-    {
-      name: 'Arachides',
-    },
-  ];
+  // allergens: Allergens[] = [
+  //   {
+  //     name: 'Gluten',
+  //   },
+  //   {
+  //     name: 'Oeufs',
+  //   },
+  //   {
+  //     name: 'Poissons',
+  //   },
+  //   {
+  //     name: 'Soja',
+  //   },
+  //   {
+  //     name: 'Arachides',
+  //   },
+  // ];
 
   // products: Product[] = [
   //   {

@@ -4,6 +4,7 @@ import {
   APIDataResponse,
   APIResponse,
   Ingredients,
+  Families,
   Product,
 } from '@/utils/utils';
 const config =
@@ -42,9 +43,27 @@ export class API {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
+
           // 'x-antelopejs-namespace': config.datatable_namespace,
           // 'x-antelopejs-webauth':
           //   Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
+        },
+      }
+    );
+    return { data, status };
+  }
+
+  private static async postFormData(
+    endpoint: string,
+    body?: any
+  ): Promise<APIResponse> {
+    const { data, status } = await this.axios.post(
+      config.api_url + endpoint,
+      body,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
       }
     );
@@ -56,10 +75,16 @@ export class API {
    */
   static burgerList(lang: string): Promise<APIDataResponse<Product>> {
     return this.get(
-      '/products/summaries?language=' +
-        lang.toUpperCase() +
-        '&availableProductsOnly=false'
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true`
     );
+  }
+
+  /*
+   * ENDPOINT GET PRODUCT IMAGE
+   */
+
+  static getImages(productId: number): Promise<APIResponse> {
+    return this.get(`/products/${productId}/image`);
   }
 
   /*
@@ -71,15 +96,15 @@ export class API {
   }
 
   static getProductsByFamily(id: number): Promise<APIDataResponse<Product>> {
-    return this.get('/products/families/' + id + '/products');
+    return this.get(`/products/${id}/families`);
   }
 
   /*
    * ENDPOINT INGREDIENTS
    */
 
-  static ingredientsList(): Promise<APIDataResponse<Ingredients>> {
-    return this.get('/ingredients/translations');
+  static ingredientsList(lang: string): Promise<APIDataResponse<Ingredients>> {
+    return this.get(`/ingredients/translations?language=${lang.toUpperCase()}`);
   }
 
   /*
@@ -87,15 +112,25 @@ export class API {
    */
 
   static addProducts(
-    image: string,
-    ingredients: number[],
-    families: number[],
+    ingredients: Ingredients[],
+    productFamilies: Families[],
     onMenu: boolean
   ): Promise<APIResponse> {
-    return this.post('/products', { image, ingredients, families, onMenu });
+    return this.post('/products', { ingredients, productFamilies, onMenu });
   }
 
   static addProductsTranslation(): Promise<APIResponse> {
     return this.get('/products/translations');
+  }
+  /**
+   *
+   * ENDPOINT UIPLOAD PRODUCT IMAGE
+   */
+
+  static uploadImage(
+    productId: number,
+    imageName: FormData
+  ): Promise<APIResponse> {
+    return this.postFormData(`/products/${productId}/image`, imageName);
   }
 }

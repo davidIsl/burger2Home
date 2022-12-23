@@ -16,11 +16,19 @@ export interface SelectOption {
   text: string;
 }
 export interface Allergens {
+  id: number;
   name: string;
 }
 
-export interface Ingredients {
+export interface Families {
   id: number;
+  name: string;
+  description: string;
+}
+
+export interface Ingredients {
+  // TODO id TRANSLATION ???
+  ingredientId: number;
   name: string;
   allergens: Allergens[];
 }

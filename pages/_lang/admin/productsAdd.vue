@@ -84,25 +84,25 @@ b-container.p-3.bg-gray(fluid)
                   | {{ $t('pages.errors.required') }}
               b-form-group.pt-3.text-primary(
                 :label='$t("pages.admin.add.label5")'
-                label-for='image'
+                label-for='imageName'
               )
                 //- input(
-                //-   :value='image'
-                //-   accept='image/jpg, image/jpeg, image/png'
+                //-   :value='imageName'
+                //-   accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
                 //-   type='file'
-                //-   required
                 //- )
 
                 uploadAvatar(
-                  :preview='$v.image.$model'
-                  :error='$v.image.$error'
-                  @change='$v.image.$model = $event'
+                  :preview='$v.imageName.$model'
+                  :error='$v.imageName.$error'
+                  ref='fileInput'
+                  @change='$v.imageName.$model = $event'
                 )
-                //- .input-error.my-2(v-if='!image')
-                //-   font-awesome-icon.mr-2(
-                //-     :icon='["fa", "exclamation-triangle"]'
-                //-   )
-                //-   | {{ $t('pages.errors.required') }}
+                .input-error.my-2(v-if='$v.imageName.$error')
+                  font-awesome-icon.mr-2(
+                    :icon='["fa", "exclamation-triangle"]'
+                  )
+                  | {{ $t('pages.errors.required') }}
               .flex.text-center
                 b-button.button(variant='secondary' @click='onSubmit') {{ $t('pages.admin.add.button1') }}
 </template>
@@ -112,7 +112,7 @@ import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
 import uploadAvatar from '@/components/global/uploadAvatar.vue';
-import { Ingredients } from '@/utils/utils';
+import { Families, Ingredients } from '@/utils/utils';
 import { API } from '@/utils/javaBack';
 
 @Component({
@@ -123,12 +123,20 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) description: string = '';
   @Validate({ required }) price: number = 0;
   @Validate({ required }) ingredients: Ingredients[] = [];
-  @Validate({ required }) image: string = '';
+  @Validate({ required }) imageName: string = '';
 
-  ingredientsId: number[] = [];
-  // image: any = '';
+  ingredientsId: any[] = [];
+  // imageUrl: any = '';
   maxSize: number = 10;
+  productFamilies: Families[] = [
+    {
+      id: 1,
+      name: 'Beef',
+      description: 'Delicious Beef Hamburfer',
+    },
+  ];
 
+  errorMsg: string = '';
   error?: boolean = false;
 
   mounted() {
@@ -139,35 +147,60 @@ export default class extends mixins(validationMixin) {
     return file.size / 1048576 <= this.maxSize;
   }
 
+  async upload(productId: number, imageName: FormData) {
+    const response = await API.uploadImage(productId, imageName);
+
+    if (response.status !== 200) {
+      return null;
+    }
+  }
+
   async getIngredients() {
-    const response = await API.ingredientsList();
+    const response = await API.ingredientsList(this.$i18n.locale);
 
     if (response.status !== 200) {
       return null;
     }
 
     this.ingredients = response.data;
+    console.log('INGREDIENTS:', this.ingredients);
   }
 
   async onSubmit() {
     this.$v.$touch();
     console.log('ADD PRODUCT');
+    console.log('SUBMIT INGREDIENT', this.ingredients);
 
-    for (let x = 0; x < this.ingredients.length; x++) {
-      this.ingredientsId.push(this.ingredients[x].id);
-    }
-    const response = await API.addProducts(
-      this.image,
+    this.ingredientsId = this.ingredients.map((ingredient) => ({
+      id: ingredient.ingredientId,
+    }));
+
+    const responseCreateProduct = await API.addProducts(
       this.ingredientsId,
-      [1],
+      this.productFamilies,
       true
     );
 
-    if (response.status !== 200) {
+    if (responseCreateProduct.status !== 200) {
       return null;
     }
 
-    console.log('FILE', this.image);
+    const fileInput = this.$refs.fileInput as HTMLInputElement;
+    const file = fileInput.files[0];
+
+    console.log('FILE', file);
+    const formData = new FormData();
+    formData.append('image', file);
+    console.log('FILE', formData);
+
+    const responseUploadImg = await API.uploadImage(
+      responseCreateProduct.data.id,
+      formData
+    );
+
+    if (responseUploadImg.status !== 200) {
+      return null;
+    }
   }
 }
 </script>

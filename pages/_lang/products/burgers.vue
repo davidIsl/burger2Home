@@ -33,7 +33,7 @@ b-container.bg-gray(fluid)
             b-col.w-100(v-for='(product, index) in products' :key='index')
               b-card.m-3.p-2.text-center.card.mx-auto(
                 :title='product.name'
-                :img-src='product.imageUrl'
+                :img-src='getLink(product.id)'
                 img-alt='Image'
                 img-top
                 img-height='220'
@@ -122,6 +122,12 @@ export default class extends Vue {
     this.getBurgers();
   }
 
+  getLink(productId: number) {
+    const link: string =
+      'http://localhost:8080/products/' + productId + '/image';
+    return link;
+  }
+
   async getBurgers() {
     const response = await API.burgerList(this.$i18n.locale);
 
@@ -132,8 +138,19 @@ export default class extends Vue {
       return null;
     }
     this.products = response.data;
+    console.log('PRODUCTS:', this.products);
     console.log('LOG SUCCESS');
     console.log('RESPONSE', response.data);
+  }
+
+  async getProductImage(productId: number) {
+    const response = await API.getImages(productId);
+
+    if (response.status !== 200) {
+      return null;
+    }
+
+    return response.data.image;
   }
 
   openDetails(product: any) {

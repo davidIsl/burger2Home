@@ -88,4 +88,7 @@
 
 ## Semaine 51
 
--[x] 2022/12/19: Filters end point not finished, create product endpoints
+- [x] 2022/12/19: Filters end point not finished, create product endpointsfeat
+- [x] 2022/12/21: Problems with create products endpoint
+- [x] 2022/12/22: Always problems with product endpoint, modification with last pull from back
+- [x] 2022/12/23: upload image problems, modification another back pull
