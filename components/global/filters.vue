@@ -10,14 +10,14 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import { API } from '@/utils/javaBack';
-import { Filters, Product } from '@/utils/utils';
+import { Families, Product } from '@/utils/utils';
 
 @Component({})
 export default class extends Vue {
   @Prop() filters!: Product[];
   // @Prop() numberFilterProduct!: number;
 
-  currentFilters: Filters | null = null;
+  currentFilters: Families[] | null = null;
 
   mounted() {
     this.filtersList();
@@ -27,7 +27,7 @@ export default class extends Vue {
    */
 
   async filtersList() {
-    const response = await API.filters();
+    const response = await API.familiesList(this.$i18n.locale);
 
     if (response.status !== 200) {
       return null;

@@ -92,3 +92,7 @@
 - [x] 2022/12/21: Problems with create products endpoint
 - [x] 2022/12/22: Always problems with product endpoint, modification with last pull from back
 - [x] 2022/12/23: upload image problems, modification another back pull
+
+## Semaine 52
+
+- [x] 2022/12/26: Admin Add products

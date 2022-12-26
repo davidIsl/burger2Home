@@ -6,6 +6,8 @@ import {
   Ingredients,
   Families,
   Product,
+  Language,
+  Price,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -70,6 +72,16 @@ export class API {
     return { data, status };
   }
 
+  /**
+   * ENDPOINT GET LANGUAGES
+   */
+
+  static languagesList(): Promise<APIDataResponse<Language>> {
+    return this.get('/languages');
+  }
+
+  // PRODUCT ENDPOINT
+
   /*
    * ENDPOINT PRODUCT SUMMARY
    */
@@ -91,13 +103,19 @@ export class API {
    * ENDPOINT PRODUCTS FAMILY (FILTERS)
    */
 
-  static filters(): Promise<APIResponse> {
-    return this.get('/products/families/translations');
+  static familiesList(lang: string): Promise<APIDataResponse<Families>> {
+    return this.get(
+      `/products/families/translations?language=${lang.toUpperCase()}`
+    );
   }
 
   static getProductsByFamily(id: number): Promise<APIDataResponse<Product>> {
     return this.get(`/products/${id}/families`);
   }
+
+  // static getFamilyById(id: number): Promise<APIResponse> {
+  //   return this.get(`/products/families/${id}`);
+  // }
 
   /*
    * ENDPOINT INGREDIENTS
@@ -119,12 +137,33 @@ export class API {
     return this.post('/products', { ingredients, productFamilies, onMenu });
   }
 
-  static addProductsTranslation(): Promise<APIResponse> {
-    return this.get('/products/translations');
+  /**
+   * ENDPOINT CREATE TRANSLATION FOR A PRODUCT
+   */
+  static addProductsTranslation(
+    description: string,
+    name: string,
+    language: Language,
+    productId: number
+  ): Promise<APIResponse> {
+    return this.post('/products/translations', {
+      description,
+      name,
+      language,
+      productId,
+    });
   }
+
+  /**
+   * ENDPOINT SET PRODUCT PRICE
+   */
+  static setProductPrice(amount: Price): Promise<APIResponse> {
+    return this.post(`/products/${amount}/prices/current`);
+  }
+
   /**
    *
-   * ENDPOINT UIPLOAD PRODUCT IMAGE
+   * ENDPOINT UPLOAD PRODUCT IMAGE
    */
 
   static uploadImage(

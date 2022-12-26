@@ -221,16 +221,24 @@
       "button4": "Delete a promo",
       "add": {
         "title1": "Add a new product",
+        "title2": "Enter English Translation",
+        "title3": "Enter French Translation",
+        "title4": "Enter the last data",
+        "label": "Language translation",
         "label1": "Product Name",
         "label2": "Product Description",
         "label3": "Product Price",
         "label4": "Product Ingredients",
-        "label5": "Product Photos",
+        "label5": "Product Family",
+        "label6": "Product Photos",
+        "placeholder": "Select a language",
         "placeholder1": "Enter a name",
         "placeholder2": "Enter a description",
         "placeholder3": "Enter a price",
         "placeholder4": "Select Ingredients",
-        "button1": "Add Product"
+        "placeholder5": "Select a family",
+        "button1": "Add Product",
+        "button2": "Next Step"
       },
       "edit": {
         "title1": "Edit a product",

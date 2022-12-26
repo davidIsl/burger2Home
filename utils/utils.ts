@@ -12,8 +12,14 @@ export interface APIDataResponse<T = any> {
   status: number;
 }
 export interface SelectOption {
-  // value: string | null;
-  text: string;
+  value: number;
+  text?: string;
+}
+
+export interface Language {
+  id: number;
+  name: string;
+  abbreviation?: string;
 }
 export interface Allergens {
   id: number;
@@ -21,9 +27,14 @@ export interface Allergens {
 }
 
 export interface Families {
-  id: number;
+  // TODO if TRANSLATION ??? ou INTERFACE TRANSLATION ???
+  productFamilyId: number;
   name: string;
-  description: string;
+  description?: string;
+}
+
+export interface Price {
+  amount: number;
 }
 
 export interface Ingredients {
@@ -114,4 +125,17 @@ export enum rolesType {
   MARKETING,
   STOCK,
   CUSTOMER,
+}
+
+export enum submitProductAddType {
+  NONE,
+  SUCCESS,
+  ERROR,
+}
+
+export enum stepProductAddType {
+  STEP1,
+  STEP2,
+  STEP3,
+  ERROR,
 }
