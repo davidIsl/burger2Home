@@ -8,6 +8,7 @@ import {
   Product,
   Language,
   Price,
+  Allergens,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -118,14 +119,6 @@ export class API {
   // }
 
   /*
-   * ENDPOINT INGREDIENTS
-   */
-
-  static ingredientsList(lang: string): Promise<APIDataResponse<Ingredients>> {
-    return this.get(`/ingredients/translations?language=${lang.toUpperCase()}`);
-  }
-
-  /*
    * CREATE PRODUCTS
    */
 
@@ -157,8 +150,11 @@ export class API {
   /**
    * ENDPOINT SET PRODUCT PRICE
    */
-  static setProductPrice(amount: Price): Promise<APIResponse> {
-    return this.post(`/products/${amount}/prices/current`);
+  static setProductPrice(
+    productId: number,
+    amount: Price
+  ): Promise<APIResponse> {
+    return this.post(`/products/${productId}/prices/current`, amount);
   }
 
   /**
@@ -170,6 +166,45 @@ export class API {
     productId: number,
     imageName: FormData
   ): Promise<APIResponse> {
-    return this.postFormData(`/products/${productId}/image`, imageName);
+    return this.postFormData(`/products/${productId}/image`, { imageName });
+  }
+
+  /*
+   * ENDPOINT INGREDIENTS
+   */
+
+  static ingredientsList(lang: string): Promise<APIDataResponse<Ingredients>> {
+    return this.get(`/ingredients/translations?language=${lang.toUpperCase()}`);
+  }
+
+  /**
+   * ENDPOINT CREATE INGREDIENTS
+   */
+
+  static addIngredient(allergens: Allergens[]): Promise<APIResponse> {
+    return this.post(`/ingredients`, { allergens });
+  }
+
+  /**
+   * ENDPOINT CREATE INGREDIENTS TRANSLATION
+   */
+
+  static addIngredientTranslation(
+    name: string,
+    language: Language,
+    ingredientId: number
+  ): Promise<APIResponse> {
+    return this.post(`/ingredients/translations`, {
+      name,
+      language,
+      ingredientId,
+    });
+  }
+  /**
+   * ENDPOINT ALLERGENS LIST
+   */
+
+  static allergensList(lang: string): Promise<APIDataResponse<Allergens>> {
+    return this.get(`/allergens/translations?language=${lang.toUpperCase()}`);
   }
 }

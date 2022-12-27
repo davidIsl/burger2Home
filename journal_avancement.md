@@ -95,4 +95,5 @@
 
 ## Semaine 52
 
-- [x] 2022/12/26: Admin Add products
+- [x] 2022/12/26: Admin Add products, Cors Error on SetPrice =
+- [x] 2022/12/27: Add ingredients, Add Family

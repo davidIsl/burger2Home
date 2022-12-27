@@ -14,6 +14,18 @@ b-container.p-4.bg-gray(fluid)
         b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.button1') }}
     b-row
       b-col(
+        :offset-sm='filters ? "16" : "16"'
+        :offset-md='filters ? "18" : "16"'
+        sm='8'
+        :md='filters ? "6" : "8"'
+        lg='6'
+      )
+        b-button.mb-3.button.w-100(
+          :to='`/${$i18n.locale}/admin/ingredientsAdd/`'
+        ) {{ $t('pages.admin.button5') }}
+        b-button.mb-3.button.w-100(:to='`/${$i18n.locale}/admin/familyAdd/`') {{ $t('pages.admin.button5') }}
+    b-row
+      b-col(
         :offset-lg='filters ? "0" : "2"'
         sm='16'
         :md='filters ? "18" : "16"'

@@ -1,14 +1,14 @@
 <template lang="pug">
-b-container.p-3.bg-gray(fluid)
+b-container.p-5.bg-gray(fluid)
   b-row
     b-col
       h3.p-3.text-center.text-secondary {{ $t('pages.admin.add.title1') }}
   b-row
     b-col.mx-auto(md='16' lg='12' xl='10')
       form(ref='form' @submit.stop.prevent='onSubmit')
-        b-row
+        b-row.mb-1
           b-col.pb-3
-            b-container.p-4.content
+            b-container.p-4.content.mb-5
               .div.p-0(v-if='stepProductAdd === stepProductAddType.STEP1')
                 h5.text-secondary.title {{ $t('pages.admin.add.title2') }}
                 b-form-group.pt-3.text-primary(
@@ -111,10 +111,15 @@ b-container.p-3.bg-gray(fluid)
                       :icon='["fa", "exclamation-triangle"]'
                     )
                     | {{ $t('pages.errors.required') }}
-              .flex.text-center(
+              div(
                 v-if='stepProductAdd === stepProductAddType.STEP1 || stepProductAdd === stepProductAddType.STEP2'
               )
-                b-button.button(variant='secondary' @click='nextStep') {{ $t('pages.admin.add.button2') }}
+                b-row
+                  b-col.mx-auto(sm='12')
+                    b-button.mt-3.button.w-100(
+                      variant='secondary'
+                      @click='nextStep'
+                    ) {{ $t('pages.admin.add.button2') }}
               .div.p-0(v-if='stepProductAdd === stepProductAddType.STEP3')
                 h5.text-secondary.title {{ $t('pages.admin.add.title4') }}
                 b-form-group.pt-3.text-primary(
@@ -139,54 +144,70 @@ b-container.p-3.bg-gray(fluid)
                   :label='$t("pages.admin.add.label4")'
                   label-for='ingredients'
                 )
-                  multiselect#ingredients(
-                    v-model='$v.ingredient.$model'
-                    :options='ingredients'
-                    :multiple='true'
-                    :selectLabel='$t("pages.admin.selectLabel")'
-                    :selectedLabel='$t("pages.admin.selectedLabel")'
-                    :deselectLabel='$t("pages.admin.deselectLabel")'
-                    :searchable='false'
-                    :class='{ "is-invalid": $v.ingredient.$error }'
-                    label='name'
-                    track-by='name'
-                    @blur='$v.ingredient.$touch()'
-                  )
-                  .input-error.my-2(v-if='$v.ingredient.$error')
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
-                    )
-                    | {{ $t('pages.errors.required') }}
+                  b-row
+                    b-col
+                      multiselect#ingredients(
+                        v-model='$v.ingredient.$model'
+                        :options='ingredients'
+                        :multiple='true'
+                        :selectLabel='$t("pages.admin.selectLabel")'
+                        :selectedLabel='$t("pages.admin.selectedLabel")'
+                        :deselectLabel='$t("pages.admin.deselectLabel")'
+                        :searchable='false'
+                        :class='{ "is-invalid": $v.ingredient.$error }'
+                        label='name'
+                        track-by='name'
+                        @blur='$v.ingredient.$touch()'
+                      )
+                      .input-error.my-2(v-if='$v.ingredient.$error')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
+                        )
+                        | {{ $t('pages.errors.required') }}
+                  b-row
+                    b-col.mx-auto(sm='12')
+                      .flex.text-center
+                        b-button.mt-3.button.w-100(
+                          :to='`/${$i18n.locale}/admin/ingredientsAdd/`'
+                        ) {{ $t('pages.admin.add.button3') }}
                 b-form-group.pt-3.text-primary(
                   :label='$t("pages.admin.add.label5")'
                   label-for='productFamily'
                 )
-                  multiselect#productFamily(
-                    v-model='$v.productFamily.$model'
-                    :options='families'
-                    :multiple='true'
-                    :selectLabel='$t("pages.admin.selectLabel")'
-                    :selectedLabel='$t("pages.admin.selectedLabel")'
-                    :deselectLabel='$t("pages.admin.deselectLabel")'
-                    :searchable='false'
-                    :class='{ "is-invalid": $v.productFamily.$error }'
-                    label='name'
-                    track-by='name'
-                    @blur='$v.productFamily.$touch()'
-                  )
-                  .input-error(v-if='$v.productFamily.$error')
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
-                    )
-                    | {{ $t('pages.errors.required') }}
+                  b-row
+                    b-col
+                      multiselect#productFamily(
+                        v-model='$v.productFamily.$model'
+                        :options='families'
+                        :multiple='true'
+                        :selectLabel='$t("pages.admin.selectLabel")'
+                        :selectedLabel='$t("pages.admin.selectedLabel")'
+                        :deselectLabel='$t("pages.admin.deselectLabel")'
+                        :searchable='false'
+                        :class='{ "is-invalid": $v.productFamily.$error }'
+                        label='name'
+                        track-by='name'
+                        @blur='$v.productFamily.$touch()'
+                      )
+                      .input-error(v-if='$v.productFamily.$error')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
+                        )
+                        | {{ $t('pages.errors.required') }}
+                  b-row
+                    b-col.mx-auto(sm='12')
+                      .flex.text-center
+                        b-button.mt-3.button.w-100 {{ $t('pages.admin.add.button4') }}
                 b-form-group.pt-3.text-primary(
                   :label='$t("pages.admin.add.label6")'
                   label-for='imageName'
                 )
                   //- input(
+                  //-   name='image'
                   //-   :value='imageName'
                   //-   accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
                   //-   type='file'
+                  //-   ref='fileInput'
                   //- )
 
                   uploadAvatar(
@@ -200,8 +221,13 @@ b-container.p-3.bg-gray(fluid)
                       :icon='["fa", "exclamation-triangle"]'
                     )
                     | {{ $t('pages.errors.required') }}
-                .flex.text-center
-                  b-button.button(variant='secondary' @click='onSubmit') {{ $t('pages.admin.add.button1') }}
+                b-row
+                  b-col.mx-auto(sm='12')
+                    .flex.text-center
+                      b-button.button.w-100(
+                        variant='secondary'
+                        @click='onSubmit'
+                      ) {{ $t('pages.admin.add.button1') }}
               b-row.mt-5(align-h='center')
                 b-col.p-0(cols='22')
                   b-container.p-0
@@ -211,6 +237,63 @@ b-container.p-3.bg-gray(fluid)
                       :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
                     )
                       h6.m-0.mb-2.text-center {{ errorMsg }}
+  // SIDEBAR INGREDIENT
+  b-sidebar#sidebar-ingredient(bg-variant='primary' right width='360')
+    b-container
+      h3 {{ $t('pages.admin.add.sidebar.title1') }}
+      b-form-group.pt-3.text-gray(
+        :label='$t("pages.admin.add.label3")'
+        label-for='ingredientName'
+      )
+        b-form-input#ingredientName.input-form(
+          v-model='$v.ingredientName.$model'
+          :class='{ "is-invalid": $v.ingredientName.$error, "is-valid": !$v.ingredientName.$invalid }'
+          :placeholder='$t("pages.admin.add.placeholder3")'
+          type='text'
+          name='ingredientName'
+          @blur='$v.ingredientName.$touch()'
+        )
+        .input-error(v-if='$v.ingredientName.$error')
+          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+          | {{ $t('pages.errors.required') }}
+      b-form-group.pt-3.text-gray(
+        :label='$t("pages.admin.add.label3")'
+        label-for='ingredientDescription'
+      )
+        b-form-input#ingredientDescription.input-form(
+          v-model='$v.ingredientDescription.$model'
+          :class='{ "is-invalid": $v.ingredientDescription.$error, "is-valid": !$v.ingredientDescription.$invalid }'
+          :placeholder='$t("pages.admin.add.placeholder3")'
+          type='text'
+          name='ingredientDescription'
+          @blur='$v.ingredientDescription.$touch()'
+        )
+        .input-error(v-if='$v.ingredientDescription.$error')
+          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+          | {{ $t('pages.errors.required') }}
+    div
+      b-button.button.w-48.ml-1 {{ $t('pages.admin.add.sidebar.button1') }}
+      b-button.ml-1.button.w-48 {{ $t('pages.admin.add.sidebar.button2') }}
+
+    //- b-container
+    //-   h4.text-secondary.text-center {{ currentProduct.name }}
+    //-   p.text-modal {{ currentProduct.description }}
+    //- .border-top
+    //-   b-row
+    //-     b-col
+    //-       h6.pt-3.text-secondary {{ $t('pages.products.modal.title1') }}
+    //-       span.text-modal {{ currentProduct.actualPrice }} €
+    //-     b-col(v-if='currentProduct.currentDiscount > 0')
+    //-       h6.pt-3.text-secondary Old Price
+    //-       span.text-modal.crossed-text {{ currentProduct.currentPrice }} €
+    //-   h6.pt-3.text-secondary {{ $t('pages.products.modal.title2') }}
+    //-   .pl-3.text-modal(
+    //-     v-for='(allergen, index) in currentProduct.allergens'
+    //-     :key='index'
+    //-   )
+    //-     li
+    //-       ul.m-0.p-0 {{ allergen }}
+    //-   p.text-modal(v-if='currentProduct.allergens.length < 1') {{ $t('pages.products.modal.text1') }}
 </template>
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
@@ -243,12 +326,16 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) frenchName: string = '';
   @Validate({ required }) frenchDescription: string = '';
   @Validate({ required }) productFamily: Families[] = [];
-
+  @Validate({ required }) ingredientName: string = '';
+  @Validate({ required }) ingredientDescription: string = '';
   ingredients: Ingredients[] = [];
   ingredientsId: any[] = [];
   langs: SelectOption[] = [];
   productFamilies: any[] = [];
   families: Families[] = [];
+
+  // addIngredients: boolean = false;
+  // addFamily: boolean = false;
 
   stepProductAddType = stepProductAddType;
   stepProductAdd = stepProductAddType.STEP1;
@@ -421,20 +508,21 @@ export default class extends mixins(validationMixin) {
     const currentPrice: any = {
       amount: this.price,
     };
-    const responsePrice = await API.setProductPrice(currentPrice);
+    const responsePrice = await API.setProductPrice(
+      responseCreateProduct.data.id,
+      currentPrice
+    );
 
     if (responsePrice.status !== 200) {
       return null;
     }
 
-    this.submitProductAdd = submitProductAddType.SUCCESS;
-    this.errorMsg = this.$tc('pages.admin.add.success');
     // const fileInput = this.$refs.fileInput as HTMLInputElement;
     // const file = fileInput.files[0];
 
     // console.log('FILE', file);
     // const formData = new FormData();
-    // formData.append('image', file);
+    // formData.append('image', this.imageName);
     // console.log('FILE', formData);
 
     // const responseUploadImg = await API.uploadImage(
@@ -445,6 +533,9 @@ export default class extends mixins(validationMixin) {
     // if (responseUploadImg.status !== 200) {
     //   return null;
     // }
+    // this.submitProductAdd = submitProductAddType.SUCCESS;
+    // this.errorMsg = this.$tc('pages.admin.add.success');
   }
 }
 </script>
+<style scoped></style>

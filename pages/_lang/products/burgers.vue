@@ -47,6 +47,7 @@ b-container.bg-gray(fluid)
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
                 b-button.mr-2.w-48.button.justify-content-between {{ $t('pages.products.button1') }}
                 b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+  // MODAL
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -54,12 +55,10 @@ b-container.bg-gray(fluid)
     cancel-variant='secondary'
     v-if='viewDetails'
     v-model='viewDetails'
-    size='sm'
-    centered
   )
     template(#modal-title)
       b-container
-        b-img(thumbnail :src='currentProduct.imageUrl') 
+        b-img(thumbnail :src='getLink(currentProduct.id)') 
     template(#modal-footer)
       b-button.button(@click='decrementQuantity')
         font-awesome-icon(:icon='["fa", "minus"]')

@@ -237,8 +237,32 @@
         "placeholder3": "Enter a price",
         "placeholder4": "Select Ingredients",
         "placeholder5": "Select a family",
-        "button1": "Add Product",
-        "button2": "Next Step"
+        "button1": "Create Product",
+        "button2": "Next Step",
+        "button3": "Add Ingredients",
+        "button4": "Add Family",
+        "errors": "You need to select another language"
+      },
+      "ingredientsAdd": {
+        "title1": "Add a new ingredients",
+        "title2": "Enter English Ingredient Translation",
+        "title3": "Enter French Ingredient Translation",
+        "label": "Select a language",
+        "label1": "English Name",
+        "label2": "French Name",
+        "label3": "Allergens",
+        "placeholder0": "Select a language",
+        "placeholder1": "Enter a English Name",
+        "placeholder2": "Enter a French Name",
+        "placeholder3": "Select one or more allergen",
+        "button1": "Add Allergens",
+        "button2": "Create Ingredients",
+        "errorLang1": "You need to select English for the first language",
+        "errorLang2": "You need to select French for the second language"
+      },
+      "familyAdd": {
+        "title": "Family Management",
+        "title1": "Add a new family"
       },
       "edit": {
         "title1": "Edit a product",

@@ -22,7 +22,7 @@ export interface Language {
   abbreviation?: string;
 }
 export interface Allergens {
-  id: number;
+  allergenId: number;
   name: string;
 }
 
@@ -51,7 +51,7 @@ export interface Product {
   currentPrice: number;
   description: string;
   id: number;
-  imageUrl: string;
+  imageName: string;
   ingredients: Ingredients[];
   name: string;
 }
