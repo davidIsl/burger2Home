@@ -14,12 +14,14 @@
 
 - [] Responsive de la CARD
 - [] CHECK responsive de toutes les autrs apges que index
+- [] Si titre trop soucis avec la carte
 
 ## Admin
 
--[] hauteur input search
--[] button delete table checkbox not good
--[] Si le temps faire un projet a part ou alors bien protégé les routes admin en testant le role du user
+- [] hauteur input search
+- [] button delete table checkbox not good
+- [] Si le temps faire un projet a part ou alors bien protégé les routes admin en testant le role du user
+- [] ERROR ALERT ne S'affiche pas dans le submit !
 
 ## Site
 

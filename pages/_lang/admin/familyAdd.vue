@@ -123,34 +123,6 @@ b-container.p-5.bg-gray(fluid)
                         :icon='["fa", "exclamation-triangle"]'
                       )
                       | {{ $t('pages.errors.required') }}
-                //- b-form-group.m-0(
-                //-   :label='$t("pages.admin.familyAdd.label3")'
-                //-   label-for='allergens'
-                //- )
-                //-   b-row
-                //-     b-col
-                //-       multiselect#allergens(
-                //-         v-model='$v.allergen.$model'
-                //-         :options='allergens'
-                //-         :multiple='true'
-                //-         :selectLabel='$t("pages.admin.selectLabel")'
-                //-         :selectedLabel='$t("pages.admin.selectedLabel")'
-                //-         :deselectLabel='$t("pages.admin.deselectLabel")'
-                //-         :searchable='false'
-                //-         :class='{ "is-invalid": $v.allergen.$error }'
-                //-         label='name'
-                //-         track-by='name'
-                //-         @blur='$v.allergen.$touch()'
-                //-       )
-                //-       .input-error.my-2(v-if='$v.allergen.$error')
-                //-         font-awesome-icon.mr-2(
-                //-           :icon='["fa", "exclamation-triangle"]'
-                //-         )
-                //-         | {{ $t('pages.errors.required') }}
-                //- b-row
-                //-   b-col.mx-auto(sm='12')
-                //-     .flex.text-center
-                //-       b-button.my-3.button.w-100() {{ $t('pages.admin.familyAdd.button1') }}
               b-row
                 b-col.mx-auto(sm='12' lg='6')
                   .flex.text-center
@@ -223,9 +195,6 @@ export default class extends mixins(validationMixin) {
   }
 
   checkLang(): boolean {
-    // if (this.submitProductAdd === submitProductAddType.ERROR) {
-    //   this.submitProductAdd = submitProductAddType.NONE;
-    // }
     console.log('LANG1', this.language1);
 
     if (this.language1.toString() === '2') {
@@ -277,6 +246,7 @@ export default class extends mixins(validationMixin) {
       this.errorMsg = this.$tc('pages.admin.familyAdd.errors.getLanguage');
       return;
     }
+
     const englishLang = responseEnglishLang.data;
 
     const responseCreateEnglishTranslation = await API.addFamilyTranslation(

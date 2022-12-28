@@ -241,7 +241,10 @@
         "button2": "Next Step",
         "button3": "Add Ingredients",
         "button4": "Add Family",
-        "errors": "You need to select another language"
+        "errors": {
+          "lang1": "You need to select English for the first language",
+          "lang2": "You need to select French for the first language"
+        }
       },
       "ingredientsAdd": {
         "title": "Ingredients Management",

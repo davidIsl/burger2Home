@@ -252,9 +252,16 @@ export default class extends mixins(validationMixin) {
       return null;
     }
 
-    const englishLang: any = {
-      id: 1,
-    };
+    const englishId = parseInt(this.language1);
+
+    const responseEnglishLang = await API.getLanguageById(englishId);
+
+    if (responseEnglishLang.status !== 200) {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.ingredientsAdd.errors.getLanguage');
+      return;
+    }
+    const englishLang = responseEnglishLang.data;
 
     const responseCreateEnglishTranslation = await API.addIngredientTranslation(
       this.name,
@@ -266,9 +273,16 @@ export default class extends mixins(validationMixin) {
       return null;
     }
 
-    const frenchLang: any = {
-      id: 2,
-    };
+    const frenchId = parseInt(this.language2);
+
+    const responseFrenchLang = await API.getLanguageById(frenchId);
+
+    if (responseFrenchLang.status !== 200) {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.ingredientsAdd.errors.getLanguage');
+      return;
+    }
+    const frenchLang = responseFrenchLang.data;
 
     const responseCreateFrenchTranslation = await API.addIngredientTranslation(
       this.frenchName,

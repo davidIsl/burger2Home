@@ -237,63 +237,6 @@ b-container.p-5.bg-gray(fluid)
                       :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
                     )
                       h6.m-0.mb-2.text-center {{ errorMsg }}
-  // SIDEBAR INGREDIENT
-  b-sidebar#sidebar-ingredient(bg-variant='primary' right width='360')
-    b-container
-      h3 {{ $t('pages.admin.add.sidebar.title1') }}
-      b-form-group.pt-3.text-gray(
-        :label='$t("pages.admin.add.label3")'
-        label-for='ingredientName'
-      )
-        b-form-input#ingredientName.input-form(
-          v-model='$v.ingredientName.$model'
-          :class='{ "is-invalid": $v.ingredientName.$error, "is-valid": !$v.ingredientName.$invalid }'
-          :placeholder='$t("pages.admin.add.placeholder3")'
-          type='text'
-          name='ingredientName'
-          @blur='$v.ingredientName.$touch()'
-        )
-        .input-error(v-if='$v.ingredientName.$error')
-          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
-          | {{ $t('pages.errors.required') }}
-      b-form-group.pt-3.text-gray(
-        :label='$t("pages.admin.add.label3")'
-        label-for='ingredientDescription'
-      )
-        b-form-input#ingredientDescription.input-form(
-          v-model='$v.ingredientDescription.$model'
-          :class='{ "is-invalid": $v.ingredientDescription.$error, "is-valid": !$v.ingredientDescription.$invalid }'
-          :placeholder='$t("pages.admin.add.placeholder3")'
-          type='text'
-          name='ingredientDescription'
-          @blur='$v.ingredientDescription.$touch()'
-        )
-        .input-error(v-if='$v.ingredientDescription.$error')
-          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
-          | {{ $t('pages.errors.required') }}
-    div
-      b-button.button.w-48.ml-1 {{ $t('pages.admin.add.sidebar.button1') }}
-      b-button.ml-1.button.w-48 {{ $t('pages.admin.add.sidebar.button2') }}
-
-    //- b-container
-    //-   h4.text-secondary.text-center {{ currentProduct.name }}
-    //-   p.text-modal {{ currentProduct.description }}
-    //- .border-top
-    //-   b-row
-    //-     b-col
-    //-       h6.pt-3.text-secondary {{ $t('pages.products.modal.title1') }}
-    //-       span.text-modal {{ currentProduct.actualPrice }} €
-    //-     b-col(v-if='currentProduct.currentDiscount > 0')
-    //-       h6.pt-3.text-secondary Old Price
-    //-       span.text-modal.crossed-text {{ currentProduct.currentPrice }} €
-    //-   h6.pt-3.text-secondary {{ $t('pages.products.modal.title2') }}
-    //-   .pl-3.text-modal(
-    //-     v-for='(allergen, index) in currentProduct.allergens'
-    //-     :key='index'
-    //-   )
-    //-     li
-    //-       ul.m-0.p-0 {{ allergen }}
-    //-   p.text-modal(v-if='currentProduct.allergens.length < 1') {{ $t('pages.products.modal.text1') }}
 </template>
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
@@ -328,14 +271,12 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) productFamily: Families[] = [];
   @Validate({ required }) ingredientName: string = '';
   @Validate({ required }) ingredientDescription: string = '';
+
   ingredients: Ingredients[] = [];
   ingredientsId: any[] = [];
   langs: SelectOption[] = [];
   productFamilies: any[] = [];
   families: Families[] = [];
-
-  // addIngredients: boolean = false;
-  // addFamily: boolean = false;
 
   stepProductAddType = stepProductAddType;
   stepProductAdd = stepProductAddType.STEP1;
@@ -447,7 +388,7 @@ export default class extends mixins(validationMixin) {
     }
     if (this.language1 !== '' && this.language1 === this.language2) {
       this.submitProductAdd = submitProductAddType.ERROR;
-      this.errorMsg = this.$tc('pages.admin.add.errors');
+      this.errorMsg = this.$tc('pages.admin.add.errors.lang2');
       return false;
     }
     return true;
@@ -475,9 +416,17 @@ export default class extends mixins(validationMixin) {
       return null;
     }
 
-    const englishLang: any = {
-      id: 1,
-    };
+    const englishId = parseInt(this.language1);
+
+    const responseEnglishLang = await API.getLanguageById(englishId);
+
+    if (responseEnglishLang.status !== 200) {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.add.errors.getLanguage');
+      return;
+    }
+
+    const englishLang = responseEnglishLang.data;
 
     const responseCreateProductEnTranslation = await API.addProductsTranslation(
       this.description,
@@ -490,9 +439,16 @@ export default class extends mixins(validationMixin) {
       return null;
     }
 
-    const frenchLang: any = {
-      id: 2,
-    };
+    const frenchId = parseInt(this.language2);
+
+    const responseFrenchLang = await API.getLanguageById(frenchId);
+
+    if (responseFrenchLang.status !== 200) {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.add.errors.getLanguage');
+      return;
+    }
+    const frenchLang = responseFrenchLang.data;
 
     const responseCreateProductFrTranslation = await API.addProductsTranslation(
       this.frenchDescription,
