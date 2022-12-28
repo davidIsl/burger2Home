@@ -58,12 +58,12 @@
   --backgroundGDPR: rgba(248, 248, 248, 1);
 
   /* Alert Compo */
-  --errorColor: rgba(252, 165, 165, 1);
-  --errorColorLight: rgba(252, 165, 165, 0.2);
-  --errorColorDark: rgba(153, 27, 27, 1);
+  --errorColor: rgb(242, 127, 127);
+  --errorColorLight: rgba(238, 56, 56, 0.158);
+  --errorColorDark: rgb(190, 14, 14);
   --successColor: rgba(110, 231, 183, 1);
-  --successColorLight: rgba(110, 231, 183, 0.2);
-  --successColorDark: rgba(6, 95, 70, 1);
+  --successColorLight: rgba(59, 239, 167, 0.2);
+  --successColorDark: rgb(6, 176, 128);
 }
 
 /* Dark Template */

@@ -74,11 +74,24 @@ export class API {
   }
 
   /**
-   * ENDPOINT GET LANGUAGES
+   * ENDPOINT LANGUAGES
+   */
+  /**
+   * GET LANGUAGES
    */
 
   static languagesList(): Promise<APIDataResponse<Language>> {
     return this.get('/languages');
+  }
+
+  /**
+   * GET LANGUAGE BY ID
+   * @param languageId
+   * @returns Language
+   */
+
+  static getLanguageById(id: number): Promise<APIResponse> {
+    return this.get(`/languages/${id}`);
   }
 
   // PRODUCT ENDPOINT
@@ -118,6 +131,40 @@ export class API {
   //   return this.get(`/products/families/${id}`);
   // }
 
+  /**
+   * ENDPOINT FAMILY CRUD
+   */
+  /**
+   * CREATE FAMILY
+   * @returns family
+   */
+
+  static addFamily(): Promise<APIResponse> {
+    return this.post(`/products/families`);
+  }
+
+  /**
+   * CREATE FAMILY TRANSLATION
+   * @param productFamilyId
+   * @param language
+   * @param description
+   * @param name
+   * @returns Faimily Translation
+   */
+
+  static addFamilyTranslation(
+    productFamilyId: number,
+    language: Language,
+    description: string,
+    name: string
+  ): Promise<APIResponse> {
+    return this.post(`/products/families/translations`, {
+      productFamilyId,
+      language,
+      description,
+      name,
+    });
+  }
   /*
    * CREATE PRODUCTS
    */

@@ -2,9 +2,23 @@
 b-container.p-5.bg-gray(fluid)
   b-row
     b-col
+      .title-line
+        h1.p-3.title.text-center.text-secondary {{ $t('pages.admin.ingredientsAdd.title') }}
+  b-row
+    b-col.mx-auto(
+      md='16'
+      lg='12'
+      xl='10'
+      xxl='8'
+    )
       h3.p-3.text-center.text-secondary {{ $t('pages.admin.ingredientsAdd.title1') }}
   b-row
-    b-col.mx-auto(md='16' lg='12' xl='10')
+    b-col.mx-auto(
+      md='16'
+      lg='12'
+      xl='10'
+      xxl='8'
+    )
       form(ref='form' @submit.stop.prevent='onSubmit')
         b-row.mb-1
           b-col.pb-3
