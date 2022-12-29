@@ -24,6 +24,7 @@ export interface Language {
 export interface Allergens {
   allergenId: number;
   name: string;
+  language: Language;
 }
 
 export interface Families {

@@ -122,35 +122,35 @@ export default class extends mixins(validationMixin) {
   error?: boolean = false;
 
   mounted() {
-    this.ingredients = [
-      {
-        text: 'Beef',
-      },
-      {
-        text: 'Chicken',
-      },
-      {
-        text: 'Onions',
-      },
-      {
-        text: 'Fish',
-      },
-      {
-        text: 'Tomato',
-      },
-      {
-        text: 'Salad',
-      },
-      {
-        text: 'Bacon',
-      },
-      {
-        text: 'Cheese',
-      },
-      {
-        text: 'Pickles',
-      },
-    ];
+    // this.ingredients = [
+    //   {
+    //     text: 'Beef',
+    //   },
+    //   {
+    //     text: 'Chicken',
+    //   },
+    //   {
+    //     text: 'Onions',
+    //   },
+    //   {
+    //     text: 'Fish',
+    //   },
+    //   {
+    //     text: 'Tomato',
+    //   },
+    //   {
+    //     text: 'Salad',
+    //   },
+    //   {
+    //     text: 'Bacon',
+    //   },
+    //   {
+    //     text: 'Cheese',
+    //   },
+    //   {
+    //     text: 'Pickles',
+    //   },
+    // ];
   }
 
   checkMaxSize(file: File): boolean {

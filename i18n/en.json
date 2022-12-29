@@ -217,8 +217,9 @@
       "placeholder2": "Search a promo",
       "button1": "Create a new product",
       "button2": "Create a new promo",
-      "button3": "Delete a product",
-      "button4": "Delete a promo",
+      "button3": "Add Ingredients",
+      "button4": "Add Family",
+      "button5": "Add Allergens",
       "add": {
         "title1": "Add a new product",
         "title2": "Enter English Translation",
@@ -241,28 +242,129 @@
         "button2": "Next Step",
         "button3": "Add Ingredients",
         "button4": "Add Family",
+        "button5": "Previous Step",
         "errors": {
           "lang1": "You need to select English for the first language",
           "lang2": "You need to select French for the first language"
         }
       },
-      "ingredientsAdd": {
-        "title": "Ingredients Management",
-        "title1": "Add a new ingredients",
-        "title2": "Enter English Ingredient Translation",
-        "title3": "Enter French Ingredient Translation",
-        "label": "Language",
-        "label1": "English Name",
-        "label2": "French Name",
-        "label3": "Allergens",
-        "placeholder0": "Select a language",
-        "placeholder1": "Enter a English Name",
-        "placeholder2": "Enter a French Name",
-        "placeholder3": "Select one or more allergen",
-        "button1": "Add Allergens",
-        "button2": "Create Ingredients",
-        "errorLang1": "You need to select English for the first language",
-        "errorLang2": "You need to select French for the second language"
+      "ingredients": {
+        "add": {
+          "title": "Ingredients Management",
+          "title1": "Add a new ingredient",
+          "title2": "Enter English Ingredient Translation",
+          "title3": "Enter French Ingredient Translation",
+          "title4": "Ingredients Listing",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "French Name",
+          "label4": "Allergens",
+          "label5": "Select",
+          "label6": "Selected Allergen",
+          "label7": "Deselect Allergen",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter a French Name",
+          "placeholder4": "Select one or more allergen",
+          "button1": "Add Allergens",
+          "button2": "Create Ingredients"
+        },
+        "edit": {
+          "title": "Ingredients Management",
+          "title1": "Update an ingredient",
+          "title2": "Enter English Ingredient Translation",
+          "title3": "Enter French Ingredient Translation",
+          "title4": "Ingredients Listing",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "French Name",
+          "label4": "Allergens",
+          "label5": "Select",
+          "label6": "Selected Allergen",
+          "label7": "Deselect Allergen",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter a French Name",
+          "placeholder4": "Select one or more allergen",
+          "button1": "Update Ingredient",
+          "button2": "Cancel"
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "title2": "Cancel Editing",
+          "text1": "Are you sure you want to delete all informations about this ingredients",
+          "text2": "Are you sure you want to cancel the editing process about this ingredients",
+          "button1": "Delete Ingredients",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No"
+        },
+        "success": {
+          "create": "Ingredients created with SUCCESS",
+          "update": "Ingredients updated with SUCCESS",
+          "delete": "Ingredients deleted with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Ingredients",
+          "createTranslation": "Errors while creating Ingredients Translation",
+          "delete": "Errors while deleting Ingredients",
+          "getAllergens": "Errors while getting Ingredients List",
+          "fields": "you have to fill all the fields",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose french for the second language"
+        }
+      },
+      "allergens": {
+        "add": {
+          "title": "Allergens Management",
+          "title1": "Add a new allergen",
+          "title2": "Enter English Family Translation",
+          "title3": "Enter French Family Translation",
+          "title4": "Allergens Listing",
+          "label": "Language",
+          "label1": "English Name",
+          "label2": "French Name",
+          "placeholder0": "Select a language",
+          "placeholder1": "Enter a English Name",
+          "placeholder2": "Enter a French Name",
+          "placeholder3": "Search an allergen",
+          "button1": "Create Allergen"
+        },
+        "edit": {
+          "title": "Allergens Management",
+          "title1": "Update an allergen",
+          "title2": "Enter English Family Translation",
+          "title3": "Enter French Family Translation",
+          "title4": "Allergens Listing",
+          "label": "Language",
+          "label1": "English Name",
+          "label2": "French Name",
+          "placeholder0": "Select a language",
+          "placeholder1": "Enter a English Name",
+          "placeholder2": "Enter a French Name",
+          "placeholder3": "Search an allergen",
+          "button1": "Update Allergen"
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "text1": "Are you sure you want to delete all informations about this allergens",
+          "button1": "Delete Allergen",
+          "button2": "Cancel"
+        },
+        "success": {
+          "create": "Allergens created with SUCCESS",
+          "update": "Allergens updated with SUCCESS",
+          "delete": "Allergens deleted with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Allergens",
+          "createTranslation": "Errors while creating Allergens Translation",
+          "delete": "Errors while deleting Allergens",
+          "getAllergens": "Errors while getting Allergens List",
+          "fields": "you have to fill all the fields",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose English for the second language"
+        }
       },
       "familyAdd": {
         "title": "Family Management",

@@ -111,15 +111,6 @@ b-container.p-5.bg-gray(fluid)
                       :icon='["fa", "exclamation-triangle"]'
                     )
                     | {{ $t('pages.errors.required') }}
-              div(
-                v-if='stepProductAdd === stepProductAddType.STEP1 || stepProductAdd === stepProductAddType.STEP2'
-              )
-                b-row
-                  b-col.mx-auto(sm='12')
-                    b-button.mt-3.button.w-100(
-                      variant='secondary'
-                      @click='nextStep'
-                    ) {{ $t('pages.admin.add.button2') }}
               .div.p-0(v-if='stepProductAdd === stepProductAddType.STEP3')
                 h5.text-secondary.title {{ $t('pages.admin.add.title4') }}
                 b-form-group.pt-3.text-primary(
@@ -221,13 +212,33 @@ b-container.p-5.bg-gray(fluid)
                       :icon='["fa", "exclamation-triangle"]'
                     )
                     | {{ $t('pages.errors.required') }}
-                b-row
-                  b-col.mx-auto(sm='12')
-                    .flex.text-center
-                      b-button.button.w-100(
-                        variant='secondary'
-                        @click='onSubmit'
-                      ) {{ $t('pages.admin.add.button1') }}
+              b-row
+                b-col.mx-auto(
+                  v-if='stepProductAdd === stepProductAddType.STEP2 || stepProductAdd === stepProductAddType.STEP3'
+                  sm='12'
+                )
+                  b-button.mt-3.button.w-100(
+                    variant='secondary'
+                    @click='previousStep'
+                  ) {{ $t('pages.admin.add.button5') }}
+
+                b-col.mx-auto(
+                  v-if='stepProductAdd === stepProductAddType.STEP1 || stepProductAdd === stepProductAddType.STEP2'
+                  sm='12'
+                )
+                  b-button.mt-3.button.w-100(
+                    variant='secondary'
+                    @click='nextStep'
+                  ) {{ $t('pages.admin.add.button2') }}
+                //- b-row
+                b-col.mx-auto(
+                  v-if='stepProductAdd === stepProductAddType.STEP3'
+                  sm='12'
+                )
+                  b-button.mt-3.button.w-100(
+                    variant='secondary'
+                    @click='onSubmit'
+                  ) {{ $t('pages.admin.add.button1') }}
               b-row.mt-5(align-h='center')
                 b-col.p-0(cols='22')
                   b-container.p-0
@@ -306,7 +317,7 @@ export default class extends mixins(validationMixin) {
   }
 
   async getIngredients() {
-    const response = await API.ingredientsList(this.$i18n.locale);
+    const response = await API.ingredientsListByLang(this.$i18n.locale);
 
     if (response.status !== 200) {
       return null;
@@ -379,6 +390,15 @@ export default class extends mixins(validationMixin) {
       if (this.checkLang()) {
         this.stepProductAdd = stepProductAddType.STEP3;
       }
+    }
+  }
+
+  previousStep() {
+    if (this.stepProductAdd === stepProductAddType.STEP2) {
+      this.stepProductAdd = stepProductAddType.STEP1;
+    }
+    if (this.stepProductAdd === stepProductAddType.STEP3) {
+      this.stepProductAdd = stepProductAddType.STEP2;
     }
   }
 

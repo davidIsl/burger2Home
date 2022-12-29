@@ -5,68 +5,91 @@ b-container.p-4.bg-gray(fluid)
     b-row
       b-col.pb-3.text-md-left(
         :offset-lg='filters ? "0" : "2"'
+        offset-xl='2'
         sm='16'
         :md='filters ? "18" : "16"'
         :lg='filters ? "18" : "14"'
+        xl='16'
       )
         h2.text-secondary {{ $t('pages.admin.title1') }}
-      b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
-        b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.button1') }}
-    b-row
-      b-col(
-        :offset-sm='filters ? "16" : "16"'
-        :offset-md='filters ? "18" : "16"'
+      b-col.pb-3.text-center(
         sm='8'
         :md='filters ? "6" : "8"'
         lg='6'
+        xl='4'
+      )
+        b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.button1') }}
+    b-row
+      b-col(
+        offset-sm='16'
+        :offset-md='filters ? "18" : "16"'
+        offset-xl='18'
+        sm='8'
+        :md='filters ? "6" : "8"'
+        lg='6'
+        xl='4'
       )
         b-button.mb-3.button.w-100(
           :to='`/${$i18n.locale}/admin/ingredientsAdd/`'
+        ) {{ $t('pages.admin.button3') }}
+        b-button.mb-3.button.w-100(:to='`/${$i18n.locale}/admin/familyAdd/`') {{ $t('pages.admin.button4') }}
+        b-button.mb-3.button.w-100(
+          :to='`/${$i18n.locale}/admin/allergensAdd/`'
         ) {{ $t('pages.admin.button5') }}
-        b-button.mb-3.button.w-100(:to='`/${$i18n.locale}/admin/familyAdd/`') {{ $t('pages.admin.button5') }}
     b-row
       b-col(
         :offset-lg='filters ? "0" : "2"'
+        :offset-xl='filters ? "2" : "2"'
         sm='16'
         :md='filters ? "18" : "16"'
         :lg='filters ? "18" : "14"'
+        xl='16'
       )
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder1")'
         )
-      b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
+      b-col.mt-3.mt-sm-0(
+        sm='8'
+        :md='filters ? "6" : "8"'
+        lg='6'
+        xl='4'
+      )
         b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
     b-row
-      b-col.mt-3(v-if='filters' lg='4')
+      b-col.mt-3(v-if='filters' :offset-xl='filters ? "2" : "0"' xl='4')
         filters
-      b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
-        div(v-if='itemSelected.length > 0')
-          b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
+      b-col.mt-3(
+        :offset-lg='filters ? "0" : "2"'
+        :lg='filters ? "24" : "20"'
+        :xl='filters ? "16" : "20"'
+      )
+        //- div(v-if='itemSelected.length > 0')
+        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
-          .m-2
+          .m-3
             b-table(
               hover
               borderless
               responsive
-              perPage='8'
               table-variant='secondary'
+              :current-page='currentPage'
+              :perPage='perPage'
               :items='products'
               :fields='fields'
               :totalProducts='totalProducts'
-              :current='currentPage'
               @pageChange='handleChangePage'
             )
-              template(#head(x)='data')
-                b-form-checkbox#checkbox-header(
-                  name='checkbox-header'
-                  @change='selectAllTableItems($event)'
-                )
-              template(#cell(x)='data')
-                b-form-checkbox(
-                  :checked='selectedAllItems'
-                  @input='selectTableItem($event, data.name)'
-                )
+              //- template(#head(x)='data')
+              //-   b-form-checkbox#checkbox-header(
+              //-     name='checkbox-header'
+              //-     @change='selectAllTableItems($event)'
+              //-   )
+              //- template(#cell(x)='data')
+              //-   b-form-checkbox(
+              //-     :checked='selectedAllItems'
+              //-     @input='selectTableItem($event, data.name)'
+              //-   )
               template(#cell(image)='data')
                 b-img(:src='getLink(data.item.id)' width='50' height='50')
               template(#cell(details)='data')
@@ -79,8 +102,9 @@ b-container.p-4.bg-gray(fluid)
               size='sm'
               v-model='currentPage'
               :total-rows='totalProducts'
-              per-page='8'
+              :per-page='perPage'
               align='right'
+              @change='handleChangePage'
             )
   // MARKETING
   .p-2
@@ -111,8 +135,8 @@ b-container.p-4.bg-gray(fluid)
       b-col.mt-3(v-if='filters' lg='4')
         filters
       b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
-        div(v-if='itemSelected.length > 0')
-          b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
+        //- div(v-if='itemSelected.length > 0')
+        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-2
             b-table(
@@ -161,7 +185,7 @@ b-container.p-4.bg-gray(fluid)
     )
       h2.text-secondary {{ $t('pages.admin.title3') }}
     b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
-      b-button.button.w-100(:to='`/${$i18n.locale}/admin/stockAdd/`') {{ $t('pages.admin.button5') }}
+      b-button.button.w-100(:to='`/${$i18n.locale}/admin/stockAdd/`') {{ $t('pages.admin.button6') }}
   b-row
     b-col(
       :offset-lg='filters ? "0" : "2"'
@@ -179,15 +203,15 @@ b-container.p-4.bg-gray(fluid)
     b-col.mt-3(v-if='filters' lg='4')
       filters
     b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
-      div(v-if='itemSelected.length > 0')
-        b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
+      //- div(v-if='itemSelected.length > 0')
+      //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
       .p-3.content.text-secondary
         .m-2
           b-table(
             hover
             borderless
             responsive
-            perPage='8'
+            perPage='5'
             table-variant='secondary'
             :items='stocks'
             :fields='fieldsStock'
@@ -214,7 +238,7 @@ b-container.p-4.bg-gray(fluid)
             size='sm'
             v-model='currentPage'
             :total-rows='totalRows'
-            :per-page='perPage'
+            per-page='5'
             aria-controls='my-table'
             align='right'
           )
@@ -232,7 +256,7 @@ b-container.p-4.bg-gray(fluid)
         b-img(
           thumbnail
           body-bg-variant='darkRed'
-          :src='currentProduct.imageUrl'
+          :src='getLink(currentProduct.id)'
         ) 
     template(#modal-footer)
       //- div
@@ -350,7 +374,7 @@ b-container.p-4.bg-gray(fluid)
           font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
       h5 {{ $t('pages.admin.alert.text1') }}
     template(#modal-footer)
-      b-button.w-48(variant='outline-danger' @click='deleteDistributor()') {{ $t('pages.admin.alert.button1') }}
+      b-button.w-48(variant='outline-danger' @click='deleteProduct()') {{ $t('pages.admin.alert.button1') }}
       b-button.w-48(variant='primary' @click='deleteAlert = false') {{ $t('pages.admin.alert.button1') }}
 </template>
 <script lang="ts">
@@ -386,11 +410,12 @@ export default class extends mixins(validationMixin) {
   selectedAllItems: boolean = false;
   deleteAlert: boolean = false;
 
+  perPage: number = 8;
   currentPage: number = 1;
   totalProducts: number = 0;
 
   allergens: Allergens[] = [];
-  products: Product[] | null = null;
+  products: Product[] = [];
   currentProduct: Product | null = null;
   currentPromo: Promo | null = null;
   currentStock: Stock | null = null;

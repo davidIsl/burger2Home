@@ -73,6 +73,20 @@ export class API {
     return { data, status };
   }
 
+  private static async del(endpoint: string): Promise<APIResponse> {
+    const { data, status } = await this.axios.delete(
+      config.api_url + endpoint,
+      {
+        withCredentials: true,
+        // validateStatus: () => true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return { data, status };
+  }
+
   /**
    * ENDPOINT LANGUAGES
    */
@@ -165,6 +179,7 @@ export class API {
       name,
     });
   }
+
   /*
    * CREATE PRODUCTS
    */
@@ -216,12 +231,47 @@ export class API {
     return this.postFormData(`/products/${productId}/image`, { imageName });
   }
 
-  /*
-   * ENDPOINT INGREDIENTS
+  /**
+   * INGREDIENTS LIST TRANSLATION
+   * @returns LIST INGREDIENTS
    */
 
-  static ingredientsList(lang: string): Promise<APIDataResponse<Ingredients>> {
+  static ingredientsList(): Promise<APIDataResponse<Ingredients>> {
+    return this.get(`/ingredients/translations`);
+  }
+
+  /**
+   * INGREDIENTS LIST BY LANGUAGE
+   * @param lang
+   * @returns List Ingredients
+   */
+
+  static ingredientsListByLang(
+    lang: string
+  ): Promise<APIDataResponse<Ingredients>> {
     return this.get(`/ingredients/translations?language=${lang.toUpperCase()}`);
+  }
+
+  /**
+   * GET INGREDIENTS BY ID
+   * @param id
+   * @returns INGREDIENTS
+   */
+
+  static getIngredientsById(id: number): Promise<APIResponse> {
+    return this.get(`/ingredients/${id}`);
+  }
+
+  /**
+   * GET INGREDIENTS TRANSLATION BY ID
+   * @param id
+   * @returns INGREDIENTS TRANSLATION
+   */
+
+  static getIngredientsTranslationById(
+    id: number
+  ): Promise<APIDataResponse<Ingredients>> {
+    return this.get(`/ingredients/${id}/translations`);
   }
 
   /**
@@ -247,11 +297,93 @@ export class API {
       ingredientId,
     });
   }
+
   /**
-   * ENDPOINT ALLERGENS LIST
+   * DELETE INGREDIENTS WITH TRANSLATION
+   * @param id
+   * @returns
    */
 
-  static allergensList(lang: string): Promise<APIDataResponse<Allergens>> {
+  static deleteIngredients(id: number): Promise<APIResponse> {
+    return this.del(`/ingredients/${id}`);
+  }
+
+  /**
+   * ENDPOINT ALLERGENS
+   */
+
+  /**
+   * ALLERGENS LIST
+   * @returns All Allergens Translation
+   */
+
+  static allergensList(): Promise<APIDataResponse<Allergens>> {
+    return this.get(`/allergens/translations`);
+  }
+
+  /**
+   * ALLERGENS LIST BY LANG
+   * @param lang
+   * @returns LIST ALLERGENS
+   */
+  static allergensListByLang(
+    lang: string
+  ): Promise<APIDataResponse<Allergens>> {
     return this.get(`/allergens/translations?language=${lang.toUpperCase()}`);
+  }
+
+  /**
+   * GET ALLERGEN BY ID
+   * @param id
+   * @returns Allergen
+   */
+
+  static getAllergenById(id: number): Promise<APIResponse> {
+    return this.get(`/allergens/${id}`);
+  }
+
+  /**
+   * GET ALLERGENS TRANSLATION BY ID
+   * @param id
+   * @returns Allergens WITH ALL TRANSLATAION
+   */
+
+  static getAllergensTranslationById(
+    id: number
+  ): Promise<APIDataResponse<Allergens>> {
+    return this.get(`/allergens/${id}/translations`);
+  }
+  /**
+   * CREATE ALLERGEN
+   * @returns Allergen
+   */
+
+  static addAllergen(): Promise<APIResponse> {
+    return this.post(`/allergens`);
+  }
+
+  /**
+   * CREATE ALLERGENS TRANSLATION
+   * @param name
+   * @param language
+   * @param allergenId
+   * @returns Allergens Translation
+   */
+  static addAllergenTranslation(
+    name: string,
+    language: Language,
+    allergenId: number
+  ): Promise<APIResponse> {
+    return this.post(`/allergens/translations`, { name, language, allergenId });
+  }
+
+  /**
+   * DELETE ALLERGENS WITH TRANSLATION
+   * @param id
+   * @returns
+   */
+
+  static deleteAllergen(id: number): Promise<APIResponse> {
+    return this.del(`/allergens/${id}`);
   }
 }
