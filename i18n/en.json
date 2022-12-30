@@ -291,9 +291,9 @@
         },
         "alert": {
           "title1": "Delete Alert",
-          "title2": "Cancel Editing",
+          "title2": "Cancel Update",
           "text1": "Are you sure you want to delete all informations about this ingredients",
-          "text2": "Are you sure you want to cancel the editing process about this ingredients",
+          "text2": "Are you sure you want to cancel the Update process about this ingredients",
           "button1": "Delete Ingredients",
           "button2": "Cancel",
           "button3": "Yes",
@@ -348,13 +348,15 @@
         },
         "alert": {
           "title1": "Delete Alert",
-          "title2": "Cancel Editing",
+          "title2": "Cancel Update",
+          "title3": "Error Update",
           "text1": "Are you sure you want to delete all informations about this allergen",
-          "text2": "Are you sure you want to cancel the editing process about this allergen",
+          "text2": "Are you sure you want to cancel the Update process about this allergen",
           "button1": "Delete Allergen",
           "button2": "Cancel",
           "button3": "Yes",
-          "button4": "No"
+          "button4": "No",
+          "button5": "OK"
         },
         "success": {
           "create": "Allergens created with SUCCESS",
@@ -368,7 +370,7 @@
           "getAllergens": "Errors while getting Allergens List",
           "fields": "you have to fill all the fields",
           "lang1": "You need to choose English for the first language",
-          "lang2": "You need to choose English for the second language"
+          "lang2": "You need to choose French for the second language"
         }
       },
       "family": {
@@ -411,9 +413,9 @@
         },
         "alert": {
           "title1": "Delete Alert",
-          "title2": "Cancel Editing",
+          "title2": "Cancel Update",
           "text1": "Are you sure you want to delete all informations about this family",
-          "text2": "Are you sure you want to cancel the editing process about this family",
+          "text2": "Are you sure you want to cancel the Update process about this family",
           "button1": "Delete Family",
           "button2": "Cancel",
           "button3": "Yes",

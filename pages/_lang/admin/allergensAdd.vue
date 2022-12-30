@@ -65,7 +65,7 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
             template(#cell(details)='data')
               font-awesome-icon.mt-1(
                 :icon='["fa", "pencil-alt"]'
-                @click='openDetails(data.item.id)'
+                @click='openDetails(data.item.allergenId)'
               )
                 //                 @click='goToUrl(`/${$i18n.locale}/admin/allergensEdit/?allergen=${data.item.id}`)'
             template(#cell(trash)='data')
@@ -211,8 +211,26 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
           font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
       h5 {{ $t('pages.admin.allergens.alert.text2') }}
     template(#modal-footer)
-      b-button.w-48(variant='outline-danger' @click='stopEditing') {{ $t('pages.admin.allergens.alert.button3') }}
+      b-button.w-48(variant='outline-danger' @click='stopUpdate') {{ $t('pages.admin.allergens.alert.button3') }}
       b-button.w-48(variant='primary' @click='cancelAlert = false') {{ $t('pages.admin.allergens.alert.button4') }}
+  // ERROR UPDATE MODAL
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    v-model='errorUpdateAlert'
+    centered
+  )
+    template(#modal-title)
+      div {{ $t('pages.admin.allergens.alert.title3') }}
+    .d-flex.align-items-center.gap-1
+      div
+        .modal-error
+          font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
+      h5 {{ errorMsg }}
+    template(#modal-footer)
+      //- b-button.w-48(variant='outline-danger' @click='stopEditing') {{ $t('pages.admin.allergens.alert.button3') }}
+      b-button.w-48(variant='outline-danger' @click='errorUpdateAlert = false') {{ $t('pages.admin.allergens.alert.button5') }}
   //- // SIDEBAR ALLERGEN
   //- b-sidebar#sidebar-allergen(bg-variant='primary' right width='360')
   //-   b-container
@@ -246,66 +264,66 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
     template(#modal-title)
       h4.text-secondary.text-center {{ $t('pages.admin.allergens.edit.title1') }}
     template(#modal-footer)
-      b-button.button.w-48 {{ $t('pages.admin.allergens.edit.button1') }}
+      b-button.button.w-48(@click='updateAllergen') {{ $t('pages.admin.allergens.edit.button1') }}
       b-button.button.w-48(@click='cancelAlert = true') {{ $t('pages.admin.allergens.edit.button2') }}
     b-container
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.allergens.edit.label1")'
-        label-for='language1'
+        label-for='editLanguage1'
       )
-        b-form-select#language1.input-form(
-          v-model='$v.language1.$model'
-          :class='{ "is-invalid": $v.language1.$error, "is-valid": !$v.language1.$invalid }'
+        b-form-select#editLanguage1.input-form(
+          v-model='$v.editLanguage1.$model'
+          :class='{ "is-invalid": $v.editLanguage1.$error, "is-valid": !$v.editLanguage1.$invalid }'
           :placeholder='$t("pages.admin.allergens.edit.placeholder1")'
           :options='langs'
           v-on:focus='resetAlertMsg'
-          @blur='$v.language1.$touch()'
+          @blur='$v.editLanguage1.$touch()'
         )
-        .input-error(v-if='$v.language1.$error')
+        .input-error(v-if='$v.editLanguage1.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
           | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.allergens.edit.label2")'
         label-for='name'
       )
-        b-form-input#name.input-form(
-          v-model='$v.name.$model'
-          :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
+        b-form-input#editName.input-form(
+          v-model='$v.editName.$model'
+          :class='{ "is-invalid": $v.editName.$error, "is-valid": !$v.editName.$invalid }'
           :placeholder='$t("pages.admin.allergens.edit.placeholder2")'
           type='text'
-          name='name'
-          @blur='$v.name.$touch()'
+          name='editName'
+          @blur='$v.editName.$touch()'
         )
-        .input-error(v-if='$v.name.$error')
+        .input-error(v-if='$v.editName.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.allergens.edit.label1")'
-        label-for='language2'
+        label-for='editLanguage2'
       )
-        b-form-select#language2.input-form(
-          v-model='$v.language2.$model'
-          :class='{ "is-invalid": $v.language2.$error, "is-valid": !$v.language2.$invalid }'
+        b-form-select#editLanguage2.input-form(
+          v-model='$v.editLanguage2.$model'
+          :class='{ "is-invalid": $v.editLanguage2.$error, "is-valid": !$v.editLanguage2.$invalid }'
           :placeholder='$t("pages.admin.allergens.edit.placeholder1")'
           :options='langs'
           v-on:focus='resetAlertMsg'
-          @blur='$v.language2.$touch()'
+          @blur='$v.editLanguage2.$touch()'
         )
-        .input-error(v-if='$v.language2.$error')
+        .input-error(v-if='$v.editLanguage2.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
           | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.allergens.edit.label3")'
-        label-for='frenchName'
+        label-for='editFrenchName'
       )
-        b-form-input#frenchName.input-form(
-          v-model='$v.frenchName.$model'
-          :class='{ "is-invalid": $v.frenchName.$error, "is-valid": !$v.frenchName.$invalid }'
+        b-form-input#editFrenchName.input-form(
+          v-model='$v.editFrenchName.$model'
+          :class='{ "is-invalid": $v.editFrenchName.$error, "is-valid": !$v.editFrenchName.$invalid }'
           :placeholder='$t("pages.admin.allergens.edit.placeholder3")'
           type='text'
-          name='frenchName'
-          @blur='$v.frenchName.$touch()'
+          name='editFrenchName'
+          @blur='$v.editFrenchName.$touch()'
         )
-        .input-error(v-if='$v.frenchName.$error')
+        .input-error(v-if='$v.editFrenchName.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
 </template>
 <script lang="ts">
@@ -327,6 +345,10 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) language1: string = '';
   @Validate({ required }) language2: string = '';
   @Validate({ required }) frenchName: string = '';
+  @Validate({ required }) editName: string = '';
+  @Validate({ required }) editLanguage1: string = '';
+  @Validate({ required }) editLanguage2: string = '';
+  @Validate({ required }) editFrenchName: string = '';
 
   langs: SelectOption[] = [];
   allergens: Allergens[] = [];
@@ -347,6 +369,7 @@ export default class extends mixins(validationMixin) {
   itemSelected: number[] = [];
   selectedAllItems: boolean = false;
 
+  errorUpdateAlert: boolean = false;
   cancelAlert: boolean = false;
   deleteAlert: boolean = false;
   editingAllergen: boolean = false;
@@ -388,9 +411,10 @@ export default class extends mixins(validationMixin) {
     this.getAllergenTranslationById(id);
   }
 
-  stopEditing() {
+  stopUpdate() {
     this.cancelAlert = false;
     this.editingAllergen = false;
+    this.$v.$reset();
   }
 
   async getLanguages() {
@@ -422,6 +446,8 @@ export default class extends mixins(validationMixin) {
   }
 
   async getAllergenTranslationById(id: number) {
+    console.log('ID:!', id);
+
     const response = await API.getAllergensTranslationById(id);
 
     if (response.status !== 200) {
@@ -431,6 +457,11 @@ export default class extends mixins(validationMixin) {
     }
 
     this.currentAllergen = response.data;
+
+    this.editLanguage1 = this.currentAllergen[0].language.id.toString();
+    this.editName = this.currentAllergen[0].name;
+    this.editLanguage2 = this.currentAllergen[1].language.id.toString();
+    this.editFrenchName = this.currentAllergen[1].name;
     console.log('DATA:', this.currentAllergen);
   }
 
@@ -454,17 +485,25 @@ export default class extends mixins(validationMixin) {
     this.getAllergens();
   }
 
-  checkLang(): boolean {
-    console.log('LANG1', this.language1);
+  checkLang(lang1: string, lang2: string): boolean {
+    console.log('LANG1', lang1);
 
-    if (this.language1.toString() === '2') {
-      this.submitProductAdd = submitProductAddType.ERROR;
+    if (lang1.toString() === '2') {
+      if (!this.editingAllergen) {
+        this.submitProductAdd = submitProductAddType.ERROR;
+      } else {
+        this.errorUpdateAlert = true;
+      }
       this.errorMsg = this.$tc('pages.admin.allergens.errors.lang1');
       return false;
     }
 
-    if (this.language2.toString() === '1') {
-      this.submitProductAdd = submitProductAddType.ERROR;
+    if (lang2.toString() === '1') {
+      if (!this.editingAllergen) {
+        this.submitProductAdd = submitProductAddType.ERROR;
+      } else {
+        this.errorUpdateAlert = true;
+      }
       this.errorMsg = this.$tc('pages.admin.allergens.errors.lang2');
       return false;
     }
@@ -478,11 +517,21 @@ export default class extends mixins(validationMixin) {
   }
 
   async createAllergen() {
-    if (!this.checkLang()) {
+    if (!this.checkLang(this.language1, this.language2)) {
       return null;
     }
-    this.$v.$touch();
-    if (this.$v.$invalid) {
+    // this.$v.$touch();
+    this.$v.name.$touch();
+    this.$v.frenchName.$touch();
+    this.$v.language1.$touch();
+    this.$v.language2.$touch();
+
+    if (
+      this.$v.name.$invalid ||
+      this.$v.language1.$invalid ||
+      this.$v.language2.$invalid ||
+      this.$v.frenchName.$invalid
+    ) {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.allergens.errors.fields');
       return;
@@ -550,8 +599,60 @@ export default class extends mixins(validationMixin) {
     this.getAllergens();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.allergens.success.create');
-    this.resetData();
+    // this.resetData();
     // window.location.reload();
+  }
+
+  async updateAllergen() {
+    if (!this.checkLang(this.editLanguage1, this.editLanguage2)) {
+      return null;
+    }
+
+    this.$v.editLanguage1.$touch();
+    this.$v.editLanguage2.$touch();
+    this.$v.editName.$touch();
+    this.$v.editFrenchName.$touch();
+
+    if (
+      this.$v.editName.$invalid ||
+      this.$v.editLanguage1.$invalid ||
+      this.$v.editLanguage2.$invalid ||
+      this.$v.editFrenchName.$invalid
+    ) {
+      this.errorUpdateAlert = true;
+      this.errorMsg = this.$tc('pages.admin.allergens.errors.fields');
+      return;
+    }
+
+    const responseUpdateAllergenEnTranslation =
+      await API.updateAllergenTranslation(
+        this.currentAllergen[0].id,
+        this.editName,
+        this.currentAllergen[0].language,
+        this.currentAllergen[0].allergenId
+      );
+
+    if (responseUpdateAllergenEnTranslation.status !== 200) {
+      return null;
+    }
+
+    const responseUpdateAllergenFrTranslation =
+      await API.updateAllergenTranslation(
+        this.currentAllergen[1].id,
+        this.editFrenchName,
+        this.currentAllergen[1].language,
+        this.currentAllergen[1].allergenId
+      );
+
+    if (responseUpdateAllergenFrTranslation.status !== 200) {
+      return null;
+    }
+
+    this.submitProductAdd = submitProductAddType.SUCCESS;
+    this.errorMsg = this.$tc('pages.admin.allergens.success.update');
+    this.editingAllergen = false;
+    this.$v.$reset();
+    this.getAllergens();
   }
 
   resetData() {

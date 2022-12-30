@@ -73,6 +73,25 @@ export class API {
     return { data, status };
   }
 
+  private static async update(
+    endpoint: string,
+    body?: any
+  ): Promise<APIResponse> {
+    const { data, status } = await this.axios.put(
+      config.api_url + endpoint,
+      {
+        ...body,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return { data, status };
+  }
+
   private static async del(endpoint: string): Promise<APIResponse> {
     const { data, status } = await this.axios.delete(
       config.api_url + endpoint,
@@ -346,9 +365,10 @@ export class API {
     return this.del(`/ingredients/${id}`);
   }
 
-  /**
-   * ENDPOINT ALLERGENS
-   */
+  /**********************
+   * ENDPOINT ALLERGENS *
+   *                    *
+   *********************/
 
   /**
    * ALLERGENS LIST
@@ -407,12 +427,36 @@ export class API {
    * @param allergenId
    * @returns Allergens Translation
    */
+
   static addAllergenTranslation(
     name: string,
     language: Language,
     allergenId: number
   ): Promise<APIResponse> {
     return this.post(`/allergens/translations`, { name, language, allergenId });
+  }
+
+  /**
+   * UPDATE ALLERGEN TRANSLATION
+   * @param id
+   * @param name
+   * @param language
+   * @param allergenId
+   * @returns ALLERGEN TRANSLATION UPDATED
+   */
+
+  static updateAllergenTranslation(
+    id: number,
+    name: string,
+    language: Language,
+    allergenId: number
+  ): Promise<APIResponse> {
+    return this.update(`/allergens/translations`, {
+      id,
+      name,
+      language,
+      allergenId,
+    });
   }
 
   /**

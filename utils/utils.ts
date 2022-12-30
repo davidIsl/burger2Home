@@ -22,6 +22,7 @@ export interface Language {
   abbreviation?: string;
 }
 export interface Allergens {
+  id: number;
   allergenId: number;
   name: string;
   language: Language;

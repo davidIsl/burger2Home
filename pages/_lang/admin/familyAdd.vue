@@ -230,7 +230,7 @@ b-container.p-5.bg-gray(fluid)
           font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
       h5 {{ $t('pages.admin.family.alert.text2') }}
     template(#modal-footer)
-      b-button.w-48(variant='outline-danger' @click='stopEditing') {{ $t('pages.admin.family.alert.button3') }}
+      b-button.w-48(variant='outline-danger' @click='stopUpdate') {{ $t('pages.admin.family.alert.button3') }}
       b-button.w-48(variant='primary' @click='cancelAlert = false') {{ $t('pages.admin.family.alert.button4') }}
   // EDITING MODAL
   b-modal(
@@ -433,9 +433,10 @@ export default class extends mixins(validationMixin) {
     this.getFamilyTranslationById(id);
   }
 
-  stopEditing() {
+  stopUpdate() {
     this.cancelAlert = false;
     this.editingFamily = false;
+    this.$v.$reset();
   }
 
   async getLanguages() {
@@ -601,6 +602,8 @@ export default class extends mixins(validationMixin) {
     this.errorMsg = this.$tc('pages.admin.family.success.create');
     this.getFamilyList();
   }
+
+  updateFamily() {}
 }
 </script>
 <style scoped></style>
