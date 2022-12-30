@@ -414,12 +414,14 @@
         "alert": {
           "title1": "Delete Alert",
           "title2": "Cancel Update",
+          "title3": "Error Update",
           "text1": "Are you sure you want to delete all informations about this family",
           "text2": "Are you sure you want to cancel the Update process about this family",
           "button1": "Delete Family",
           "button2": "Cancel",
           "button3": "Yes",
-          "button4": "No"
+          "button4": "No",
+          "button5": "Ok"
         },
         "success": {
           "create": "Family created with SUCCESS",
@@ -433,7 +435,7 @@
           "getFamily": "Errors while getting Family List",
           "fields": "you have to fill all the fields",
           "lang1": "You need to choose English for the first language",
-          "lang2": "You need to choose English for the second language"
+          "lang2": "You need to choose French for the second language"
         }
       },
       "edit": {

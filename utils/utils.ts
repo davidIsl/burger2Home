@@ -30,9 +30,11 @@ export interface Allergens {
 
 export interface Families {
   // TODO if TRANSLATION ??? ou INTERFACE TRANSLATION ???
+  id: number;
   productFamilyId: number;
   name: string;
   description?: string;
+  language: Language;
 }
 
 export interface Price {

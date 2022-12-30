@@ -227,6 +227,22 @@ export class API {
     });
   }
 
+  static updateFamilyTranslation(
+    id: number,
+    productFamilyId: number,
+    language: Language,
+    description: string,
+    name: string
+  ): Promise<APIResponse> {
+    return this.update(`/products/families/translations`, {
+      id,
+      productFamilyId,
+      language,
+      description,
+      name,
+    });
+  }
+
   /**
    * DELETE FAMILY
    * @param id
