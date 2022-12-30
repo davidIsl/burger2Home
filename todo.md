@@ -26,3 +26,7 @@
 ## Site
 
 -[] Pas de reset de la page quand je change de langue
+
+- [] Reorganiser les pages productsADD i18N
+- [] Activer la recherche sur les multiselect
+- [] Checker tout le responsive

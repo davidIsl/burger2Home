@@ -366,22 +366,24 @@
           "lang2": "You need to choose English for the second language"
         }
       },
-      "familyAdd": {
-        "title": "Family Management",
-        "title1": "Add a new family",
-        "title2": "Enter English Family Translation",
-        "title3": "Enter French Family Translation",
-        "label": "Language",
-        "label1": "English Name",
-        "label2": "English Description",
-        "label3": "French Name",
-        "label4": "French Description",
-        "placeholder": "Select a language",
-        "placeholder1": "Enter an english name",
-        "placeholder2": "Enter an english description",
-        "placeholder3": "Enter a french name",
-        "placeholder4": "Enter a french description",
-        "button1": "Create Family"
+      "family": {
+        "add": {
+          "title": "Family Management",
+          "title1": "Add a new family",
+          "title2": "Enter English Family Translation",
+          "title3": "Enter French Family Translation",
+          "label": "Language",
+          "label1": "English Name",
+          "label2": "English Description",
+          "label3": "French Name",
+          "label4": "French Description",
+          "placeholder": "Select a language",
+          "placeholder1": "Enter an english name",
+          "placeholder2": "Enter an english description",
+          "placeholder3": "Enter a french name",
+          "placeholder4": "Enter a french description",
+          "button1": "Create Family"
+        }
       },
       "edit": {
         "title1": "Edit a product",

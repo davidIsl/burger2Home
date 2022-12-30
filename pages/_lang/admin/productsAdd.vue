@@ -348,7 +348,7 @@ export default class extends mixins(validationMixin) {
   }
 
   async getFamilies() {
-    const response = await API.familiesList(this.$i18n.locale);
+    const response = await API.familiesListByLang(this.$i18n.locale);
 
     if (response.status !== 200) {
       return;

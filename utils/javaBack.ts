@@ -131,7 +131,7 @@ export class API {
    * ENDPOINT PRODUCTS FAMILY (FILTERS)
    */
 
-  static familiesList(lang: string): Promise<APIDataResponse<Families>> {
+  static familiesListByLang(lang: string): Promise<APIDataResponse<Families>> {
     return this.get(
       `/products/families/translations?language=${lang.toUpperCase()}`
     );
@@ -141,13 +141,41 @@ export class API {
     return this.get(`/products/${id}/families`);
   }
 
-  // static getFamilyById(id: number): Promise<APIResponse> {
-  //   return this.get(`/products/families/${id}`);
-  // }
+  /**
+   * GET FAMILY BY ID
+   * @param id
+   * @returns FAMILY
+   */
+
+  static getFamilyById(id: number): Promise<APIResponse> {
+    return this.get(`/products/families/${id}`);
+  }
 
   /**
-   * ENDPOINT FAMILY CRUD
+   * ENDPOINT FAMILY
    */
+
+  /**
+   * GET ALL FAMILY TRANSLATION
+   * @returns Family TRANSLATION []
+   */
+
+  static familyList(): Promise<APIDataResponse<Families>> {
+    return this.get(`/products/families/translations`);
+  }
+
+  /**
+   * GET FAMILY TRANSLATION BY ID
+   * @param id
+   * @returns FAMILY TRANSLATION[]
+   */
+
+  static getFamilyTranslationById(
+    id: number
+  ): Promise<APIDataResponse<Families>> {
+    return this.get(`/products/families/${id}/translations`);
+  }
+
   /**
    * CREATE FAMILY
    * @returns family
@@ -163,7 +191,7 @@ export class API {
    * @param language
    * @param description
    * @param name
-   * @returns Faimily Translation
+   * @returns Family Translation
    */
 
   static addFamilyTranslation(
@@ -178,6 +206,16 @@ export class API {
       description,
       name,
     });
+  }
+
+  /**
+   * DELETE FAMILY
+   * @param id
+   * @returns FAMILY DELETED WITH STATUS
+   */
+
+  static deleteFamily(id: number): Promise<APIResponse> {
+    return this.del(`/products/families/${id}`);
   }
 
   /*

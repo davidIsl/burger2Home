@@ -393,10 +393,6 @@ export default class extends mixins(validationMixin) {
 
   fields = [
     {
-      key: 'x',
-      sortable: false,
-    },
-    {
       key: 'ingredientId',
       sortable: true,
     },

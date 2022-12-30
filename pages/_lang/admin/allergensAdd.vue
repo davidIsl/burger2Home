@@ -195,6 +195,24 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
         @click='deleteAllergen(currentAllergen.id)'
       ) {{ $t('pages.admin.allergens.alert.button1') }}
       b-button.w-48(variant='primary' @click='deleteAlert = false') {{ $t('pages.admin.allergens.alert.button2') }}
+  // CANCEL MODAL
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    v-model='cancelAlert'
+    centered
+  )
+    template(#modal-title)
+      div {{ $t('pages.admin.allergens.alert.title2') }}
+    .d-flex.align-items-center.gap-1
+      div
+        .modal-error
+          font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
+      h5 {{ $t('pages.admin.allergens.alert.text2') }}
+    template(#modal-footer)
+      b-button.w-48(variant='outline-danger' @click='stopEditing') {{ $t('pages.admin.allergens.alert.button3') }}
+      b-button.w-48(variant='primary' @click='cancelAlert = false') {{ $t('pages.admin.allergens.alert.button4') }}
   //- // SIDEBAR ALLERGEN
   //- b-sidebar#sidebar-allergen(bg-variant='primary' right width='360')
   //-   b-container
@@ -228,7 +246,8 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
     template(#modal-title)
       h4.text-secondary.text-center {{ $t('pages.admin.allergen.edit.title1') }}
     template(#modal-footer)
-      b-button.button {{ $t('pages.admin.allergen.edit.button1') }}
+      b-button.button.w-48 {{ $t('pages.admin.allergen.edit.button1') }}
+      b-button.button.w-48(@click='cancelAlert = true') {{ $t('pages.admin.allergen.edit.button2') }}
     b-container
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.allergens.edit.label1")'
@@ -328,14 +347,11 @@ export default class extends mixins(validationMixin) {
   itemSelected: number[] = [];
   selectedAllItems: boolean = false;
 
+  cancelAlert: boolean = false;
   deleteAlert: boolean = false;
   editingAllergen: boolean = false;
 
   fields = [
-    {
-      key: 'x',
-      sortable: false,
-    },
     {
       key: 'allergenId',
       sortable: true,
@@ -370,6 +386,11 @@ export default class extends mixins(validationMixin) {
   openDetails(id: number) {
     this.editingAllergen = true;
     this.getAllergenTranslationById(id);
+  }
+
+  stopEditing() {
+    this.cancelAlert = false;
+    this.editingAllergen = false;
   }
 
   async getLanguages() {
