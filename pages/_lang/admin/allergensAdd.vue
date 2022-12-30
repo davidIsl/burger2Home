@@ -244,10 +244,10 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
     centered
   )
     template(#modal-title)
-      h4.text-secondary.text-center {{ $t('pages.admin.allergen.edit.title1') }}
+      h4.text-secondary.text-center {{ $t('pages.admin.allergens.edit.title1') }}
     template(#modal-footer)
-      b-button.button.w-48 {{ $t('pages.admin.allergen.edit.button1') }}
-      b-button.button.w-48(@click='cancelAlert = true') {{ $t('pages.admin.allergen.edit.button2') }}
+      b-button.button.w-48 {{ $t('pages.admin.allergens.edit.button1') }}
+      b-button.button.w-48(@click='cancelAlert = true') {{ $t('pages.admin.allergens.edit.button2') }}
     b-container
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.allergens.edit.label1")'
@@ -265,13 +265,13 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
           | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.allergen.edit.label2")'
+        :label='$t("pages.admin.allergens.edit.label2")'
         label-for='name'
       )
         b-form-input#name.input-form(
           v-model='$v.name.$model'
           :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
-          :placeholder='$t("pages.admin.allergen.edit.placeholder2")'
+          :placeholder='$t("pages.admin.allergens.edit.placeholder2")'
           type='text'
           name='name'
           @blur='$v.name.$touch()'
@@ -279,13 +279,13 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
         .input-error(v-if='$v.name.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.allergens.edit.label3")'
+        :label='$t("pages.admin.allergens.edit.label1")'
         label-for='language2'
       )
         b-form-select#language2.input-form(
           v-model='$v.language2.$model'
           :class='{ "is-invalid": $v.language2.$error, "is-valid": !$v.language2.$invalid }'
-          :placeholder='$t("pages.admin.allergens.edit.placeholder3")'
+          :placeholder='$t("pages.admin.allergens.edit.placeholder1")'
           :options='langs'
           v-on:focus='resetAlertMsg'
           @blur='$v.language2.$touch()'
@@ -294,13 +294,13 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
           | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.allergen.edit.label4")'
+        :label='$t("pages.admin.allergens.edit.label3")'
         label-for='frenchName'
       )
         b-form-input#frenchName.input-form(
           v-model='$v.frenchName.$model'
           :class='{ "is-invalid": $v.frenchName.$error, "is-valid": !$v.frenchName.$invalid }'
-          :placeholder='$t("pages.admin.allergen.edit.placeholder4")'
+          :placeholder='$t("pages.admin.allergens.edit.placeholder3")'
           type='text'
           name='frenchName'
           @blur='$v.frenchName.$touch()'

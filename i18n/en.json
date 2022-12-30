@@ -318,8 +318,8 @@
         "add": {
           "title": "Allergens Management",
           "title1": "Add a new allergen",
-          "title2": "Enter English Family Translation",
-          "title3": "Enter French Family Translation",
+          "title2": "Enter English Allergens Translation",
+          "title3": "Enter French Allergens Translation",
           "title4": "Allergens Listing",
           "label": "Language",
           "label1": "English Name",
@@ -333,23 +333,28 @@
         "edit": {
           "title": "Allergens Management",
           "title1": "Update an allergen",
-          "title2": "Enter English Family Translation",
-          "title3": "Enter French Family Translation",
+          "title2": "Enter English Allergens Translation",
+          "title3": "Enter French Allergens Translation",
           "title4": "Allergens Listing",
-          "label": "Language",
-          "label1": "English Name",
-          "label2": "French Name",
-          "placeholder0": "Select a language",
-          "placeholder1": "Enter a English Name",
-          "placeholder2": "Enter a French Name",
-          "placeholder3": "Search an allergen",
-          "button1": "Update Allergen"
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "French Name",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter a French Name",
+
+          "button1": "Update Allergen",
+          "button2": "Cancel"
         },
         "alert": {
           "title1": "Delete Alert",
-          "text1": "Are you sure you want to delete all informations about this allergens",
+          "title2": "Cancel Editing",
+          "text1": "Are you sure you want to delete all informations about this allergen",
+          "text2": "Are you sure you want to cancel the editing process about this allergen",
           "button1": "Delete Allergen",
-          "button2": "Cancel"
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No"
         },
         "success": {
           "create": "Allergens created with SUCCESS",
@@ -368,21 +373,65 @@
       },
       "family": {
         "add": {
-          "title": "Family Management",
-          "title1": "Add a new family",
+          "title1": "Family Management",
+          "title2": "Family Listing",
+          "title3": "Add a new family",
+          "title4": "Enter English Family Translation",
+          "title5": "Enter French Family Translation",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "English Description",
+          "label4": "French Name",
+          "label5": "French Description",
+          "placeholder0": "Search a family",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter an english name",
+          "placeholder3": "Enter an english description",
+          "placeholder4": "Enter a french name",
+          "placeholder5": "Enter a french description",
+          "button1": "Create Family"
+        },
+        "edit": {
+          "title1": "Update a Family",
           "title2": "Enter English Family Translation",
           "title3": "Enter French Family Translation",
-          "label": "Language",
-          "label1": "English Name",
-          "label2": "English Description",
-          "label3": "French Name",
-          "label4": "French Description",
-          "placeholder": "Select a language",
-          "placeholder1": "Enter an english name",
-          "placeholder2": "Enter an english description",
-          "placeholder3": "Enter a french name",
-          "placeholder4": "Enter a french description",
-          "button1": "Create Family"
+          "title4": "Family Listing",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "English Description",
+          "label4": "French Name",
+          "label5": "French Description",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter an english description",
+          "placeholder4": "Enter a French Name",
+          "placeholder5": "Enter a french description",
+          "button1": "Update Family",
+          "button2": "Cancel"
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "title2": "Cancel Editing",
+          "text1": "Are you sure you want to delete all informations about this family",
+          "text2": "Are you sure you want to cancel the editing process about this family",
+          "button1": "Delete Family",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No"
+        },
+        "success": {
+          "create": "Family created with SUCCESS",
+          "update": "Family updated with SUCCESS",
+          "delete": "Family deleted with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Family",
+          "createTranslation": "Errors while creating Family Translation",
+          "delete": "Errors while deleting Family",
+          "getFamily": "Errors while getting Family List",
+          "fields": "you have to fill all the fields",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose English for the second language"
         }
       },
       "edit": {

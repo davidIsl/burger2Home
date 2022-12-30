@@ -3,7 +3,7 @@ b-container.p-5.bg-gray(fluid)
   b-row
     b-col
       .title-line
-        h1.p-3.title.text-center.text-secondary {{ $t('pages.admin.family.add.title') }}
+        h1.p-3.title.text-center.text-secondary {{ $t('pages.admin.family.add.title1') }}
   b-row
     b-col(
       :offset-lg='filters ? "2" : "2"'
@@ -11,7 +11,7 @@ b-container.p-5.bg-gray(fluid)
       :md='filters ? "18" : "16"'
       :lg='filters ? "18" : "14"'
     )
-      h3.py-3.title.text-secondary {{ $t('pages.admin.family.add.title1') }}
+      h3.py-3.title.text-secondary {{ $t('pages.admin.family.add.title2') }}
   b-row.mt-3
     b-col(
       :offset-lg='filters ? "2" : "2"'
@@ -21,7 +21,7 @@ b-container.p-5.bg-gray(fluid)
     )
       b-form-input.input(
         v-model='filterSearch'
-        :placeholder='$t("pages.admin.family.add.placeholder")'
+        :placeholder='$t("pages.admin.family.add.placeholder0")'
       )
   b-row
     b-col.mt-3(:offset-lg='filters ? "0" : "2"' :lg='filters ? "16" : "20"')
@@ -65,7 +65,7 @@ b-container.p-5.bg-gray(fluid)
       xl='10'
       xxl='8 '
     )
-      h3.p-3.text-center.text-secondary {{ $t('pages.admin.family.add.title2') }}
+      h3.p-3.text-center.text-secondary {{ $t('pages.admin.family.add.title3') }}
   b-row
     b-col
       form(ref='form' @submit.stop.prevent='onSubmit')
@@ -74,7 +74,7 @@ b-container.p-5.bg-gray(fluid)
             b-container.p-4.content.mb-5
               b-row
                 b-col.mx-auto(md='12' xl='10')
-                  h5.text-secondary.title {{ $t('pages.admin.family.add.title3') }}
+                  h5.text-secondary.title {{ $t('pages.admin.family.add.title4') }}
                   b-form-group.pt-3.text-primary(
                     :label='$t("pages.admin.family.add.label1")'
                     label-for='language1'
@@ -276,6 +276,20 @@ b-container.p-5.bg-gray(fluid)
         )
         .input-error(v-if='$v.name.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
+      b-form-group.pt-3.text-primary(
+        :label='$t("pages.admin.family.add.label3")'
+        label-for='description'
+      )
+        b-form-textarea#description.input-area(
+          v-model='$v.description.$model'
+          :class='{ "is-invalid": $v.description.$error, "is-valid": !$v.description.$invalid }'
+          :placeholder='$t("pages.admin.family.add.placeholder3")'
+          name='description'
+          @blur='$v.description.$touch()'
+        )
+        .input-error(v-if='$v.description.$error')
+          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+          | {{ $t('pages.errors.required') }}
       h6.pt-3.title.text-secondary {{ $t('pages.admin.family.edit.title3') }}
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.family.edit.label1")'
@@ -293,19 +307,33 @@ b-container.p-5.bg-gray(fluid)
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
           | {{ $t('pages.errors.required') }}
       b-form-group.text-primary(
-        :label='$t("pages.admin.family.edit.label3")'
+        :label='$t("pages.admin.family.edit.label4")'
         label-for='frenchName'
       )
         b-form-input#frenchName.input-form(
           v-model='$v.frenchName.$model'
           :class='{ "is-invalid": $v.frenchName.$error, "is-valid": !$v.frenchName.$invalid }'
-          :placeholder='$t("pages.admin.family.edit.placeholder3")'
+          :placeholder='$t("pages.admin.family.edit.placeholder4")'
           type='text'
           name='frenchName'
           @blur='$v.frenchName.$touch()'
         )
         .input-error(v-if='$v.frenchName.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
+      b-form-group.text-primary(
+        :label='$t("pages.admin.family.add.label5")'
+        label-for='frenchDescription'
+      )
+        b-form-textarea#frenchDescription.input-area(
+          v-model='$v.frenchDescription.$model'
+          :class='{ "is-invalid": $v.frenchDescription.$error, "is-valid": !$v.frenchDescription.$invalid }'
+          :placeholder='$t("pages.admin.family.add.placeholder5")'
+          name='frenchDescription'
+          @blur='$v.frenchDescription.$touch()'
+        )
+        .input-error(v-if='$v.frenchDescription.$error')
+          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+          | {{ $t('pages.errors.required') }}
       //- b-form-group.pt-4(
       //-   :label='$t("pages.admin.family.add.label4")'
       //-   label-for='allergens'
