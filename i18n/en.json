@@ -292,12 +292,16 @@
         "alert": {
           "title1": "Delete Alert",
           "title2": "Cancel Update",
+          "title3": "Error Update",
+          "title4": "Optional Empty Field",
           "text1": "Are you sure you want to delete all informations about this ingredients",
           "text2": "Are you sure you want to cancel the Update process about this ingredients",
+          "text3": "Warning, there are some optional empty fields. Do you want to continue creating ingredients ",
           "button1": "Delete Ingredients",
           "button2": "Cancel",
           "button3": "Yes",
-          "button4": "No"
+          "button4": "No",
+          "button5": "Ok"
         },
         "success": {
           "create": "Ingredients created with SUCCESS",

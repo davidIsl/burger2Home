@@ -372,6 +372,58 @@ export class API {
   }
 
   /**
+   * ENDPOINT SET STOCK FOR INGREDIENTS
+   * @param ingredientId
+   * @param amount
+   * @param creationDate
+   * @returns
+   */
+
+  static addStockIngredients(
+    ingredientId: number,
+    amount: number,
+    creationDate: string
+  ): Promise<APIResponse> {
+    return this.post(`/stocks`, { ingredientId, amount, creationDate });
+  }
+
+  /**
+   * UPDATE INGREDIENTS
+   * @param allergens
+   * @returns Ingredients Updated
+   */
+
+  static updateIngredient(
+    id: number,
+    allergens: Allergens[]
+  ): Promise<APIResponse> {
+    return this.update(`/ingredients`, { id, allergens });
+  }
+
+  /**
+   * UPDATE INGREDIENTS TRANSLATION
+   * @param id
+   * @param name
+   * @param language
+   * @param ingredientId
+   * @returns updated Ingredients Translation
+   */
+
+  static updateIngredientTranslation(
+    id: number,
+    name: string,
+    language: Language,
+    ingredientId: number
+  ): Promise<APIResponse> {
+    return this.update(`/ingredients/translations`, {
+      id,
+      name,
+      language,
+      ingredientId,
+    });
+  }
+
+  /**
    * DELETE INGREDIENTS WITH TRANSLATION
    * @param id
    * @returns

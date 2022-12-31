@@ -353,7 +353,7 @@ b-container.p-5.bg-gray(fluid)
           | {{ $t('pages.errors.required') }}
 </template>
 <script lang="ts">
-import { Component, mixins, Watch } from 'nuxt-property-decorator';
+import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
@@ -381,6 +381,7 @@ export default class extends mixins(validationMixin) {
   // @Validate({ required }) family: Families[] = [];
 
   families: Families[] = [];
+  // filterFamilies
   familiesId: any[] = [];
   currentFamily: Families[] = [];
   langs: SelectOption[] = [];
@@ -543,11 +544,11 @@ export default class extends mixins(validationMixin) {
     return true;
   }
 
-  @Watch('focus')
-  resetAlertMsg() {
-    this.errorMsg = '';
-    this.submitProductAdd = submitProductAddType.NONE;
-  }
+  // @Watch('focus')
+  // resetAlertMsg() {
+  //   this.errorMsg = '';
+  //   this.submitProductAdd = submitProductAddType.NONE;
+  // }
 
   async createFamily() {
     if (!this.checkLang(this.language1, this.language2)) {
