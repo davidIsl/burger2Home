@@ -100,3 +100,5 @@
 - [x] 2002/12/28: Add & delete Allergen,
 - [x] 2022/12/29: Update Allergen, responsive pages allergen & index admin, ingredients delete, cancel alert ingredients & delete alert ingredients
 - [x] 2022/12/30: Family Delete list and modal details & alert, update allergen
+- [x] 2022/12/31: update ingredient, family
+- [x] 2023/01/01: update product (Not image)

@@ -702,7 +702,7 @@ export default class extends mixins(validationMixin) {
 
     const responseInitialStock = await API.addStockIngredients(
       responseCreateIngredients.data.id,
-      50,
+      0,
       formattedDate
     );
 

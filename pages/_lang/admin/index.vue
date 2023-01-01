@@ -80,16 +80,10 @@ b-container.p-4.bg-gray(fluid)
               :totalProducts='totalProducts'
               @pageChange='handleChangePage'
             )
-              //- template(#head(x)='data')
-              //-   b-form-checkbox#checkbox-header(
-              //-     name='checkbox-header'
-              //-     @change='selectAllTableItems($event)'
-              //-   )
-              //- template(#cell(x)='data')
-              //-   b-form-checkbox(
-              //-     :checked='selectedAllItems'
-              //-     @input='selectTableItem($event, data.name)'
-              //-   )
+              template(#head(onMenu)='data')
+                p {{ $t('pages.admin.products.table.statut') }}
+              template(#cell(onMenu)='data')
+                b-form-checkbox(switch v-model='data.item.onMenu')
               template(#cell(image)='data')
                 b-img(:src='getLink(data.item.id)' width='50' height='50')
               template(#cell(details)='data')
@@ -261,12 +255,28 @@ b-container.p-4.bg-gray(fluid)
     template(#modal-footer)
       //- div
       //-   font-awesome-icon(:icon='["fas", "minus"]')
-      b-button.button {{ $t('pages.admin.button1') }}
-    b-container
-      h4.text-secondary.text-center {{ currentProduct.name }}
-      p.text-modal {{ currentProduct.description }}
+      b-button.w-48.button(@click='viewDetails = false') {{ $t('pages.admin.button7') }}
+      b-button.w-48.button(
+        @click='goToUrl(`/${$i18n.locale}/admin/productsEdit/`)'
+      ) {{ $t('pages.admin.button6') }}
+    div
+      h4.text-secondary.text-center.title {{ currentProduct.name }}
+      .text-modal 
+        p {{ currentProduct.description }}
+    .border-top.pb-3
+      h6.pt-3.title.text-secondary {{ $t('pages.admin.title4') }}
+      .text-modal
+        span {{ currentProduct.currentPrice }}€
+    .border-top.pb-3
+      h6.pt-3.text-secondary.title {{ $t('pages.admin.title5') }}
+      .pl-3.text-modal(
+        v-for='(ingredient, index) in currentProduct.ingredients'
+        :key='index'
+      )
+        li
+          ul.m-0.p-0 {{ ingredient }}
     .border-top
-      h6.pt-3.text-secondary {{ $t('pages.admin.text1') }}
+      h6.pt-3.text-secondary.title {{ $t('pages.admin.title6') }}
       .pl-3.text-modal(
         v-for='(allergen, index) in currentProduct.allergens'
         :key='index'
@@ -422,10 +432,6 @@ export default class extends mixins(validationMixin) {
 
   fields = [
     {
-      key: 'x',
-      sortable: false,
-    },
-    {
       key: 'image',
       sortable: false,
     },
@@ -443,6 +449,10 @@ export default class extends mixins(validationMixin) {
     },
     {
       key: 'details',
+      sortable: false,
+    },
+    {
+      key: 'onMenu',
       sortable: false,
     },
   ];
@@ -581,7 +591,7 @@ export default class extends mixins(validationMixin) {
   }
 
   async getBurgers() {
-    const response = await API.burgerList(this.$i18n.locale);
+    const response = await API.productList();
 
     if (response.status !== 200) {
       console.log('LOG ERROR');
@@ -629,6 +639,10 @@ export default class extends mixins(validationMixin) {
 
   handleDelete() {
     this.deleteAlert = true;
+  }
+
+  goToUrl(url: string) {
+    this.$router.push(url);
   }
 }
 </script>

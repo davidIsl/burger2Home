@@ -1,3 +1,9 @@
+/**
+ * DATE FORMATER FUNCTION
+ * @param sDate
+ * @returns FORMATED DATE STRING
+ */
+
 export const formatDate = (sDate: string) => {
   const date = new Date(sDate);
 
@@ -65,7 +71,7 @@ export interface Ingredients {
 export interface Product {
   actualPrice: number;
   allergens: Allergens[];
-  available: boolean;
+  onMenu: boolean;
   currentDiscount: number;
   currentPrice: number;
   description: string;
@@ -73,6 +79,8 @@ export interface Product {
   imageName: string;
   ingredients: Ingredients[];
   name: string;
+  productId: number;
+  language: Language;
 }
 
 export interface Promo {

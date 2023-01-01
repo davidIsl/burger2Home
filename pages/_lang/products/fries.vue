@@ -121,7 +121,7 @@ export default class extends Vue {
    * END POINT GET PRODUCTS SUMMARY
    */
   async getBurgers() {
-    const response = await API.burgerList(this.$i18n.locale);
+    const response = await API.productListByLang(this.$i18n.locale);
 
     if (response.status !== 200) {
       console.log('LOG ERROR');

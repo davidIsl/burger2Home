@@ -128,7 +128,7 @@ export default class extends Vue {
   }
 
   async getBurgers() {
-    const response = await API.burgerList(this.$i18n.locale);
+    const response = await API.productAvailableListByLang(this.$i18n.locale);
 
     if (response.status !== 200) {
       console.log('LOG ERROR');
@@ -187,9 +187,5 @@ export default class extends Vue {
 
 .button {
   font-size: 0.9em;
-}
-
-.text-modal {
-  text-shadow: 1px 1px 1px var(--darkRed);
 }
 </style>

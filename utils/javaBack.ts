@@ -127,15 +127,58 @@ export class API {
     return this.get(`/languages/${id}`);
   }
 
-  // PRODUCT ENDPOINT
+  /********************
+   * PRODUCT ENDPOINT *
+   *                  *
+   *******************/
 
-  /*
-   * ENDPOINT PRODUCT SUMMARY
+  static productList(): Promise<APIDataResponse<Product>> {
+    return this.get(`/products/summaries`);
+  }
+  /**
+   * PRODUCT SUMMARY BY LANG
+   * @param lang
+   * @returns PRODUCT SUMMARY
    */
-  static burgerList(lang: string): Promise<APIDataResponse<Product>> {
+
+  static productAvailableListByLang(
+    lang: string
+  ): Promise<APIDataResponse<Product>> {
     return this.get(
-      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true`
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true`
     );
+  }
+
+  /**
+   * PRODUCT SUMMARY ALL TRANSLATION BY ID
+   * @param id
+   * @returns PRODUCT SUMMARY
+   */
+
+  static getProductSummaryById(id: number): Promise<APIResponse> {
+    return this.get(`/products/summaries/${id}`);
+  }
+
+  /**
+   * GET ALL PRODUCT TRANSLATION BY ID
+   * @param id
+   * @returns PRODUCT TRANSLATION []
+   */
+
+  static getProductTranslationById(
+    id: number
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(`/products/${id}/translations`);
+  }
+
+  /**
+   * GET PRODUCTS BY ID
+   * @param id
+   * @returns PRODUCTS
+   */
+
+  static getProductById(id: number): Promise<APIResponse> {
+    return this.get(`/products/${id}`);
   }
 
   /*
@@ -145,6 +188,62 @@ export class API {
   static getImages(productId: number): Promise<APIResponse> {
     return this.get(`/products/${productId}/image`);
   }
+
+  /**
+   * UPDATE PRODUCT
+   * @param id
+   * @param imageName
+   * @param ingredients
+   * @param productFamilies
+   * @param onMenu
+   * @returns UPDATED PRODUCTS
+   */
+
+  static updateProducts(
+    id: number,
+    imageName: string,
+    ingredients: Ingredients[],
+    productFamilies: Families[],
+    onMenu: boolean
+  ): Promise<APIResponse> {
+    return this.update(`/products`, {
+      id,
+      imageName,
+      ingredients,
+      productFamilies,
+      onMenu,
+    });
+  }
+
+  /**
+   * UPDATE PRODUCT TRANSLATION
+   * @param id
+   * @param description
+   * @param name
+   * @param language
+   * @param productId
+   * @returns UPDATED PRODUCT TRANSLATION
+   */
+
+  static updateProductTranslation(
+    id: number,
+    description: string,
+    name: string,
+    language: Language,
+    productId: number
+  ): Promise<APIResponse> {
+    return this.update(`/products/translations`, {
+      id,
+      description,
+      name,
+      language,
+      productId,
+    });
+  }
+
+  /**
+   * ENDPOINT FAMILY
+   */
 
   /*
    * ENDPOINT PRODUCTS FAMILY (FILTERS)
@@ -169,10 +268,6 @@ export class API {
   static getFamilyById(id: number): Promise<APIResponse> {
     return this.get(`/products/families/${id}`);
   }
-
-  /**
-   * ENDPOINT FAMILY
-   */
 
   /**
    * GET ALL FAMILY TRANSLATION
@@ -226,6 +321,16 @@ export class API {
       name,
     });
   }
+
+  /**
+   * UPDATE FAMILY TRANSLATION
+   * @param id
+   * @param productFamilyId
+   * @param language
+   * @param description
+   * @param name
+   * @returns FAMILY TRANSLATION UPDATED
+   */
 
   static updateFamilyTranslation(
     id: number,

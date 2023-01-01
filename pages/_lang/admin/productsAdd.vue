@@ -141,10 +141,11 @@ b-container.p-5.bg-gray(fluid)
                         v-model='$v.ingredient.$model'
                         :options='ingredients'
                         :multiple='true'
-                        :selectLabel='$t("pages.admin.selectLabel")'
-                        :selectedLabel='$t("pages.admin.selectedLabel")'
-                        :deselectLabel='$t("pages.admin.deselectLabel")'
-                        :searchable='false'
+                        :placeholder='$t("pages.admin.products.add.placeholer")'
+                        :selectLabel='$t("pages.admin.products.add.label")'
+                        :selectedLabel='$t("pages.admin.products.add.label")'
+                        :deselectLabel='$t("pages.admin.products.add.label")'
+                        :searchable='true'
                         :class='{ "is-invalid": $v.ingredient.$error }'
                         label='name'
                         track-by='name'
@@ -171,10 +172,11 @@ b-container.p-5.bg-gray(fluid)
                         v-model='$v.productFamily.$model'
                         :options='families'
                         :multiple='true'
-                        :selectLabel='$t("pages.admin.selectLabel")'
-                        :selectedLabel='$t("pages.admin.selectedLabel")'
-                        :deselectLabel='$t("pages.admin.deselectLabel")'
-                        :searchable='false'
+                        :placeholder='$t("pages.admin.products.add.placeholer")'
+                        :selectLabel='$t("pages.admin.products.add.label")'
+                        :selectedLabel='$t("pages.admin.products.add.label")'
+                        :deselectLabel='$t("pages.admin.products.add.label")'
+                        :searchable='true'
                         :class='{ "is-invalid": $v.productFamily.$error }'
                         label='name'
                         track-by='name'
@@ -189,29 +191,52 @@ b-container.p-5.bg-gray(fluid)
                     b-col.mx-auto(sm='12')
                       .flex.text-center
                         b-button.mt-3.button.w-100 {{ $t('pages.admin.add.button4') }}
-                b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label6")'
-                  label-for='imageName'
-                )
-                  //- input(
-                  //-   name='image'
-                  //-   :value='imageName'
-                  //-   accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
-                  //-   type='file'
-                  //-   ref='fileInput'
-                  //- )
-
-                  uploadAvatar(
-                    :preview='$v.imageName.$model'
-                    :error='$v.imageName.$error'
-                    ref='fileInput'
-                    @change='$v.imageName.$model = $event'
-                  )
-                  .input-error.my-2(v-if='$v.imageName.$error')
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
+                b-row
+                  b-col
+                    b-form-group.pt-3.text-primary(
+                      :label='$t("pages.admin.add.label6")'
+                      label-for='imageName'
                     )
-                    | {{ $t('pages.errors.required') }}
+                      //- input(
+                      //-   name='image'
+                      //-   :value='imageName'
+                      //-   accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
+                      //-   type='file'
+                      //-   ref='fileInput'
+                      //- )
+
+                      uploadAvatar(
+                        :preview='$v.imageName.$model'
+                        :error='$v.imageName.$error'
+                        ref='fileInput'
+                        @change='$v.imageName.$model = $event'
+                      )
+                      .input-error.my-2(v-if='$v.imageName.$error')
+                        font-awesome-icon.mr-2(
+                          :icon='["fa", "exclamation-triangle"]'
+                        )
+                        | {{ $t('pages.errors.required') }}
+                  //- b-col
+                  //-   b-form-group.pt-3.text-primary(
+                  //-     :label='$t("pages.admin.add.label7")'
+                  //-     label-for='available'
+                  //-   )
+                  //-     b-form-checkbox#available.checkBox(
+                  //-       v-model='available'
+                  //-       name='available-button'
+                  //-       switch
+                  //-       size='lg'
+                  //-     )
+                  //-   b-form-group.pt-3.text-primary(
+                  //-     :label='$t("pages.admin.add.label7")'
+                  //-     label-for='onMenu'
+                  //-   )
+                  //-     b-form-checkbox#onMenu.checkBox(
+                  //-       v-model='onMenu'
+                  //-       name='onMenu-button'
+                  //-       switch
+                  //-       size='lg'
+                  //-     )
               b-row
                 b-col.mx-auto(
                   v-if='stepProductAdd === stepProductAddType.STEP2 || stepProductAdd === stepProductAddType.STEP3'
@@ -282,6 +307,7 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) productFamily: Families[] = [];
   @Validate({ required }) ingredientName: string = '';
   @Validate({ required }) ingredientDescription: string = '';
+  // @Validate({ required }) available: boolean = false;
 
   ingredients: Ingredients[] = [];
   ingredientsId: any[] = [];
@@ -338,7 +364,6 @@ export default class extends mixins(validationMixin) {
       value: lang.id,
       text: lang.name,
     }));
-    console.log('LANGUAGE:', this.langs);
   }
 
   updateData() {
@@ -368,8 +393,14 @@ export default class extends mixins(validationMixin) {
         this.$v.name.$invalid ||
         this.$v.description.$invalid
       ) {
+        this.submitProductAdd = submitProductAddType.ERROR;
+        this.errorMsg = this.$tc('pages.admin.products.errors.fields');
         return;
       }
+      if (!this.checkLang(this.language1, this.language2)) {
+        return;
+      }
+      this.submitProductAdd = submitProductAddType.NONE;
       this.stepProductAdd = stepProductAddType.STEP2;
       return;
     }
@@ -383,13 +414,16 @@ export default class extends mixins(validationMixin) {
         this.$v.frenchName.$invalid ||
         this.$v.frenchDescription.$invalid
       ) {
-        console.log('HELLO');
+        this.submitProductAdd = submitProductAddType.ERROR;
+        this.errorMsg = this.$tc('pages.admin.products.errors.fields');
 
         return;
       }
-      if (this.checkLang()) {
-        this.stepProductAdd = stepProductAddType.STEP3;
-      }
+
+      this.submitProductAdd = submitProductAddType.NONE;
+    }
+    if (this.checkLang(this.language1, this.language2)) {
+      this.stepProductAdd = stepProductAddType.STEP3;
     }
   }
 
@@ -402,13 +436,18 @@ export default class extends mixins(validationMixin) {
     }
   }
 
-  checkLang(): boolean {
-    if (this.submitProductAdd === submitProductAddType.ERROR) {
-      this.submitProductAdd = submitProductAddType.NONE;
-    }
-    if (this.language1 !== '' && this.language1 === this.language2) {
+  checkLang(lang1: string, lang2: string): boolean {
+    console.log('LANG1', lang1);
+
+    if (lang1.toString() === '2') {
       this.submitProductAdd = submitProductAddType.ERROR;
-      this.errorMsg = this.$tc('pages.admin.add.errors.lang2');
+      this.errorMsg = this.$tc('pages.admin.products.errors.lang1');
+      return false;
+    }
+
+    if (lang2.toString() === '1') {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.products.errors.lang2');
       return false;
     }
     return true;
@@ -509,9 +548,13 @@ export default class extends mixins(validationMixin) {
     // if (responseUploadImg.status !== 200) {
     //   return null;
     // }
-    // this.submitProductAdd = submitProductAddType.SUCCESS;
-    // this.errorMsg = this.$tc('pages.admin.add.success');
+    this.submitProductAdd = submitProductAddType.SUCCESS;
+    this.errorMsg = this.$tc('pages.admin.products.add.success');
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.checkBox:checked {
+  color: var(--secondary);
+}
+</style>
