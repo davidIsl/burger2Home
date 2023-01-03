@@ -268,9 +268,9 @@
           "label2": "English Name",
           "label3": "English Description",
           "label4": "Product Price",
-          "label5": "Product Ingredients",
-          "label5": "Product Family",
-          "label6": "Product Photos",
+          "label6": "Product Ingredients",
+          "label7": "Product Family",
+          "label8": "Product Photos",
           "placeholder": "Select a language",
           "placeholder1": "Enter a name",
           "placeholder2": "Enter a description",
@@ -523,8 +523,74 @@
         "placeholder4": "Select Ingredients",
         "button1": "Edit Product"
       },
-      "promoAdd": {
-        "title1": "Add a new promo"
+      "promos": {
+        "add": {
+          "title": "Promotions Listing",
+          "title1": "Add a new promotion",
+          "title2": "Enter an English Translation",
+          "title3": "Enter a French Translation",
+          "label1": "Language",
+          "label2": "English Description",
+          "label3": "French Description",
+          "label4": "Promotion Discount",
+          "label5": "Promotion Start Date",
+          "label6": "Promotion End Date",
+          "label7": "Products",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a english description",
+          "placeholder3": "Enter a french description",
+          "placeholder4": "Choose a reduction",
+          "placeholder5": "Select a start date",
+          "placeholder6": "Select an end date",
+          "button1": "Create Promotion",
+          "multiselect": {
+            "placeholder1": "Select one or more product",
+            "label1": "Select ¨Product",
+            "label2": "Selected Product",
+            "label3": "Deselect Product"
+          }
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "title2": "Cancel Update",
+          "title3": "Error Update",
+          "text1": "Are you sure you want to stop this promotions",
+          "text2": "Are you sure you want to cancel the Update process about this promotion",
+          "button1": "Stop Promotion",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No",
+          "button5": "OK"
+        },
+        "success": {
+          "create": "Promotion created with SUCCESS",
+          "update": "Promotion updated with SUCCESS",
+          "stopPromo": "Promotion stopped with SUCCESS",
+          "delete": "Promotion stopped with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Promotions",
+          "createTranslation": "Errors while creating Promotions Translation",
+          "delete": "Errors while deleting Promotions",
+          "getPromotions": "Errors while getting Promotions List",
+          "fields": "you have to fill all the fields",
+          "amount": "Warning, the reduction amount is lower or equal to 0",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose French for the second language"
+        },
+        "modal": {
+          "title1": "Promotion Details",
+          "title2": "Description",
+          "title3": "Promotion Discount",
+          "title4": "Promotion Start Date",
+          "title5": "Promotion End Date",
+          "button1": "Cancel",
+          "button2": "Create Promotion"
+        },
+        "table": {
+          "id": "Id",
+          "language": "Language"
+        }
       }
     },
     "errors": {

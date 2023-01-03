@@ -110,8 +110,8 @@ b-container.p-4.bg-gray(fluid)
         :lg='filters ? "18" : "14"'
       )
         h2.text-secondary {{ $t('pages.admin.title2') }}
-      b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
-        b-button.button.w-100(:to='`/${$i18n.locale}/admin/promoAdd/`') {{ $t('pages.admin.button2') }}
+      //- b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
+      //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/promoAdd/`') {{ $t('pages.admin.button2') }}
     b-row
       b-col(
         :offset-lg='filters ? "0" : "2"'
@@ -124,7 +124,7 @@ b-container.p-4.bg-gray(fluid)
           :placeholder='$t("pages.admin.placeholder2")'
         )
       b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+        b-button.button.w-100(:to='`/${$i18n.locale}/admin/promosAdd/`') {{ $t('pages.admin.button2') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
         filters
@@ -137,23 +137,24 @@ b-container.p-4.bg-gray(fluid)
               hover
               borderless
               responsive
-              perPage='8'
+              :perPage='perPage'
+              :current-page='currentPage'
               table-variant='secondary'
               :items='promos'
               :fields='fieldsPromo'
               :current='currentPage'
               @pageChange='handleChangePage'
             )
-              template(#head(x)='data')
-                b-form-checkbox#checkbox-header(
-                  name='checkbox-header'
-                  @change='selectAllTableItems($event)'
-                )
-              template(#cell(x)='data')
-                b-form-checkbox(
-                  :checked='selectedAllItems'
-                  @input='selectTableItem($event, data.name)'
-                )
+              //- template(#head(x)='data')
+              //-   b-form-checkbox#checkbox-header(
+              //-     name='checkbox-header'
+              //-     @change='selectAllTableItems($event)'
+              //-   )
+              //- template(#cell(x)='data')
+              //-   b-form-checkbox(
+              //-     :checked='selectedAllItems'
+              //-     @input='selectTableItem($event, data.name)'
+              //-   )
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
                   :icon='["fa", "eye"]'
@@ -163,9 +164,9 @@ b-container.p-4.bg-gray(fluid)
               pills='pills'
               size='sm'
               v-model='currentPage'
-              :total-rows='totalRows'
+              :total-rows='totalPromos'
               :per-page='perPage'
-              aria-controls='my-table'
+              @pageChange='handleChangePage'
               align='right'
             )
   // STOCK
@@ -241,6 +242,7 @@ b-container.p-4.bg-gray(fluid)
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    hide-header-close
     v-if='viewDetails'
     v-model='viewDetails'
     right
@@ -255,8 +257,8 @@ b-container.p-4.bg-gray(fluid)
     template(#modal-footer)
       //- div
       //-   font-awesome-icon(:icon='["fas", "minus"]')
-      b-button.w-48.button(@click='viewDetails = false') {{ $t('pages.admin.button7') }}
-      b-button.w-48.button(
+      b-button.mx-auto.w-48.button(@click='viewDetails = false') {{ $t('pages.admin.button7') }}
+      b-button.mx-auto.w-48.button(
         @click='goToUrl(`/${$i18n.locale}/admin/productsEdit/`)'
       ) {{ $t('pages.admin.button6') }}
     div
@@ -288,24 +290,41 @@ b-container.p-4.bg-gray(fluid)
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    hide-header-close
     v-if='viewDetailsPromo'
     v-model='viewDetailsPromo'
     right
   )
     template(#modal-title)
-      h4.text-secondary.text-center {{ currentPromo.name }}
+      h4.pb-3.text-secondary.text-center.title {{ $t('pages.admin.promos.modal.title1') }}
+      b-img(thumbnail body-bg-variant='darkRed' src='/img/promos.png')
     template(#modal-footer)
-      b-button.button {{ $t('pages.admin.button2') }}
-    b-container
-      p.text-modal {{ currentPromo.description }}
-      p.text-modal {{ 'Reduction: ' + currentPromo.discount + ' %' }}
-      p.text-modal {{ 'StartDate: ' + currentPromo.startDate }}
-      p.text-modal {{ 'EndDAte: ' + currentPromo.endDate }}
+      b-button.mx-auto.button.w-48(@click='viewDetailsPromo = false') {{ $t('pages.admin.promos.modal.button1') }}
+      b-button.mx-auto.button.w-48(
+        @click='goToUrl(`/${$i18n.locale}/admin/promosAdd/`)'
+      ) {{ $t('pages.admin.promos.modal.button2') }}
+    div
+      h6.text-secondary.title {{ $t('pages.admin.promos.modal.title2') }}
+      .pt-2.text-modal 
+        p.text-modal {{ currentPromo.description }}
+    .border-top.pb-3
+      h6.pt-3.title.text-secondary {{ $t('pages.admin.promos.modal.title3') }}
+      .text-modal
+        p {{ currentPromo.amount + ' %' }}
+    .border-top.pb-3
+      h6.pt-3.title.text-secondary {{ $t('pages.admin.promos.modal.title4') }}
+      .text-modal
+        p.text-modal {{ currentPromo.startDate }}
+    .border-top.pb-3
+      h6.pt-3.title.text-secondary {{ $t('pages.admin.promos.modal.title5') }}
+      .text-modal
+        p.text-modal {{ currentPromo.endDate }}
   // MODAL EDITING STOCK
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    hide-header-close
     v-model='editingStock'
     right
   )
@@ -423,9 +442,11 @@ export default class extends mixins(validationMixin) {
   perPage: number = 8;
   currentPage: number = 1;
   totalProducts: number = 0;
+  totalPromos: number = 0;
 
   allergens: Allergens[] = [];
   products: Product[] = [];
+  promos: Promo[] = [];
   currentProduct: Product | null = null;
   currentPromo: Promo | null = null;
   currentStock: Stock | null = null;
@@ -459,19 +480,11 @@ export default class extends mixins(validationMixin) {
 
   fieldsPromo = [
     {
-      key: 'x',
-      sortable: false,
-    },
-    {
-      key: 'name',
-      sortable: true,
-    },
-    {
       key: 'description',
       sortable: false,
     },
     {
-      key: 'discount',
+      key: 'amount',
       sortable: true,
     },
     {
@@ -508,37 +521,6 @@ export default class extends mixins(validationMixin) {
     {
       key: 'details',
       sortable: false,
-    },
-  ];
-
-  promos: Promo[] = [
-    {
-      name: 'Super Promo Burger Epicé',
-      description: 'Profitez de notre super promo sur les burgers épicés',
-      discount: 10,
-      startDate: new Date('2022-11-22'),
-      endDate: new Date('2022-11-30'),
-    },
-    {
-      name: 'Super Promo Burger Boeuf',
-      description: 'Profitez de notre super promo sur les burgers boeuf',
-      discount: 15,
-      startDate: new Date('2022-11-29'),
-      endDate: new Date('2022-12-5'),
-    },
-    {
-      name: 'Super Promo Burger Poulet',
-      description: 'Profitez de notre super promo sur les burgers de poulet',
-      discount: 5,
-      startDate: new Date('2022-11-25'),
-      endDate: new Date('2022-12-2'),
-    },
-    {
-      name: 'Super Promo Burger Epicé',
-      description: 'Profitez de notre super promo sur les burgers épicés',
-      discount: 10,
-      startDate: new Date('2022-11-22'),
-      endDate: new Date('2022-11-30'),
     },
   ];
 
@@ -581,13 +563,18 @@ export default class extends mixins(validationMixin) {
   ];
 
   mounted() {
-    this.getBurgers();
+    this.updateData();
   }
 
   getLink(productId: number) {
     const link: string =
       'http://localhost:8080/products/' + productId + '/image';
     return link;
+  }
+
+  updateData() {
+    this.getBurgers();
+    this.getPromos();
   }
 
   async getBurgers() {
@@ -603,6 +590,44 @@ export default class extends mixins(validationMixin) {
     this.totalProducts = response.data.length;
     console.log('LOG SUCCESS');
     console.log('RESPONSE', response.data);
+  }
+
+  async getPromos() {
+    console.log('GET PTOMOS');
+
+    const response = await API.getPromoList();
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    const responsePromo = await API.getPromoTranslationList();
+    if (responsePromo.status !== 200) {
+      return;
+    }
+    const promoTab: any = responsePromo.data;
+
+    console.log('RESPONSEPROMO', promoTab);
+    this.promos = responsePromo.data;
+
+    for (let i = 0; i < responsePromo.data.length; i++) {
+      for (let j = 0; j < response.data.length; j++) {
+        // console.log('Response ID', response.data[j].id);
+        // console.log('Response Promotion ID', response.data[j].promotionId);
+        // console.log('ResponsePROMO  ID', responsePromo.data[i].promotionId);
+        // console.log(
+        //   'ResponsePROMO Promotion ID',
+        //   responsePromo.data[i].promotionId
+        // );
+
+        if (response.data[j].id === responsePromo.data[i].promotionId) {
+          this.promos[i].amount = response.data[j].amount;
+          this.promos[i].startDate = response.data[j].startDate;
+          this.promos[i].endDate = response.data[j].endDate;
+        }
+      }
+    }
+    console.log('PROMOS', this.promos);
   }
 
   openDetails(product: Product) {

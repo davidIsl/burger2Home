@@ -84,11 +84,16 @@ export interface Product {
 }
 
 export interface Promo {
-  name: string;
+  id: number;
+  promotionId: number;
+  // descriptionEn: string;
   description: string;
-  discount: number;
-  startDate: Date;
-  endDate: Date;
+  amount: number;
+  creationDate: string;
+  startDate: string;
+  endDate: string;
+  products: Product[];
+  language: Language;
 }
 
 export interface Stock {

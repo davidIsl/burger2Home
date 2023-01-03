@@ -75,7 +75,7 @@ b-container.bg-gray(fluid)
           h6.pt-3.text-secondary {{ $t('pages.products.modal.title1') }}
           span.text-modal {{ currentProduct.actualPrice }} €
         b-col(v-if='currentProduct.currentDiscount > 0')
-          h6.pt-3.text-secondary Old Price
+          h6.pt-3.text-secondary {{ $t('pages.products.modal.title3') }}
           span.text-modal.crossed-text {{ currentProduct.currentPrice }} €
       h6.pt-3.text-secondary {{ $t('pages.products.modal.title2') }}
       .pl-3.text-modal(

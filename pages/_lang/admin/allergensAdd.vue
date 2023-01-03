@@ -105,7 +105,6 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
                 :class='{ "is-invalid": $v.language1.$error, "is-valid": !$v.language1.$invalid }'
                 :placeholder='$t("pages.admin.allergens.add.placeholder")'
                 :options='langs'
-                v-on:focus='resetAlertMsg'
                 @blur='$v.language1.$touch()'
               )
               .input-error(v-if='$v.language1.$error')
@@ -121,7 +120,6 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
                 :placeholder='$t("pages.admin.allergens.add.placeholder1")'
                 type='text'
                 name='name'
-                formatter='resetAlertMsg'
                 @blur='$v.name.$touch()'
               )
               .input-error(v-if='$v.name.$error')
@@ -276,7 +274,6 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
           :class='{ "is-invalid": $v.editLanguage1.$error, "is-valid": !$v.editLanguage1.$invalid }'
           :placeholder='$t("pages.admin.allergens.edit.placeholder1")'
           :options='langs'
-          v-on:focus='resetAlertMsg'
           @blur='$v.editLanguage1.$touch()'
         )
         .input-error(v-if='$v.editLanguage1.$error')
@@ -305,7 +302,6 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
           :class='{ "is-invalid": $v.editLanguage2.$error, "is-valid": !$v.editLanguage2.$invalid }'
           :placeholder='$t("pages.admin.allergens.edit.placeholder1")'
           :options='langs'
-          v-on:focus='resetAlertMsg'
           @blur='$v.editLanguage2.$touch()'
         )
         .input-error(v-if='$v.editLanguage2.$error')
@@ -327,7 +323,7 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
 </template>
 <script lang="ts">
-import { Component, mixins, Watch } from 'nuxt-property-decorator';
+import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
@@ -360,7 +356,7 @@ export default class extends mixins(validationMixin) {
 
   filters: boolean = false;
   filterSearch: string = '';
-  viewDetails: boolean = false;
+  // viewDetails: boolean = false;
 
   currentPage: number = 1;
   perPage: number = 8;
@@ -510,11 +506,11 @@ export default class extends mixins(validationMixin) {
     return true;
   }
 
-  @Watch('focus')
-  resetAlertMsg() {
-    this.errorMsg = '';
-    this.submitProductAdd = submitProductAddType.NONE;
-  }
+  // @Watch('focus')
+  // resetAlertMsg() {
+  //   this.errorMsg = '';
+  //   this.submitProductAdd = submitProductAddType.NONE;
+  // }
 
   async createAllergen() {
     if (!this.checkLang(this.language1, this.language2)) {

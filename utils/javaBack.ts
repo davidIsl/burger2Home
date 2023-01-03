@@ -9,6 +9,7 @@ import {
   Language,
   Price,
   Allergens,
+  Promo,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -135,8 +136,21 @@ export class API {
   static productList(): Promise<APIDataResponse<Product>> {
     return this.get(`/products/summaries`);
   }
+
   /**
    * PRODUCT SUMMARY BY LANG
+   * @param lang
+   * @returns PRODUCT SUMMARY BY LANG
+   */
+
+  static getProductSummaryByLang(
+    lang: string
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(`/products/summaries?language=${lang.toUpperCase()}`);
+  }
+
+  /**
+   * PRODUCT SUMMARY AVAILABLE BY LANG
    * @param lang
    * @returns PRODUCT SUMMARY
    */
@@ -640,5 +654,142 @@ export class API {
 
   static deleteAllergen(id: number): Promise<APIResponse> {
     return this.del(`/allergens/${id}`);
+  }
+
+  /******************
+   * ENDPOINT PROMO *
+   *                *
+   *****************/
+
+  /**
+   * Get PROMO
+   * @returns ALL Promo
+   */
+
+  static getPromoList(): Promise<APIDataResponse<Promo>> {
+    return this.get(`/promotions`);
+  }
+
+  static getPromoById(id: number): Promise<APIResponse> {
+    return this.get(`/promotions/${id}`);
+  }
+  /**
+   * GET PROMO TRANSLATION
+   * @returns All Promo Translation
+   */
+
+  static getPromoTranslationList(): Promise<APIDataResponse<Promo>> {
+    return this.get(`/promotions/translations`);
+  }
+
+  /**
+   * GET PROMO TRANSLATION BY LANG
+   * @param lang
+   * @returns PROMO TRANSLATION
+   */
+
+  static getPromoTranslationListByLang(lang: string) {
+    return this.get(`/promotions/translations?language=${lang}`);
+  }
+
+  static getPromoTranslationByPromoId(id: number) {
+    return this.get(`/promotions/${id}/translations`);
+  }
+
+  /**
+   * CREATE A NEW PROMOTION
+   * @param amount
+   * @param creationDate
+   * @param startDate
+   * @param endDate
+   * @param products
+   * @returns CREATED PROMOTION
+   */
+
+  static addPromo(
+    amount: number,
+    creationDate: string,
+    startDate: string,
+    endDate: string,
+    products: Product[]
+  ): Promise<APIResponse> {
+    return this.post(`/promotions`, {
+      amount,
+      creationDate,
+      startDate,
+      endDate,
+      products,
+    });
+  }
+
+  /**
+   * CREATE PROMOTION TRANSLATION
+   * @param description
+   * @param promotionId
+   * @param language
+   * @returns CEATED PROMOTION TRANSLATION
+   */
+
+  static addPromoTranslation(
+    description: string,
+    promotionId: number,
+    language: Language
+  ): Promise<APIResponse> {
+    return this.post(`/promotions/translations`, {
+      description,
+      promotionId,
+      language,
+    });
+  }
+
+  /**
+   * UPDATE A PROMOTION
+   * @param id
+   * @param amount
+   * @param creationDate
+   * @param startDate
+   * @param endDate
+   * @param product
+   * @returns PROMOTION UPDATED
+   */
+
+  static updatePromo(
+    id: number,
+    amount: number,
+    creationDate: string,
+    startDate: string,
+    endDate: string,
+    product: Product[]
+  ): Promise<APIResponse> {
+    return this.update(`/promotions`, {
+      id,
+      amount,
+      creationDate,
+      startDate,
+      endDate,
+      product,
+    });
+  }
+
+  /**
+   * UPDATE PROMOTION TRANSLATION
+   * @param id
+   * @param description
+   * @param promotionId
+   * @param language
+   * @returns UPDATED PROMOTION TRANSLATION
+   */
+  static updatePromoTranslation(
+    id: number,
+    description: string,
+    promotionId: number,
+    language: Language
+  ): Promise<APIResponse> {
+    return this.update(`/promotions/translations`, {
+      id,
+      description,
+      promotionId,
+      language,
+    });
   }
 }

@@ -22,6 +22,7 @@
 - [] button delete table checkbox not good
 - [] Si le temps faire un projet a part ou alors bien protégé les routes admin en testant le role du user
 - [] ERROR ALERT ne S'affiche pas dans le submit !
+- [] UPLOAD IMAGE ADD & EDIT
 
 ## Site
 

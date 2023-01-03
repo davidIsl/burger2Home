@@ -257,15 +257,15 @@ b-container.p-5.bg-gray(fluid)
     centered
   )
     template(#modal-title)
-      div {{ $t('pages.admin.family.alert.title2') }}
+      div {{ $t('pages.admin.ingredients.alert.title2') }}
     .d-flex.align-items-center.gap-1
       div
         .modal-error
           font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
-      h5 {{ $t('pages.admin.family.alert.text2') }}
+      h5 {{ $t('pages.admin.ingredients.alert.text2') }}
     template(#modal-footer)
-      b-button.w-48(variant='outline-danger' @click='stopUpdate') {{ $t('pages.admin.family.alert.button3') }}
-      b-button.w-48(variant='primary' @click='cancelAlert = false') {{ $t('pages.admin.family.alert.button4') }}
+      b-button.w-48(variant='outline-danger' @click='stopUpdate') {{ $t('pages.admin.ingredients.alert.button3') }}
+      b-button.w-48(variant='primary' @click='cancelAlert = false') {{ $t('pages.admin.ingredients.alert.button4') }}
   // ERROR UPDATE MODAL
   b-modal(
     body-bg-variant='gray'
@@ -275,15 +275,15 @@ b-container.p-5.bg-gray(fluid)
     centered
   )
     template(#modal-title)
-      div {{ $t('pages.admin.family.alert.title3') }}
+      div {{ $t('pages.admin.ingredients.alert.title3') }}
     .d-flex.align-items-center.gap-1
       div
         .modal-error
           font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
       h5 {{ errorMsg }}
     template(#modal-footer)
-      //- b-button.w-48(variant='outline-danger' @click='stopEditing') {{ $t('pages.admin.family.alert.button3') }}
-      b-button.w-48(variant='outline-danger' @click='errorUpdateAlert = false') {{ $t('pages.admin.family.alert.button5') }}
+      //- b-button.w-48(variant='outline-danger' @click='stopEditing') {{ $t('pages.admin.ingredients.alert.button3') }}
+      b-button.w-48(variant='outline-danger' @click='errorUpdateAlert = false') {{ $t('pages.admin.ingredients.alert.button5') }}
   // EDITING MODAL
   b-modal(
     body-bg-variant='gray'
