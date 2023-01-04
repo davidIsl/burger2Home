@@ -1,28 +1,62 @@
-import { Basket, BasketLine, Product } from '~/utils/utils';
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
+import { store } from '.';
+import { Basket, BasketLine } from '~/utils/utils';
 
-export const state = () => ({
-  basketLine: [],
-  totalPrice: 0,
-  quantity: 0,
-});
+@Module({
+  name: 'basket',
+  namespaced: true,
+  stateFactory: true,
+  store,
+})
+export default class Baskets extends VuexModule {
+  basket: Basket | {} = {};
+  basketLine: BasketLine[] = [];
+  totalPrice: number = 0;
+  quantity: number = 0;
 
-export const mutations = {
-  setBasket(state: any, basket: Basket) {
-    state.basketLine = basket.basketLines;
-    state.totalPrice = basket.basketLines;
-  },
+  @Mutation
+  setBasket(basket: Basket) {
+    this.basket = basket;
+  }
 
-  resetBasket(state: any) {
-    state.products = [];
-    state.totalPrice = 0;
-    state.quantity = 0;
-  },
+  increment() {
+    this.quantity++;
+  }
 
-  increment(state: any) {
-    state.quantity++;
-  },
+  decrement() {
+    this.quantity--;
+  }
 
-  decrement(state: any) {
-    state.quantity--;
-  },
-};
+  resetBasket() {
+    this.basket = {};
+    this.basketLine = [];
+    this.quantity = 0;
+    this.totalPrice = 0;
+  }
+}
+// export const state = () => ({
+//   basketLine: [],
+//   totalPrice: 0,
+//   quantity: 0,
+// });
+
+// export const mutations = {
+//   setBasket(state: any, basket: Basket) {
+//     state.basketLine = basket.basketLines;
+//     state.totalPrice = basket.basketLines;
+//   },
+
+//   resetBasket(state: any) {
+//     state.products = [];
+//     state.totalPrice = 0;
+//     state.quantity = 0;
+//   },
+
+//   increment(state: any) {
+//     state.quantity++;
+//   },
+
+//   decrement(state: any) {
+//     state.quantity--;
+//   },
+// };

@@ -65,7 +65,7 @@ b-container.bg-gray(fluid)
       p.d-inline.my-3 {{ numberToAdd }}
       b-button.button(@click='incrementQuantity')
         font-awesome-icon(:icon='["fa", "plus"]')
-      b-button.button {{ $t('pages.products.button1') }}
+      b-button.button(@click='addToBasket') {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
       p.text-modal {{ currentProduct.description }}
@@ -91,7 +91,7 @@ import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
 import { Product } from '@/utils/utils';
-
+// import { basket } from '@/store/baskets';
 // export interface Field {
 //   key: string;
 //   sortable: boolean;
@@ -171,7 +171,7 @@ export default class extends Vue {
   }
 
   // addToBasket(product: Product) {
-  //   // this.$store.state.basket
+  //   // this.$store.state.basket;
   // }
 
   handleChangeFilter(event: Product[]) {

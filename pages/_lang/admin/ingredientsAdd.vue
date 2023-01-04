@@ -44,7 +44,8 @@ b-container.p-5.bg-gray(fluid)
             hover
             borderless
             responsive
-            table-variant='secondary'
+            head-row-variant='darkRed'
+            table-variant='gray'
             :current-page='currentPage'
             :perPage='perPage'
             :items='ingredients'
@@ -717,6 +718,12 @@ export default class extends mixins(validationMixin) {
     this.getIngredients();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.ingredients.success.create');
+    this.language1 = '';
+    this.name = '';
+    this.language2 = '';
+    this.frenchName = '';
+    this.allergen = [];
+    this.$v.$reset();
     // }
   }
 

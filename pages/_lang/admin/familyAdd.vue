@@ -31,7 +31,8 @@ b-container.p-5.bg-gray(fluid)
             hover
             borderless
             responsive
-            table-variant='secondary'
+            head-row-variant='darkRed'
+            table-variant='gray'
             :current-page='currentPage'
             :perPage='perPage'
             :items='families'

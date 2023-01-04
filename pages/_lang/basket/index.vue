@@ -7,31 +7,32 @@ b-container.p-4.bg-gray(fluid)
     //-   h3.p-1.text-secondary.title-line {{ $t('pages.basket.title2') }}
   b-row
     b-col.mt-3(md='18')
-      b-table(
-        hover
-        borderless
-        responsive
-        table-variant='secondary'
-        :items='basket'
-        :fields='fieldsBasket'
-      )
-        template(#head(x)='data')
-          b-form-checkbox#checkbox-header(name='checkbox-header')
-        template(#cell(x)='data')
-          b-form-checkbox(v-model='itemSelected')
-        template(#cell(image)='data')
-          b-img(:src='data.item.image' width='40' height='40')
-        template(#cell(trash)='data')
-          font-awesome-icon(:icon='["fa", "trash"]')
-      b-pagination(
-        pills='pills'
-        size='sm'
-        v-model='currentPage'
-        :total-rows='totalRows'
-        :per-page='perPage'
-        aria-controls='my-table'
-        align='right'
-      )
+      .p-3.content
+        b-table(
+          hover
+          borderless
+          responsive
+          head-row-variant='darkRed'
+          table-variant='secondary'
+          :items='basket'
+          :fields='fieldsBasket'
+        )
+          //- template(#head(x)='data')
+          //-   b-form-checkbox#checkbox-header(name='checkbox-header')
+          //- template(#cell(x)='data')
+          //-   b-form-checkbox(v-model='itemSelected')
+          template(#cell(image)='data')
+            b-img(:src='data.item.image' width='40' height='40')
+          template(#cell(trash)='data')
+            font-awesome-icon(:icon='["fa", "trash"]')
+        b-pagination(
+          pills='pills'
+          size='sm'
+          v-model='currentPage'
+          :total-rows='totalRows'
+          :per-page='perPage'
+          align='right'
+        )
     b-col.mt-3(md='6')
       .py-2.content
         p.mb-1.pb-2.text-center.border-bottom Montant Total: 63€
@@ -57,11 +58,8 @@ export default class extends Vue {
 
   currentBasket: Basket | null = null;
   products: Product[] | null = null;
+
   fieldsBasket = [
-    {
-      key: 'x',
-      sortable: false,
-    },
     {
       key: 'image',
       sortable: false,

@@ -44,7 +44,8 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
             hover
             borderless
             responsive
-            table-variant='secondary'
+            head-row-variant='darkRed'
+            table-variant='gray'
             :current-page='currentPage'
             :perPage='perPage'
             :items='allergens'

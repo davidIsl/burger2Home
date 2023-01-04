@@ -72,7 +72,8 @@ b-container.p-4.bg-gray(fluid)
               hover
               borderless
               responsive
-              table-variant='secondary'
+              head-row-variant='darkRed'
+              table-variant='gray'
               :current-page='currentPage'
               :perPage='perPage'
               :items='products'
@@ -80,6 +81,16 @@ b-container.p-4.bg-gray(fluid)
               :totalProducts='totalProducts'
               @pageChange='handleChangePage'
             )
+              template(#head(image)='data')
+                p {{ $t('pages.admin.products.table.image') }}
+              template(#head(name)='data')
+                p {{ $t('pages.admin.products.table.name') }}
+              template(#head(description)='data')
+                p {{ $t('pages.admin.products.table.description') }}
+              template(#head(currentPrice)='data')
+                p {{ $t('pages.admin.products.table.price') }}
+              template(#head(details)='data')
+                p {{ $t('pages.admin.products.table.details') }}
               template(#head(onMenu)='data')
                 p {{ $t('pages.admin.products.table.statut') }}
               template(#cell(onMenu)='data')
@@ -138,7 +149,8 @@ b-container.p-4.bg-gray(fluid)
               borderless
               responsive
               :perPage='perPagePromos'
-              table-variant='secondary'
+              head-row-variant='darkRed'
+              table-variant='gray'
               :items='promos'
               :fields='fieldsPromo'
               :current-page='currentPagePromos'
@@ -194,7 +206,8 @@ b-container.p-4.bg-gray(fluid)
               borderless
               responsive
               :perPage='perPageStocks'
-              table-variant='secondary'
+              head-row-variant='darkRed'
+              table-variant='gray'
               :items='stocks'
               :fields='fieldsStock'
               :current-page='currentPageStocks'

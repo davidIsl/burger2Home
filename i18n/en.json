@@ -229,7 +229,12 @@
       "button8": "Update Stock",
       "products": {
         "table": {
-          "statut": "Status"
+          "image": "Image",
+          "name": "Name",
+          "description": "Description",
+          "price": "Prices",
+          "details": "Details",
+          "statut": "Statut"
         },
         "add": {
           "title1": "Add a new product",
