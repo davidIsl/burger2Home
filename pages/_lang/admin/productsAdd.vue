@@ -2,7 +2,7 @@
 b-container.p-5.bg-gray(fluid)
   b-row
     b-col
-      h3.p-3.text-center.text-secondary {{ $t('pages.admin.add.title1') }}
+      h3.p-3.text-center.text-secondary {{ $t('pages.admin.products.add.title1') }}
   b-row
     b-col.mx-auto(md='16' lg='12' xl='10')
       form(ref='form' @submit.stop.prevent='onSubmit')
@@ -10,15 +10,15 @@ b-container.p-5.bg-gray(fluid)
           b-col.pb-3
             b-container.p-4.content.mb-5
               .div.p-0(v-if='stepProductAdd === stepProductAddType.STEP1')
-                h5.text-secondary.title {{ $t('pages.admin.add.title2') }}
+                h5.text-secondary.title {{ $t('pages.admin.products.add.title2') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label")'
+                  :label='$t("pages.admin.products.add.label1")'
                   label-for='language1'
                 )
                   b-form-select#language1.input-form(
                     v-model='$v.language1.$model'
                     :class='{ "is-invalid": $v.language1.$error, "is-valid": !$v.language1.$invalid }'
-                    :placeholder='$t("pages.admin.add.placeholder")'
+                    :placeholder='$t("pages.admin.products.add.placeholder1")'
                     :options='langs'
                     @blur='$v.language1.$touch()'
                   )
@@ -28,13 +28,13 @@ b-container.p-5.bg-gray(fluid)
                     )
                     | {{ $t('pages.errors.required') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label1")'
+                  :label='$t("pages.admin.products.add.label2")'
                   label-for='name'
                 )
                   b-form-input#name.input-form(
                     v-model='$v.name.$model'
                     :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
-                    :placeholder='$t("pages.admin.add.placeholder1")'
+                    :placeholder='$t("pages.admin.products.add.placeholder2")'
                     type='text'
                     name='name'
                     @blur='$v.name.$touch()'
@@ -45,13 +45,13 @@ b-container.p-5.bg-gray(fluid)
                     )
                     | {{ $t('pages.errors.required') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label2")'
+                  :label='$t("pages.admin.products.add.label3")'
                   label-for='description'
                 )
                   b-form-textarea#description.input-area(
                     v-model='$v.description.$model'
                     :class='{ "is-invalid": $v.description.$error, "is-valid": !$v.description.$invalid }'
-                    :placeholder='$t("pages.admin.add.placeholder2")'
+                    :placeholder='$t("pages.admin.products.add.placeholder3")'
                     name='description'
                     @blur='$v.description.$touch()'
                   )
@@ -61,15 +61,15 @@ b-container.p-5.bg-gray(fluid)
                     )
                     | {{ $t('pages.errors.required') }}
               .div.p-0(v-if='stepProductAdd === stepProductAddType.STEP2')
-                h5.text-secondary.title {{ $t('pages.admin.add.title3') }}
+                h5.text-secondary.title {{ $t('pages.admin.products.add.title3') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label")'
+                  :label='$t("pages.admin.products.add.label1")'
                   label-for='language2'
                 )
                   b-form-select#language2.input-form(
                     v-model='$v.language2.$model'
                     :class='{ "is-invalid": $v.language2.$error, "is-valid": !$v.language2.$invalid }'
-                    :placeholder='$t("pages.admin.add.placeholder")'
+                    :placeholder='$t("pages.admin.products.add.placeholder1")'
                     :options='langs'
                     @blur='$v.language2.$touch()'
                   )
@@ -79,13 +79,13 @@ b-container.p-5.bg-gray(fluid)
                     )
                     | {{ $t('pages.errors.required') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label1")'
+                  :label='$t("pages.admin.products.add.label2")'
                   label-for='frenchName'
                 )
                   b-form-input#frenchName.input-form(
                     v-model='$v.frenchName.$model'
                     :class='{ "is-invalid": $v.frenchName.$error, "is-valid": !$v.frenchName.$invalid }'
-                    :placeholder='$t("pages.admin.add.placeholder1")'
+                    :placeholder='$t("pages.admin.products.add.placeholder2")'
                     type='text'
                     name='frenchName'
                     @blur='$v.frenchName.$touch()'
@@ -96,13 +96,13 @@ b-container.p-5.bg-gray(fluid)
                     )
                     | {{ $t('pages.errors.required') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label2")'
+                  :label='$t("pages.admin.products.add.label3")'
                   label-for='frenchDescription'
                 )
                   b-form-textarea#frenchDescription.input-area(
                     v-model='$v.frenchDescription.$model'
                     :class='{ "is-invalid": $v.frenchDescription.$error, "is-valid": !$v.frenchDescription.$invalid }'
-                    :placeholder='$t("pages.admin.add.placeholder2")'
+                    :placeholder='$t("pages.admin.products.add.placeholder3")'
                     name='frenchDescription'
                     @blur='$v.frenchDescription.$touch()'
                   )
@@ -112,15 +112,15 @@ b-container.p-5.bg-gray(fluid)
                     )
                     | {{ $t('pages.errors.required') }}
               .div.p-0(v-if='stepProductAdd === stepProductAddType.STEP3')
-                h5.text-secondary.title {{ $t('pages.admin.add.title4') }}
+                h5.text-secondary.title {{ $t('pages.admin.products.add.title4') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label3")'
+                  :label='$t("pages.admin.products.add.label4")'
                   label-for='price'
                 )
                   b-form-input#price.input-form(
                     v-model='$v.price.$model'
                     :class='{ "is-invalid": $v.price.$error, "is-valid": !$v.price.$invalid }'
-                    :placeholder='$t("pages.admin.add.placeholder3")'
+                    :placeholder='$t("pages.admin.products.add.placeholder4")'
                     type='number'
                     step='0.5'
                     name='price'
@@ -132,7 +132,7 @@ b-container.p-5.bg-gray(fluid)
                     )
                     | {{ $t('pages.errors.required') }}
                 b-form-group.m-0(
-                  :label='$t("pages.admin.add.label4")'
+                  :label='$t("pages.admin.products.add.label5")'
                   label-for='ingredients'
                 )
                   b-row
@@ -141,10 +141,10 @@ b-container.p-5.bg-gray(fluid)
                         v-model='$v.ingredient.$model'
                         :options='ingredients'
                         :multiple='true'
-                        :placeholder='$t("pages.admin.products.add.placeholer")'
-                        :selectLabel='$t("pages.admin.products.add.label")'
-                        :selectedLabel='$t("pages.admin.products.add.label")'
-                        :deselectLabel='$t("pages.admin.products.add.label")'
+                        :placeholder='$t("pages.admin.products.add.multiselect.placeholder1")'
+                        :selectLabel='$t("pages.admin.products.add.multiselect.label1")'
+                        :selectedLabel='$t("pages.admin.products.add.multiselect.label2")'
+                        :deselectLabel='$t("pages.admin.products.add.multiselect.label3")'
                         :searchable='true'
                         :class='{ "is-invalid": $v.ingredient.$error }'
                         label='name'
@@ -161,9 +161,9 @@ b-container.p-5.bg-gray(fluid)
                       .flex.text-center
                         b-button.mt-3.button.w-100(
                           :to='`/${$i18n.locale}/admin/ingredientsAdd/`'
-                        ) {{ $t('pages.admin.add.button3') }}
+                        ) {{ $t('pages.admin.products.add.button3') }}
                 b-form-group.pt-3.text-primary(
-                  :label='$t("pages.admin.add.label5")'
+                  :label='$t("pages.admin.products.add.label6")'
                   label-for='productFamily'
                 )
                   b-row
@@ -172,10 +172,10 @@ b-container.p-5.bg-gray(fluid)
                         v-model='$v.productFamily.$model'
                         :options='families'
                         :multiple='true'
-                        :placeholder='$t("pages.admin.products.add.placeholer")'
-                        :selectLabel='$t("pages.admin.products.add.label")'
-                        :selectedLabel='$t("pages.admin.products.add.label")'
-                        :deselectLabel='$t("pages.admin.products.add.label")'
+                        :placeholder='$t("pages.admin.products.add.multiselect.placeholder2")'
+                        :selectLabel='$t("pages.admin.products.add.multiselect.label4")'
+                        :selectedLabel='$t("pages.admin.products.add.multiselect.label5")'
+                        :deselectLabel='$t("pages.admin.products.add.multiselect.label3")'
                         :searchable='true'
                         :class='{ "is-invalid": $v.productFamily.$error }'
                         label='name'
@@ -190,11 +190,11 @@ b-container.p-5.bg-gray(fluid)
                   b-row
                     b-col.mx-auto(sm='12')
                       .flex.text-center
-                        b-button.mt-3.button.w-100 {{ $t('pages.admin.add.button4') }}
+                        b-button.mt-3.button.w-100 {{ $t('pages.admin.products.add.button4') }}
                 b-row
                   b-col
                     b-form-group.pt-3.text-primary(
-                      :label='$t("pages.admin.add.label6")'
+                      :label='$t("pages.admin.products.add.label7")'
                       label-for='imageName'
                     )
                       //- input(
@@ -245,7 +245,7 @@ b-container.p-5.bg-gray(fluid)
                   b-button.mt-3.button.w-100(
                     variant='secondary'
                     @click='previousStep'
-                  ) {{ $t('pages.admin.add.button5') }}
+                  ) {{ $t('pages.admin.products.add.button5') }}
 
                 b-col.mx-auto(
                   v-if='stepProductAdd === stepProductAddType.STEP1 || stepProductAdd === stepProductAddType.STEP2'
@@ -254,7 +254,7 @@ b-container.p-5.bg-gray(fluid)
                   b-button.mt-3.button.w-100(
                     variant='secondary'
                     @click='nextStep'
-                  ) {{ $t('pages.admin.add.button2') }}
+                  ) {{ $t('pages.admin.products.add.button2') }}
                 //- b-row
                 b-col.mx-auto(
                   v-if='stepProductAdd === stepProductAddType.STEP3'
@@ -263,7 +263,7 @@ b-container.p-5.bg-gray(fluid)
                   b-button.mt-3.button.w-100(
                     variant='secondary'
                     @click='onSubmit'
-                  ) {{ $t('pages.admin.add.button1') }}
+                  ) {{ $t('pages.admin.products.add.button1') }}
               b-row.mt-5(align-h='center')
                 b-col.p-0(cols='22')
                   b-container.p-0
@@ -549,7 +549,7 @@ export default class extends mixins(validationMixin) {
     //   return null;
     // }
     this.submitProductAdd = submitProductAddType.SUCCESS;
-    this.errorMsg = this.$tc('pages.admin.products.add.success');
+    this.errorMsg = this.$tc('pages.admin.products.success.create');
   }
 }
 </script>

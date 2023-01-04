@@ -41,18 +41,116 @@ b-container.p-4.bg-gray(fluid)
           b-button.mb-2.w-100.button(
             @click='goToUrl("/" + $i18n.locale + "/account/")'
           ) {{ $t('pages.basket.button2') }}
-          b-button.w-100.button(
+          b-button.mb-2.w-100.button(
             @click='goToUrl("/" + $i18n.locale + "/account/register/")'
           ) {{ $t('pages.basket.button3') }}
+          b-button.w-100.button(
+            @click='goToUrl("/" + $i18n.locale + "/account/register/")'
+          ) {{ $t('pages.basket.button4') }}
+  .content.p-3.mt-3
+    b-row.pt-3
+      b-col.mx-auto(lg='22')
+        h3.title-line.pb-2.text-secondary {{ $t('pages.basket.title2') }}
+    b-row.pt-3
+      b-col(offset-lg='1' md='12' lg='10')
+        b-form-group(:label='$t("pages.basket.label1")' label-for='addresses')
+          b-form-select#addresses.input-form(
+            v-model='$v.addresses.$model'
+            :class='{ "is-invalid": $v.addresses.$error, "is-valid": !$v.addresses.$invalid }'
+            :placeholder='$t("pages.basket.placeholder1")'
+            :options='add'
+            @blur='$v.addresses.$touch()'
+          )
+            .input-error(v-if='$v.addresses.$error')
+              font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+              | {{ $t('pages.errors.required') }}
+    b-row.pt-2
+      b-col.mx-auto(md='12' lg='10')
+        b-form-group(:label='$t("pages.basket.label2")' label-for='address')
+          b-form-input#address.input-form(
+            v-model='$v.address.$model'
+            :class='{ "is-invalid": $v.address.$error, "is-valid": !$v.address.$invalid }'
+            :placeholder='$t("pages.basket.placeholder1")'
+            type='text'
+            name='address'
+            @blur='$v.address.$touch()'
+          )
+          .input-error(v-if='$v.address.$error')
+            font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+            | {{ $t('pages.errors.required') }}
+      b-col.mx-auto(md='6' lg='4')
+        b-form-group(:label='$t("pages.basket.label3")' label-for='number')
+          b-form-input#number.input-form(
+            v-model='$v.number.$model'
+            :class='{ "is-invalid": $v.number.$error, "is-valid": !$v.number.$invalid }'
+            :placeholder='$t("pages.basket.placeholder3")'
+            type='text'
+            name='number'
+            @blur='$v.number.$touch()'
+          )
+          .input-error(v-if='$v.number.$error')
+            font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+            | {{ $t('pages.errors.required') }}
+      b-col.mx-auto(md='6' lg='4')
+        b-form-group(:label='$t("pages.basket.label4")' label-for='extension')
+          b-form-input#extension.input-form(
+            v-model='$v.extension.$model'
+            :class='{ "is-invalid": $v.extension.$error, "is-valid": !$v.extension.$invalid }'
+            :placeholder='$t("pages.basket.placeholder4")'
+            type='text'
+            name='extension'
+            @blur='$v.extension.$touch()'
+          )
+          .input-error(v-if='$v.extension.$error')
+            font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+            | {{ $t('pages.errors.required') }}
+    b-row
+      b-col.mx-auto(md='12' lg='10')
+        b-form-group(:label='$t("pages.basket.label5")' label-for='zip')
+          b-form-input#zip.input-form(
+            v-model='$v.zip.$model'
+            :class='{ "is-invalid": $v.zip.$error, "is-valid": !$v.zip.$invalid }'
+            :placeholder='$t("pages.basket.placeholder5")'
+            type='text'
+            name='zip'
+            @blur='$v.zip.$touch()'
+          )
+          .input-error(v-if='$v.zip.$error')
+            font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+            | {{ $t('pages.errors.required') }}
+      b-col.mx-auto(md='12' lg='10')
+        b-form-group(:label='$t("pages.basket.label6")' label-for='city-input')
+          b-form-input#city-input.input-form(
+            v-model='$v.city.$model'
+            :class='{ "is-invalid": $v.city.$error, "is-valid": !$v.city.$invalid }'
+            :placeholder='$t("pages.basket.placeholder6")'
+            type='text'
+            name='city'
+            @blur='$v.city.$touch()'
+          )
+          .input-error(v-if='$v.city.$error')
+            font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+            | {{ $t('pages.errors.required') }}
 </template>
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator';
-import { Basket, Product } from '@/utils/utils';
+import { mixins, Component } from 'nuxt-property-decorator';
+import { validationMixin } from 'vuelidate';
+import { Validate } from 'vuelidate-property-decorators';
+import { required } from 'vuelidate/lib/validators';
+import { Basket, Product, SelectOption } from '@/utils/utils';
 
 @Component({
   components: {},
 })
-export default class extends Vue {
+export default class extends mixins(validationMixin) {
+  @Validate({ required }) addresses: string = '';
+  @Validate({ required }) address: string = '';
+  @Validate({ required }) city: string = '';
+  @Validate({ required }) zip: string = '';
+  @Validate({ required }) number: number = 0;
+  @Validate({ required }) extension: number = 0;
+
+  add: SelectOption[] = [];
   filters: boolean = false;
   filterSearch: string = '';
 

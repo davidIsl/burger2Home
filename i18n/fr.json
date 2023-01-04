@@ -1,21 +1,41 @@
 {
-  "example": {
-    "title": "FR - Lorem ipsum dolor sit amet",
-    "text": "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-  },
   "menu": {
     "title1": "Accueil",
-    "title2": "Bootstrap-Vue",
+    "title2": "Produits",
     "title2sub1": "Général",
-    "title2sub2": "Tableau",
-    "title2sub3": "Formulaire",
-    "title2sub4": "Espace membre",
-    "title3": "Plugin",
-    "title3sub1": "Particles",
-    "title3sub2": "AOS",
-    "title3sub3": "SweetAlert",
-    "title3sub4": "Gmaps",
-    "title4": "Layout-erreur"
+    "title2sub2": "Burgers",
+    "title2sub3": "Accompagnements",
+    "title2sub4": "Boissons",
+    "title3": "Administrations",
+    "title4": "Marketing",
+    "title5": "Contacts",
+    "title6": "A propos",
+    "title7": "Mon compte",
+    "title8": "Mes commandes"
+  },
+  "footer": {
+    "title1": "Informations",
+    "title2": "Heures d'ouvertures",
+    "title3": "Liens",
+    "text1": "Lundi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text2": "Mardi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text3": "Mercredi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text4": "Jeudi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text5": "Vendredi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text6": "Samedi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text7": "Dimanche: 11:00 - 15:00 | 17:00 - 21:00",
+    "link1": "Accueil",
+    "link2": "Produits",
+    "link3": "Menu",
+    "link4": "Burgers",
+    "link5": "Accompagnements",
+    "link6": "Boissons",
+    "link7": "Administrations",
+    "link8": "Marketing",
+    "link9": "Contacts",
+    "link10": "A propos",
+    "viewOnMap": "Voir sur Google Maps",
+    "contacts": "Contactez-nous"
   },
   "country": {
     "belgium": "Belgique",
@@ -35,570 +55,618 @@
       "nextText": "Votre saisie a été supprimée."
     }
   },
-  "hero": {
-    "text": "Cette base de code est un exemple concret d’une configuration optimale de NuxtJS avec Bootstrap-vue, Color-mode, Pug, Sass, Vuelidate, ParticlesJS, AOS, SweetAlert, Gmaps et nuxt-property-decorator."
-  },
   "pages": {
-    "index": {
-      "title": "AntelopeJS Nuxt : Bootstrap Template",
-      "text": [
-        "Cette base de code est un exemple concret d’une configuration optimale de NuxtJS avec Bootstrap-vue, Color-mode, Pug, Sass, Vuelidate, ParticlesJS, AOS, SweetAlert, Gmaps et nuxt-property-decorator. Notre base active automatiquement le HTTP/2.0 en production (sous https uniquement) via un patch custom. Tout l’environnement de développement est également préconfiguré pour Visual Studio Code avec les modules EsLint, StyleLint, CommitLint et Prettier ce qui vous permettra de vérifier et formater votre code en temps réel pendant l’écriture de celui-ci. La base inclut également un exemple d’intégration de I18N dans NuxtJS, le standard de la traduction multi-langues de votre site internet, pour vous faciliter la création de sites internet réalistes tel que les standards l’exigent à l’heure actuelle.",
-        "Cette base inclut toute la documentation de boostrap-vue au format Pug (balisage optimisé et intuitif), des exemples de Particles.js (un effet commun à beaucoup de sites internet qui donne un effet technologique plutôt sympa) et des exemples d’AOS (Animated On Scroll) pour des animations faciles à mettre en place sur n’importe quel élément de votre thème.",
-        "Pour votre information cette base a servi a réaliser le site internet et la documentation de AntelopeJs.io ainsi que la dashboard du framework AntelopeJS."
-      ],
-      "structure": {
-        "title": "Structure de la base :",
-        "text": "Seul les particularités de notre configuration sont détaillées dans ce résumé, pour le reste, les standards d'un projet nuxt sont conservés. Vous pouvez les retrouver sur le site officiel de nuxt.",
-        "subtitle": [
-          "Le dossier Assets :",
-          "Le dossier I18N :",
-          "Le dossier Layouts :",
-          "Le dossier Components :",
-          "Le dossier Pages :",
-          "Le dossier Static :"
-        ],
-        "subtext1": [
-          "Le dossier css contient le/les fichier(s) css contenant les variables css pour vous faciliter le multi-thème de votre site internet (default/dark/etc.).",
-          "Le dossier img contient les images utilisées pour réaliser votre template et non pas les images destinées à votre contenu qui devront se trouver dans le dossier \"./static/img\".",
-          "Le dossier scss contient les fichiers de configuration boostrap-vue (breakpoint, police size responsive, component color, etc.) ainsi que votre fichier main.scss qui sera la feuille de style principale de votre projet."
-        ],
-        "subtext2": [
-          "Le dossier contient les fichiers json contenant les traductions de vos textes statiques."
-        ],
-        "subtext3": [
-          "Le dossier contient les layouts de votre site internet par défaut, le layout principal (default) et le layout de la page d’erreur (error)."
-        ],
-        "subtext4": [
-          "Le dossier contient les components utilisés à plusieurs endroits dans votre template, généralement des components utilisés à de multiples reprises dans vos layouts et vos pages."
-        ],
-        "subtext5": [
-          "Le dossier contient en premier lieu un dossier \"_lang\" pour éviter de devoir créer les dossiers \"fr\", \"en\", etc. et de dupliquer toutes vos pages pour chaque langue, notre configuration i18n automatise le processus de création des url multi-langues de votre site à partir de ce dossier.",
-          "Le dossier \"_lang\" contient ensuite les dossiers de vos pages, chaque dossier de page ignore automatiquement le dossier \"_components\" qu'il contient de la \"supercharge\" de nuxt (non-interprété au niveau du routing) pour vous permettre d'y placer les components utilisés uniquement par cette page et d'éviter ainsi de surcharger le dossier \"./components\" l'architecture initiale de nuxt."
-        ],
-        "subtext6": [
-          "Le dossier \"img\" contient tous les éléments graphiques utilisés dans le contenu de vos pages (et non les éléments de design qui eux doivent être mis dans le dossier \"./assets/img/\").",
-          "Le dossier \"js\" contient vos fichiers javascript de vos librairies préférées.",
-          "La racine du dossier contient également vos fichiers dont le nom ne doit pas changer pendant le build tel que le favicon, le robot.txt, etc."
-        ]
-      }
-    },
-    "bootstrap": {
-      "title": "Bootstrap-vue",
-      "text": [
-        "Avec BootstrapVue, vous pouvez créer sur le web des projets responsive, mobile-first et accessibles ARIA en utilisant Vue.js et la bibliothèque CSS front-end la plus populaire au monde - Bootstrap v4.",
-        "Avec plus de 85 composants, plus de 45 plugins disponibles, plusieurs directives et plus de 1 200 icônes, BootstrapVue fournit l'une des implémentations les plus complètes du système de composants et de grille Bootstrap v4 disponible pour Vue.js v2.6, avec un balisage d'accessibilité WAI-ARIA étendu et automatisé."
-      ]
-    },
-    "particles": {
-      "title": "Particles.js",
-      "text": "tsParticles - Créez facilement des animations de particules hautement personnalisables et utilisez-les comme fonds animés pour votre site web. Composants prêts à l'emploi disponibles pour React, Vue.js (2.x et 3.x), Angular, Svelte, jQuery, Preact, Inferno."
-    },
-    "aos": {
-      "title": "Animation au défilement",
-      "text": "AOS est une bibliothèque CSS d'animation de défilement permettant d'animer des éléments sur un site Web pendant le défilement.  Elle fonctionne dans n'importe quelle direction, que ce soit lors d'un défilement vers le bas ou vers le haut."
-    },
-    "gmaps": {
-      "title": "Nuxt-gmaps",
-      "text": "Ajoutez et personnalisez facilement vos cartes Google avec ce paquet pour Nuxt.js.",
-      "viewOnMap": "Voir sur Google Maps",
-      "example": "Exemple"
-    },
     "login": {
-      "title": "Se connecter",
-      "text": "S'il vous plait, entrez votre adresse e-mail et votre mot de passe pour vous connecter à votre compte.",
-      "buttonSubmit": "Connexion",
-      "buttonRegister": "Créer un compte",
-      "buttonForgotPassword": "Mot de passe oublié ?",
-
-      "email": {
-        "placeHolder": "Adresse e-mail",
-        "error": "L'adresse e-mail doit être valide."
-      },
-      "password": {
-        "placeHolder": "Mot de passe",
-        "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
-      },
-
-      "success": "Merci, vous êtes maintenant identifié. Vous allez être redirigé dans quelques instants...",
-      "pending": "Identification en cours...",
-      "error": {
-        "required": "Ce champ est requis.",
-        "form": "Veuillez remplir le formulaire de connexion correctement.",
-        "notMatch": "L'e-mail et le mot de passe ne correspondent pas, veuillez réessayer.",
-        "mailNotExist": "L'e-mail n'existe pas dans notre base de données, veuillez-vous inscrire via le lien ci-dessous.",
-        "mailNotActive": "Veuillez valider votre adresse e-mail avant de pouvoir vous connecter."
-      }
+      "title1": "Se connecter à Burger2Home",
+      "label1": "Adresse Email",
+      "label2": "Mot de passe",
+      "button1": "Se connecter",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "text1": "Ou ",
+      "text2": "S'inscrire si vous n'avez pas encore de compte ",
+      "text3": "Ou continuez avec",
+      "remember": "Se souvenir de moi",
+      "forgot": "Mot de passe oublié"
     },
     "register": {
-      "title": "S'inscrire sur notre site",
-      "text": "S'il vous plait, complétez le formulaire ci-dessous pour vous inscrire sur notre site.",
-      "buttonSubmit": "Créer mon compte",
-      "buttonCancel": "Vous avez déjà un compte ?",
-
-      "gender": {
-        "placeHolder": "Genre",
-        "option1": "Homme",
-        "option2": "Femme"
-      },
-      "status": {
-        "placeHolder": "Statut",
-        "option1": "Particulier",
-        "option2": "Professionel"
-      },
-      "company": {
-        "placeHolder": "Société"
-      },
-      "vat": {
-        "placeHolder": "TVA"
-      },
-      "lastName": {
-        "placeHolder": "Nom",
-        "minLenght_start": "Le nom doit contenir au moins ",
-        "minLenght_end": " lettres."
-      },
-      "firstName": {
-        "placeHolder": "Prénom",
-        "minLenght_start": "Le prénom doit contenir au moins ",
-        "minLenght_end": " lettres."
-      },
-      "email": {
-        "placeHolder": "E-mail",
-        "error": "L'adresse e-mail doit être valide."
-      },
-      "phone": {
-        "placeHolder": "Numéro de téléphone",
-        "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
-        "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
-        "minLenght_end": " chiffres."
-      },
-      "address": {
-        "placeHolder": "Adresse",
-        "minLenght_start": "L'adresse doit contenir au moins ",
-        "minLenght_end": " lettres."
-      },
-      "streetNum": {
-        "placeHolder": "n°",
-        "error": "Le numéro de l'adresse ne doit contenir que des chiffres."
-      },
-      "box": {
-        "placeHolder": "Boîte"
-      },
-      "zipCode": {
-        "placeHolder": "Code Postal",
-        "error": "Le code postal ne doit contenir que des chiffres ou des lettres.",
-        "minLenght_start": "Le code postal doit contenir au moins ",
-        "minLenght_end": " caractères."
-      },
-      "city": {
-        "placeHolder": "Ville",
-        "minLenght_start": "La ville doit contenir au moins ",
-        "minLenght_end": " lettres."
-      },
-      "country": {
-        "placeHolder": "Pays"
-      },
-      "password": {
-        "placeHolder": "Mot de passe",
-        "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
-      },
-      "password2": {
-        "placeHolder": "Confirmez mot de passe",
-        "error": "Les mots de passe ne correspondent pas."
-      },
-
-      "checkBox1": "Je déclare avoir lu et approuvé la ",
-      "checkBox1_link": "déclaration sur la protection des données.",
-      "checkBox2": "Je déclare avoir lu et approuvé les ",
-      "checkBox2_link": "conditions générales d'utilisation.",
-      "checkBox3": "Je déclare avoir lu et approuvé les ",
-      "checkBox3_link": "conditions générales de vente.",
-      "checkBox4": "Je souhaite être tenue informé des dernières offres et promotions par e-mail.",
-
-      "success": "Merci, votre compte a été créé, vous allez recevoir un e-mail avec un lien de confirmation sur l'e-mail mentionné.",
-      "pending": "Inscription en cours...",
-      "error": {
-        "required": "Ce champ est requis.",
-        "form": "Veuillez remplir le formulaire d'inscription correctement.",
-        "mailAlreadyExist": "L'e-mail existe déjà dans notre base de données.",
-        "mailNotActive": "L'e-mail existe dans notre base de données mais ne semble pas être activé."
+      "title1": "S'inscrire à Burger2Home",
+      "button1": "S'inscrire",
+      "label1": "Adresse Email",
+      "label2": "Mot de passe",
+      "label3": "Confirmer mot de passe",
+      "label4": "Nom",
+      "label5": "Prénom",
+      "label6": "Adresse",
+      "label7": "Code Postal",
+      "label8": "Localité",
+      "text1": "Ou ",
+      "text2": "Se connecter si vous avez déjà un compte",
+      "text3": "S'inscrire avec",
+      "text4": "Ou continuez avec",
+      "text5": "Informations",
+      "text6": "Adresse",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "placeholder3": "Doe",
+      "placeholder4": "John",
+      "placeholder5": "Rue de la station 15",
+      "placeholder6": "4280",
+      "placeholder7": "Hannut"
+    },
+    "forgot": {
+      "title1": "Mot de passe oublié ?",
+      "text1": "Veuillez suivre les instructions suivantes pour changer votre mot de passe",
+      "label1": "Adresse Email",
+      "label2": "Mot de passe",
+      "label3": "Confirmer mot de passe",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "button1": "Changer mot de passe"
+    },
+    "profile": {
+      "title1": "Mon profil",
+      "title2": "Informations Personnelles",
+      "title3": "Adresses",
+      "title4": "Informations de paiement",
+      "label1": "Prénom",
+      "label2": "Nom",
+      "label3": "Email",
+      "label4": "Téléphone",
+      "label5": "Pseudo",
+      "label6": "Adresse",
+      "label7": "Numéro",
+      "label8": "Boite",
+      "label9": "Code Postal",
+      "label10": "Localité",
+      "label14": "Numéro de carte",
+      "label11": "Titulaire de la carte",
+      "label12": "DAte de validité",
+      "label13": "CVV",
+      "placeholder1": "Joe",
+      "placeholder2": "Doe",
+      "placeholder3": "you@example.com",
+      "placeholder4": "0495/45.56.65",
+      "placeholder5": "Entrez un pseudo",
+      "placeholder6": "Entrez une adresse",
+      "placeholder7": "Entrez un numéro",
+      "placeholder8": "Entrez une boite",
+      "placeholder9": "Entrez un code postal",
+      "placeholder10": "Entrez une localité",
+      "button1": "Enregistrer",
+      "button2": "Reset données",
+      "button3": "Ajouter une adresse",
+      "button4": "Ajouter une carte"
+    },
+    "history": {
+      "title1": "Mes Commandes",
+      "title2": "Commande en cours",
+      "title3": "Listing des commandes",
+      "placeholder1": "Chercher une commande",
+      "text1": "Bonjour, ",
+      "modal": {
+        "text1": "Livré à",
+        "text2": "Montant Total"
       }
     },
-    "forgotPassword": {
-      "title": "Mot de passe oublié",
-      "text": "Pour réinitialiser votre mot de passe, veuillez entrer une adresse e-mail, un e-mail vous sera alors envoyé.",
-      "buttonSubmit": "Réinitialiser",
-      "buttonCancel": "Annuler",
-
-      "email": {
-        "placeHolder": "Entrez votre adresse e-mail",
-        "error": "L'adresse e-mail doit être valide."
-      },
-
-      "success": "Merci, vous allez recevoir un e-mail avec un lien de modification dans quelques minutes.",
-      "pending": "Envoie du lien de modification du mot de passe en cours...",
-      "error": {
-        "required": "Ce champ est requis.",
-        "form": "Veuillez remplir le formulaire de récupération de mot de passe correctement.",
-        "mailNotExist": "L'adresse e-mail n'existe pas dans notre base de données.",
-        "mailNotActive": "L'adresse e-mail existe dans notre base de données mais ne semble pas être activé."
-      }
+    "home": {
+      "title1": "Venez découvrir le TOP 5 de nos Burgers",
+      "text1": "Bienvenue, venez commander un burger ",
+      "text2": "Vous pouvez passer commande 7 jours sur 7",
+      "text3": "Dégustez nos burgers tout en regardant la TV depuis votre canapé"
     },
-    "forgotPasswordSecure": {
-      "title": "Modifier votre mot de passe",
-      "text": "Pour modifier votre mot de passe, veuillez entrer votre nouveau mot de passe dans le formulaire ci-dessous.",
-      "buttonSubmit": "Modifier",
-      "buttonCancel": "Annuler",
-
-      "password": {
-        "placeHolder": "Mot de passe",
-        "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
-      },
-      "password2": {
-        "placeHolder": "Confirmez mot de passe",
-        "error": "Les mots de passe ne correspondent pas."
-      },
-
-      "success": "Merci, votre mot de passe a été modifié avec succès.",
-      "pending": "Modification du mot de passe en cours...",
-      "error": {
-        "required": "Ce champ est requis.",
-        "form": "Veuillez remplir le formulaire de modification de mot de passe correctement."
-      }
-    },
-    "contact": {
-      "title": "Contactez-nous !",
-      "text": "Nous sommes disponibles 24h/24 et 7j/7 par e-mail ou par téléphone. Vous pouvez également utiliser le formulaire de contact rapide pour poser une question sur nos services et produits. Nous serons heureux de répondre à vos questions et de vous offrir toute notre aide.",
-      "buttonSubmit": "Envoyer",
-
-      "lastName": {
-        "placeHolder": "Nom",
-        "minLenght_start": "Le nom doit contenir au moins ",
-        "minLenght_end": " lettres."
-      },
-      "firstName": {
-        "placeHolder": "Prénom",
-        "minLenght_start": "Le prénom doit contenir au moins ",
-        "minLenght_end": " lettres."
-      },
-      "email": {
-        "placeHolder": "E-mail",
-        "error": "L'adresse e-mail doit être valide."
-      },
-      "phone": {
-        "placeHolder": "Numéro de téléphone",
-        "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
-        "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
-        "minLenght_end": " chiffres."
-      },
-      "message": {
-        "placeHolder": "Votre message",
-        "minLenght_start": "Le message doit contenir au moins ",
-        "minLenght_end": " caractères."
-      },
-
-      "success": "Merci, votre message nous a bien été transmis, nous vous répondrons dans les plus brefs délais.",
-      "pending": "Votre message est en cours d'envoi...",
-      "error": {
-        "required": "Ce champ est requis.",
-        "form": "Veuillez remplir le formulaire de contact correctement."
-      }
-    },
-    "newsletter": {
-      "title": "Inscription à notre Newsletter",
-      "text": "Soyez toujours au fait de nos dernières offres et promotions !",
-      "buttonSubmit": "Je m'inscris !",
-
-      "email": {
-        "placeHolder": "Entrez votre adresse e-mail",
-        "error": "L'adresse e-mail doit être valide."
-      },
-
-      "success": "Merci, Vous serez tenu informé de nos dernières actualités et promotions directement sur votre adresse e-mail !",
-      "pending": "Inscription à la newsletter en cours...",
-      "error": {
-        "required": "Ce champ est requis.",
-        "form": "Veuillez remplir correctement le formulaire d'inscription à la newsletter.",
-        "mailAlreadyExist": "L'e-mail existe déjà dans notre base de données."
-      }
-    },
-    "account": {
-      "title": "Mon espace membre",
-      "text": "Votre espace membre vous permets de modifier vos informations personnelles, de changer votre mot de passe et de consulté l'état de vos commandes à tout moment.",
-
+    "products": {
+      "title1": "Top 10 de nos meilleures ventes",
+      "title2": "Promotions",
+      "filters1": "Filtres",
+      "filters2": "Beef",
+      "filters3": "Chicken",
+      "filters4": "Fish",
+      "filters5": "Vegan",
+      "button1": "Ajouter panier",
+      "button2": "Voir Infos",
       "menu": {
-        "title1": "Mes informations",
-        "title2": "Mes adresses de facturation",
-        "title3": "Mes adresses de livraison",
-        "title4": "Mes moyens de paiement",
-        "title5": "Modifier mon mot de passe",
-        "title6": "Mes commandes",
-        "title7": "Déconnexion"
+        "title1": "Here is a listing with our Burgers Menus"
       },
-
-      "showProfil": {
-        "title": "Mes informations",
-        "text": "Les informations de facturation reprises sur vos factures lors de vos achats sur notre site.",
-        "buttonSubmit": "Modifier",
-
-        "gender": "Genre",
-        "company": "Société",
-        "lastName": "Nom",
-        "firstName": "Prénom",
-        "phone": "Téléphone",
-        "email": "E-mail",
-
-        "status": "Statut",
-        "vat": "TVA",
-        "country": "Pays",
-        "town": "Ville",
-        "zipCode": "Code Postal",
-        "address": "Adresse",
-        "box": "Boîte"
+      "burgers": {
+        "title1": "Voici la liste de nos Burgers"
       },
-      "editProfil": {
-        "title": "Modifier mes informations",
-        "buttonSubmit": "Modifier",
-        "buttonCancel": "Annuler",
-
-        "gender": {
-          "placeHolder": "Genre",
-          "option1": "Homme",
-          "option2": "Femme"
-        },
-        "status": {
-          "placeHolder": "Statut",
-          "option1": "Particulier",
-          "option2": "Professionel"
-        },
-        "company": {
-          "placeHolder": "Société"
-        },
-        "vat": {
-          "placeHolder": "TVA"
-        },
-        "lastName": {
-          "placeHolder": "Nom",
-          "minLenght_start": "Le nom doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "firstName": {
-          "placeHolder": "Prénom",
-          "minLenght_start": "Le prénom doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "email": {
-          "placeHolder": "E-mail",
-          "error": "L'adresse e-mail doit être valide."
-        },
-        "phone": {
-          "placeHolder": "Numéro de téléphone",
-          "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
-          "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
-          "minLenght_end": " chiffres."
-        },
-        "address": {
-          "placeHolder": "Adresse",
-          "minLenght_start": "L'adresse doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "streetNum": {
-          "placeHolder": "n°",
-          "error": "Le numéro de l'adresse ne doit contenir que des chiffres."
-        },
-        "box": {
-          "placeHolder": "Boîte"
-        },
-        "zipCode": {
-          "placeHolder": "Code Postal",
-          "error": "Le code postal ne doit contenir que des chiffres ou des lettres.",
-          "minLenght_start": "Le code postal doit contenir au moins ",
-          "minLenght_end": " caractères."
-        },
-        "city": {
-          "placeHolder": "Ville",
-          "minLenght_start": "La ville doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "country": {
-          "placeHolder": "Pays"
-        },
-
-        "checkBox1": "Je souhaite être tenue informé des dernières offres et promotions par e-mail.",
-
-        "success": "Merci, vos informations ont été modifiées.",
-        "pending": "Modification en cours...",
-        "error": {
-          "required": "Ce champ est requis.",
-          "form": "Veuillez remplir le formulaire d'édition de votre profile correctement."
-        }
+      "fries": {
+        "title1": "Voici la liste de nos Accompagnements"
       },
-
-      "showDelivery": {
-        "title": "Mes adresses de livraison",
-        "buttonAdd": "Ajouter une adresse de livraison",
-        "buttonEdit": "Modifier",
-        "defaultLabel": "Par defaut",
-        "changeDefaultLabel": "Definir par defaut"
+      "drinks": {
+        "title1": "Voici la liste de nos boissons"
       },
-      "addDelivery": {
-        "title": "Ajouter une adresse de livraison",
-        "buttonSubmit": "Ajouter",
-        "buttonCancel": "Annuler",
-
-        "success": "Merci, vous avez ajouté cette adresse de livraison avec succès.",
-        "pending": "Ajout en cours...",
-        "error": {
-          "required": "Ce champ est requis.",
-          "form": "Veuillez remplir le formulaire d'ajout d'adresse de livraison correctement."
-        }
-      },
-      "editDelivery": {
-        "title": "Modifier cette adresse de livraison",
-        "buttonSubmit": "Modifier",
-        "buttonCancel": "Annuler",
-
-        "lastName": {
-          "placeHolder": "Nom",
-          "minLenght_start": "Le nom doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "firstName": {
-          "placeHolder": "Prénom",
-          "minLenght_start": "Le prénom doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "email": {
-          "placeHolder": "E-mail",
-          "error": "L'adresse e-mail doit être valide."
-        },
-        "phone": {
-          "placeHolder": "Numéro de téléphone",
-          "error": "Le numéro de téléphone doit être correctement formaté (+XXXXXXXXXXX ou 0XXXXXXXXX)",
-          "minLenght_start": "Le numéro de téléphone doit contenir au moins ",
-          "minLenght_end": " chiffres."
-        },
-        "address": {
-          "placeHolder": "Adresse",
-          "minLenght_start": "L'adresse doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "streetNum": {
-          "placeHolder": "n°",
-          "error": "Le numéro de l'adresse ne doit contenir que des chiffres."
-        },
-        "box": {
-          "placeHolder": "Boîte"
-        },
-        "zipCode": {
-          "placeHolder": "Code Postal",
-          "error": "Le code postal ne doit contenir que des chiffres ou des lettres.",
-          "minLenght_start": "Le code postal doit contenir au moins ",
-          "minLenght_end": " caractères."
-        },
-        "city": {
-          "placeHolder": "Ville",
-          "minLenght_start": "La ville doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-        "country": {
-          "placeHolder": "Pays"
-        },
-
-        "checkBox1": "Définir comme adresse de livraison par défaut.",
-
-        "success": "Merci, cette adresse de livraison a été modifiée.",
-        "pending": "Modification en cours...",
-        "error": {
-          "required": "Ce champ est requis.",
-          "form": "Veuillez remplir le formulaire de modification d'adresse de livraison correctement."
-        }
-      },
-
-      "showPayment": {
-        "title": "Mes moyens de paiements",
-        "buttonAdd": "Ajouter un moyen de paiement",
-        "defaultLabel": "Par defaut",
-        "changeDefaultLabel": "Definir par defaut"
-      },
-      "addPayment": {
-        "title": "Ajouter un moyen de paiement",
-        "buttonSubmit": "Ajouter",
-        "buttonCancel": "Annuler",
-
-        "cardHolder": {
-          "placeHolder": "Titulaire de la carte",
-          "minLenght_start": "Le nom du titulaire de la carte doit contenir au moins ",
-          "minLenght_end": " lettres."
-        },
-
-        "checkBox1": "Définir comme moyen de paiement par défaut.",
-
-        "success": "Merci, vous avez ajouté ce moyen de paiement avec succès.",
-        "pending": "Ajout en cours...",
-        "error": {
-          "required": "Ce champ est requis.",
-          "form": "Veuillez remplir le formulaire d'ajout de moyen de paiement correctement."
-        }
-      },
-
-      "passwordUpdate": {
-        "title": "Modifier mon mot de passe",
-        "buttonEdit": "Modifier",
-        "text": [
-          "Votre mot de passe doit comporter :",
-          "- 8 Caractères",
-          "- Une lettre majuscule",
-          "- Une lettre minuscule",
-          "- Un chiffre"
-        ],
-
-        "password": {
-          "placeHolder": "Mot de passe",
-          "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
-        },
-        "password2": {
-          "placeHolder": "Confirmez mot de passe",
-          "error": "Les mots de passe ne correspondent pas."
-        },
-
-        "success": "Merci, votre mot de passe a été modifié avec succès.",
-        "pending": "Modification en cours...",
-        "error": {
-          "required": "Ce champ est requis.",
-          "form": "Veuillez remplir le formulaire de moficiation de mot de passe correctement."
-        }
-      },
-
-      "showOrders": {
-        "title": "Mon historique de commandes",
-
-        "field1": "Référence",
-        "field2": "Date",
-        "field3": "Montant",
-        "field4": "Méthode de paiement",
-        "field5": "État de la commande",
-        "field6": "Actions",
-
-        "VAT": "TVAC"
+      "modal": {
+        "title1": "Prix Actuel",
+        "title2": "Allergènes",
+        "text1": "Pas d'allergènes"
       }
     },
-    "privacy": {
-      "title": "Politique de confidentialité",
-      "text": [
-        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "FR - Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      ]
+    "basket": {
+      "title1": "Mon panier",
+      "title2": "Informations de livraison",
+      "label1": "Selectionnez une adresse",
+      "label2": "Adresse",
+      "label3": "Numéro",
+      "label4": "Boite",
+      "label5": "Code postal",
+      "label6": "Localité",
+      "placeholder1": "Choisir une adresse",
+      "placeholder2": "Entrez une adresse",
+      "placeholder3": "Entrez un numéro de rue",
+      "placeholder4": "Entrez une boite",
+      "placeholder5": "Entrez un code postal",
+      "placeholder6": "Entrez une localité",
+      "button1": "Commander",
+      "button2": "Se connecter",
+      "button3": "S'inscrire",
+      "button4": "Suivant"
     },
+    "filters": {
+      "title1": "Filtres",
+      "button1": "Voir Filtres"
+    },
+    "admin": {
+      "title1": "Liste des produits",
+      "title2": "Liste des promotions",
+      "title3": "Liste des stocks d'ingrédients",
+      "title4": "Prix",
+      "title5": "Ingrédients",
+      "title6": "Allergèness",
+      "placeholder1": "Chercher un produit",
+      "placeholder2": "Chercher une promotion",
+      "button1": "Ajouter Produit",
+      "button2": "Ajouter Promotion",
+      "button3": "Ajouter Ingrédients",
+      "button4": "Ajouter Famille",
+      "button5": "Ajouter Allergènes",
+      "button6": "Modifier Produit",
+      "button7": "Annuler",
+      "button8": "Mise à jour Stock",
+      "products": {
+        "table": {
+          "image": "Image",
+          "name": "Nom",
+          "description": "Description",
+          "price": "Prix",
+          "details": "Détails",
+          "statut": "Statut"
+        },
+        "add": {
+          "title1": "Ajouter un nouveau produit",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "Autres données",
+          "label1": "Langue",
+          "label2": "Nom",
+          "label3": "Description",
+          "label4": "Prix",
+          "label5": "Ingrédients",
+          "label6": "Famille",
+          "label7": "Image",
+          "placeholder1": "Choississez une langue",
+          "placeholder2": "Entrez un nom",
+          "placeholder3": "Entrez une description",
+          "placeholder4": "Entrez un prix",
+          "placeholder5": "Choix Ingrédients",
+          "placeholder6": "Choix Famille",
+          "button1": "Ajouter Produit",
+          "button2": "Suivant",
+          "button3": "Ajouter Ingrédients",
+          "button4": "Ajouter Famille",
+          "button5": "Précédent",
+          "errors": {
+            "lang1": "Vous devez choisir Anglais/English comme première langue",
+            "lang2": "Vous devez choisir Français comme deuxième langue"
+          },
+          "multiselect": {
+            "placeholder1": "Choisir un ingrédient",
+            "placeholder2": "Choisir une famille",
+            "label1": "Sélection Ingredient",
+            "label2": "Ingrédient Sélectionné",
+            "label3": "Annulation",
+            "label4": "Sélection Famille",
+            "label5": "Famille Sélectionnée"
+          }
+        },
+        "edit": {
+          "title1": "Modifier un produit",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "Autres données",
+          "label1": "Langue",
+          "label2": "Nom",
+          "label3": "Description",
+          "label4": "Prix",
+          "label5": "Ingrédients",
+          "label6": "Famille",
+          "label7": "Image",
+          "label8": "Visible",
+          "placeholder1": "Choisir une langue",
+          "placeholder2": "Entrez un nom",
+          "placeholder3": "Entrez une description",
+          "placeholder4": "Entrez un prix",
+          "placeholder5": "Choix Ingrédients",
+          "placeholder6": "Choix Famille",
+          "button1": "Modifier Produit",
+          "button2": "Ajouter Ingrédients",
+          "button3": "Add Family",
+          "multiselect": {
+            "placeholder1": "Choisir un ingrédient",
+            "placeholder2": "Choisir une famille",
+            "label1": "Sélection Ingredient",
+            "label2": "Ingrédient Sélectionné",
+            "label3": "Annulation",
+            "label4": "Sélection Famille",
+            "label5": "Famille Sélectionnée"
+          }
+        },
+        "alert": {
+          "title1": "Alerte de suppression",
+          "title2": "Annuler Mise à jour",
+          "title3": "Erreur Mise à jour",
+          "title4": "Attention champ optionnel",
+          "text1": "Etes vous sur de vouloir effacer toutes les informations concernant cet ingrédient ?",
+          "text2": "Are you sure you want to cancel the Update process about this ingredients",
+          "text3": "Warning, there are some optional empty fields. Do you want to continue creating ingredients ",
+          "button1": "Delete Ingredients",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Ingredients created with SUCCESS",
+          "update": "Ingredients updated with SUCCESS",
+          "delete": "Ingredients deleted with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Ingredients",
+          "createTranslation": "Errors while creating Ingredients Translation",
+          "delete": "Errors while deleting Ingredients",
+          "getAllergens": "Errors while getting Ingredients List",
+          "fields": "you have to fill all the fields",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose french for the second language"
+        }
+      },
+      "ingredients": {
+        "add": {
+          "title": "Ingredients Management",
+          "title1": "Add a new ingredient",
+          "title2": "Enter English Ingredient Translation",
+          "title3": "Enter French Ingredient Translation",
+          "title4": "Ingredients Listing",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "French Name",
+          "label4": "Allergens",
+          "label5": "Select",
+          "label6": "Selected Allergen",
+          "label7": "Deselect Allergen",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter a French Name",
+          "placeholder4": "Select one or more allergen",
+          "button1": "Add Allergens",
+          "button2": "Create Ingredients"
+        },
+        "edit": {
+          "title": "Ingredients Management",
+          "title1": "Update an ingredient",
+          "title2": "Enter English Ingredient Translation",
+          "title3": "Enter French Ingredient Translation",
+          "title4": "Ingredients Listing",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "French Name",
+          "label4": "Allergens",
+          "label5": "Select",
+          "label6": "Selected Allergen",
+          "label7": "Deselect Allergen",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter a French Name",
+          "placeholder4": "Select one or more allergen",
+          "button1": "Update Ingredient",
+          "button2": "Cancel"
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "title2": "Cancel Update",
+          "title3": "Error Update",
+          "title4": "Optional Empty Field",
+          "text1": "Are you sure you want to delete all informations about this ingredients",
+          "text2": "Are you sure you want to cancel the Update process about this ingredients",
+          "text3": "Warning, there are some optional empty fields. Do you want to continue creating ingredients ",
+          "button1": "Delete Ingredients",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Ingredients created with SUCCESS",
+          "update": "Ingredients updated with SUCCESS",
+          "delete": "Ingredients deleted with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Ingredients",
+          "createTranslation": "Errors while creating Ingredients Translation",
+          "delete": "Errors while deleting Ingredients",
+          "getAllergens": "Errors while getting Ingredients List",
+          "fields": "you have to fill all the fields",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose french for the second language"
+        }
+      },
+      "allergens": {
+        "add": {
+          "title": "Allergens Management",
+          "title1": "Add a new allergen",
+          "title2": "Enter English Allergens Translation",
+          "title3": "Enter French Allergens Translation",
+          "title4": "Allergens Listing",
+          "label": "Language",
+          "label1": "English Name",
+          "label2": "French Name",
+          "placeholder0": "Select a language",
+          "placeholder1": "Enter a English Name",
+          "placeholder2": "Enter a French Name",
+          "placeholder3": "Search an allergen",
+          "button1": "Create Allergen"
+        },
+        "edit": {
+          "title": "Allergens Management",
+          "title1": "Update an allergen",
+          "title2": "Enter English Allergens Translation",
+          "title3": "Enter French Allergens Translation",
+          "title4": "Allergens Listing",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "French Name",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter a French Name",
+
+          "button1": "Update Allergen",
+          "button2": "Cancel"
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "title2": "Cancel Update",
+          "title3": "Error Update",
+          "text1": "Are you sure you want to delete all informations about this allergen",
+          "text2": "Are you sure you want to cancel the Update process about this allergen",
+          "button1": "Delete Allergen",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No",
+          "button5": "OK"
+        },
+        "success": {
+          "create": "Allergens created with SUCCESS",
+          "update": "Allergens updated with SUCCESS",
+          "delete": "Allergens deleted with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Allergens",
+          "createTranslation": "Errors while creating Allergens Translation",
+          "delete": "Errors while deleting Allergens",
+          "getAllergens": "Errors while getting Allergens List",
+          "fields": "you have to fill all the fields",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose French for the second language"
+        }
+      },
+      "family": {
+        "add": {
+          "title1": "Family Management",
+          "title2": "Family Listing",
+          "title3": "Add a new family",
+          "title4": "Enter English Family Translation",
+          "title5": "Enter French Family Translation",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "English Description",
+          "label4": "French Name",
+          "label5": "French Description",
+          "placeholder0": "Search a family",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter an english name",
+          "placeholder3": "Enter an english description",
+          "placeholder4": "Enter a french name",
+          "placeholder5": "Enter a french description",
+          "button1": "Create Family"
+        },
+        "edit": {
+          "title1": "Update a Family",
+          "title2": "Enter English Family Translation",
+          "title3": "Enter French Family Translation",
+          "title4": "Family Listing",
+          "label1": "Language",
+          "label2": "English Name",
+          "label3": "English Description",
+          "label4": "French Name",
+          "label5": "French Description",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a English Name",
+          "placeholder3": "Enter an english description",
+          "placeholder4": "Enter a French Name",
+          "placeholder5": "Enter a french description",
+          "button1": "Update Family",
+          "button2": "Cancel"
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "title2": "Cancel Update",
+          "title3": "Error Update",
+          "text1": "Are you sure you want to delete all informations about this family",
+          "text2": "Are you sure you want to cancel the Update process about this family",
+          "button1": "Delete Family",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Family created with SUCCESS",
+          "update": "Family updated with SUCCESS",
+          "delete": "Family deleted with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Family",
+          "createTranslation": "Errors while creating Family Translation",
+          "delete": "Errors while deleting Family",
+          "getFamily": "Errors while getting Family List",
+          "fields": "you have to fill all the fields",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose French for the second language"
+        }
+      },
+      "edit": {
+        "title1": "Edit a product",
+        "label1": "Product Name",
+        "label2": "Product Description",
+        "label3": "Product Price",
+        "label4": "Product Ingredients",
+        "label5": "Product Photos",
+        "placeholder1": "Enter a name",
+        "placeholder2": "Enter a description",
+        "placeholder3": "Enter a price",
+        "placeholder4": "Select Ingredients",
+        "button1": "Edit Product"
+      },
+      "promos": {
+        "add": {
+          "title": "Promotions Listing",
+          "title1": "Add a new promotion",
+          "title2": "Enter an English Translation",
+          "title3": "Enter a French Translation",
+          "label1": "Language",
+          "label2": "English Description",
+          "label3": "French Description",
+          "label4": "Promotion Discount",
+          "label5": "Promotion Start Date",
+          "label6": "Promotion End Date",
+          "label7": "Products",
+          "placeholder1": "Select a language",
+          "placeholder2": "Enter a english description",
+          "placeholder3": "Enter a french description",
+          "placeholder4": "Choose a reduction",
+          "placeholder5": "Select a start date",
+          "placeholder6": "Select an end date",
+          "button1": "Create Promotion",
+          "multiselect": {
+            "placeholder1": "Select one or more product",
+            "label1": "Select ¨Product",
+            "label2": "Selected Product",
+            "label3": "Deselect Product"
+          }
+        },
+        "alert": {
+          "title1": "Delete Alert",
+          "title2": "Cancel Update",
+          "title3": "Error Update",
+          "text1": "Are you sure you want to stop this promotions",
+          "text2": "Are you sure you want to cancel the Update process about this promotion",
+          "button1": "Stop Promotion",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No",
+          "button5": "OK"
+        },
+        "success": {
+          "create": "Promotion created with SUCCESS",
+          "update": "Promotion updated with SUCCESS",
+          "stopPromo": "Promotion stopped with SUCCESS",
+          "delete": "Promotion stopped with SUCCESS"
+        },
+        "errors": {
+          "create": "Errors while creating Promotions",
+          "createTranslation": "Errors while creating Promotions Translation",
+          "delete": "Errors while deleting Promotions",
+          "getPromotions": "Errors while getting Promotions List",
+          "fields": "you have to fill all the fields",
+          "amount": "Warning, the reduction amount is lower or equal to 0",
+          "lang1": "You need to choose English for the first language",
+          "lang2": "You need to choose French for the second language"
+        },
+        "modal": {
+          "title1": "Promotion Details",
+          "title2": "Description",
+          "title3": "Promotion Discount",
+          "title4": "Promotion Start Date",
+          "title5": "Promotion End Date",
+          "button1": "Cancel",
+          "button2": "Create Promotion"
+        },
+        "table": {
+          "id": "Id",
+          "language": "Language"
+        }
+      },
+      "stock": {
+        "modal": {
+          "title1": "Stock Management",
+          "label1": "Ingredients Name",
+          "label2": "Old Quantity",
+          "label3": "New Quantity",
+          "placeholder1": "Ingredient Name",
+          "placeholder2": "Enter a quantity",
+          "button1": "Cancel",
+          "button2": "Update Stock"
+        },
+        "alert": {
+          "title1": "Cancel Update",
+          "title2": "Error Update",
+          "text1": "Are you sur you want to stop the update Stock process ?",
+          "button1": "Yes",
+          "button2": "No",
+          "button3": "Ok",
+          "errors": {
+            "quantity": "Warning the new quantity is lower than 0 !!!"
+          }
+        },
+        "success": {
+          "update": "Stock updated with SUCCESS"
+        }
+      }
+    },
+    "errors": {
+      "required": "This field is required",
+      "invalidEmail": "Please, enter a valid Email",
+      "invalidPasswordFormat": "The password must contain 8 characters including at least one upper case, one lower case and one digit.",
+      "invalidConfirmPassword": "The confirm password must be the same as the password."
+    },
+    "email": {
+      "placeHolder": "Adresse e-mail",
+      "error": "L'adresse e-mail doit être valide."
+    },
+    "password": {
+      "placeHolder": "Mot de passe",
+      "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
+    },
+
+    "success": "Merci, vous êtes maintenant identifié. Vous allez être redirigé dans quelques instants...",
+    "pending": "Identification en cours...",
     "error": {
-      "title": "Une erreur est survenue",
-      "label": "ERREUR",
-      "buttonBack": "Retour à la page d'accueil",
-      "404": "Cette page est introuvable ..."
+      "required": "Ce champ est requis.",
+      "form": "Veuillez remplir le formulaire de connexion correctement.",
+      "notMatch": "L'e-mail et le mot de passe ne correspondent pas, veuillez réessayer.",
+      "mailNotExist": "L'e-mail n'existe pas dans notre base de données, veuillez-vous inscrire via le lien ci-dessous.",
+      "mailNotActive": "Veuillez valider votre adresse e-mail avant de pouvoir vous connecter."
     }
   },
-  "gdpr":{
+  "error": {
+    "title": "Une erreur est survenue",
+    "label": "ERREUR",
+    "buttonBack": "Retour à la page d'accueil",
+    "404": "Cette page est introuvable ..."
+  },
+
+  "gdpr": {
     "text": "AntelopeJS utilise des cookies pour personnaliser les fonctions relatives au marketing et aux réseaux sociaux.",
     "readMore": "En savoir plus sur les cookies.",
     "button": "ACCEPTER"

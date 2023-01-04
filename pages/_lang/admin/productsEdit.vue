@@ -46,7 +46,7 @@ b-container.p-5.bg-gray(fluid)
       )
         b-form-input.input(
           v-model='filterSearch'
-          :placeholder='$t("pages.admin.products.edit.placeholder1")'
+          :placeholder='$t("pages.admin.products.edit.placeholder")'
         )
       b-col.mt-3.mt-sm-0(
         sm='8'
@@ -133,13 +133,13 @@ b-container.p-5.bg-gray(fluid)
                       )
                       | {{ $t('pages.errors.required') }}
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.edit.label1")'
+                    :label='$t("pages.admin.products.edit.label2")'
                     label-for='name'
                   )
                     b-form-input#name.input-form(
                       v-model='$v.name.$model'
                       :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
-                      :placeholder='$t("pages.admin.edit.placeholder1")'
+                      :placeholder='$t("pages.admin.products.edit.placeholder2")'
                       type='text'
                       name='name'
                       @blur='$v.name.$touch()'
@@ -150,13 +150,13 @@ b-container.p-5.bg-gray(fluid)
                       )
                       | {{ $t('pages.errors.required') }}
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.edit.label2")'
+                    :label='$t("pages.admin.products.edit.label3")'
                     label-for='description'
                   )
                     b-form-textarea#description.input-area(
                       v-model='$v.description.$model'
                       :class='{ "is-invalid": $v.description.$error, "is-valid": !$v.description.$invalid }'
-                      :placeholder='$t("pages.admin.products.edit.placeholder2")'
+                      :placeholder='$t("pages.admin.products.edit.placeholder3")'
                       name='description'
                       @blur='$v.description.$touch()'
                     )
@@ -166,7 +166,7 @@ b-container.p-5.bg-gray(fluid)
                       )
                       | {{ $t('pages.errors.required') }}
                 b-col
-                  h5.text-secondary.title {{ $t('pages.admin.products.edit.title2') }}
+                  h5.text-secondary.title {{ $t('pages.admin.products.edit.title3') }}
                   b-form-group.pt-3.text-primary(
                     :label='$t("pages.admin.products.edit.label1")'
                     label-for='language2'
@@ -184,13 +184,13 @@ b-container.p-5.bg-gray(fluid)
                       )
                       | {{ $t('pages.errors.required') }}
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.products.edit.label1")'
+                    :label='$t("pages.admin.products.edit.label2")'
                     label-for='frenchName'
                   )
                     b-form-input#frenchName.input-form(
                       v-model='$v.frenchName.$model'
                       :class='{ "is-invalid": $v.frenchName.$error, "is-valid": !$v.frenchName.$invalid }'
-                      :placeholder='$t("pages.admin.products.edit.placeholder1")'
+                      :placeholder='$t("pages.admin.products.edit.placeholder2")'
                       type='text'
                       name='frenchName'
                       @blur='$v.frenchName.$touch()'
@@ -201,13 +201,13 @@ b-container.p-5.bg-gray(fluid)
                       )
                       | {{ $t('pages.errors.required') }}
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.products.edit.label2")'
+                    :label='$t("pages.admin.products.edit.label3")'
                     label-for='frenchDescription'
                   )
                     b-form-textarea#frenchDescription.input-area(
                       v-model='$v.frenchDescription.$model'
                       :class='{ "is-invalid": $v.frenchDescription.$error, "is-valid": !$v.frenchDescription.$invalid }'
-                      :placeholder='$t("pages.admin.products.edit.placeholder2")'
+                      :placeholder='$t("pages.admin.products.edit.placeholder3")'
                       name='frenchDescription'
                       @blur='$v.frenchDescription.$touch()'
                     )
@@ -219,13 +219,13 @@ b-container.p-5.bg-gray(fluid)
               b-row
                 b-col
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.products.edit.label3")'
+                    :label='$t("pages.admin.products.edit.label4")'
                     label-for='price'
                   )
                     b-form-input#price.input-form(
                       v-model='$v.price.$model'
                       :class='{ "is-invalid": $v.price.$error, "is-valid": !$v.price.$invalid }'
-                      :placeholder='$t("pages.admin.products.edit.placeholder3")'
+                      :placeholder='$t("pages.admin.products.edit.placeholder4")'
                       type='number'
                       step='0.5'
                       name='price'
@@ -237,7 +237,7 @@ b-container.p-5.bg-gray(fluid)
                       )
                       | {{ $t('pages.errors.required') }}
                   b-form-group.m-0(
-                    :label='$t("pages.admin.products.edit.label4")'
+                    :label='$t("pages.admin.products.edit.label5")'
                     label-for='ingredients'
                   )
                     b-row
@@ -246,10 +246,10 @@ b-container.p-5.bg-gray(fluid)
                           v-model='$v.ingredient.$model'
                           :options='ingredients'
                           :multiple='true'
-                          :placeholder='$t("pages.admin.products.edit.multiselect.placeholer4")'
-                          :selectLabel='$t("pages.admin.products.edit.multiselect.label5")'
-                          :selectedLabel='$t("pages.admin.products.edit.multiselect.label6")'
-                          :deselectLabel='$t("pages.admin.products.edit.multiselect.label7")'
+                          :placeholder='$t("pages.admin.products.edit.multiselect.placeholder1")'
+                          :selectLabel='$t("pages.admin.products.edit.multiselect.label1")'
+                          :selectedLabel='$t("pages.admin.products.edit.multiselect.label2")'
+                          :deselectLabel='$t("pages.admin.products.edit.multiselect.label3")'
                           :searchable='true'
                           :class='{ "is-invalid": $v.ingredient.$error }'
                           label='name'
@@ -266,9 +266,9 @@ b-container.p-5.bg-gray(fluid)
                         .flex.text-center
                           b-button.mt-3.button.w-100(
                             :to='`/${$i18n.locale}/admin/ingredientsAdd/`'
-                          ) {{ $t('pages.admin.products.edit.button3') }}
+                          ) {{ $t('pages.admin.products.edit.button2') }}
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.products.edit.label8")'
+                    :label='$t("pages.admin.products.edit.label6")'
                     label-for='productFamily'
                   )
                     b-row
@@ -277,10 +277,10 @@ b-container.p-5.bg-gray(fluid)
                           v-model='$v.productFamily.$model'
                           :options='families'
                           :multiple='true'
-                          :placeholder='$t("pages.admin.products.edit.multiselect.placeholer")'
-                          :selectLabel='$t("pages.admin.products.edit.multiselect.label")'
-                          :selectedLabel='$t("pages.admin.products.edit.multiselect.label")'
-                          :deselectLabel='$t("pages.admin.products.edit.multiselect.label")'
+                          :placeholder='$t("pages.admin.products.edit.multiselect.placeholder2")'
+                          :selectLabel='$t("pages.admin.products.edit.multiselect.label4")'
+                          :selectedLabel='$t("pages.admin.products.edit.multiselect.label5")'
+                          :deselectLabel='$t("pages.admin.products.edit.multiselect.label3")'
                           :searchable='true'
                           :class='{ "is-invalid": $v.productFamily.$error }'
                           label='name'
@@ -295,10 +295,10 @@ b-container.p-5.bg-gray(fluid)
                     b-row
                       b-col.mx-auto(sm='12')
                         .flex.text-center
-                          b-button.mt-3.button.w-100 {{ $t('pages.admin.products.edit.button4') }}
+                          b-button.mt-3.button.w-100 {{ $t('pages.admin.products.edit.button3') }}
                 b-col
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.products.edit.label9")'
+                    :label='$t("pages.admin.products.edit.label7")'
                     label-for='imageName'
                   )
                     input(
@@ -322,7 +322,7 @@ b-container.p-5.bg-gray(fluid)
                     //-   | {{ $t('pages.errors.required') }}
 
                   b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.products.edit.label10")'
+                    :label='$t("pages.admin.products.edit.label8")'
                     label-for='onMenu'
                   )
                     b-form-checkbox#onMenu.checkBox(
