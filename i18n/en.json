@@ -591,6 +591,32 @@
           "id": "Id",
           "language": "Language"
         }
+      },
+      "stock": {
+        "modal": {
+          "title1": "Stock Management",
+          "label1": "Ingredients Name",
+          "label2": "Old Quantity",
+          "label3": "New Quantity",
+          "placeholder1": "Ingredient Name",
+          "placeholder2": "Enter a quantity",
+          "button1": "Cancel",
+          "button2": "Update Stock"
+        },
+        "alert": {
+          "title1": "Cancel Update",
+          "title2": "Error Update",
+          "text1": "Are you sur you want to stop the update Stock process ?",
+          "button1": "Yes",
+          "button2": "No",
+          "button3": "Ok",
+          "errors": {
+            "quantity": "Warning the new quantity is lower than 0 !!!"
+          }
+        },
+        "success": {
+          "update": "Stock updated with SUCCESS"
+        }
       }
     },
     "errors": {

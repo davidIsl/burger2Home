@@ -211,6 +211,7 @@ b-container.p-5.bg-gray(fluid)
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    hide-header-close
     v-model='deleteAlert'
     centered
   )
@@ -232,6 +233,7 @@ b-container.p-5.bg-gray(fluid)
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    hide-header-close
     v-model='emptyOptionalFieldAlert'
     centered
   )
@@ -253,6 +255,7 @@ b-container.p-5.bg-gray(fluid)
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    hide-header-close
     v-model='cancelAlert'
     centered
   )
@@ -271,6 +274,7 @@ b-container.p-5.bg-gray(fluid)
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    hide-header-close
     v-model='errorUpdateAlert'
     centered
   )

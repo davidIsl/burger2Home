@@ -106,4 +106,5 @@
 ## Semaine 1
 
 - [x] 2023/01/02: Admin Promo Listing
-- [x] 2023/01/03: Admin Promo Add, edit & delete
+- [x] 2023/01/03: Admin Promo Add, edit & delete, index stock
+- [x] 2023/01/04: Admin index update stock and alert !,

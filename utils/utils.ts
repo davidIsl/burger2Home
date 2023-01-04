@@ -97,9 +97,11 @@ export interface Promo {
 }
 
 export interface Stock {
+  amount: number;
   name: string;
-  description: string;
-  quantity: number;
+  creationDate: string;
+  ingredientId: number;
+  id: number;
 }
 
 export interface orderDetails {

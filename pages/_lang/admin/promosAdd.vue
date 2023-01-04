@@ -26,7 +26,6 @@ b-container.p-3.bg-gray(fluid)
               table-variant='secondary'
               :items='promos'
               :fields='fieldsPromo'
-              :current='currentPage'
               @pageChange='handleChangePage'
             )
               //- template(#head(x)='data')

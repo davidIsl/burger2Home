@@ -10,6 +10,7 @@ import {
   Price,
   Allergens,
   Promo,
+  Stock,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -779,6 +780,7 @@ export class API {
    * @param language
    * @returns UPDATED PROMOTION TRANSLATION
    */
+
   static updatePromoTranslation(
     id: number,
     description: string,
@@ -791,5 +793,38 @@ export class API {
       promotionId,
       language,
     });
+  }
+
+  /******************
+   * STOCK ENDPOINT *
+   *                *
+   *****************/
+
+  /**
+   * GET STOCK BY INGREDIENTS
+   * @param id
+   * @returns STOCK
+   */
+
+  static getStocks(id: number): Promise<APIDataResponse<Stock>> {
+    return this.get(`/ingredients/${id}/stocks`);
+  }
+
+  /**
+   * UPDATE STOCK INGREDIENTS
+   * @param id
+   * @param ingredientId
+   * @param amount
+   * @param creationDate
+   * @returns STOCK UPDATED
+   */
+
+  static updateStock(
+    id: number,
+    ingredientId: number,
+    amount: number,
+    creationDate: string
+  ): Promise<APIResponse> {
+    return this.update(`/stocks`, { id, ingredientId, amount, creationDate });
   }
 }

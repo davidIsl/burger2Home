@@ -137,24 +137,13 @@ b-container.p-4.bg-gray(fluid)
               hover
               borderless
               responsive
-              :perPage='perPage'
-              :current-page='currentPage'
+              :perPage='perPagePromos'
               table-variant='secondary'
               :items='promos'
               :fields='fieldsPromo'
-              :current='currentPage'
-              @pageChange='handleChangePage'
+              :current-page='currentPagePromos'
+              @pageChange='handleChangePagePromos'
             )
-              //- template(#head(x)='data')
-              //-   b-form-checkbox#checkbox-header(
-              //-     name='checkbox-header'
-              //-     @change='selectAllTableItems($event)'
-              //-   )
-              //- template(#cell(x)='data')
-              //-   b-form-checkbox(
-              //-     :checked='selectedAllItems'
-              //-     @input='selectTableItem($event, data.name)'
-              //-   )
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
                   :icon='["fa", "eye"]'
@@ -163,80 +152,77 @@ b-container.p-4.bg-gray(fluid)
             b-pagination(
               pills='pills'
               size='sm'
-              v-model='currentPage'
+              v-model='currentPagePromos'
               :total-rows='totalPromos'
-              :per-page='perPage'
-              @pageChange='handleChangePage'
+              :per-page='perPagePromos'
+              @pageChange='handleChangePagePromos'
               align='right'
             )
   // STOCK
   .p-2
-  b-row
-    b-col.pb-3.text-md-left(
-      :offset-lg='filters ? "0" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "18" : "14"'
-    )
-      h2.text-secondary {{ $t('pages.admin.title3') }}
-    b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
-      b-button.button.w-100(:to='`/${$i18n.locale}/admin/stockAdd/`') {{ $t('pages.admin.button6') }}
-  b-row
-    b-col(
-      :offset-lg='filters ? "0" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "18" : "14"'
-    )
-      b-form-input.input(
-        v-model='filterSearch'
-        :placeholder='$t("pages.admin.placeholder2")'
+    b-row
+      b-col.pb-3.text-md-left(
+        :offset-lg='filters ? "0" : "2"'
+        sm='16'
+        :md='filters ? "18" : "16"'
+        :lg='filters ? "18" : "14"'
       )
-    b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
-      b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
-  b-row
-    b-col.mt-3(v-if='filters' lg='4')
-      filters
-    b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
-      //- div(v-if='itemSelected.length > 0')
-      //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
-      .p-3.content.text-secondary
-        .m-2
-          b-table(
-            hover
-            borderless
-            responsive
-            perPage='5'
-            table-variant='secondary'
-            :items='stocks'
-            :fields='fieldsStock'
-            :current='currentPage'
-            @pageChange='handleChangePage'
+        h2.text-secondary {{ $t('pages.admin.title3') }}
+      //- b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
+      //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/stockAdd/`') {{ $t('pages.admin.button6') }}
+    b-row
+      b-col(
+        :offset-lg='filters ? "0" : "2"'
+        sm='16'
+        :md='filters ? "18" : "16"'
+        :lg='filters ? "18" : "14"'
+      )
+        b-form-input.input(
+          v-model='filterSearch'
+          :placeholder='$t("pages.admin.placeholder2")'
+        )
+      //- b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
+      //-   b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+    b-row
+      //- b-col.mt-3(v-if='filters' lg='4')
+      //-   filters
+      b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
+        .p-3.content.text-secondary
+          .m-2
+            b-table(
+              hover
+              borderless
+              responsive
+              :perPage='perPageStocks'
+              table-variant='secondary'
+              :items='stocks'
+              :fields='fieldsStock'
+              :current-page='currentPageStocks'
+              @pageChange='handleChangePageStocks'
+            )
+              template(#cell(details)='data')
+                font-awesome-icon.mt-1(
+                  :icon='["fa", "pencil-alt"]'
+                  @click='openDetailsStock(data.item)'
+                )
+            b-pagination(
+              pills='pills'
+              size='sm'
+              v-model='currentPageStocks'
+              :total-rows='totalStocks'
+              :per-page='perPageStocks'
+              @pageChange='handleChangePageStocks'
+              align='right'
+            )
+    b-row.mt-3(align-h='center')
+      b-col.m-2(cols='20')
+        .p-5.content(v-if='submitProductAdd !== submitProductAddType.NONE')
+          alert(
+            :show='submitProductAdd === submitProductAddType.ERROR || submitProductAdd === submitProductAddType.SUCCESS'
+            :variant='submitProductAdd === submitProductAddType.ERROR ? "error" : "success"'
+            :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
           )
-            template(#head(x)='data')
-              b-form-checkbox#checkbox-header(
-                name='checkbox-header'
-                @change='selectAllTableItems($event)'
-              )
-            template(#cell(x)='data')
-              b-form-checkbox(
-                :checked='selectedAllItems'
-                @input='selectTableItem($event, data.name)'
-              )
-            template(#cell(details)='data')
-              font-awesome-icon.mt-1(
-                :icon='["fa", "pencil-alt"]'
-                @click='openDetailsStock(data.item)'
-              )
-          b-pagination(
-            pills='pills'
-            size='sm'
-            v-model='currentPage'
-            :total-rows='totalRows'
-            per-page='5'
-            aria-controls='my-table'
-            align='right'
-          )
+            h6.m-0.mb-2.text-center {{ errorMsg }}
   // MODAL DETAILS PRODUCT
   b-modal(
     body-bg-variant='gray'
@@ -255,8 +241,6 @@ b-container.p-4.bg-gray(fluid)
           :src='getLink(currentProduct.id)'
         ) 
     template(#modal-footer)
-      //- div
-      //-   font-awesome-icon(:icon='["fas", "minus"]')
       b-button.mx-auto.w-48.button(@click='viewDetails = false') {{ $t('pages.admin.button7') }}
       b-button.mx-auto.w-48.button(
         @click='goToUrl(`/${$i18n.locale}/admin/productsEdit/`)'
@@ -329,18 +313,19 @@ b-container.p-4.bg-gray(fluid)
     right
   )
     template(#modal-title)
-      h4.text-secondary.text-center {{ $t('pages.admin.title4') }}
+      h4.text-secondary.text-center {{ $t('pages.admin.stock.modal.title1') }}
     template(#modal-footer)
-      b-button.button {{ $t('pages.admin.button6') }}
+      b-button.button.mx-auto.w-48(@click='cancelAlert = true') {{ $t('pages.admin.stock.modal.button1') }}
+      b-button.button.mx-auto.w-48(@click='updateStock') {{ $t('pages.admin.stock.modal.button2') }}
     b-container
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.label1")'
+        :label='$t("pages.admin.stock.modal.label1")'
         label-for='name'
       )
         b-form-input#name.input-form(
           v-model='$v.name.$model'
           :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
-          :placeholder='$t("pages.admin.placeholder4")'
+          :placeholder='$t("pages.admin.stock.modal.placeholder1")'
           type='text'
           name='name'
           @blur='$v.name.$touch()'
@@ -348,63 +333,84 @@ b-container.p-4.bg-gray(fluid)
         .input-error(v-if='$v.name.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.label2")'
-        label-for='description'
-      )
-        b-form-textarea#description.input-area(
-          v-model='$v.description.$model'
-          :class='{ "is-invalid": $v.description.$error, "is-valid": !$v.description.$invalid }'
-          :placeholder='$t("pages.admin.placeholder5")'
-          type='text'
-          name='description'
-          @blur='$v.description.$touch()'
-        )
-        .input-error(v-if='$v.description.$error')
-          font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
-          | {{ $t('pages.errors.required') }}
-      b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.label3")'
+        :label='$t("pages.admin.stock.modal.label2")'
         label-for='quantity'
       )
         b-form-input#quantity.input-form(
           v-model='quantity'
-          readonly='true'
+          readonly
           type='text'
           name='quantity'
         )
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.label4")'
+        :label='$t("pages.admin.stock.modal.label3")'
         label-for='newQuantity'
       )
         b-form-input#newQuantity.input-form(
           v-model='$v.newQuantity.$model'
           :class='{ "is-invalid": $v.newQuantity.$error, "is-valid": !$v.newQuantity.$invalid }'
-          :placeholder='$t("pages.admin.placeholder5")'
+          :placeholder='$t("pages.admin.stock.modal.placeholder2")'
           type='number'
           name='newQuantity'
           @blur='$v.newQuantity.$touch()'
         )
         .input-error(v-if='$v.newQuantity.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
-
-  // DELETE MODAL
+  // CANCEL MODAL
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
-    v-model='deleteAlert'
+    hide-header-close
+    v-model='cancelAlert'
     centered
   )
     template(#modal-title)
-      div {{ $t('pages.admin.alert.title1') }}
+      div {{ $t('pages.admin.stock.alert.title1') }}
     .d-flex.align-items-center.gap-1
       div
         .modal-error
           font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
-      h5 {{ $t('pages.admin.alert.text1') }}
+      h5 {{ $t('pages.admin.stock.alert.text1') }}
     template(#modal-footer)
-      b-button.w-48(variant='outline-danger' @click='deleteProduct()') {{ $t('pages.admin.alert.button1') }}
-      b-button.w-48(variant='primary' @click='deleteAlert = false') {{ $t('pages.admin.alert.button1') }}
+      b-button.w-48(variant='outline-danger' @click='stopUpdate') {{ $t('pages.admin.stock.alert.button1') }}
+      b-button.w-48(variant='primary' @click='cancelAlert = false') {{ $t('pages.admin.stock.alert.button2') }}
+  // ERROR UPDATE MODAL
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    hide-header-close
+    v-model='errorAlert'
+    centered
+  )
+    template(#modal-title)
+      div {{ $t('pages.admin.stock.alert.title2') }}
+    .d-flex.align-items-center.gap-1
+      div
+        .modal-error
+          font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
+      h5 {{ errorMsg }}
+    template(#modal-footer)
+      b-button.w-48(variant='outline-danger' @click='errorAlert = false') {{ $t('pages.admin.stock.alert.button3') }}
+  //- // DELETE MODAL
+  //- b-modal(
+  //-   body-bg-variant='gray'
+  //-   header-bg-variant='gray'
+  //-   footer-bg-variant='gray'
+  //-   v-model='deleteAlert'
+  //-   centered
+  //- )
+  //-   template(#modal-title)
+  //-     div {{ $t('pages.admin.alert.title1') }}
+  //-   .d-flex.align-items-center.gap-1
+  //-     div
+  //-       .modal-error
+  //-         font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
+  //-     h5 {{ $t('pages.admin.alert.text1') }}
+  //-   template(#modal-footer)
+  //-     b-button.w-48(variant='outline-danger' @click='deleteProduct()') {{ $t('pages.admin.alert.button1') }}
+  //-     b-button.w-48(variant='primary' @click='deleteAlert = false') {{ $t('pages.admin.alert.button1') }}
 </template>
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
@@ -413,11 +419,19 @@ import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
 // import { rolesType } from '@/utils/utils';
 import filters from '@/components/global/filters.vue';
-import { Product, Allergens, Promo, Stock } from '@/utils/utils';
+import alert from '@/components/global/alert.vue';
+import {
+  Product,
+  Allergens,
+  Promo,
+  Stock,
+  submitProductAddType,
+} from '@/utils/utils';
 import { API } from '@/utils/javaBack';
 
 @Component({
   components: {
+    alert,
     filters,
   },
 })
@@ -426,8 +440,7 @@ export default class extends mixins(validationMixin) {
   // roleType = rolesType;
   // role = rolesType.NONE;
   @Validate({ required }) name: string = '';
-  @Validate({ required }) description: string = '';
-  @Validate({ required }) newQuantity: string = '';
+  @Validate({ required }) newQuantity: number = 0;
   quantity: number = 0;
 
   filters: boolean = false;
@@ -435,21 +448,32 @@ export default class extends mixins(validationMixin) {
   viewDetails: boolean = false;
   viewDetailsPromo: boolean = false;
   editingStock: boolean = false;
-  itemSelected: string[] = [];
-  selectedAllItems: boolean = false;
-  deleteAlert: boolean = false;
+  cancelAlert: boolean = false;
+  errorAlert: boolean = false;
 
   perPage: number = 8;
+  perPagePromos: number = 8;
+  perPageStocks: number = 8;
   currentPage: number = 1;
+  currentPagePromos: number = 1;
+  currentPageStocks: number = 1;
   totalProducts: number = 0;
   totalPromos: number = 0;
+  totalStocks: number = 0;
 
   allergens: Allergens[] = [];
   products: Product[] = [];
   promos: Promo[] = [];
+  stocks: Stock[] = [];
   currentProduct: Product | null = null;
   currentPromo: Promo | null = null;
   currentStock: Stock | null = null;
+  currentStockId: number = 0;
+  currentIngredientId: number = 0;
+
+  errorMsg: string = '';
+  submitProductAddType = submitProductAddType;
+  submitProductAdd = submitProductAddType.NONE;
 
   fields = [
     {
@@ -503,19 +527,23 @@ export default class extends mixins(validationMixin) {
 
   fieldsStock = [
     {
-      key: 'x',
-      sortable: false,
+      key: 'id',
+      sortable: true,
+    },
+    {
+      key: 'ingredientId',
+      sortable: true,
     },
     {
       key: 'name',
       sortable: true,
     },
     {
-      key: 'description',
+      key: 'creationDate',
       sortable: false,
     },
     {
-      key: 'quantity',
+      key: 'amount',
       sortable: true,
     },
     {
@@ -524,41 +552,13 @@ export default class extends mixins(validationMixin) {
     },
   ];
 
-  stocks: Stock[] = [
+  stock: Stock[] = [
     {
-      name: 'Boeuf',
-      description: 'Viande de boeuf hachée',
-      quantity: 15,
-    },
-    {
-      name: 'Poulet',
-      description: 'Viande de poulet',
-      quantity: 25,
-    },
-    {
-      name: 'Tomates',
-      description: 'Tomates fraiches',
-      quantity: 10,
-    },
-    {
-      name: 'Cornichons',
-      description: 'Cornichons frais',
-      quantity: 15,
-    },
-    {
-      name: 'Oignons',
-      description: 'Oignons frais de la région',
-      quantity: 15,
-    },
-    {
-      name: 'Bacon',
-      description: 'Viande de porc',
-      quantity: 35,
-    },
-    {
-      name: 'Pain',
-      description: 'Pain de seigle',
-      quantity: 40,
+      id: 1,
+      ingredientId: 10,
+      name: 'TEST',
+      creationDate: '2023-12-05 18:00:00',
+      amount: 159,
     },
   ];
 
@@ -575,6 +575,13 @@ export default class extends mixins(validationMixin) {
   updateData() {
     this.getBurgers();
     this.getPromos();
+    this.getIngredients();
+  }
+
+  stopUpdate() {
+    this.cancelAlert = false;
+    this.editingStock = false;
+    this.$v.$reset();
   }
 
   async getBurgers() {
@@ -609,17 +616,10 @@ export default class extends mixins(validationMixin) {
 
     console.log('RESPONSEPROMO', promoTab);
     this.promos = responsePromo.data;
+    this.totalPromos = this.promos.length;
 
     for (let i = 0; i < responsePromo.data.length; i++) {
       for (let j = 0; j < response.data.length; j++) {
-        // console.log('Response ID', response.data[j].id);
-        // console.log('Response Promotion ID', response.data[j].promotionId);
-        // console.log('ResponsePROMO  ID', responsePromo.data[i].promotionId);
-        // console.log(
-        //   'ResponsePROMO Promotion ID',
-        //   responsePromo.data[i].promotionId
-        // );
-
         if (response.data[j].id === responsePromo.data[i].promotionId) {
           this.promos[i].amount = response.data[j].amount;
           this.promos[i].startDate = response.data[j].startDate;
@@ -628,6 +628,31 @@ export default class extends mixins(validationMixin) {
       }
     }
     console.log('PROMOS', this.promos);
+  }
+
+  async getIngredients() {
+    const response = await API.ingredientsListByLang(this.$i18n.locale);
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    for (let i = 0; i < response.data.length; i++) {
+      const responseStock = await API.getStocks(response.data[i].ingredientId);
+
+      if (responseStock.status !== 200) {
+        return;
+      }
+
+      this.stocks[i] = responseStock.data.sort(
+        (a, b) =>
+          new Date(b.creationDate).getTime() -
+          new Date(a.creationDate).getTime()
+      )[0];
+      this.stocks[i].name = response.data[i].name;
+    }
+    console.log('STOCK', this.stocks);
+    this.totalStocks = this.stocks.length;
   }
 
   openDetails(product: Product) {
@@ -643,31 +668,58 @@ export default class extends mixins(validationMixin) {
   openDetailsStock(stock: Stock) {
     this.editingStock = true;
     this.currentStock = stock;
+
+    this.currentStockId = this.currentStock.id;
+    this.currentIngredientId = this.currentStock.ingredientId;
+    this.name = this.currentStock.name;
+    this.quantity = this.currentStock.amount;
   }
 
   handleChangePage(e: number) {
     this.currentPage = e;
-    // this.getBurgers();
   }
 
-  selectAllTableItems(event: boolean) {
-    this.selectedAllItems = event;
+  handleChangePagePromos(e: number) {
+    this.currentPagePromos = e;
   }
 
-  selectTableItem(event: boolean, id: string) {
-    if (event) {
-      this.itemSelected.push(id);
-      return;
-    }
-    this.itemSelected = this.itemSelected.filter((item) => item !== id);
-  }
-
-  handleDelete() {
-    this.deleteAlert = true;
+  handleChangePageStocks(e: number) {
+    this.currentPageStocks = e;
   }
 
   goToUrl(url: string) {
     this.$router.push(url);
+  }
+
+  async updateStock() {
+    this.$v.$touch();
+
+    if (this.$v.$invalid) {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.stock.errors.fields');
+    }
+    const responseUpdate = await API.updateStock(
+      this.currentStockId,
+      this.currentIngredientId,
+      this.newQuantity,
+      this.currentStock?.creationDate as string
+    );
+
+    if (this.newQuantity < 0) {
+      this.errorAlert = true;
+      this.errorMsg = this.$tc('pages.admin.stock.alert.errors.quantity');
+      return;
+    }
+
+    if (responseUpdate.status !== 200) {
+      return;
+    }
+
+    this.submitProductAdd = submitProductAddType.SUCCESS;
+    this.errorMsg = this.$tc('pages.admin.stock.success.update');
+    this.editingStock = false;
+    this.getIngredients();
+    console.log('FINISH UPDATE');
   }
 }
 </script>
