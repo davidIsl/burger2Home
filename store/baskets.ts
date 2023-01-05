@@ -1,4 +1,4 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
+import { Action, Module, VuexModule, Mutation } from 'vuex-module-decorators';
 import { store } from '.';
 import { BasketLine } from '~/utils/utils';
 import { API } from '~/utils/javaBack';
@@ -16,6 +16,9 @@ export default class Baskets extends VuexModule {
   quantity: number = 0;
 
   @Mutation
+  setBasket() {}
+
+  @Action
   async addProduct(id: number) {
     // this.basketLine.forEach((item) => ({
     //   if(item.productId === id) {
