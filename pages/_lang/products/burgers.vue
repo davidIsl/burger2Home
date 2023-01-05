@@ -43,9 +43,18 @@ b-container.bg-gray(fluid)
               )
                 b-card-header
                   h6 {{ $t('pages.products.title2') }}:&nbsp;
-                    b-badge(variant='darkRed') {{ product.currentDiscount }}%
+                    b-badge(
+                      v-if='product.currentDiscount !== null'
+                      variant='darkRed'
+                    ) {{ product.currentDiscount }}%
+                    b-badge(
+                      v-if='product.currentDiscount === null'
+                      variant='darkRed'
+                    ) 0%
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
-                b-button.mr-2.w-48.button.justify-content-between {{ $t('pages.products.button1') }}
+                b-button.mr-2.w-48.button.justify-content-between(
+                  @click='product.productId'
+                ) {{ $t('pages.products.button1') }}
                 b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   // MODAL
   b-modal(
@@ -65,7 +74,7 @@ b-container.bg-gray(fluid)
       p.d-inline.my-3 {{ numberToAdd }}
       b-button.button(@click='incrementQuantity')
         font-awesome-icon(:icon='["fa", "plus"]')
-      b-button.button(@click='addToBasket') {{ $t('pages.products.button1') }}
+      b-button.button(@click='addToBasket(currentProduct.productId)') {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
       p.text-modal {{ currentProduct.description }}
@@ -91,6 +100,8 @@ import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
 import { Product } from '@/utils/utils';
+// import basket from '@/store';
+
 // import { basket } from '@/store/baskets';
 // export interface Field {
 //   key: string;
@@ -170,9 +181,9 @@ export default class extends Vue {
     this.numberToAdd++;
   }
 
-  // addToBasket(product: Product) {
-  //   // this.$store.state.basket;
-  // }
+  addToBasket(id: number) {
+    this.$store.commit('basket/addProduct', id);
+  }
 
   handleChangeFilter(event: Product[]) {
     this.products = event;

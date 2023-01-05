@@ -1,6 +1,7 @@
 import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
 import { store } from '.';
-import { Basket, BasketLine } from '~/utils/utils';
+import { BasketLine } from '~/utils/utils';
+import { API } from '~/utils/javaBack';
 
 @Module({
   name: 'basket',
@@ -9,15 +10,42 @@ import { Basket, BasketLine } from '~/utils/utils';
   store,
 })
 export default class Baskets extends VuexModule {
-  basket: Basket | {} = {};
+  // basket: Basket | {} = {};
   basketLine: BasketLine[] = [];
   totalPrice: number = 0;
   quantity: number = 0;
 
   @Mutation
-  setBasket(basket: Basket) {
-    this.basket = basket;
+  async addProduct(id: number) {
+    // this.basketLine.forEach((item) => ({
+    //   if(item.productId === id) {
+    //     this.quantity++;
+    //   }
+
+    //   id: item.productId,
+    // }));
+
+    for (let i = 0; i < this.basketLine.length; i++) {
+      if (this.basketLine[i].productId === id) {
+        this.quantity++;
+      } else {
+        const response = await API.getProductById(id);
+
+        if (response.status !== 200) {
+          return;
+        }
+
+        const item: BasketLine = {
+          basketId: 1,
+          productId: response.data.id,
+          amount: 1,
+        };
+        this.basketLine.push(item);
+      }
+    }
   }
+
+  // removeProduct(productId: number) {}
 
   increment() {
     this.quantity++;
@@ -28,7 +56,7 @@ export default class Baskets extends VuexModule {
   }
 
   resetBasket() {
-    this.basket = {};
+    // this.basket = {};
     this.basketLine = [];
     this.quantity = 0;
     this.totalPrice = 0;

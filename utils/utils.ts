@@ -126,9 +126,9 @@ export interface User {
 }
 
 export interface BasketLine {
-  id: number;
+  id?: number;
   basketId: number;
-  productId: Product;
+  productId: number;
   amount: number;
 }
 export interface Basket {
