@@ -17,7 +17,7 @@ b-container.p-5.bg-gray(fluid)
         lg='6'
         xl='4'
       )
-        b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.products.edit.button1') }}
+        b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.products.edit.button4') }}
     //- b-row
     //-   b-col(
     //-     offset-sm='16'
@@ -80,14 +80,20 @@ b-container.p-5.bg-gray(fluid)
               :totalProducts='totalProducts'
               @pageChange='handleChangePage'
             )
+              template(#head(image)='data')
+                p {{ $t('pages.admin.products.table.image') }}
+              template(#head(name)='data')
+                p {{ $t('pages.admin.products.table.name') }}
+              template(#head(description)='data')
+                p {{ $t('pages.admin.products.table.description') }}
+              template(#head(currentPrice)='data')
+                p {{ $t('pages.admin.products.table.price') }}
+              template(#head(details)='data')
+                p {{ $t('pages.admin.products.table.details') }}
               template(#head(onMenu)='data')
                 p {{ $t('pages.admin.products.table.statut') }}
               template(#cell(onMenu)='data')
-                b-form-checkbox(
-                  switch
-                  v-model='data.item.onMenu'
-                  @click='handleOnMenu(data.item.id, data.item.onMenu)'
-                )
+                b-form-checkbox(switch v-model='data.item.onMenu')
               template(#cell(image)='data')
                 b-img(:src='getLink(data.item.id)' width='50' height='50')
               template(#cell(details)='data')

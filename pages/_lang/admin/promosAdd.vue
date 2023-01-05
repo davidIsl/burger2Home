@@ -10,11 +10,7 @@ b-container.p-3.bg-gray(fluid)
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder2")'
         )
-      //- b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
-      //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/promosAdd/`') {{ $t('pages.admin.button2') }}
       b-col.mt-3(offset-lg='2' lg='20')
-        //- div(v-if='itemSelected.length > 0')
-        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-2
             b-table(
@@ -28,16 +24,6 @@ b-container.p-3.bg-gray(fluid)
               :fields='fieldsPromo'
               @pageChange='handleChangePage'
             )
-              //- template(#head(x)='data')
-              //-   b-form-checkbox#checkbox-header(
-              //-     name='checkbox-header'
-              //-     @change='selectAllTableItems($event)'
-              //-   )
-              //- template(#cell(x)='data')
-              //-   b-form-checkbox(
-              //-     :checked='selectedAllItems'
-              //-     @input='selectTableItem($event, data.name)'
-              //-   )
               template(#head(promotionId)='data')
                 span {{ $t('pages.admin.promos.table.id') }}
               template(#head(language.name)='data')
@@ -322,6 +308,7 @@ b-container.p-3.bg-gray(fluid)
       b-button.mx-auto.button.w-48(@click='cancelAlert = true') {{ $t('pages.admin.promos.edit.button1') }}
       b-button.mx-auto.button.w-48(@click='updatePromo') {{ $t('pages.admin.promos.edit.button2') }}
     b-container
+      h4.pb-1.title.text-secondary {{ $t('pages.admin.promos.edit.title2') }}
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.promos.edit.label1")'
         label-for='editLanguage1'
@@ -350,6 +337,7 @@ b-container.p-3.bg-gray(fluid)
         )
         .input-error(v-if='$v.editDescription.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
+      h4.pb-1.title.text-secondary {{ $t('pages.admin.promos.edit.title3') }}
       b-form-group.pt-3.text-primary(
         :label='$t("pages.admin.promos.edit.label1")'
         label-for='editLanguage2'
@@ -378,14 +366,15 @@ b-container.p-3.bg-gray(fluid)
         )
         .input-error(v-if='$v.editFrenchDescription.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
+      h4.pb-1.title.text-secondary {{ $t('pages.admin.promos.edit.title4') }}
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.promos.edit.label3")'
+        :label='$t("pages.admin.promos.edit.label4")'
         label-for='editAmount'
       )
         b-form-input#editAmount.input-form(
           v-model='$v.editAmount.$model'
           :class='{ "is-invalid": $v.editAmount.$error, "is-valid": !$v.editAmount.$invalid }'
-          :placeholder='$t("pages.admin.promos.edit.placeholder3")'
+          :placeholder='$t("pages.admin.promos.edit.placeholder4")'
           type='number'
           step='5'
           name='editAmount'
@@ -416,13 +405,13 @@ b-container.p-3.bg-gray(fluid)
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
           | {{ $t('pages.errors.required') }}
       b-form-group.m-0(
-        :label='$t("pages.admin.promos.edit.label4")'
+        :label='$t("pages.admin.promos.edit.label5")'
         label-for='editStartDate'
       )
         b-form-input#editStartDate.input-form(
           v-model='$v.editStartDate.$model'
           :class='{ "is-invalid": $v.editStartDate.$error, "is-valid": !$v.editStartDate.$invalid }'
-          :placeholder='$t("pages.admin.promos.edit.placeholder4")'
+          :placeholder='$t("pages.admin.promos.edit.placeholder5")'
           type='datetime-local'
           name='editStartDate'
           @blur='$v.editStartDate.$touch()'
@@ -431,13 +420,13 @@ b-container.p-3.bg-gray(fluid)
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
           | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.promos.edit.label5")'
+        :label='$t("pages.admin.promos.edit.label6")'
         label-for='editEndDate'
       )
         b-form-input#editEndDate.input-form(
           v-model='$v.editEndDate.$model'
           :class='{ "is-invalid": $v.editEndDate.$error, "is-valid": !$v.editEndDate.$invalid }'
-          :placeholder='$t("pages.admin.promos.edit.placeholder5")'
+          :placeholder='$t("pages.admin.promos.edit.placeholder6")'
           type='datetime-local'
           name='editEndDate'
           @blur='$v.editEndDate.$touch()'

@@ -5,26 +5,16 @@ b-container.p-5.bg-gray(fluid)
       .title-line
         h1.p-3.title.text-center.text-secondary {{ $t('pages.admin.family.add.title1') }}
   b-row
-    b-col(
-      :offset-lg='filters ? "2" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "18" : "14"'
-    )
+    b-col(offset-lg='2' sm='16' lg='14')
       h3.py-3.title.text-secondary {{ $t('pages.admin.family.add.title2') }}
   b-row.mt-3
-    b-col(
-      :offset-lg='filters ? "2" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "16" : "14"'
-    )
+    b-col(offset-lg='2' sm='16' lg='14')
       b-form-input.input(
         v-model='filterSearch'
         :placeholder='$t("pages.admin.family.add.placeholder0")'
       )
   b-row
-    b-col.mt-3(:offset-lg='filters ? "0" : "2"' :lg='filters ? "16" : "20"')
+    b-col.mt-3(offset-lg='2' lg='20')
       .p-3.content.text-secondary
         .m-2
           b-table(
@@ -38,7 +28,6 @@ b-container.p-5.bg-gray(fluid)
             :items='families'
             :fields='fields'
             :totalIngredients='totalFamilies'
-            @pageChange='handleChangePage'
           )
             template(#cell(details)='data')
               font-awesome-icon.mt-1(
@@ -57,7 +46,6 @@ b-container.p-5.bg-gray(fluid)
             :total-rows='totalFamilies'
             :per-page='perPage'
             align='right'
-            @change='handleChangePage'
           )
   b-row
     b-col.mx-auto(
@@ -102,7 +90,6 @@ b-container.p-5.bg-gray(fluid)
                       :placeholder='$t("pages.admin.family.add.placeholder2")'
                       type='text'
                       name='name'
-                      formatter='resetAlertMsg'
                       @blur='$v.name.$touch()'
                     )
                     .input-error(v-if='$v.name.$error')
@@ -274,7 +261,6 @@ b-container.p-5.bg-gray(fluid)
           :class='{ "is-invalid": $v.editLanguage1.$error, "is-valid": !$v.editLanguage1.$invalid }'
           :placeholder='$t("pages.admin.family.edit.placeholder1")'
           :options='langs'
-          v-on:focus='resetAlertMsg'
           @blur='$v.editLanguage1.$touch()'
         )
         .input-error(v-if='$v.editLanguage1.$error')
@@ -318,7 +304,6 @@ b-container.p-5.bg-gray(fluid)
           :class='{ "is-invalid": $v.editLanguage2.$error, "is-valid": !$v.editLanguage2.$invalid }'
           :placeholder='$t("pages.admin.family.edit.placeholder1")'
           :options='langs'
-          v-on:focus='resetAlertMsg'
           @blur='$v.editLanguage2.$touch()'
         )
         .input-error(v-if='$v.editLanguage2.$error')
@@ -387,6 +372,7 @@ export default class extends mixins(validationMixin) {
   currentFamily: Families[] = [];
   langs: SelectOption[] = [];
 
+  filterSearch: string = '';
   currentPage: number = 1;
   perPage: number = 8;
   totalFamilies: number = 0;
