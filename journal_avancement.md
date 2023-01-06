@@ -109,3 +109,4 @@
 - [x] 2023/01/03: Admin Promo Add, edit & delete, index stock
 - [x] 2023/01/04: Admin index update stock and alert , personnal profile, basket adress informations, i18n Fr translation
 - [x] 2023/01/05: i18n Fr translation, store vuex
+- [x] 2023/01/06: Installation vuex persist to save store & configuration

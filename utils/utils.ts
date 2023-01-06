@@ -118,18 +118,39 @@ export interface Order {
   details: orderDetails[];
 }
 
-export interface User {
+export interface Role {
+  id: number;
+  name: string;
+}
+export interface UserCurrent {
   id: string;
   lastName: string;
   firstName: string;
-  role: string;
+  email: string;
+  imageUrl: string;
+  password: string;
+  status: string;
+  username: string;
+  role: Role;
+}
+
+export interface Address {
+  id: number;
+  city: string;
+  zipcode: number;
+  street: string;
+  number: number;
+  userId: number;
+  active: boolean;
+  label: string;
 }
 
 export interface BasketLine {
-  id?: number;
+  id: number | null;
   basketId: number;
   productId: number;
   amount: number;
+  product: Product;
 }
 export interface Basket {
   id: number;
@@ -172,4 +193,17 @@ export enum stepProductAddType {
   STEP2,
   STEP3,
   ERROR,
+}
+
+export enum submitOrderType {
+  NONE,
+  SUCCESS,
+  ERROR,
+}
+
+export enum stepOrderType {
+  NONE,
+  STEP1,
+  STEP2,
+  STEP3,
 }

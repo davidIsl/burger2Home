@@ -8,7 +8,7 @@
         h2(v-if='error.statusCode == 404') {{ $t('pages.error.404') }}
         br.
         nuxt-link(:to='`/${$i18n.locale}/`')
-          b-button(variant='primary') {{ $t('pages.error.buttonBack') }}
+          b-button(variant='darkRed') {{ $t('pages.error.buttonBack') }}
 </template>
 
 <script lang="ts">

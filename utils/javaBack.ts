@@ -11,6 +11,9 @@ import {
   Allergens,
   Promo,
   Stock,
+  UserCurrent,
+  Address,
+  BasketLine,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -151,16 +154,31 @@ export class API {
   }
 
   /**
+   * PRODUCT SUMMARY BY LANG AND ID
+   * @param lang
+   * @param id
+   * @returns PRODUCT SUMMARY BY ID AND LANG
+   */
+
+  static getProductSumByLangAndId(
+    lang: string,
+    id: number
+  ): Promise<APIResponse> {
+    return this.get(`/products/summaries/${id}?language=${lang}`);
+  }
+
+  /**
    * PRODUCT SUMMARY AVAILABLE BY LANG
    * @param lang
    * @returns PRODUCT SUMMARY
    */
 
   static productAvailableListByLang(
-    lang: string
+    lang: string,
+    type: number
   ): Promise<APIDataResponse<Product>> {
     return this.get(
-      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true`
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true&type=${type}`
     );
   }
 
@@ -826,5 +844,118 @@ export class API {
     creationDate: string
   ): Promise<APIResponse> {
     return this.update(`/stocks`, { id, ingredientId, amount, creationDate });
+  }
+
+  /******************
+   * USERS ENDPOINT *
+   *                *
+   *****************/
+
+  /**
+   * GET ALL USERS
+   * @returns LIST USERS
+   */
+
+  static getUsersList(): Promise<APIDataResponse<UserCurrent>> {
+    return this.get(`/users`);
+  }
+
+  /**
+   * GET USER BY ID
+   * @param userId
+   * @returns USER
+   */
+
+  static getUserById(userId: number): Promise<APIResponse> {
+    return this.get(`/users/${userId}`);
+  }
+
+  /***********************
+   * ENDPOINT ADDRESSES  *
+   *                     *
+   **********************/
+
+  /**
+   * GET ADDRESS BY USER ID
+   * @param userId
+   * @returns ADDRESS LIST
+   */
+
+  static getAddressByUser(userId: number): Promise<APIDataResponse<Address>> {
+    return this.get(`/users/${userId}/addresses`);
+  }
+
+  /********************
+   * ENDPOINT BASKET  *
+   *                  *
+   *******************/
+
+  /**
+   * GET BASKET BY USER ID
+   * @param userId
+   * @returns BASKET
+   */
+
+  static getBasketByUser(userId: number): Promise<APIResponse> {
+    return this.get(`/users/${userId}/basket`);
+  }
+
+  /**
+   * UPDATE A BASKET
+   * @param id
+   * @param lastUpdate
+   * @param userId
+   * @param basketLines
+   * @returns UPDATED BASKET
+   */
+
+  static updateBasket(
+    id: number,
+    lastUpdate: string,
+    userId: number
+  ): Promise<APIResponse> {
+    return this.update(`/baskets`, { id, lastUpdate, userId });
+  }
+
+  /************************
+   * ENDPOINT BASKETLINE  *
+   *                      *
+   ***********************/
+
+  /**
+   * GET BASKETLINES BY BASKET ID
+   * @param basketId
+   * @returns LIST BASKETLINE
+   */
+  static getBasketLinesByBasketId(
+    basketId: number
+  ): Promise<APIDataResponse<BasketLine>> {
+    return this.get(`/baskets/${basketId}/basketLines`);
+  }
+
+  /**
+   * ADD BASKETLINE
+   * @param basketId
+   * @param productId
+   * @param amount
+   * @returns CREATED BASKETLINE
+   */
+
+  static addBasketLine(
+    basketId: number,
+    productId: number,
+    amount: number
+  ): Promise<APIResponse> {
+    return this.post(`/basketLines`, { basketId, productId, amount });
+  }
+
+  /**
+   * DELETE BASKETLINE
+   * @param basketLineId
+   * @returns DELETED BASKETLINE
+   */
+
+  static removeBasketLine(basketLineId: number): Promise<APIResponse> {
+    return this.del(`/basketLines/${basketLineId}`);
   }
 }

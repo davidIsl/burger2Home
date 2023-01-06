@@ -29,7 +29,7 @@ b-container.bg-gray(fluid)
           b-col(v-for='(product, index) in products' :key='index')
             b-card.m-3.p-2.text-center.card.mx-auto(
               :title='product.name'
-              :img-src='product.imageUrl'
+              :img-src='getLink(product.id)'
               img-alt='Image'
               img-top
               img-height='220'
@@ -54,7 +54,7 @@ b-container.bg-gray(fluid)
   )
     template(#modal-title)
       b-container
-        b-img(thumbnail :src='currentProduct.imageUrl') 
+        b-img(thumbnail :src='getLink(currentProduct.id)') 
     template(#modal-footer)
       b-button.button(@click='decrementQuantity')
         font-awesome-icon(:icon='["fa", "minus"]')
@@ -312,8 +312,14 @@ export default class extends Vue {
     this.getBurgers();
   }
 
+  getLink(productId: number) {
+    const link: string =
+      'http://localhost:8080/products/' + productId + '/image';
+    return link;
+  }
+
   async getBurgers() {
-    const response = await API.productListByLang(this.$i18n.locale);
+    const response = await API.productAvailableListByLang(this.$i18n.locale, 2);
 
     if (response.status !== 200) {
       console.log('LOG ERROR');

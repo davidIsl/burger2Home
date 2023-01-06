@@ -128,6 +128,8 @@ export default {
     { mode: 'all', src: '@plugins/vue-multiselect.js' },
     // https://www.npmjs.com/package/vue2-datepicker
     { mode: 'all', src: '@plugins/vue2-datepicker.js' },
+    // https://www.npmjs.com/package/vuex-persist
+    { mode: 'client', src: '@/plugins/vuex-persist.js' },
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules

@@ -207,6 +207,7 @@
       "modal": {
         "title1": "Actual Price",
         "title2": "Allergens",
+        "title3": "Normal Price",
         "text1": "No Allergens"
       }
     },
@@ -228,7 +229,10 @@
       "button1": "Order",
       "button2": "Log In",
       "button3": "Sign In",
-      "button4": "Next"
+      "button4": "Next",
+      "table": {
+        "image": "Image"
+      }
     },
     "filters": {
       "title1": "Filters",

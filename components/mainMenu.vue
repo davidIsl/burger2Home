@@ -94,32 +94,38 @@ b-container.m-0.p-0(fluid)
                     :alt='`Language: ${lang.label}`'
                   ) 
                   span {{ lang.label }}
-              b-nav-item-dropdown.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-                v-if='userConnected'
+              b-nav-item-dropdown(
+                v-if='$store.state.users.currentUser'
                 left
                 no-caret
                 menu-class='p-0'
               )
                 template(v-slot:button-content)
+                  b-badge(variant='darkRed')
                   b-avatar(variant='secondary')
                 b-dropdown-item(:to='`/${$i18n.locale}/account/profile/`') {{ $t('menu.title7') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/account/historyOrder/`') {{ $t('menu.title8') }}
               //- .basket.text-center.ml-md-2.mt-2.mt-md-0
               b-avatar(
-                v-if='!userConnected'
+                v-if='!$store.state.users.currentUser'
                 variant='secondary'
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
-              b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2.mt-md-0(
+              b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2(
                 @click='goToUrl("/" + $i18n.locale + "/basket/")'
               )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
+                b-badge(
+                  v-if='this.$store.state.baskets.quantity > 0'
+                  variant='darkRed'
+                ) {{ this.$store.state.baskets.quantity }}
               //- b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2.mt-md-0(
               //-   @click='goToUrl("/" + $i18n.locale + "/basket/")'
               //- )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
-              b-button.button(@click='userConnected = !userConnected') Change User
+              b-button.button.w-50.mr-2(@click='connect') Connect
+              b-button.button.w-50(@click='reset') RESET
               //- b-button.ml-2 Identify
               //- .pl-2
               //-   themeSwitcher
@@ -130,6 +136,7 @@ b-container.m-0.p-0(fluid)
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
 import logoAntelopeBanner from '~/components/svg/logoAntelopeBanner.vue';
 import themeSwitcher from '~/components/themeSwitcher.vue';
+import { API } from '~/utils/javaBack';
 
 export interface Lang {
   lang: string;
@@ -190,6 +197,25 @@ export default class extends Vue {
 
   goToUrl(url: string) {
     this.$router.push(url);
+  }
+
+  async getUser(userId: number) {
+    const response = await API.getUserById(userId);
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.$store.commit('users/setCurrentUser', response.data);
+  }
+
+  connect() {
+    this.getUser(1);
+  }
+
+  reset() {
+    this.$store.commit('baskets/resetBasket');
+    this.$store.commit('users/resetUser');
   }
 }
 </script>

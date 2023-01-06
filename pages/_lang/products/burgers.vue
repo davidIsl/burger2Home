@@ -71,10 +71,10 @@ b-container.bg-gray(fluid)
     template(#modal-footer)
       b-button.button(@click='decrementQuantity')
         font-awesome-icon(:icon='["fa", "minus"]')
-      p.d-inline.my-3 {{ numberToAdd }}
+      p.d-inline.my-3 {{ $store.state.baskets.amountToAdd }}
       b-button.button(@click='incrementQuantity')
         font-awesome-icon(:icon='["fa", "plus"]')
-      b-button.button(@click='addToBasket(currentProduct.productId)') {{ $t('pages.products.button1') }}
+      b-button.button(@click='addToBasket(currentProduct.id)') {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
       p.text-modal {{ currentProduct.description }}
@@ -123,7 +123,7 @@ export default class extends Vue {
   filters: boolean = false;
   filterSearch: string = '';
 
-  numberToAdd: number = 0;
+  // numberToAdd: number = 0;
 
   products: Product[] | null = null;
   currentProduct: Product | null = null;
@@ -139,7 +139,7 @@ export default class extends Vue {
   }
 
   async getBurgers() {
-    const response = await API.productAvailableListByLang(this.$i18n.locale);
+    const response = await API.productAvailableListByLang(this.$i18n.locale, 1);
 
     if (response.status !== 200) {
       console.log('LOG ERROR');
@@ -171,18 +171,15 @@ export default class extends Vue {
   }
 
   decrementQuantity() {
-    if (this.numberToAdd === 0) {
-      return;
-    }
-    this.numberToAdd--;
+    this.$store.commit('baskets/decrementAmountToAdd');
   }
 
   incrementQuantity() {
-    this.numberToAdd++;
+    this.$store.commit('baskets/incrementAmountToAdd');
   }
 
   addToBasket(id: number) {
-    this.$store.commit('basket/addProduct', id);
+    this.$store.dispatch('baskets/addProduct', id);
   }
 
   handleChangeFilter(event: Product[]) {

@@ -1,19 +1,26 @@
-import { User } from '~/utils/utils';
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
+import { store } from '.';
+import { UserCurrent } from '~/utils/utils';
+// import { API } from '~/utils/javaBack';
 
-export const state = () => ({
-  user: null,
-});
+@Module({
+  name: 'users',
+  namespaced: true,
+  stateFactory: true,
+  store,
+})
+export default class Users extends VuexModule {
+  // basket: Basket | {} = {};
+  currentUser: UserCurrent | null = null;
 
-export const mutations = {
-  setUser(state: any, user: User) {
-    state.user = user;
-  },
+  @Mutation
+  setCurrentUser(user: UserCurrent) {
+    this.currentUser = user;
+  }
 
-  getUser(state: any): User {
-    return state.user;
-  },
-
-  // getPermissions(state: any) {
-  //   return state.user
-  // }
-};
+  @Mutation
+  resetUser() {
+    this.currentUser = null;
+    console.log('USERS', this.currentUser);
+  }
+}
