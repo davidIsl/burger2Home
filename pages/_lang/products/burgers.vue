@@ -100,20 +100,6 @@ import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
 import { Product } from '@/utils/utils';
-// import basket from '@/store';
-
-// import { basket } from '@/store/baskets';
-// export interface Field {
-//   key: string;
-//   sortable: boolean;
-// }
-
-// export interface Item {
-//   id: number;
-//   product_name: string;
-//   price: number;
-//   description: string;
-// }
 
 @Component({
   components: { filters },
@@ -180,6 +166,7 @@ export default class extends Vue {
 
   addToBasket(id: number) {
     this.$store.dispatch('baskets/addProduct', id);
+    this.viewDetails = false;
   }
 
   handleChangeFilter(event: Product[]) {

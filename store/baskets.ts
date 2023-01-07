@@ -112,7 +112,7 @@ export default class Baskets extends VuexModule {
 
   @Action
   async addProduct(id: number) {
-    const response = await API.getProductSummaryById(id);
+    const response = await API.getProductSummaryById(id); // TODO BY LANG
 
     if (response.status !== 200) {
       return;

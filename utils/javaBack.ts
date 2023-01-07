@@ -876,6 +876,16 @@ export class API {
    **********************/
 
   /**
+   * GET ADDRESS BY ID
+   * @param addressId
+   * @returns ADDRESS
+   */
+
+  static getAddressById(addressId: number): Promise<APIResponse> {
+    return this.get(`/addresses/${addressId}`);
+  }
+
+  /**
    * GET ADDRESS BY USER ID
    * @param userId
    * @returns ADDRESS LIST

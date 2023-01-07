@@ -1,12 +1,12 @@
 <template lang="pug">
 b-container.p-4.bg-gray(fluid)
   b-row
-    b-col.mt-2(md='18')
+    b-col.mt-2(offset-md='2' md='16')
       h3.p-1.text-secondary.title-line {{ $t('pages.basket.title1') }}
     //- b-col.mt-2(md='6')
     //-   h3.p-1.text-secondary.title-line {{ $t('pages.basket.title2') }}
   b-row
-    b-col.mt-3(md='18')
+    b-col.mt-3(offset-md='2' md='16')
       .p-3.content
         b-table(
           hover
@@ -53,7 +53,7 @@ b-container.p-4.bg-gray(fluid)
           :per-page='perPage'
           align='right'
         )
-    b-col.mt-3(md='6')
+    b-col.mt-3(md='4')
       .py-2.content
         p.mb-1.pb-2.text-center.border-bottom Montant Total: 63€
         .p-3
@@ -65,14 +65,12 @@ b-container.p-4.bg-gray(fluid)
           b-button.mb-2.w-100.button(
             @click='goToUrl("/" + $i18n.locale + "/account/register/")'
           ) {{ $t('pages.basket.button3') }}
-          b-button.w-100.button(
-            @click='goToUrl("/" + $i18n.locale + "/account/register/")'
-          ) {{ $t('pages.basket.button4') }}
+
   b-row
-    b-col(v-if='stepOrder === stepOrderType.STEP1')
+    b-col.mx-auto(v-if='stepOrder === stepOrderType.STEP1' md='20')
       .content.p-3.mt-3
         b-row.pt-3
-          b-col.mx-auto(lg='22')
+          b-col.mx-auto(md='22')
             h3.title-line.pb-2.text-secondary {{ $t('pages.basket.title2') }}
         b-row.pt-3
           b-col(offset-lg='1' md='12' lg='10')
@@ -86,12 +84,22 @@ b-container.p-4.bg-gray(fluid)
                 :placeholder='$t("pages.basket.placeholder1")'
                 :options='add'
                 @blur='$v.addresses.$touch()'
+                @change='handleChangeAddress'
               )
                 .input-error(v-if='$v.addresses.$error')
                   font-awesome-icon.mr-2(
                     :icon='["fa", "exclamation-triangle"]'
                   )
                   | {{ $t('pages.errors.required') }}
+          b-col(offset-md='2' md='12' lg='10')
+            b-form-group(:label='$t("pages.basket.label7")' label-for='note')
+              b-form-input#note.input-form(
+                v-model='note'
+                :placeholder='$t("pages.basket.placeholder7")'
+                type='text'
+                :readonly='isReadOnly'
+                name='address'
+              )
         b-row.pt-2
           b-col.mx-auto(md='12' lg='10')
             b-form-group(
@@ -115,7 +123,7 @@ b-container.p-4.bg-gray(fluid)
                 v-model='$v.number.$model'
                 :class='{ "is-invalid": $v.number.$error, "is-valid": !$v.number.$invalid }'
                 :placeholder='$t("pages.basket.placeholder3")'
-                type='text'
+                type='number'
                 name='number'
                 @blur='$v.number.$touch()'
               )
@@ -131,7 +139,7 @@ b-container.p-4.bg-gray(fluid)
                 v-model='$v.extension.$model'
                 :class='{ "is-invalid": $v.extension.$error, "is-valid": !$v.extension.$invalid }'
                 :placeholder='$t("pages.basket.placeholder4")'
-                type='text'
+                type='number'
                 name='extension'
                 @blur='$v.extension.$touch()'
               )
@@ -145,7 +153,7 @@ b-container.p-4.bg-gray(fluid)
                 v-model='$v.zip.$model'
                 :class='{ "is-invalid": $v.zip.$error, "is-valid": !$v.zip.$invalid }'
                 :placeholder='$t("pages.basket.placeholder5")'
-                type='text'
+                type='number'
                 name='zip'
                 @blur='$v.zip.$touch()'
               )
@@ -168,6 +176,11 @@ b-container.p-4.bg-gray(fluid)
               .input-error(v-if='$v.city.$error')
                 font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
                 | {{ $t('pages.errors.required') }}
+        b-row
+          b-col.mx-auto(md='6')
+            b-button.w-100.button(
+              @click='goToUrl("/" + $i18n.locale + "/account/register/")'
+            ) {{ $t('pages.basket.button4') }}
 </template>
 <script lang="ts">
 import { mixins, Component } from 'nuxt-property-decorator';
@@ -195,6 +208,8 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) zip: string = '';
   @Validate({ required }) number: number = 0;
   @Validate({ required }) extension: number = 0;
+  note: string = '';
+  // isReadOnly: boolean = false;
 
   add: SelectOption[] = [];
   // quantityToOrder: number[] = [1, 2, 3, 4, 5];
@@ -239,6 +254,8 @@ export default class extends mixins(validationMixin) {
     // this.getProducts();
     // this.getUser(2);
     // console.log('BASKET:!', this.$store.state.baskets.basketLine);
+    this.getAddressByUser(1);
+    console.log('ADD', this.addresses);
   }
 
   // async getProducts() {
@@ -255,6 +272,49 @@ export default class extends mixins(validationMixin) {
   //     this.$store.commit('baskets/addProduct', response.data)
   //   }
   // }
+
+  isReadOnly(): boolean {
+    if (this.addresses === '') {
+      console.log('TRUE');
+
+      return true;
+    }
+    return false;
+  }
+
+  async getAddressByUser(userId: number) {
+    const responseAddress = await API.getAddressByUser(userId);
+
+    if (responseAddress.status !== 200) {
+      return;
+    }
+
+    this.add = responseAddress.data.map((address) => ({
+      value: address.id,
+      text: address.label,
+    }));
+  }
+
+  async handleChangeAddress() {
+    console.log('ADDRESS', this.addresses);
+    const responseAddress = await API.getAddressById(parseInt(this.addresses));
+
+    if (responseAddress.status !== 200) {
+      return;
+    }
+
+    // this.isReadOnly = true;
+    this.address = responseAddress.data.street;
+    this.number = responseAddress.data.number;
+    this.zip = responseAddress.data.zipcode;
+    this.city = responseAddress.data.city;
+
+    if (responseAddress.data.extension !== null) {
+      this.extension = responseAddress.data.extension;
+    }
+
+    console.log('READ ONLY', responseAddress.data);
+  }
 
   incrementQuantity(productId: number) {
     this.$store.commit('baskets/incrementAmount', productId);
@@ -344,9 +404,18 @@ export default class extends mixins(validationMixin) {
     console.log('UPDATED BASKET OK');
 
     this.$store.commit('baskets/resetBasket');
-    // this.stepOrder = stepOrderType.STEP1;
 
     // const responseAdress = await API.get;
+  }
+
+  createOrder() {
+    if (this.$store.state.users.currentUser === null) {
+      console.log('PAS CONNECTE');
+
+      return;
+    }
+
+    this.stepOrder = stepOrderType.STEP1;
   }
 
   goToUrl(url: string) {

@@ -41,6 +41,7 @@
     "nuxt": "^2.15.6",
     "nuxt-gmaps": "^1.2.10",
     "nuxt-property-decorator": "^2.9.1",
+    "nuxt-stripe-module": "^3.2.0",
     "particles.vue": "^2.13.4",
     "patch-package": "^6.4.7",
     "spdy": "^4.0.2",
