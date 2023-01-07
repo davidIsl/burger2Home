@@ -549,6 +549,18 @@ export default class extends mixins(validationMixin) {
     this.editProduct = [];
   }
 
+  resetFields() {
+    this.language1 = '';
+    this.language2 = '';
+    this.description = '';
+    this.frenchDescription = '';
+    this.amount = 0;
+    this.startDate = null;
+    this.endDate = null;
+    this.product = [];
+    this.$v.$reset();
+  }
+
   async getLanguages() {
     const response = await API.languagesList();
 
@@ -600,9 +612,39 @@ export default class extends mixins(validationMixin) {
     this.creationDate = response.data.creationDate;
     console.log('CREATION DATE GET BY ID', this.creationDate);
     this.editAmount = response.data.amount;
-    this.editProduct = response.data.products;
     this.editStartDate = response.data.startDate;
     this.editEndDate = response.data.endDate;
+
+    for (let i = 0; i < response.data.products.length; i++) {
+      const productId = response.data.products[i].id;
+      console.log('ID', productId);
+
+      if (this.$i18n.locale === 'en') {
+        const responseProdSum = await API.getProductSumByLangAndId(
+          this.$i18n.locale,
+          productId
+        );
+
+        if (responseProdSum.status !== 200) {
+          return;
+        }
+
+        this.editProduct.push(responseProdSum.data);
+      }
+      if (this.$i18n.locale === 'fr') {
+        const responseProdSum = await API.getProductSumByLangAndId(
+          this.$i18n.locale,
+          productId
+        );
+
+        if (responseProdSum.status !== 200) {
+          return;
+        }
+
+        this.editProduct.push(responseProdSum.data);
+      }
+    }
+    console.log('PROMO PRODUCT', response.data);
   }
 
   async getPromoTranslationById(id: number) {
@@ -661,10 +703,6 @@ export default class extends mixins(validationMixin) {
 
     // console.log('CREATION DATE', this.currentPromo.creationDate);
     this.getPromoById(promo.promotionId);
-    // this.editAmount = this.currentPromo.amount as number;
-    // this.editProduct = this.currentPromo.products;
-    // this.editStartDate = this.currentPromo.startDate;
-    // this.editEndDate = this.currentPromo.endDate;
 
     this.getPromoTranslationById(promo.promotionId);
     console.log('PROMO', this.currentPromo);
@@ -779,6 +817,11 @@ export default class extends mixins(validationMixin) {
     this.getPromos();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.promos.success.create');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 2000);
+    this.resetFields();
     console.log('ADD PROMO');
   }
 

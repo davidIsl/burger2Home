@@ -23,7 +23,7 @@ b-container.bg-gray(fluid)
         :lg='filters ? "6" : "4"'
         sm='8'
       )
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
+        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
         filters(:filters='products' @change='handleChangeFilter')

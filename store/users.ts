@@ -23,4 +23,10 @@ export default class Users extends VuexModule {
     this.currentUser = null;
     console.log('USERS', this.currentUser);
   }
+
+  getRole() {
+    if (this.currentUser !== null) {
+      return this.currentUser.role.name;
+    }
+  }
 }

@@ -247,6 +247,7 @@
       "title4": "Prices",
       "title5": "Ingredients",
       "title6": "Allergens",
+      "title7": "Users Role List",
       "placeholder1": "Search a product",
       "placeholder2": "Search a promo",
       "button1": "Create a new product",
@@ -257,6 +258,28 @@
       "button6": "Update Product",
       "button7": "Cancel",
       "button8": "Update Stock",
+      "users": {
+        "table": {
+          "id": "Id",
+          "lastname": "LastName",
+          "firstname": "FirstName",
+          "username": "UserName",
+          "role": "Role",
+          "details": "Details"
+        },
+        "modal": {
+          "title1": "Roles Users",
+          "title2": "User Name",
+          "title3": "User Email",
+          "title4": "User Role",
+          "title5": "Select a new Role",
+          "button1": "Cancel",
+          "button2": "Update Role"
+        },
+        "success": {
+          "update": "Role updated with SUCCESS"
+        }
+      },
       "products": {
         "table": {
           "image": "Image",
@@ -652,7 +675,7 @@
           "title4": "Promotion Start Date",
           "title5": "Promotion End Date",
           "button1": "Cancel",
-          "button2": "Create Promotion"
+          "button2": "Update Promotion"
         },
         "table": {
           "id": "Id",

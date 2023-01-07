@@ -120,14 +120,14 @@ export interface Order {
 
 export interface Role {
   id: number;
-  name: string;
+  name?: string;
 }
 export interface UserCurrent {
-  id: string;
-  lastName: string;
-  firstName: string;
+  id: number;
+  lastname: string;
+  firstname: string;
   email: string;
-  imageUrl: string;
+  imageURL: string;
   password: string;
   status: string;
   username: string;

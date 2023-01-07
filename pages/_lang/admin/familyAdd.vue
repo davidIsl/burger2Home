@@ -281,7 +281,7 @@ b-container.p-5.bg-gray(fluid)
         .input-error(v-if='$v.editName.$error')
           font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]') | {{ $t('pages.errors.required') }}
       b-form-group.pt-3.text-primary(
-        :label='$t("pages.admin.family.add.label3")'
+        :label='$t("pages.admin.family.edit.label3")'
         label-for='editDescription'
       )
         b-form-textarea#editDescription.input-area(
@@ -486,6 +486,10 @@ export default class extends mixins(validationMixin) {
     this.deleteAlert = false;
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.family.success.delete');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 3000);
     this.getFamilyList();
   }
 
@@ -536,6 +540,16 @@ export default class extends mixins(validationMixin) {
   //   this.errorMsg = '';
   //   this.submitProductAdd = submitProductAddType.NONE;
   // }
+
+  resetField() {
+    this.language1 = '';
+    this.language2 = '';
+    this.name = '';
+    this.frenchName = '';
+    this.description = '';
+    this.frenchDescription = '';
+    this.$v.$reset();
+  }
 
   async createFamily() {
     if (!this.checkLang(this.language1, this.language2)) {
@@ -621,6 +635,11 @@ export default class extends mixins(validationMixin) {
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.family.success.create');
+    this.resetField();
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 2000);
     this.getFamilyList();
   }
 
@@ -674,9 +693,13 @@ export default class extends mixins(validationMixin) {
     }
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
-    this.errorMsg = this.$tc('pages.admin.allergens.success.update');
+    this.errorMsg = this.$tc('pages.admin.family.success.update');
     this.editingFamily = false;
     this.$v.$reset();
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 2000);
     this.getFamilyList();
   }
 }

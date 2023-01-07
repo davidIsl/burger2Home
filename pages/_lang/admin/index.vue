@@ -111,35 +111,78 @@ b-container.p-4.bg-gray(fluid)
               align='right'
               @change='handleChangePage'
             )
+  // ADMIN ROLES
+  .p-2
+    b-row
+      b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
+        h2.text-secondary {{ $t('pages.admin.title7') }}
+    b-row
+      b-col(offset-lg='2' sm='16' lg='14')
+        b-form-input.input(
+          v-model='filterSearch'
+          :placeholder='$t("pages.admin.placeholder1")'
+        )
+    b-row
+      b-col.mt-3(offset-lg='2' lg='20')
+        //- div(v-if='itemSelected.length > 0')
+        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
+        .p-3.content.text-secondary
+          .m-3
+            b-table(
+              hover
+              borderless
+              responsive
+              head-row-variant='darkRed'
+              table-variant='gray'
+              :current-page='currentPageUsers'
+              :perPage='perPageUsers'
+              :items='users'
+              :fields='fieldsUsers'
+              :totalProducts='totalUsers'
+            )
+              template(#head(id)='data')
+                p {{ $t('pages.admin.users.table.id') }}
+              template(#head(lastname)='data')
+                p {{ $t('pages.admin.users.table.lastname') }}
+              template(#head(firstname)='data')
+                p {{ $t('pages.admin.users.table.firstname') }}
+              template(#head(username)='data')
+                p {{ $t('pages.admin.users.table.username') }}
+              template(#head(role.name)='data')
+                p {{ $t('pages.admin.users.table.role') }}
+              template(#head(details)='data')
+                p {{ $t('pages.admin.users.table.details') }}
+
+              template(#cell(details)='data')
+                font-awesome-icon.mt-1(
+                  :icon='["fa", "pencil-alt"]'
+                  @click='openDetailsUser(data.item)'
+                )
+            b-pagination(
+              pills='pills'
+              size='sm'
+              v-model='currentPageUsers'
+              :total-rows='totalUsers'
+              :per-page='perPageUsers'
+              align='right'
+            )
   // MARKETING
   .p-2
     b-row
-      b-col.pb-3.text-md-left(
-        :offset-lg='filters ? "0" : "2"'
-        sm='16'
-        :md='filters ? "18" : "16"'
-        :lg='filters ? "18" : "14"'
-      )
+      b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title2') }}
       //- b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
       //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/promoAdd/`') {{ $t('pages.admin.button2') }}
     b-row
-      b-col(
-        :offset-lg='filters ? "0" : "2"'
-        sm='16'
-        :md='filters ? "18" : "16"'
-        :lg='filters ? "18" : "14"'
-      )
+      b-col(offset-lg='2' sm='16' lg='16')
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder2")'
         )
-      b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
+      b-col.mt-3.mt-sm-0(sm='8' lg='4')
         b-button.button.w-100(:to='`/${$i18n.locale}/admin/promosAdd/`') {{ $t('pages.admin.button2') }}
     b-row
-      b-col.mt-3(v-if='filters' lg='4')
-        filters
-      b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
+      b-col.mt-3(offset-lg='2' lg='20')
         //- div(v-if='itemSelected.length > 0')
         //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
@@ -173,32 +216,19 @@ b-container.p-4.bg-gray(fluid)
   // STOCK
   .p-2
     b-row
-      b-col.pb-3.text-md-left(
-        :offset-lg='filters ? "0" : "2"'
-        sm='16'
-        :md='filters ? "18" : "16"'
-        :lg='filters ? "18" : "14"'
-      )
+      b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title3') }}
       //- b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
       //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/stockAdd/`') {{ $t('pages.admin.button6') }}
     b-row
-      b-col(
-        :offset-lg='filters ? "0" : "2"'
-        sm='16'
-        :md='filters ? "18" : "16"'
-        :lg='filters ? "18" : "14"'
-      )
+      b-col(offset-lg='2' sm='16' lg='14')
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder2")'
         )
-      //- b-col.mt-3.mt-sm-0(sm='8' :md='filters ? "6" : "8"' lg='6')
-      //-   b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+
     b-row
-      //- b-col.mt-3(v-if='filters' lg='4')
-      //-   filters
-      b-col.mt-3(:offset-lg='filters ? "0" : "2"' lg='20')
+      b-col.mt-3(offset-lg='2' lg='20')
         .p-3.content.text-secondary
           .m-2
             b-table(
@@ -282,6 +312,43 @@ b-container.p-4.bg-gray(fluid)
       )
         li
           ul.m-0.p-0 {{ allergen }}
+  // MODAL DETAILS USERS ROLES
+  b-modal(
+    body-bg-variant='gray'
+    header-bg-variant='gray'
+    footer-bg-variant='gray'
+    hide-header-close
+    v-if='viewDetailsUser'
+    v-model='viewDetailsUser'
+    right
+  )
+    template(#modal-title)
+      h4.pb-3.text-secondary.text-center.title {{ $t('pages.admin.users.modal.title1') }}
+    template(#modal-footer)
+      b-button.mx-auto.button.w-48(@click='viewDetailsUser = false') {{ $t('pages.admin.users.modal.button1') }}
+      b-button.mx-auto.button.w-48(@click='updateRole') {{ $t('pages.admin.users.modal.button2') }}
+
+    h6.pt-3.title.text-secondary {{ $t('pages.admin.users.modal.title2') }}
+    .text-modal
+      p {{ currentUser.lastname }} {{ currentUser.firstname }}
+    .border-top.pb-3
+      h6.pt-3.title.text-secondary {{ $t('pages.admin.users.modal.title3') }}
+      .text-modal
+        p.text-modal {{ currentUser.email }}
+    .border-top.pb-3
+      h6.pt-3.title.text-secondary {{ $t('pages.admin.users.modal.title4') }}
+      .text-modal
+        p.text-modal {{ currentUser.role.name }}
+    .border-top.pb-3
+      h6.pt-3.title.text-secondary {{ $t('pages.admin.users.modal.title5') }}
+      .text-modal
+        b-form-select#role.input-form(
+          v-model='$v.newRole.$model'
+          :class='{ "is-invalid": $v.newRole.$error, "is-valid": !$v.newRole.$invalid }'
+          :placeholder='$t("pages.admin.family.edit.placeholder1")'
+          :options='roles'
+          @blur='$v.newRole.$touch()'
+        )
   // MODAL DETAILS PROMO
   b-modal(
     body-bg-variant='gray'
@@ -439,6 +506,9 @@ import {
   Promo,
   Stock,
   submitProductAddType,
+  UserCurrent,
+  SelectOption,
+  Role,
 } from '@/utils/utils';
 import { API } from '@/utils/javaBack';
 
@@ -454,12 +524,14 @@ export default class extends mixins(validationMixin) {
   // role = rolesType.NONE;
   @Validate({ required }) name: string = '';
   @Validate({ required }) newQuantity: number = 0;
+  @Validate({ required }) newRole: string = '';
   quantity: number = 0;
 
   filters: boolean = false;
   filterSearch: string = '';
   viewDetails: boolean = false;
   viewDetailsPromo: boolean = false;
+  viewDetailsUser: boolean = false;
   editingStock: boolean = false;
   cancelAlert: boolean = false;
   errorAlert: boolean = false;
@@ -467,20 +539,26 @@ export default class extends mixins(validationMixin) {
   perPage: number = 8;
   perPagePromos: number = 8;
   perPageStocks: number = 8;
+  perPageUsers: number = 8;
   currentPage: number = 1;
   currentPagePromos: number = 1;
   currentPageStocks: number = 1;
+  currentPageUsers: number = 1;
   totalProducts: number = 0;
   totalPromos: number = 0;
   totalStocks: number = 0;
+  totalUsers: number = 0;
 
   allergens: Allergens[] = [];
   products: Product[] = [];
   promos: Promo[] = [];
   stocks: Stock[] = [];
+  users: UserCurrent[] = [];
+  roles: SelectOption[] = [];
   currentProduct: Product | null = null;
   currentPromo: Promo | null = null;
   currentStock: Stock | null = null;
+  currentUser: UserCurrent | null = null;
   currentStockId: number = 0;
   currentIngredientId: number = 0;
 
@@ -565,6 +643,33 @@ export default class extends mixins(validationMixin) {
     },
   ];
 
+  fieldsUsers = [
+    {
+      key: 'id',
+      sortable: true,
+    },
+    {
+      key: 'lastname',
+      sortable: true,
+    },
+    {
+      key: 'firstname',
+      sortable: true,
+    },
+    {
+      key: 'username',
+      sortable: false,
+    },
+    {
+      key: 'role.name',
+      sortable: true,
+    },
+    {
+      key: 'details',
+      sortable: false,
+    },
+  ];
+
   stock: Stock[] = [
     {
       id: 1,
@@ -589,6 +694,7 @@ export default class extends mixins(validationMixin) {
     this.getBurgers();
     this.getPromos();
     this.getIngredients();
+    this.getUsers();
   }
 
   stopUpdate() {
@@ -656,16 +762,43 @@ export default class extends mixins(validationMixin) {
       if (responseStock.status !== 200) {
         return;
       }
+      console.log('RESPONSE STOCK', responseStock);
 
-      this.stocks[i] = responseStock.data.sort(
-        (a, b) =>
-          new Date(b.creationDate).getTime() -
-          new Date(a.creationDate).getTime()
-      )[0];
+      this.stocks[i] = responseStock.data[0];
+      // this.stocks[i] = responseStock.data.sort(
+      //   (a, b) =>
+      //     new Date(b.creationDate).getTime() -
+      //     new Date(a.creationDate).getTime()
+      // )[0];
       this.stocks[i].name = response.data[i].name;
+      console.log('STOCK ITEM', responseStock.data[0]);
     }
     console.log('STOCK', this.stocks);
     this.totalStocks = this.stocks.length;
+  }
+
+  async getUsers() {
+    const response = await API.getUsersList();
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.users = response.data;
+    this.totalUsers = response.data.length;
+  }
+
+  async getRoles() {
+    const response = await API.getRoles();
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.roles = response.data.map((role) => ({
+      value: role.id,
+      text: role.name,
+    }));
   }
 
   openDetails(product: Product) {
@@ -686,6 +819,12 @@ export default class extends mixins(validationMixin) {
     this.currentIngredientId = this.currentStock.ingredientId;
     this.name = this.currentStock.name;
     this.quantity = this.currentStock.amount;
+  }
+
+  openDetailsUser(user: UserCurrent) {
+    this.viewDetailsUser = true;
+    this.currentUser = user;
+    this.getRoles();
   }
 
   handleChangePage(e: number) {
@@ -733,6 +872,56 @@ export default class extends mixins(validationMixin) {
     this.editingStock = false;
     this.getIngredients();
     console.log('FINISH UPDATE');
+  }
+
+  async updateRole() {
+    this.$v.newRole.$touch();
+
+    if (this.$v.newRole.$invalid) {
+      return;
+    }
+
+    const responseRole = await API.getRoleById(parseInt(this.newRole));
+
+    if (responseRole.status !== 200) {
+      return;
+    }
+
+    const role: Role = {
+      id: responseRole.data.id,
+      name: responseRole.data.name,
+    };
+
+    console.log('ROLE', role);
+    console.log('RESONSE ROLE', responseRole.data);
+    console.log('USER', this.currentUser);
+
+    const responseUpdate = await API.updateUser(
+      (this.currentUser as UserCurrent).id,
+      (this.currentUser as UserCurrent).email,
+      (this.currentUser as UserCurrent).firstname,
+      (this.currentUser as UserCurrent).lastname,
+      (this.currentUser as UserCurrent).imageURL,
+      (this.currentUser as UserCurrent).password,
+      (this.currentUser as UserCurrent).status,
+      (this.currentUser as UserCurrent).username,
+      role
+    );
+
+    if (responseUpdate.status !== 200) {
+      return;
+    }
+
+    this.submitProductAdd = submitProductAddType.SUCCESS;
+    this.errorMsg = this.$tc('pages.admin.users.success.update');
+    this.viewDetailsUser = false;
+    this.getUsers();
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 2000);
+    this.newRole = '';
+    this.$v.$reset();
   }
 }
 </script>

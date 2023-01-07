@@ -227,6 +227,28 @@
       "button6": "Modifier Produit",
       "button7": "Annuler",
       "button8": "Mise à jour Stock",
+      "users": {
+        "table": {
+          "id": "Id",
+          "lastname": "Nom",
+          "firstname": "Prénom",
+          "username": "Pseudo",
+          "role": "Rôle",
+          "details": "Détails"
+        },
+        "modal": {
+          "title1": "Roles des utilisateurs",
+          "title2": "Pseudos",
+          "title3": "Email",
+          "title4": "Rôle",
+          "title5": "Choix d'un nouveau rôle",
+          "button1": "Annuler",
+          "button2": "Modifier Rôle"
+        },
+        "success": {
+          "update": "Rôle mis à jour avec SUCCES"
+        }
+      },
       "products": {
         "table": {
           "image": "Image",

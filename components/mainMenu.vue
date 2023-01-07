@@ -40,7 +40,9 @@ b-container.m-0.p-0(fluid)
                 b-dropdown-item(:to='`/${$i18n.locale}/products/burgers/`') {{ $t('menu.title2sub2') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/products/fries/`') {{ $t('menu.title2sub3') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/products/drinks/`') {{ $t('menu.title2sub4') }}
+              // ADMIN
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+                v-if='this.$store.state.users.currentUser !== null'
                 left
                 no-caret
                 menu-class='p-0'
@@ -207,10 +209,18 @@ export default class extends Vue {
     }
 
     this.$store.commit('users/setCurrentUser', response.data);
+    console.log('GETUSER', response.data);
+    console.log('STORE USER', this.$store.state.users.currentUser);
+  }
+
+  getRole() {
+    return this.$store.getters['users/getRoles'];
   }
 
   connect() {
     this.getUser(1);
+    console.log('ROLE', this.getRole());
+    console.log('USER', this.$store.state.users.currentUser);
   }
 
   reset() {

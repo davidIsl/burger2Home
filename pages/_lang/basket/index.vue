@@ -237,7 +237,7 @@ export default class extends mixins(validationMixin) {
       sortable: true,
     },
     {
-      key: 'product.currentPrice',
+      key: 'product.actualPrice',
       sortable: false,
     },
     {

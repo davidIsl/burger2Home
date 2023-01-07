@@ -14,6 +14,7 @@ import {
   UserCurrent,
   Address,
   BasketLine,
+  Role,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -868,6 +869,68 @@ export class API {
 
   static getUserById(userId: number): Promise<APIResponse> {
     return this.get(`/users/${userId}`);
+  }
+
+  /**
+   * UPDATE A USER
+   * @param id
+   * @param email
+   * @param firstName
+   * @param lastname
+   * @param imageUrl
+   * @param password
+   * @param status
+   * @param username
+   * @param role
+   * @returns USER UPDATED
+   */
+
+  static updateUser(
+    id: number,
+    email: string,
+    firstname: string,
+    lastname: string,
+    imageURL: string,
+    password: string,
+    status: string,
+    username: string,
+    role: Role
+  ): Promise<APIResponse> {
+    return this.update(`/users`, {
+      id,
+      email,
+      firstname,
+      lastname,
+      imageURL,
+      password,
+      status,
+      username,
+      role,
+    });
+  }
+
+  /******************
+   * ENDPOINT ROLES *
+   *                *
+   *****************/
+
+  /**
+   * GET ALL ROLES
+   * @returns ROLE LIST
+   */
+
+  static getRoles(): Promise<APIDataResponse<Role>> {
+    return this.get(`/roles`);
+  }
+
+  /**
+   * GET ROLE BY ID
+   * @param roleId
+   * @returns ROLE
+   */
+
+  static getRoleById(roleId: number) {
+    return this.get(`/roles/${roleId}`);
   }
 
   /***********************
