@@ -1,0 +1,709 @@
+{
+  "menu": {
+    "title1": "Accueil",
+    "title2": "Produits",
+    "title2sub1": "Général",
+    "title2sub2": "Burgers",
+    "title2sub3": "Accompagnements",
+    "title2sub4": "Boissons",
+    "title3": "Administrations",
+    "title4": "Marketing",
+    "title5": "Contacts",
+    "title6": "A propos",
+    "title7": "Mon compte",
+    "title8": "Mes commandes"
+  },
+  "footer": {
+    "title1": "Informations",
+    "title2": "Heures d'ouvertures",
+    "title3": "Liens",
+    "text1": "Lundi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text2": "Mardi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text3": "Mercredi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text4": "Jeudi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text5": "Vendredi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text6": "Samedi: 11:00 - 15:00 | 17:00 - 21:00",
+    "text7": "Dimanche: 11:00 - 15:00 | 17:00 - 21:00",
+    "link1": "Accueil",
+    "link2": "Produits",
+    "link3": "Menu",
+    "link4": "Burgers",
+    "link5": "Accompagnements",
+    "link6": "Boissons",
+    "link7": "Administrations",
+    "link8": "Marketing",
+    "link9": "Contacts",
+    "link10": "A propos",
+    "viewOnMap": "Voir sur Google Maps",
+    "contacts": "Contactez-nous"
+  },
+  "country": {
+    "belgium": "Belgique",
+    "france": "France",
+    "netherlands": "Pays-Bas",
+    "germany": "Allemagne",
+    "spain": "Espagne",
+    "italy": "Italie"
+  },
+  "swal": {
+    "confirmDelete": {
+      "title": "Êtes-vous sûr ?",
+      "text": "Vous ne pourrez pas revenir en arrière !",
+      "confirButton": "Oui, supprimez !",
+      "cancelButton": "Annuler",
+      "nextTitle": "Supprimé !",
+      "nextText": "Votre saisie a été supprimée."
+    }
+  },
+  "pages": {
+    "login": {
+      "title1": "Se connecter à Burger2Home",
+      "label1": "Adresse Email",
+      "label2": "Mot de passe",
+      "button1": "Se connecter",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "text1": "Ou ",
+      "text2": "S'inscrire si vous n'avez pas encore de compte ",
+      "text3": "Ou continuez avec",
+      "remember": "Se souvenir de moi",
+      "forgot": "Mot de passe oublié"
+    },
+    "register": {
+      "title1": "S'inscrire à Burger2Home",
+      "button1": "S'inscrire",
+      "label1": "Adresse Email",
+      "label2": "Mot de passe",
+      "label3": "Confirmer mot de passe",
+      "label4": "Nom",
+      "label5": "Prénom",
+      "label6": "Adresse",
+      "label7": "Code Postal",
+      "label8": "Localité",
+      "text1": "Ou ",
+      "text2": "Se connecter si vous avez déjà un compte",
+      "text3": "S'inscrire avec",
+      "text4": "Ou continuez avec",
+      "text5": "Informations",
+      "text6": "Adresse",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "placeholder3": "Doe",
+      "placeholder4": "John",
+      "placeholder5": "Rue de la station 15",
+      "placeholder6": "4280",
+      "placeholder7": "Hannut"
+    },
+    "forgot": {
+      "title1": "Mot de passe oublié ?",
+      "text1": "Veuillez suivre les instructions suivantes pour changer votre mot de passe",
+      "label1": "Adresse Email",
+      "label2": "Mot de passe",
+      "label3": "Confirmer mot de passe",
+      "placeholder1": "you@example.com",
+      "placeholder2": "********",
+      "button1": "Changer mot de passe"
+    },
+    "profile": {
+      "title1": "Mon profil",
+      "title2": "Informations Personnelles",
+      "title3": "Adresses",
+      "title4": "Informations de paiement",
+      "label1": "Prénom",
+      "label2": "Nom",
+      "label3": "Email",
+      "label4": "Téléphone",
+      "label5": "Pseudo",
+      "label6": "Adresse",
+      "label7": "Numéro",
+      "label8": "Boite",
+      "label9": "Code Postal",
+      "label10": "Localité",
+      "label14": "Numéro de carte",
+      "label11": "Titulaire de la carte",
+      "label12": "DAte de validité",
+      "label13": "CVV",
+      "placeholder1": "Joe",
+      "placeholder2": "Doe",
+      "placeholder3": "you@example.com",
+      "placeholder4": "0495/45.56.65",
+      "placeholder5": "Entrez un pseudo",
+      "placeholder6": "Entrez une adresse",
+      "placeholder7": "Entrez un numéro",
+      "placeholder8": "Entrez une boite",
+      "placeholder9": "Entrez un code postal",
+      "placeholder10": "Entrez une localité",
+      "button1": "Enregistrer",
+      "button2": "Reset données",
+      "button3": "Ajouter une adresse",
+      "button4": "Ajouter une carte"
+    },
+    "history": {
+      "title1": "Mes Commandes",
+      "title2": "Commande en cours",
+      "title3": "Listing des commandes",
+      "placeholder1": "Chercher une commande",
+      "text1": "Bonjour, ",
+      "modal": {
+        "text1": "Livré à",
+        "text2": "Montant Total"
+      }
+    },
+    "home": {
+      "title1": "Venez découvrir le TOP 5 de nos Burgers",
+      "text1": "Bienvenue, venez commander un burger ",
+      "text2": "Vous pouvez passer commande 7 jours sur 7",
+      "text3": "Dégustez nos burgers tout en regardant la TV depuis votre canapé"
+    },
+    "products": {
+      "title1": "Top 10 de nos meilleures ventes",
+      "title2": "Promotions",
+      "filters1": "Filtres",
+      "filters2": "Beef",
+      "filters3": "Chicken",
+      "filters4": "Fish",
+      "filters5": "Vegan",
+      "button1": "Ajouter panier",
+      "button2": "Voir Infos",
+      "menu": {
+        "title1": "Here is a listing with our Burgers Menus"
+      },
+      "burgers": {
+        "title1": "Voici la liste de nos Burgers"
+      },
+      "fries": {
+        "title1": "Voici la liste de nos Accompagnements"
+      },
+      "drinks": {
+        "title1": "Voici la liste de nos boissons"
+      },
+      "modal": {
+        "title1": "Prix Actuel",
+        "title2": "Allergènes",
+        "title3": "Prix Normal",
+        "text1": "Pas d'allergènes"
+      }
+    },
+    "basket": {
+      "title1": "Mon panier",
+      "title2": "Informations de livraison",
+      "label1": "Selectionnez une adresse",
+      "label2": "Adresse",
+      "label3": "Numéro",
+      "label4": "Boite",
+      "label5": "Code postal",
+      "label6": "Localité",
+      "label7": "Note",
+      "placeholder1": "Choisir une adresse",
+      "placeholder2": "Entrez une adresse",
+      "placeholder3": "Entrez un numéro de rue",
+      "placeholder4": "Entrez une boite",
+      "placeholder5": "Entrez un code postal",
+      "placeholder6": "Entrez une localité",
+      "placeholder7": "Entrez une note",
+      "button1": "Commander",
+      "button2": "Se connecter",
+      "button3": "S'inscrire",
+      "button4": "Suivant"
+    },
+    "filters": {
+      "title1": "Filtres",
+      "button1": "Voir Filtres"
+    },
+    "admin": {
+      "title1": "Liste des produits",
+      "title2": "Liste des promotions",
+      "title3": "Liste des stocks d'ingrédients",
+      "title4": "Prix",
+      "title5": "Ingrédients",
+      "title6": "Allergèness",
+      "placeholder1": "Chercher un produit",
+      "placeholder2": "Chercher une promotion",
+      "button1": "Ajouter Produit",
+      "button2": "Ajouter Promotion",
+      "button3": "Ajouter Ingrédients",
+      "button4": "Ajouter Famille",
+      "button5": "Ajouter Allergènes",
+      "button6": "Modifier Produit",
+      "button7": "Annuler",
+      "button8": "Mise à jour Stock",
+      "users": {
+        "table": {
+          "id": "Id",
+          "lastname": "Nom",
+          "firstname": "Prénom",
+          "username": "Pseudo",
+          "role": "Rôle",
+          "details": "Détails"
+        },
+        "modal": {
+          "title1": "Roles des utilisateurs",
+          "title2": "Pseudos",
+          "title3": "Email",
+          "title4": "Rôle",
+          "title5": "Choix d'un nouveau rôle",
+          "button1": "Annuler",
+          "button2": "Modifier Rôle"
+        },
+        "success": {
+          "update": "Rôle mis à jour avec SUCCES"
+        }
+      },
+      "products": {
+        "table": {
+          "image": "Image",
+          "name": "Nom",
+          "description": "Description",
+          "price": "Prix",
+          "details": "Détails",
+          "statut": "Statut"
+        },
+        "add": {
+          "title1": "Ajouter un nouveau produit",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "Autres données",
+          "label1": "Langue",
+          "label2": "Nom",
+          "label3": "Description",
+          "label4": "Prix",
+          "label5": "Ingrédients",
+          "label6": "Famille",
+          "label7": "Image",
+          "placeholder1": "Choississez une langue",
+          "placeholder2": "Entrez un nom",
+          "placeholder3": "Entrez une description",
+          "placeholder4": "Entrez un prix",
+          "placeholder5": "Choix Ingrédients",
+          "placeholder6": "Choix Famille",
+          "button1": "Ajouter Produit",
+          "button2": "Suivant",
+          "button3": "Ajouter Ingrédients",
+          "button4": "Ajouter Famille",
+          "button5": "Précédent",
+          "errors": {
+            "lang1": "Vous devez choisir Anglais/English comme première langue",
+            "lang2": "Vous devez choisir Français comme deuxième langue"
+          },
+          "multiselect": {
+            "placeholder1": "Choisir un ingrédient",
+            "placeholder2": "Choisir une famille",
+            "label1": "Sélection Ingredient",
+            "label2": "Ingrédient Sélectionné",
+            "label3": "Annulation",
+            "label4": "Sélection Famille",
+            "label5": "Famille Sélectionnée"
+          }
+        },
+        "edit": {
+          "title1": "Modifier un produit",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "Autres données",
+          "label1": "Langue",
+          "label2": "Nom",
+          "label3": "Description",
+          "label4": "Prix",
+          "label5": "Ingrédients",
+          "label6": "Famille",
+          "label7": "Image",
+          "label8": "Visible",
+          "placeholder1": "Choisir une langue",
+          "placeholder2": "Entrez un nom",
+          "placeholder3": "Entrez une description",
+          "placeholder4": "Entrez un prix",
+          "placeholder5": "Choix Ingrédients",
+          "placeholder6": "Choix Famille",
+          "button1": "Modifier Produit",
+          "button2": "Ajouter Ingrédients",
+          "button3": "Ajouter Famille",
+          "button4": "Ajouter Produits",
+          "multiselect": {
+            "placeholder1": "Choisir un ingrédient",
+            "placeholder2": "Choisir une famille",
+            "label1": "Sélection Ingredient",
+            "label2": "Ingrédient Sélectionné",
+            "label3": "Annulation",
+            "label4": "Sélection Famille",
+            "label5": "Famille Sélectionnée"
+          }
+        },
+        "alert": {
+          "title1": "Alerte de suppression",
+          "title2": "Annuler Mise à jour",
+          "title3": "Erreur Mise à jour",
+          "title4": "Attention champ optionnel",
+          "text1": "Etes vous sur de vouloir effacer toutes les informations concernant cet ingrédient ?",
+          "text2": "Are you sure you want to cancel the Update process about this ingredients",
+          "text3": "Warning, there are some optional empty fields. Do you want to continue creating ingredients ",
+          "button1": "Delete Ingredients",
+          "button2": "Cancel",
+          "button3": "Yes",
+          "button4": "No",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Produits crée avec SUCCES",
+          "update": "Produits mis à jour avec SUCCES",
+          "delete": "Produits effacés avec SUCCES"
+        },
+        "errors": {
+          "create": "Erreur lors de la création du produit",
+          "createTranslation": "Erreur lors de la création de la traduction du produit",
+          "delete": "Erreur lors de la suppression du produit",
+          "fields": "Attention, vous devez remplir tous les champs",
+          "lang1": "Vous devez choisir Anglais / English comme première langue",
+          "lang2": "Vous devez choisir Français / French comme deuxième langue"
+        }
+      },
+      "ingredients": {
+        "add": {
+          "title": "Gestion des ingrédients",
+          "title1": "Ajouter un nouvel ingrédient",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "List des ingrédients",
+          "label1": "Langue",
+          "label2": "Nom Anglais",
+          "label3": "Nom Français",
+          "label4": "Allergènes",
+          "label5": "Selection Allergène",
+          "label6": "Allergène Sélectionné",
+          "label7": "Annulation Sélection",
+          "placeholder1": "Choisir une langue",
+          "placeholder2": "Entrez un nom anglais",
+          "placeholder3": "Entrez un nom français",
+          "placeholder4": "Selectionné un ou plusieurs allergène",
+          "button1": "Ajouter Allergène",
+          "button2": "Créer Ingrédient"
+        },
+        "edit": {
+          "title": "Gestion des ingrédients",
+          "title1": "Mise à jour Ingrédients",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "List des ingrédients",
+          "label1": "Langue",
+          "label2": "Nom Anglais",
+          "label3": "Nom Français",
+          "label4": "Allergènes",
+          "label5": "Selection Allergène",
+          "label6": "Allergène Sélectionné",
+          "label7": "Annulation Sélection",
+          "placeholder1": "Choisir une langue",
+          "placeholder2": "Entrez un nom anglais",
+          "placeholder3": "Entrez un nom français",
+          "placeholder4": "Selectionné un ou plusieurs allergène",
+          "button1": "Maj Ingrédient",
+          "button2": "Annuler"
+        },
+        "alert": {
+          "title1": "Alerte de suppression",
+          "title2": "Annuler Mise à jour",
+          "title3": "Erreur Mise à jour",
+          "title4": "Attention champ optionnel",
+          "text1": "Etes vous sur de vouloir effacer toutes les informations concernant cet ingrédient ?",
+          "text2": "Etes vous sur de vouloir annuler la mise à jour concernant cet ingrédient ?",
+          "text3": "Atention, vous avez des champs optionnels vides, voulez vous continuer ? ",
+          "button1": "Effacer Ingrédient",
+          "button2": "Annuler",
+          "button3": "Oui",
+          "button4": "Non",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Ingrédient crée avec SUCCES",
+          "update": "Ingrédient mis à jour avec SUCCES",
+          "delete": "Ingrédient effacé SUCCES"
+        },
+        "errors": {
+          "create": "Erreur pendant la création de l'ingrédient",
+          "createTranslation": "Erreur pendant la création de la traduction de l'ingrédient",
+          "delete": "Erreur pendant la suppression de l'ingrédient",
+          "getAllergens": "Erreur pendant la récupération de la liste des allergènes",
+          "fields": "Attention, vous devez remplir tous les champs",
+          "lang1": "Vous devez choisir Anglais / English comme première langue",
+          "lang2": "Vous devez choisir Français / French comme deuxième langue"
+        }
+      },
+      "allergens": {
+        "add": {
+          "title": "Gestion des allergènes",
+          "title1": "Ajouter un allergène",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "Liste des allergènes",
+          "label": "Langue",
+          "label1": "Nom Anglais",
+          "label2": "Nom Français",
+          "placeholder0": "Choix Langue",
+          "placeholder1": "Entrez un nom anglais",
+          "placeholder2": "Entrez un nom français",
+          "placeholder3": "Chercher un allergène",
+          "button1": "Créer Allergène"
+        },
+        "edit": {
+          "title": "Gestion des allergènes",
+          "title1": "Mettre à jour un allegène",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "Liste des allergènes",
+          "label1": "Langue",
+          "label2": "Nom Anglais",
+          "label3": "Nom Français",
+          "placeholder1": "Choix Langue",
+          "placeholder2": "Entrez un nom anglais",
+          "placeholder3": "Entrez un nom français",
+          "button1": "Modifier Allergène",
+          "button2": "Annuler"
+        },
+        "alert": {
+          "title1": "Alerte de suppression",
+          "title2": "Annuler Mise à jour",
+          "title3": "Erreur Mise à jour",
+          "text1": "Etes vous sur de vouloir effacer toutes les informations concernant cet Allergène ?",
+          "text2": "Etes vous sur de vouloir annuler la mise à jour concernant cet Allergène ?",
+          "button1": "Effacer Allergène",
+          "button2": "Annuler",
+          "button3": "Oui",
+          "button4": "Non",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Allergène crée avec SUCCES",
+          "update": "Allergène mis à jour avec SUCCES",
+          "delete": "Allergène effacé SUCCES"
+        },
+        "errors": {
+          "create": "Erreur pendant la création de l'allergène",
+          "createTranslation": "Erreur pendant la création de la traduction de l'allergène",
+          "delete": "Erreur pendant la suppression de l'allergène",
+          "getAllergens": "Erreur pendant la récupération de la liste des allergène",
+          "fields": "Attention, vous devez remplir tous les champs",
+          "lang1": "Vous devez choisir Anglais / English comme première langue",
+          "lang2": "Vous devez choisir Français / French comme deuxième langue"
+        }
+      },
+      "family": {
+        "add": {
+          "title1": "Gestion des familles",
+          "title2": "Liste des familles",
+          "title3": "Ajouter une nouvel famille",
+          "title4": "Traduction Anglaise",
+          "title5": "Traduction Française",
+          "label1": "Langue",
+          "label2": "Nom Anglais",
+          "label3": "Description Anglaise",
+          "label4": "Nom Français",
+          "label5": "Description Française",
+          "placeholder0": "Chercher une famille",
+          "placeholder1": "Choix Langue",
+          "placeholder2": "Entrez un nom anglais",
+          "placeholder3": "Entrez une description anglaise",
+          "placeholder4": "Entrez un nom français",
+          "placeholder5": "Entrez une description française",
+          "button1": "Créer Famille"
+        },
+        "edit": {
+          "title1": "Mettre à jour une famille",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "title4": "Liste des familles",
+          "label1": "Langue",
+          "label2": "Nom Anglais",
+          "label3": "Description Anglaise",
+          "label4": "Nom Français",
+          "label5": "Description Française",
+          "placeholder1": "Choix Langue",
+          "placeholder2": "Entrez un nom anglais",
+          "placeholder3": "Entrez une description anglaise",
+          "placeholder4": "Entrez un nom français",
+          "placeholder5": "Entrez une description française",
+          "button1": "Modifier Famille",
+          "button2": "Annuler"
+        },
+        "alert": {
+          "title1": "Alerte de suppression",
+          "title2": "Annuler Mise à jour",
+          "title3": "Erreur Mise à jour",
+          "text1": "Etes vous sur de vouloir effacer toutes les informations concernant cette famille ?",
+          "text2": "Etes vous sur de vouloir annuler la mise à jour concernant cette famille ?",
+          "button1": "Effacer Famille",
+          "button2": "Annuler",
+          "button3": "Oui",
+          "button4": "Non",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Famille crée avec SUCCES",
+          "update": "Famille mise à jour avec SUCCES",
+          "delete": "Famille effacée SUCCES"
+        },
+        "errors": {
+          "create": "Erreur pendant la création de la famille",
+          "createTranslation": "Erreur pendant la création de la traduction de la familles",
+          "delete": "Erreur pendant la suppression de la familles",
+          "fields": "Attention, vous devez remplir tous les champs",
+          "lang1": "Vous devez choisir Anglais / English comme première langue",
+          "lang2": "Vous devez choisir Français / French comme deuxième langue"
+        }
+      },
+      "promos": {
+        "add": {
+          "title": "Listing des promotions",
+          "title1": "Ajouter une nouvelle promotion",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "label1": "Langue",
+          "label2": "Description Anglaise",
+          "label3": "Description Française",
+          "label4": "Réduction",
+          "label5": "Date de début Promotion",
+          "label6": "Date de fin Promotion",
+          "label7": "Produits",
+          "placeholder1": "Choix Langue",
+          "placeholder2": "Entrez une description anglais",
+          "placeholder3": "Entrez une description française",
+          "placeholder4": "Choississez un montant de réduction",
+          "placeholder5": "Sélectionné une date de début",
+          "placeholder6": "Sélectionné une date de fin",
+          "button1": "Créer Promotion",
+          "multiselect": {
+            "placeholder1": "Sélectionnez un ou plusieurs produits",
+            "label1": "Selectionner Produit",
+            "label2": "Produit Sélectionné",
+            "label3": "Annuler Sélection"
+          }
+        },
+        "edit": {
+          "title1": "Mise à jour Promotions",
+          "title2": "Traduction anglaise",
+          "title3": "Traduction française",
+          "label1": "Langue",
+          "label2": "Description Anglaise",
+          "label3": "Description Française",
+          "label4": "Réduction",
+          "label5": "Date de début Promotion",
+          "label6": "Date de fin Promotion",
+          "label7": "Produits",
+          "placeholder1": "Choix Langue",
+          "placeholder2": "Entrez une description anglais",
+          "placeholder3": "Entrez une description française",
+          "placeholder4": "Choississez un montant de réduction",
+          "placeholder5": "Sélectionné une date de début",
+          "placeholder6": "Sélectionné une date de fin",
+          "button1": "Annuler",
+          "button2": "Modifier Promotion",
+          "multiselect": {
+            "placeholder1": "Sélectionnez un ou plusieurs produits",
+            "label1": "Selectionner Produit",
+            "label2": "Produit Sélectionné",
+            "label3": "Annuler Sélection"
+          }
+        },
+        "alert": {
+          "title1": "Alerte Fin Promotion",
+          "title2": "Annuler Mise à jour",
+          "title3": "Erreur Mise à jour",
+          "text1": "Etes vous sur de vouloir arreter cette promotion ?",
+          "text2": "Etes vous sur de vouloir annuler la mise à jour concernant cette promotion ?",
+          "button1": "Arreter Promotion",
+          "button2": "Annuler",
+          "button3": "Oui",
+          "button4": "Non",
+          "button5": "Ok"
+        },
+        "success": {
+          "create": "Promotion crée avec SUCCES",
+          "update": "Promotion mise à jour avec SUCCES",
+          "stopPromo": "Promotion arretée avec SUCCES"
+        },
+        "errors": {
+          "create": "Erreur pendant la création de la promotion",
+          "createTranslation": "Erreur pendant la création de la traduction de la promotion",
+          "fields": "Attention, vous devez remplir tous les champs",
+          "amount": "Attention, le montant de la réduction est inférieur à 0",
+          "lang1": "Vous devez choisir Anglais / English comme première langue",
+          "lang2": "Vous devez choisir Français / French comme deuxième langue"
+        },
+        "modal": {
+          "title1": "Promotion Details",
+          "title2": "Description",
+          "title3": "Promotion Discount",
+          "title4": "Promotion Start Date",
+          "title5": "Promotion End Date",
+          "button1": "Cancel",
+          "button2": "Create Promotion"
+        },
+        "table": {
+          "id": "Id",
+          "language": "Language"
+        }
+      },
+      "stock": {
+        "modal": {
+          "title1": "Gestion des stocks",
+          "label1": "Nom Ingrédient",
+          "label2": "Quantité en stock",
+          "label3": "Nouvelle quantité",
+          "placeholder1": "Nom de l'ingrédient",
+          "placeholder2": "Entrez une quantité",
+          "button1": "Annuler",
+          "button2": "Mettre à jour Stock"
+        },
+        "alert": {
+          "title1": "Arreter la mise à jour du stock",
+          "title2": "Erreur Mise à jour du stock",
+          "text1": "Etes vous sur de vouloir arreter la mise à jour du stock ?",
+          "button1": "Oui",
+          "button2": "Non",
+          "button3": "Ok",
+          "errors": {
+            "quantity": "Attention, la quantité entrée est inférieure à 0 !!!"
+          }
+        },
+        "success": {
+          "update": "Stock mis à jour avec SUCCES"
+        }
+      }
+    },
+    "errors": {
+      "required": "This field is required",
+      "invalidEmail": "Please, enter a valid Email",
+      "invalidPasswordFormat": "The password must contain 8 characters including at least one upper case, one lower case and one digit.",
+      "invalidConfirmPassword": "The confirm password must be the same as the password."
+    },
+    "email": {
+      "placeHolder": "Adresse e-mail",
+      "error": "L'adresse e-mail doit être valide."
+    },
+    "password": {
+      "placeHolder": "Mot de passe",
+      "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
+    },
+
+    "success": "Merci, vous êtes maintenant identifié. Vous allez être redirigé dans quelques instants...",
+    "pending": "Identification en cours...",
+    "error": {
+      "required": "Ce champ est requis.",
+      "form": "Veuillez remplir le formulaire de connexion correctement.",
+      "notMatch": "L'e-mail et le mot de passe ne correspondent pas, veuillez réessayer.",
+      "mailNotExist": "L'e-mail n'existe pas dans notre base de données, veuillez-vous inscrire via le lien ci-dessous.",
+      "mailNotActive": "Veuillez valider votre adresse e-mail avant de pouvoir vous connecter."
+    }
+  },
+  "error": {
+    "title": "Une erreur est survenue",
+    "label": "ERREUR",
+    "buttonBack": "Retour à la page d'accueil",
+    "404": "Cette page est introuvable ..."
+  },
+
+  "gdpr": {
+    "text": "AntelopeJS utilise des cookies pour personnaliser les fonctions relatives au marketing et aux réseaux sociaux.",
+    "readMore": "En savoir plus sur les cookies.",
+    "button": "ACCEPTER"
+  },
+  "copyright": "© 2020-2021 AntelopeJS - Tous droits réservés - ",
+  "privacy_link": "Politique de confidentialité"
+}

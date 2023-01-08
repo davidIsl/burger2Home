@@ -1,0 +1,57 @@
+@import './bt-custom.scss';
+
+// Breakpoint-Font variables
+$breakpoints-font: (
+  // Default : 456px
+  sm: $phone-min,
+  // Default : 789px
+  md: $tablet-min,
+  // Default : 999px
+  lg: $lg-desktop-min,
+  // Default : 1234px
+  xl: $xl-desktop-min
+);
+
+// Auto generate media queries for responsive font size
+@mixin font-size($fs-map, $fs-breakpoints-font: $breakpoints-font) {
+  @each $fs-breakpoint, $fs-font-size in $fs-map {
+    @if $fs-breakpoint == null {
+      font-size: $fs-font-size !important;
+    } @else {
+      @if map-has-key($fs-breakpoints-font, $fs-breakpoint) {
+        $fs-breakpoint: map-get($fs-breakpoints-font, $fs-breakpoint);
+      }
+      @media screen and (min-width: $fs-breakpoint) {
+        font-size: $fs-font-size !important;
+      }
+    }
+  }
+}
+
+// Custom Responsive Font Sizes
+$example-font-size: (
+  null: 5px,
+  sm: 10px,
+  md: 15px,
+  lg: 20px,
+  xl: 25px,
+  1750px: 30px,
+);
+
+$table-font-size: (
+  null: 11px,
+  sm: 12px,
+  md: 13px,
+  lg: 14px,
+  xl: 14px,
+);
+
+// Init Responsive Font Sizes
+.example-font-size {
+  @include font-size($example-font-size);
+}
+
+// Data Table
+.table-font-size {
+  @include font-size($table-font-size);
+}

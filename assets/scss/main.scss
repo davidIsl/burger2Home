@@ -1,0 +1,278 @@
+// Include Bootstrap and BootstrapVue SCSS files
+@import './bt-custom';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index';
+@import './font-size';
+
+// Custom global css
+html {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif Display, monospace;
+  scrollbar-color: var(--colorScrollbar) var(--backgroundScrollbar);
+  word-spacing: 1px;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--primary) !important;
+  color: var(--color) !important;
+  transition: background-color 0.5s;
+  // background-image: url('../../static/img/chalkboard.jpg');
+}
+
+.container-full-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 160px);
+}
+
+.text-white {
+  color: #fff;
+}
+
+a {
+  color: var(--colorLink);
+}
+
+pre {
+  color: var(--colorLink);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// Forms / Inputs
+.input-error {
+  color: var(--colorError);
+  text-align: left;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+// .form-control,
+// .custom-file-label,
+// .mx-input {
+//   color: var(--colorForm);
+//   background: var(--backgroundForm);
+//   transition: background 0.5s;
+//   border-radius: 4px !important;
+//   font-size: 14px !important;
+//   height: 45px !important;
+//   padding: 10px !important;
+//   border: none;
+// }
+
+// .form-control:focus,
+// .mx-input:focus {
+//   color: var(--colorForm);
+//   background: var(--backgroundForm);
+// }
+
+// .btn.disabled,
+// .btn:disabled {
+//   cursor: not-allowed;
+// }
+
+// .form-control:disabled,
+// .form-control[readonly] {
+//   cursor: not-allowed;
+// }
+
+.custom-select,
+.custom-select:focus {
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%237f8c8d' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
+      right 0.75rem center/8px 10px no-repeat,
+    var(--backgroundForm);
+}
+
+// .was-validated .custom-select:invalid,
+// .custom-select.is-invalid {
+//   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%237f8c8d' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
+//       right 0.75rem center/8px 10px no-repeat,
+//     var(--backgroundForm)
+//       url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e")
+//       center right 1.75rem / calc(0.75em + 0.375rem) calc(0.75em + 0.375rem)
+//       no-repeat;
+// }
+
+// .was-validated .custom-select:valid,
+// .custom-select.is-valid {
+//   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%237f8c8d' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
+//       right 0.75rem center/8px 10px no-repeat,
+//     var(--backgroundForm)
+//       url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e")
+//       center right 1.75rem / calc(0.75em + 0.375rem) calc(0.75em + 0.375rem)
+//       no-repeat;
+// }
+
+// .custom-file-label::after {
+//   height: calc(2.25em + 0.75rem);
+//   padding: 0.675rem 0.75rem;
+// }
+
+// .mx-icon-calendar {
+//   color: var(--colorForm);
+// }
+
+// ##################
+// # Details Custom #
+// ##################
+.underline-title {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.underline-title::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  height: 2px;
+  width: 100px;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $primary;
+}
+
+// #############
+// Custom Size #
+// #############
+
+.logo {
+  width: 70px;
+  height: 70px;
+  color: $secondary !important;
+  filter: sepia(100%);
+  -webkit-filter: sepia(100%) ;
+  
+}
+
+.button:hover {
+  background-color: var(--colorHoverFooter);
+  color: var(--colorTextHoverFooter) !important;
+}
+
+.input-area {
+  background-color: var(--colorInput) !important;
+  color: var(--colorForm) !important;
+  border: 1px solid var(--primary);
+  transition: background 0.5s;
+  border-radius: 0.5rem !important;
+  font-size: 14px !important;
+  height: 150px !important;
+  padding: 10px !important;
+}
+
+.input {
+  height: 35px !important;
+}
+
+.content {
+  background-image: url('@/assets/img/chalkboard.jpg');
+  border: 1px #fff solid;
+  border-radius: 30px;
+}
+
+.button-social {
+  /* stylelint-disable */
+  &,
+  * {
+    color: var(--primary) !important;
+  }
+  border: 2px solid var(--primary) !important;
+  border-radius: 0.5rem;
+}
+
+.button-social:hover {
+  &,
+  * {
+    color: var(--secondary) !important;
+  }
+  border: 2px solid var(--secondary) !important;
+}
+
+.input-form {
+  background-color: var(--colorInput) !important;
+  color: var(--colorForm) !important;
+  background: var(--secondary);
+  border: 1px solid var(--primary);
+  transition: background 0.5s;
+  border-radius: 0.5rem !important;
+  font-size: 14px !important;
+  height: 40px !important;
+  padding: 10px !important;
+}
+
+.title {
+  text-shadow: 2px 1px var(--darkRed);
+  text-decoration: underline;
+}
+
+.text-modal {
+  text-shadow: 1px 1px 1px var(--darkRed);
+}
+
+.title-line {
+  border-bottom: 1px solid #d6c385;
+}
+
+.object-cover {
+  object-fit: cover !important;
+  object-position: center;
+}
+
+//datePicker
+.datePicker {
+  border-radius: 5px !important;
+  border: 1px solid #ced4da;
+  height: 45px;
+  padding: 10px !important;
+  width: 100%;
+  background-color: #eeeff3 !important;
+}
+
+.modal-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-inline: 1rem;
+  justify-content: center;
+  font-size: 1.3em;
+}
+
+.gap-1 {
+  gap: 1rem !important;
+}
+
+.w-48 {
+  width: 48%;
+}
+
+// CARD
+.text-card {
+  height: 110px;
+}
+
+.card {
+  width: 22em;
+  height: 40em;
+  font-size: 0.8em;
+  text-shadow: 1px 1px 1px var(--darkRed);
+  border: 1px var(--primary) solid;
+}
+
+.text-modal {
+  font-size: 0.8em;
+}
+
+.crossed-text {
+  text-decoration: line-through var(--darkRed) solid;
+}

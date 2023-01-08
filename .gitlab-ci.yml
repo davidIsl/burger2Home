@@ -1,0 +1,38 @@
+image: alpine
+
+before_script:
+  - 'which ssh-agent || ( apk add openssh-client yarn )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo "preview.altab.io" >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" >> ~/.ssh/config'
+
+stages:
+  - deploy
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "Deploy to staging server"
+    - ssh debian@preview.altab.io -p 22 "export NVM_DIR="\$HOME/.nvm" ; \. "\$NVM_DIR/nvm.sh" ; [ -s "\$NVM_DIR/bash_completion" ] ; \. "\$NVM_DIR/bash_completion" ; cd nuxt2-bootstrap-template ; git checkout develop ; git pull ; yarn ; yarn build-staging ; screen -XS stage-nuxt2-bootstrap-template quit ; screen -d -m -S stage-nuxt2-bootstrap-template bash -c 'yarn start-staging'; exit"
+    - echo "Deploy to staging server finished"
+  environment:
+    name: staging
+    url: http://altab.io:3001
+  only:
+    - develop
+# deploy_prod:
+#   stage: deploy
+#   script:
+#     - echo "Deploy to production server"
+#     - ssh debian@preview.altab.io -p 22 "export NVM_DIR="\$HOME/.nvm" ; \. "\$NVM_DIR/nvm.sh" ; [ -s "\$NVM_DIR/bash_completion" ] ; \. "\$NVM_DIR/bash_completion" ; cd nuxt2-bootstrap-template/prod ; git checkout master ; git pull ; yarn ; yarn build-prod ; screen -XS prod-nuxt2-bootstrap-template quit ; screen -d -m -S prod-nuxt2-bootstrap-template bash -c 'yarn start-prod'; exit"
+#     - echo "Deploy to production server finished"
+#   environment:
+#     name: production
+#     url: http://altab.io:XXXX
+#   when: manual
+#   only:
+#     - master
