@@ -138,7 +138,7 @@ b-container.m-0.p-0(fluid)
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
 import logoAntelopeBanner from '~/components/svg/logoAntelopeBanner.vue';
 import themeSwitcher from '~/components/themeSwitcher.vue';
-import { API } from '~/utils/javaBack';
+// import { API } from '~/utils/javaBack';
 
 export interface Lang {
   lang: string;
@@ -201,24 +201,24 @@ export default class extends Vue {
     this.$router.push(url);
   }
 
-  async getUser(userId: number) {
-    const response = await API.getUserById(userId);
+  // async getUser(userId: number) {
+  //   const response = await API.getUserById(userId);
 
-    if (response.status !== 200) {
-      return;
-    }
+  //   if (response.status !== 200) {
+  //     return;
+  //   }
 
-    this.$store.commit('users/setCurrentUser', response.data);
-    console.log('GETUSER', response.data);
-    console.log('STORE USER', this.$store.state.users.currentUser);
-  }
+  //   this.$store.commit('users/setCurrentUser', response.data);
+  //   console.log('GETUSER', response.data);
+  //   console.log('STORE USER', this.$store.state.users.currentUser);
+  // }
 
   getRole() {
     return this.$store.getters['users/getRoles'];
   }
 
   connect() {
-    this.getUser(1);
+    this.$store.dispatch('users/getUser');
     console.log('ROLE', this.getRole());
     console.log('USER', this.$store.state.users.currentUser);
   }

@@ -165,7 +165,7 @@ export class API {
     lang: string,
     id: number
   ): Promise<APIResponse> {
-    return this.get(`/products/summaries/${id}?language=${lang}`);
+    return this.get(`/products/summaries/${id}?language=${lang.toUpperCase()}`);
   }
 
   /**
@@ -709,7 +709,7 @@ export class API {
    */
 
   static getPromoTranslationListByLang(lang: string) {
-    return this.get(`/promotions/translations?language=${lang}`);
+    return this.get(`/promotions/translations?language=${lang.toUpperCase()}`);
   }
 
   static getPromoTranslationByPromoId(id: number) {

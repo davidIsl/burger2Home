@@ -1,6 +1,7 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
+import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 import { store } from '.';
 import { UserCurrent } from '~/utils/utils';
+import { API } from '~/utils/javaBack';
 // import { API } from '~/utils/javaBack';
 
 @Module({
@@ -22,6 +23,17 @@ export default class Users extends VuexModule {
   resetUser() {
     this.currentUser = null;
     console.log('USERS', this.currentUser);
+  }
+
+  @Action
+  async getUser() {
+    const response = await API.getUserById(1);
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.context.commit('setCurrentUser', response.data);
   }
 
   getRole() {

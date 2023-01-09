@@ -53,7 +53,7 @@ b-container.bg-gray(fluid)
                     ) 0%
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
                 b-button.mr-2.w-48.button.justify-content-between(
-                  @click='product.productId'
+                  @click='addToBasket(product.id)'
                 ) {{ $t('pages.products.button1') }}
                 b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   // MODAL
