@@ -219,8 +219,6 @@ export default class extends Vue {
 
   connect() {
     this.$store.dispatch('users/getUser');
-    console.log('ROLE', this.getRole());
-    console.log('USER', this.$store.state.users.currentUser);
   }
 
   reset() {

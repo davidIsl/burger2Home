@@ -32,6 +32,7 @@
 - [] Reorganiser les pages productsADD i18N
 - [] Activer la recherche sur les multiselect
 - [] Checker tout le responsive
+- [] Vuelidate max length & errormsg
 
 ## Store
 

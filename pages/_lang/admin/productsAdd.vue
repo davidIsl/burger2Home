@@ -216,6 +216,22 @@ b-container.p-5.bg-gray(fluid)
                           :icon='["fa", "exclamation-triangle"]'
                         )
                         | {{ $t('pages.errors.required') }}
+                    b-form-group.pt-3.text-primary(
+                      :label='$t("pages.admin.products.add.label8")'
+                      label-for='familyType'
+                    )
+                    b-form-select#familyType.input-form(
+                      v-model='$v.familyType.$model'
+                      :class='{ "is-invalid": $v.familyType.$error, "is-valid": !$v.familyType.$invalid }'
+                      :placeholder='$t("pages.admin.products.add.placeholder8")'
+                      :options='familyTypes'
+                      @blur='$v.familyType.$touch()'
+                    )
+                    .input-error(v-if='$v.familyType.$error')
+                      font-awesome-icon.mr-2(
+                        :icon='["fa", "exclamation-triangle"]'
+                      )
+                      | {{ $t('pages.errors.required') }}
                   //- b-col
                   //-   b-form-group.pt-3.text-primary(
                   //-     :label='$t("pages.admin.add.label7")'
@@ -307,6 +323,7 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) productFamily: Families[] = [];
   @Validate({ required }) ingredientName: string = '';
   @Validate({ required }) ingredientDescription: string = '';
+  @Validate({ required }) familyType: string = '';
   // @Validate({ required }) available: boolean = false;
 
   ingredients: Ingredients[] = [];
@@ -314,6 +331,7 @@ export default class extends mixins(validationMixin) {
   langs: SelectOption[] = [];
   productFamilies: any[] = [];
   families: Families[] = [];
+  familyTypes: SelectOption[] = [];
 
   stepProductAddType = stepProductAddType;
   stepProductAdd = stepProductAddType.STEP1;
@@ -366,10 +384,24 @@ export default class extends mixins(validationMixin) {
     }));
   }
 
+  async getFamilyTypes() {
+    const response = await API.getTypesList();
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.familyTypes = response.data.map((type) => ({
+      value: type.typeId,
+      text: type.name.toUpperCase(),
+    }));
+  }
+
   updateData() {
     this.getIngredients();
     this.getLanguages();
     this.getFamilies();
+    this.getFamilyTypes();
   }
 
   async getFamilies() {
@@ -535,19 +567,19 @@ export default class extends mixins(validationMixin) {
     // const fileInput = this.$refs.fileInput as HTMLInputElement;
     // const file = fileInput.files[0];
 
-    // console.log('FILE', file);
-    // const formData = new FormData();
-    // formData.append('image', this.imageName);
-    // console.log('FILE', formData);
+    // console.log('FILE', file
+    const formData = new FormData();
+    formData.append('image', this.imageName);
+    console.log('FILE', formData);
 
-    // const responseUploadImg = await API.uploadImage(
-    //   responseCreateProduct.data.id,
-    //   formData
-    // );
+    const responseUploadImg = await API.uploadImage(
+      responseCreateProduct.data.id,
+      formData
+    );
 
-    // if (responseUploadImg.status !== 200) {
-    //   return null;
-    // }
+    if (responseUploadImg.status !== 200) {
+      return null;
+    }
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.products.success.create');
   }

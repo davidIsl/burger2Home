@@ -48,8 +48,14 @@ export interface Allergens {
   language: Language;
 }
 
+export interface FamilyType {
+  id: number;
+  name: string;
+  typeId: number;
+  language: Language;
+}
+
 export interface Families {
-  // TODO if TRANSLATION ??? ou INTERFACE TRANSLATION ???
   id: number;
   productFamilyId: number;
   name: string;

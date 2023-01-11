@@ -53,7 +53,7 @@ b-container.bg-gray(fluid)
                     ) 0%
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
                 b-button.mr-2.w-48.button.justify-content-between(
-                  @click='addToBasket(product.id)'
+                  @click='addToBasket({ id: product.id, quantity: $store.state.baskets.amountToAdd })'
                 ) {{ $t('pages.products.button1') }}
                 b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   // MODAL
@@ -74,7 +74,9 @@ b-container.bg-gray(fluid)
       p.d-inline.my-3 {{ $store.state.baskets.amountToAdd }}
       b-button.button(@click='incrementQuantity')
         font-awesome-icon(:icon='["fa", "plus"]')
-      b-button.button(@click='addToBasket(currentProduct.id)') {{ $t('pages.products.button1') }}
+      b-button.button(
+        @click='addToBasket({ id: currentProduct.id, quantity: $store.state.baskets.amountToAdd })'
+      ) {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
       p.text-modal {{ currentProduct.description }}
@@ -164,8 +166,12 @@ export default class extends Vue {
     this.$store.commit('baskets/incrementAmountToAdd');
   }
 
-  addToBasket(id: number) {
-    this.$store.dispatch('baskets/addProduct', id);
+  addToBasket({ id, quantity }: { id: number; quantity: number }) {
+    // const response = await API.upda
+    this.$store.dispatch('baskets/addProduct', {
+      id,
+      quantity,
+    });
     this.viewDetails = false;
   }
 

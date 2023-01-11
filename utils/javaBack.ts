@@ -15,6 +15,7 @@ import {
   Address,
   BasketLine,
   Role,
+  FamilyType,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -273,6 +274,15 @@ export class API {
       language,
       productId,
     });
+  }
+
+  /************************
+   * ENDPOINT FAMILY TYPE *
+   *                      *
+   ***********************/
+
+  static getTypesList(): Promise<APIDataResponse<FamilyType>> {
+    return this.get(`/types/translations`);
   }
 
   /**
@@ -964,13 +974,13 @@ export class API {
    *******************/
 
   /**
-   * GET BASKET BY USER ID
-   * @param userId
+   * GET BASKET BY ID
+   * @param basketId
    * @returns BASKET
    */
 
-  static getBasketByUser(userId: number): Promise<APIResponse> {
-    return this.get(`/users/${userId}/basket`);
+  static getBasketById(basketId: number): Promise<APIResponse> {
+    return this.get(`/baskets/${basketId}`);
   }
 
   /**
@@ -988,6 +998,16 @@ export class API {
     userId: number
   ): Promise<APIResponse> {
     return this.update(`/baskets`, { id, lastUpdate, userId });
+  }
+
+  /**
+   * GET BASKET BY USER ID
+   * @param userId
+   * @returns BASKET
+   */
+
+  static getBasketByUserId(userId: number): Promise<APIResponse> {
+    return this.get(`/users/${userId}/basket`);
   }
 
   /************************
@@ -1023,6 +1043,29 @@ export class API {
   }
 
   /**
+   * UPDATE BASKET LINE
+   * @param basketLineId
+   * @param basketId
+   * @param productId
+   * @param amount
+   * @returns BASKET LINE UPDATED
+   */
+
+  static updateBasketLine(
+    basketLineId: number,
+    basketId: number,
+    productId: number,
+    amount: number
+  ) {
+    return this.update(`/basketLines`, {
+      basketLineId,
+      basketId,
+      productId,
+      amount,
+    });
+  }
+
+  /**
    * DELETE BASKETLINE
    * @param basketLineId
    * @returns DELETED BASKETLINE
@@ -1031,4 +1074,52 @@ export class API {
   static removeBasketLine(basketLineId: number): Promise<APIResponse> {
     return this.del(`/basketLines/${basketLineId}`);
   }
+
+  /******************
+   * ENDPOINT ORDER *
+   *                *
+   *****************/
+
+  static addOrder(basketId: number, addressId: number): Promise<APIResponse> {
+    return this.get(
+      `/orders/create-order?addressIdentifier=${addressId}&basketIdentifier=${basketId}`
+    );
+  }
+
+  /**
+   * GET STRIPE PAYMENT METHOD
+   * @returns PAYMENT METHOD
+   */
+
+  static getStripePaymentMethod(): Promise<APIResponse> {
+    return this.get(`/orders/stripe/create-payment-method`);
+  }
+
+  /**
+   * CONFIRM PAYMENT
+   * @param orderId
+   * @param paymentMethod
+   * @returns
+   */
+
+  static confirmPayment(
+    orderId: number,
+    paymentMethod: string
+  ): Promise<APIResponse> {
+    return this.get(
+      `/orders/confirm-order?orderIdentifier=${orderId}&paymentMethodIdentifier=${paymentMethod}`
+    );
+  }
+
+  /**
+   * CONFIRM SHIPMENT
+   * @param orderId
+   * @returns
+   */
+
+  static confirmShipment(orderId: number) {
+    return this.get(`/orders/confirm-delivery?orderIdentifier=${orderId}`);
+  }
+
+  // static getClientSecret(order)
 }

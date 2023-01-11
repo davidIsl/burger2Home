@@ -26,7 +26,17 @@ import gdprAlert from '~/components/gdprAlert.vue';
     gdprAlert,
   },
 })
-export default class extends Vue {}
+export default class extends Vue {
+  head() {
+    return {
+      script: [
+        {
+          src: 'https://js.stripe.com/v3/',
+        },
+      ],
+    };
+  }
+}
 </script>
 
 <style lang="scss" scoped>

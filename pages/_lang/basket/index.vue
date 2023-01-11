@@ -55,7 +55,7 @@ b-container.p-4.bg-gray(fluid)
         )
     b-col.mt-3(md='4')
       .py-2.content
-        p.mb-1.pb-2.text-center.border-bottom Montant Total: 63€
+        p.mb-1.pb-2.text-center.border-bottom {{  }}
         .p-3
           b-button.mb-2.w-100.button(@click='saveBasket') Save Basket
           b-button.mb-2.w-100.button(@click='createOrder') {{ $t('pages.basket.button1') }}
@@ -79,27 +79,29 @@ b-container.p-4.bg-gray(fluid)
               label-for='addresses'
             )
               b-form-select#addresses.input-form(
-                v-model='$v.addresses.$model'
-                :class='{ "is-invalid": $v.addresses.$error, "is-valid": !$v.addresses.$invalid }'
+                v-model='addresses'
                 :placeholder='$t("pages.basket.placeholder1")'
                 :options='add'
-                @blur='$v.addresses.$touch()'
                 @change='handleChangeAddress'
               )
-                .input-error(v-if='$v.addresses.$error')
-                  font-awesome-icon.mr-2(
-                    :icon='["fa", "exclamation-triangle"]'
-                  )
-                  | {{ $t('pages.errors.required') }}
+                //- .input-error(v-if='$v.addresses.$error')
+                //-   font-awesome-icon.mr-2(
+                //-     :icon='["fa", "exclamation-triangle"]'
+                //-   )
+                //-   | {{ $t('pages.errors.required') }}
           b-col(offset-md='2' md='12' lg='10')
             b-form-group(:label='$t("pages.basket.label7")' label-for='note')
               b-form-input#note.input-form(
-                v-model='note'
+                v-model='$v.note.$model'
+                :class='{ "is-invalid": $v.note.$error, "is-valid": !$v.note.$invalid }'
                 :placeholder='$t("pages.basket.placeholder7")'
                 type='text'
-                :readonly='isReadOnly'
-                name='address'
+                name='note'
+                @blur='$v.note.$touch()'
               )
+              .input-error(v-if='$v.note.$error')
+                font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+                | {{ $t('pages.errors.required') }}
         b-row.pt-2
           b-col.mx-auto(md='12' lg='10')
             b-form-group(
@@ -111,12 +113,16 @@ b-container.p-4.bg-gray(fluid)
                 :class='{ "is-invalid": $v.address.$error, "is-valid": !$v.address.$invalid }'
                 :placeholder='$t("pages.basket.placeholder1")'
                 type='text'
+                :disabled='isReadOnly'
                 name='address'
                 @blur='$v.address.$touch()'
               )
-              .input-error(v-if='$v.address.$error')
+              .input-error(v-if='$v.address.$error && $v.address.maxLength')
                 font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
                 | {{ $t('pages.errors.required') }}
+              .input-error(v-if='!$v.address.maxLength')
+                font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
+                | {{ $t('pages.errors.MaxLength') }}
           b-col.mx-auto(md='6' lg='4')
             b-form-group(:label='$t("pages.basket.label3")' label-for='number')
               b-form-input#number.input-form(
@@ -124,6 +130,8 @@ b-container.p-4.bg-gray(fluid)
                 :class='{ "is-invalid": $v.number.$error, "is-valid": !$v.number.$invalid }'
                 :placeholder='$t("pages.basket.placeholder3")'
                 type='number'
+                :disabled='isReadOnly'
+                min=0
                 name='number'
                 @blur='$v.number.$touch()'
               )
@@ -140,6 +148,7 @@ b-container.p-4.bg-gray(fluid)
                 :class='{ "is-invalid": $v.extension.$error, "is-valid": !$v.extension.$invalid }'
                 :placeholder='$t("pages.basket.placeholder4")'
                 type='number'
+                :disabled='isReadOnly'
                 name='extension'
                 @blur='$v.extension.$touch()'
               )
@@ -154,6 +163,7 @@ b-container.p-4.bg-gray(fluid)
                 :class='{ "is-invalid": $v.zip.$error, "is-valid": !$v.zip.$invalid }'
                 :placeholder='$t("pages.basket.placeholder5")'
                 type='number'
+                :disabled='isReadOnly'
                 name='zip'
                 @blur='$v.zip.$touch()'
               )
@@ -170,6 +180,7 @@ b-container.p-4.bg-gray(fluid)
                 :class='{ "is-invalid": $v.city.$error, "is-valid": !$v.city.$invalid }'
                 :placeholder='$t("pages.basket.placeholder6")'
                 type='text'
+                :disabled='isReadOnly'
                 name='city'
                 @blur='$v.city.$touch()'
               )
@@ -178,15 +189,25 @@ b-container.p-4.bg-gray(fluid)
                 | {{ $t('pages.errors.required') }}
         b-row
           b-col.mx-auto(md='6')
-            b-button.w-100.button(
-              @click='goToUrl("/" + $i18n.locale + "/account/register/")'
-            ) {{ $t('pages.basket.button4') }}
+            b-button.w-100.button(@click='nextStep') {{ $t('pages.basket.button4') }}
+  b-row
+    b-col(v-if='stepOrder === stepOrderType.STEP2' md='20')
+      stripePay(@handleChangeStripe='handleChangeStripe')
+  b-row.mt-3(align-h='center')
+    b-col.m-2(cols='20')
+      .p-5.content(v-if='submitOrder !== submitOrderType.NONE')
+        alert(
+          :show='submitOrder === submitOrderType.ERROR || submitOrder === submitOrderType.SUCCESS'
+          :variant='submitOrder === submitOrderType.ERROR ? "error" : "success"'
+          :icon='submitOrder === submitOrderType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+        )
+          h6.m-0.mb-2.text-center {{ errorMsg }}
 </template>
 <script lang="ts">
 import { mixins, Component } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
-import { required } from 'vuelidate/lib/validators';
+import { required, maxLength } from 'vuelidate/lib/validators';
 import {
   Basket,
   BasketLine,
@@ -197,19 +218,21 @@ import {
   submitOrderType,
 } from '@/utils/utils';
 import { API } from '~/utils/javaBack';
+import stripePay from '@/components/stripe/stripePay.vue';
+import alert from '@/components/global/alert.vue';
 
 @Component({
-  components: {},
+  components: { alert, stripePay },
 })
 export default class extends mixins(validationMixin) {
   @Validate({ required }) addresses: string = '';
-  @Validate({ required }) address: string = '';
-  @Validate({ required }) city: string = '';
+  @Validate({ required, maxLength: maxLength(45) }) address: string = '';
+  @Validate({ required, maxLength: maxLength(45) }) city: string = '';
   @Validate({ required }) zip: string = '';
   @Validate({ required }) number: number = 0;
   @Validate({ required }) extension: number = 0;
-  note: string = '';
-  // isReadOnly: boolean = false;
+  @Validate({ maxLength: maxLength(255) }) note: string = '';
+  isReadOnly: boolean = false;
 
   add: SelectOption[] = [];
   // quantityToOrder: number[] = [1, 2, 3, 4, 5];
@@ -222,6 +245,7 @@ export default class extends mixins(validationMixin) {
   currentBasket: Basket | null = null;
   products: Product[] | null = null;
 
+  errorMsg: string = '';
   stepOrderType = stepOrderType;
   stepOrder = stepOrderType.NONE;
   submitOrderType = submitOrderType;
@@ -256,8 +280,16 @@ export default class extends mixins(validationMixin) {
     // console.log('BASKET:!', this.$store.state.baskets.basketLine);
     this.getAddressByUser(1);
     console.log('ADD', this.addresses);
+    // this.totalBasket();
   }
 
+  // @Watch('address')
+  // handleMsg() {
+  //   if (this.address.length >= 45) {
+  //     this.errorMsg = this.$tc('pages.basket.errors.address');
+  //     this.submitOrder = submitOrderType.ERROR;
+  //   }
+  // }
   // async getProducts() {
   //   for (let i = 0; i < this.$store.state.baskets.basketLine.length; i++) {
   //     const response = await API.getProductSumByLangAndId(
@@ -272,15 +304,6 @@ export default class extends mixins(validationMixin) {
   //     this.$store.commit('baskets/addProduct', response.data)
   //   }
   // }
-
-  isReadOnly(): boolean {
-    if (this.addresses === '') {
-      console.log('TRUE');
-
-      return true;
-    }
-    return false;
-  }
 
   async getAddressByUser(userId: number) {
     const responseAddress = await API.getAddressByUser(userId);
@@ -303,7 +326,7 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    // this.isReadOnly = true;
+    this.isReadOnly = true;
     this.address = responseAddress.data.street;
     this.number = responseAddress.data.number;
     this.zip = responseAddress.data.zipcode;
@@ -318,6 +341,7 @@ export default class extends mixins(validationMixin) {
 
   incrementQuantity(productId: number) {
     this.$store.commit('baskets/incrementAmount', productId);
+    // this.$store.dispatch('baskets/saveBasket');
   }
 
   decrementQuantity(productId: number) {
@@ -334,6 +358,40 @@ export default class extends mixins(validationMixin) {
     return link;
   }
 
+  async handleChangeStripe(stripe: any, elements: any) {
+    const addId = parseInt(this.addresses);
+
+    const response = await API.addOrder(
+      this.$store.state.users.basketId,
+      addId
+    );
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    const responsePaymentMethod = await API.getStripePaymentMethod();
+
+    if (responsePaymentMethod.status !== 200) {
+      return;
+    }
+
+    // const { response.data.paymentIntent, error } = stripe.confirmCard()
+    console.log('STRIPE', stripe);
+    console.log('ELEMENTS', elements);
+
+    // const responseConfirmPayment = await API.confirmPayment(
+    //   response.data.id,
+    //   responsePaymentMethod.data
+    // );
+
+    // if (responseConfirmPayment.status !== 200) {
+    //   console.log('ERROR CONFIRM PAYMENT');
+    //   return;
+    // }
+    console.log('ORDER CREATED');
+  }
+
   async saveBasket() {
     if (this.$store.state.users.currentUser === null) {
       console.log('PAS CONNECTE');
@@ -341,7 +399,7 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    const responseBasket = await API.getBasketByUser(
+    const responseBasket = await API.getBasketByUserId(
       this.$store.state.users.currentUser.id
     );
 
@@ -403,20 +461,55 @@ export default class extends mixins(validationMixin) {
     }
     console.log('UPDATED BASKET OK');
 
-    this.$store.commit('baskets/resetBasket');
+    // this.$store.commit('baskets/resetBasket');
 
     // const responseAdress = await API.get;
   }
 
   createOrder() {
     if (this.$store.state.users.currentUser === null) {
+      this.submitOrder = submitOrderType.ERROR;
+      this.errorMsg = this.$tc('pages.basket.errors.notLog');
+      setTimeout(() => {
+        this.submitOrder = submitOrderType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       console.log('PAS CONNECTE');
 
       return;
     }
 
+    if (this.$store.state.baskets.basketLine.length <= 0) {
+      this.submitOrder = submitOrderType.ERROR;
+      this.errorMsg = this.$tc('pages.basket.errors.emptyBasket');
+      setTimeout(() => {
+        this.submitOrder = submitOrderType.NONE;
+        this.errorMsg = '';
+      }, 4000);
+      console.log('PANIUER VIDE');
+
+      return;
+    }
     this.stepOrder = stepOrderType.STEP1;
   }
+
+  nextStep() {
+    this.$v.$touch();
+    if (this.$v.$invalid) {
+      this.submitOrder = submitOrderType.ERROR;
+      this.errorMsg = this.$tc('pages.basket.errors.fields');
+      setTimeout(() => {
+        this.submitOrder = submitOrderType.NONE;
+        this.errorMsg = '';
+      }, 4000);
+      return;
+    }
+    this.stepOrder = stepOrderType.STEP2;
+  }
+
+  // async payOrder() {
+  //   const response = await API.addOrder();
+  // }
 
   goToUrl(url: string) {
     this.$router.push(url);
