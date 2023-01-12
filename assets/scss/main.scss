@@ -52,18 +52,17 @@ pre {
   margin-left: 5px;
 }
 
-// .form-control,
-// .custom-file-label,
-// .mx-input {
-//   color: var(--colorForm);
-//   background: var(--backgroundForm);
-//   transition: background 0.5s;
-//   border-radius: 4px !important;
-//   font-size: 14px !important;
-//   height: 45px !important;
-//   padding: 10px !important;
-//   border: none;
-// }
+.form-control
+{
+  color: var(--gray);
+  background: var(--primary);
+  transition: background 0.5s;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  height: 45px !important;
+  padding: 10px !important;
+  border: none;
+}
 
 // .form-control:focus,
 // .mx-input:focus {

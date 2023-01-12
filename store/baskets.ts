@@ -50,12 +50,14 @@ export default class Baskets extends VuexModule {
       console.log('OTHER ID', item);
     }
 
+    this.totalPrice += product.actualPrice * quantity;
     this.quantity += quantity;
     this.amountToAdd = 1;
     // this.context.dispatch('getProduct', productId);
     // this.basketLine
     console.log('QUANTITY', this.quantity);
     console.log('BasketLine', this.basketLine);
+    console.log('TOTAL', this.totalPrice);
   }
 
   // @Mutation
@@ -73,6 +75,7 @@ export default class Baskets extends VuexModule {
     if (lineToIncrement) {
       lineToIncrement.amount++;
       this.quantity++;
+      this.totalPrice += lineToIncrement.product.actualPrice;
     }
   }
 
@@ -86,6 +89,7 @@ export default class Baskets extends VuexModule {
     if (lineToDecrement) {
       lineToDecrement.amount--;
       this.quantity--;
+      this.totalPrice -= lineToDecrement.product.actualPrice;
     }
   }
 
@@ -116,6 +120,9 @@ export default class Baskets extends VuexModule {
       this.basketLine.splice(index, 1);
     }
     this.quantity -= amountToRemove?.amount as number;
+    this.totalPrice -=
+      (amountToRemove?.product.actualPrice as number) *
+      (amountToRemove?.amount as number);
     console.log('BL REMOVE', this.basketLine);
     // }
   }
@@ -143,24 +150,6 @@ export default class Baskets extends VuexModule {
       product: response.data,
       quantity,
     });
-    // this.context.dispatch('saveBasket');
-    // setTimeout(() => {
-    //   this.submitProductAdd = submitProductAddType.NONE;
-    //   this.errorMsg = '';
-    // }, 3000);
-    // this.context.dispatch('saveBasket');
-    // console.log('BASKET SAVED');
-
-    // const responseAddProduct = await API.addBasketLine(
-    //   (this.context.state as any).basketLine[0].basketId,
-    //   id,
-    //   (this.context.state as any).amountToAdd
-    // );
-
-    // if (responseAddProduct.status !== 200) {
-    //   return;
-    // }
-
     console.log('END ACTION');
   }
 

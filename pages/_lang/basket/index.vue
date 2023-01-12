@@ -14,6 +14,8 @@ b-container.p-4.bg-gray(fluid)
           responsive
           head-row-variant='darkRed'
           table-variant='gray'
+          :current-page='currentPage'
+          :perPage='perPage'
           :items='$store.state.baskets.basketLine'
           :fields='fieldsBasket'
         )
@@ -49,13 +51,13 @@ b-container.p-4.bg-gray(fluid)
           pills='pills'
           size='sm'
           v-model='currentPage'
-          :total-rows='totalRows'
+          :total-rows='$store.state.baskets.basketLine.length'
           :per-page='perPage'
           align='right'
         )
     b-col.mt-3(md='4')
       .py-2.content
-        p.mb-1.pb-2.text-center.border-bottom {{  }}
+        p.mb-1.pb-2.text-center.border-bottom.title.text-secondary Total amount to pay: {{ this.$store.state.baskets.totalPrice }}€
         .p-3
           b-button.mb-2.w-100.button(@click='saveBasket') Save Basket
           b-button.mb-2.w-100.button(@click='createOrder') {{ $t('pages.basket.button1') }}
@@ -190,8 +192,8 @@ b-container.p-4.bg-gray(fluid)
         b-row
           b-col.mx-auto(md='6')
             b-button.w-100.button(@click='nextStep') {{ $t('pages.basket.button4') }}
-  b-row
-    b-col(v-if='stepOrder === stepOrderType.STEP2' md='20')
+  b-row.mt-3
+    b-col(v-if='stepOrder === stepOrderType.STEP2' md='16' offset-md='2')
       stripePay(@handleChangeStripe='handleChangeStripe')
   b-row.mt-3(align-h='center')
     b-col.m-2(cols='20')
@@ -274,35 +276,8 @@ export default class extends mixins(validationMixin) {
   ];
 
   mounted() {
-    // this.getProducts();
-    // this.getUser(2);
-    // console.log('BASKET:!', this.$store.state.baskets.basketLine);
     this.getAddressByUser(1);
-    console.log('ADD', this.addresses);
-    // this.totalBasket();
   }
-
-  // @Watch('address')
-  // handleMsg() {
-  //   if (this.address.length >= 45) {
-  //     this.errorMsg = this.$tc('pages.basket.errors.address');
-  //     this.submitOrder = submitOrderType.ERROR;
-  //   }
-  // }
-  // async getProducts() {
-  //   for (let i = 0; i < this.$store.state.baskets.basketLine.length; i++) {
-  //     const response = await API.getProductSumByLangAndId(
-  //       this.$i18n.locale,
-  //       this.$store.state.baskets.basketLine[i].productId
-  //     );
-
-  //     if (response.status !== 200) {
-  //       return null;
-  //     }
-  //     //
-  //     this.$store.commit('baskets/addProduct', response.data)
-  //   }
-  // }
 
   async getAddressByUser(userId: number) {
     const responseAddress = await API.getAddressByUser(userId);
@@ -352,9 +327,18 @@ export default class extends mixins(validationMixin) {
       'baskets/saveBasket',
       this.$store.state.users.currentUser.id
     );
-    if (this.$store.state.baskets.amountToAdd <= 0) {
-      this.$store.commit('baskets/removeBasketLine', productId);
+    console.log('QUANTITE PANIER', this.$store.state.baskets.quantity);
+
+    for (const line of this.$store.state.baskets.basketLine) {
+      if (line.productId === productId) {
+        if (line.amount <= 0) {
+          console.log('inferieur a ZERO');
+          this.$store.commit('baskets/removeBasketLine', productId);
+        }
+      }
     }
+    // if (this.$store.state.baskets.basketLine[0].amount <= 0) {
+    // }
   }
 
   removeProduct(productId: number) {
@@ -371,7 +355,7 @@ export default class extends mixins(validationMixin) {
     return link;
   }
 
-  async handleChangeStripe(stripe: any, elements: any) {
+  async handleChangeStripe(paymentMethod: any) {
     const addId = parseInt(this.addresses);
 
     const response = await API.addOrder(
@@ -383,26 +367,91 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    const responsePaymentMethod = await API.getStripePaymentMethod();
+    // PAYMENT
+    const responseConfirmPayment = await API.confirmPayment(
+      response.data.id,
+      paymentMethod.id
+    );
 
-    if (responsePaymentMethod.status !== 200) {
+    if (responseConfirmPayment.status !== 200) {
+      console.log('ERROR CONFIRM PAYMENT');
       return;
     }
 
-    // const { response.data.paymentIntent, error } = stripe.confirmCard()
-    console.log('STRIPE', stripe);
-    console.log('ELEMENTS', elements);
+    // CONFIRM SHIPMENT
+    const responseConfirmeShipment = await API.confirmShipment(
+      response.data.id
+    );
 
-    // const responseConfirmPayment = await API.confirmPayment(
-    //   response.data.id,
-    //   responsePaymentMethod.data
+    if (responseConfirmeShipment.status !== 200) {
+      console.log('ERRROR CONFIRM SHIPMENT');
+
+      return;
+    }
+
+    // RESET STORE BASKET & DELETE BASKET LINES IN DB
+    this.$store.commit('baskets/resetBasket');
+    this.deleteBasket();
+    console.log('ORDER CREATED');
+    this.submitOrder = submitOrderType.SUCCESS;
+    this.errorMsg = this.$tc('pages.basket.success.order');
+  }
+
+  async deleteBasket() {
+    if (this.$store.state.users.currentUser === null) {
+      console.log('PAS CONNECTE');
+
+      return;
+    }
+
+    const responseBasket = await API.getBasketByUserId(
+      this.$store.state.users.currentUser.id
+    );
+
+    if (responseBasket.status !== 200) {
+      return;
+    }
+
+    const lastUpdated = formatDate(new Date().toString());
+    console.log('STORE BL:', this.$store.state.baskets.basketLine);
+
+    // const basketLines: any = this.$store.state.baskets.basketLine.map(
+    //   (line: any) => ({
+    //     id: line.id,
+    //     basketId: line.basketId,
+    //     productId: line.productId,
+    //     amount: line.amount,
+    //   })
     // );
 
-    // if (responseConfirmPayment.status !== 200) {
-    //   console.log('ERROR CONFIRM PAYMENT');
-    //   return;
-    // }
-    console.log('ORDER CREATED');
+    const responseUpdateBasket = await API.updateBasket(
+      responseBasket.data.id,
+      lastUpdated,
+      responseBasket.data.userId
+    );
+
+    if (responseUpdateBasket.status !== 200) {
+      return;
+    }
+
+    const responseBasketLines = await API.getBasketLinesByBasketId(
+      responseBasket.data.id
+    );
+
+    if (responseBasketLines.status !== 200) {
+      return;
+    }
+
+    console.log('LINES', responseBasketLines.data);
+
+    for (let i = 0; i < responseBasketLines.data.length; i++) {
+      const responseRemoveExistingLines = await API.removeBasketLine(
+        responseBasketLines.data[i].id as number
+      );
+      if (responseRemoveExistingLines.status !== 200) {
+        return;
+      }
+    }
   }
 
   async saveBasket() {
