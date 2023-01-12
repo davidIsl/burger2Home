@@ -118,3 +118,4 @@
 - [x] 2023/01/09: fix store users & addbasket card buttons, vuelidate maxLength on address
 - [x] 2023/01/10: Stripe Elements Doc
 - [x] 2023/01/11: Stripe Elements Doc, middleware basket, Stripe confirmPayment, problem with middleware store basket save
+- [x] 2023/01/12: Fix basket middlwere save to DB (add, remove, quantity), stripe payment success OK but not insuffisands funds (little bug ?)
