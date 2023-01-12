@@ -110,18 +110,23 @@ export interface Stock {
   id: number;
 }
 
-export interface orderDetails {
-  number: number | string;
-  product: string;
-  productPrice: number;
-  quantity: number;
-  status: string;
+export interface orderLines {
+  id: number;
+  orderId: number;
+  productId: number;
+  amount: number;
+  priceId: number;
+  promotionId: number;
 }
 export interface Order {
-  date: string;
-  price: number;
+  id: number;
+  userId: number;
+  creditCardId?: number;
+  addressId: number;
+  orderDate: string;
+  totalPrice?: number;
   status: string;
-  details: orderDetails[];
+  orderLines: orderLines[];
 }
 
 export interface Role {

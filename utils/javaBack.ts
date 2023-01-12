@@ -16,6 +16,7 @@ import {
   BasketLine,
   Role,
   FamilyType,
+  Order,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -1079,6 +1080,23 @@ export class API {
    * ENDPOINT ORDER *
    *                *
    *****************/
+
+  /**
+   * GET ALL ORDERS BY USER ID
+   * @param userId
+   * @returns ORDERS LIST
+   */
+
+  static getAllOrdersByUserId(userId: number): Promise<APIDataResponse<Order>> {
+    return this.get(`/users/${userId}/orders`);
+  }
+
+  /**
+   * ADD A NEW ORDER
+   * @param basketId
+   * @param addressId
+   * @returns ORDER CREATED
+   */
 
   static addOrder(basketId: number, addressId: number): Promise<APIResponse> {
     return this.get(

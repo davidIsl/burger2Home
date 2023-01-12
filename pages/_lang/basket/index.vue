@@ -1,12 +1,12 @@
 <template lang="pug">
 b-container.p-4.bg-gray(fluid)
   b-row
-    b-col.mt-2(offset-md='2' md='16')
+    b-col.mt-2(offset-md='1' md='18')
       h3.p-1.text-secondary.title-line {{ $t('pages.basket.title1') }}
     //- b-col.mt-2(md='6')
     //-   h3.p-1.text-secondary.title-line {{ $t('pages.basket.title2') }}
   b-row
-    b-col.mt-3(offset-md='2' md='16')
+    b-col.mt-3(offset-md='1' md='18')
       .p-3.content
         b-table(
           hover
@@ -57,7 +57,7 @@ b-container.p-4.bg-gray(fluid)
         )
     b-col.mt-3(md='4')
       .py-2.content
-        p.mb-1.pb-2.text-center.border-bottom.title.text-secondary Total amount to pay: {{ this.$store.state.baskets.totalPrice }}€
+        p.mb-1.pb-2.text-center.border-bottom.title.text-secondary {{ $t('pages.basket.text1') }} {{ this.$store.state.baskets.totalPrice }}€
         .p-3
           b-button.mb-2.w-100.button(@click='saveBasket') Save Basket
           b-button.mb-2.w-100.button(@click='createOrder') {{ $t('pages.basket.button1') }}
@@ -193,7 +193,7 @@ b-container.p-4.bg-gray(fluid)
           b-col.mx-auto(md='6')
             b-button.w-100.button(@click='nextStep') {{ $t('pages.basket.button4') }}
   b-row.mt-3
-    b-col(v-if='stepOrder === stepOrderType.STEP2' md='16' offset-md='2')
+    b-col(v-if='stepOrder === stepOrderType.STEP2' md='19')
       stripePay(@handleChangeStripe='handleChangeStripe')
   b-row.mt-3(align-h='center')
     b-col.m-2(cols='20')
@@ -356,20 +356,88 @@ export default class extends mixins(validationMixin) {
   }
 
   async handleChangeStripe(paymentMethod: any) {
-    const addId = parseInt(this.addresses);
-
-    const response = await API.addOrder(
-      this.$store.state.users.basketId,
-      addId
+    const responseOrders = await API.getAllOrdersByUserId(
+      this.$store.state.users.currentUser.id
     );
 
-    if (response.status !== 200) {
+    if (responseOrders.status !== 200) {
       return;
+    }
+
+    let existingOrders;
+    // let isSameOrder: boolean = false;
+    let value: number = 0;
+
+    for (const line of responseOrders.data) {
+      if (line.status === 'waiting_for_payment') {
+        console.log('WAITING');
+
+        if (
+          line.orderLines.length === this.$store.state.baskets.basketLine.length
+        ) {
+          console.log('LENGTH');
+          for (let i = 0; i < line.orderLines.length; i++) {
+            for (
+              let j = 0;
+              j < this.$store.state.baskets.basketLine.length;
+              j++
+            ) {
+              console.log('PRODUCT LOOP ORDER', line.orderLines[i].productId);
+              console.log('QUANTITY LOOP ORDER', line.orderLines[i].amount);
+              console.log(
+                'PRODUCT LOOP STORE',
+                this.$store.state.baskets.basketLine[j].productId
+              );
+              console.log(
+                'QUANTITY LOOP STORE',
+                this.$store.state.baskets.basketLine[j].amount
+              );
+
+              if (
+                line.orderLines[i].productId ===
+                  this.$store.state.baskets.basketLine[j].productId &&
+                line.orderLines[i].amount ===
+                  this.$store.state.baskets.basketLine[j].amount
+              ) {
+                value++;
+                console.log('VALUES', value);
+              }
+              if (value === line.orderLines.length) {
+                existingOrders = line;
+              }
+            }
+          }
+        }
+      }
+      console.log('EXISTIBNG ORDERS ', existingOrders);
+    }
+
+    let order;
+
+    if (!existingOrders) {
+      console.log('CREATED ORDER');
+
+      const addId = parseInt(this.addresses);
+
+      const response = await API.addOrder(
+        this.$store.state.users.basketId,
+        addId
+      );
+
+      if (response.status !== 200) {
+        return;
+      }
+
+      order = response.data;
+    } else {
+      console.log('FIND ORDER');
+
+      order = existingOrders;
     }
 
     // PAYMENT
     const responseConfirmPayment = await API.confirmPayment(
-      response.data.id,
+      order.id,
       paymentMethod.id
     );
 
@@ -378,10 +446,13 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
+    // if (responseConfirmPayment.status === 500) {
+    //   this.submitOrder = submitOrderType.ERROR;
+    //   this.errorMsg = this.$tc('pages.basket.stripe.insufficantsFunds');
+    // }
+
     // CONFIRM SHIPMENT
-    const responseConfirmeShipment = await API.confirmShipment(
-      response.data.id
-    );
+    const responseConfirmeShipment = await API.confirmShipment(order.id);
 
     if (responseConfirmeShipment.status !== 200) {
       console.log('ERRROR CONFIRM SHIPMENT');
@@ -393,8 +464,13 @@ export default class extends mixins(validationMixin) {
     this.$store.commit('baskets/resetBasket');
     this.deleteBasket();
     console.log('ORDER CREATED');
+    this.stepOrder = stepOrderType.NONE;
     this.submitOrder = submitOrderType.SUCCESS;
     this.errorMsg = this.$tc('pages.basket.success.order');
+    setTimeout(() => {
+      this.submitOrder = submitOrderType.NONE;
+      this.errorMsg = '';
+    }, 4000);
   }
 
   async deleteBasket() {

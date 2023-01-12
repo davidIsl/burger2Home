@@ -8,11 +8,14 @@ b-container(fluid)
             h3.title.line.text-secondary.text-center Enter your card information
         b-row
           b-col.mt-3(offset-md='7')
-            Card.p-3.stripe-card.text-primary.form-control(:stripe='stripeKey')
+            Card.p-3.stripe-card.text-primary.form-control(
+              @Change='checkField'
+              :stripe='stripeKey'
+            )
 
         b-row
           b-col.mt-3(offset-md='7')
-            b-button.button(@click='payOrder') PAY ORDER {{ this.$store.state.baskets.totalPrice }}€
+            b-button.button(@click='payOrder') {{ $t('pages.basket.stripe.button1') }} {{ this.$store.state.baskets.totalPrice }}€
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
@@ -57,8 +60,8 @@ export default class StripePayments extends Vue {
     // console.log('card number', this.cardNumberElement);
 
     const data = await createPaymentMethod('card', {});
-    const paymentMethod = data.paymentMethod;
-    if (paymentMethod !== 'undefined' || paymentMethod !== null) {
+    if (data.paymentMethod !== 'undefined' || data.paymentMethod !== null) {
+      const paymentMethod = data.paymentMethod;
       this.paymentCard = {
         id: paymentMethod.id,
         expMonth: paymentMethod.card.exp_month,
