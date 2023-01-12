@@ -32,11 +32,7 @@ export default async function ({ store }) {
         return;
       }
       console.log('AMOUNT', responseBasket.data.basketLines[i].amount);
-      // const responseAddBasketLine = await API.addBasketLine(responseBasket.data.basketLines[i].basketId, )
-      // store.commit(
-      //   'baskets/updateQuantity',
-      //   responseBasket.data.basketLines[i].amount
-      // );
+
       console.log('ID', responseProduct.data.id);
       store.dispatch('baskets/addProduct', {
         id: responseProduct.data.id,

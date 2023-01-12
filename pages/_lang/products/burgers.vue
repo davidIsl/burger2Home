@@ -53,7 +53,7 @@ b-container.bg-gray(fluid)
                     ) 0%
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
                 b-button.mr-2.w-48.button.justify-content-between(
-                  @click='addToBasket({ id: product.id, quantity: $store.state.baskets.amountToAdd })'
+                  @click='addToBasket({ id: product.id, quantity: quantity })'
                 ) {{ $t('pages.products.button1') }}
                 b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   // MODAL
@@ -71,11 +71,11 @@ b-container.bg-gray(fluid)
     template(#modal-footer)
       b-button.button(@click='decrementQuantity')
         font-awesome-icon(:icon='["fa", "minus"]')
-      p.d-inline.my-3 {{ $store.state.baskets.amountToAdd }}
+      p.d-inline.my-3 {{ quantity }}
       b-button.button(@click='incrementQuantity')
         font-awesome-icon(:icon='["fa", "plus"]')
       b-button.button(
-        @click='addToBasket({ id: currentProduct.id, quantity: $store.state.baskets.amountToAdd })'
+        @click='addToBasket({ id: currentProduct.id, quantity: quantity })'
       ) {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
@@ -111,7 +111,7 @@ export default class extends Vue {
   filters: boolean = false;
   filterSearch: string = '';
 
-  // numberToAdd: number = 0;
+  quantity: number = 1;
 
   products: Product[] | null = null;
   currentProduct: Product | null = null;
@@ -159,19 +159,32 @@ export default class extends Vue {
   }
 
   decrementQuantity() {
-    this.$store.commit('baskets/decrementAmountToAdd');
+    // this.$store.commit('baskets/decrementAmountToAdd');
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
   }
 
   incrementQuantity() {
-    this.$store.commit('baskets/incrementAmountToAdd');
+    // this.$store.commit('baskets/incrementAmountToAdd');
+    if (this.quantity < 10) {
+      this.quantity++;
+    }
   }
 
   addToBasket({ id, quantity }: { id: number; quantity: number }) {
     // const response = await API.upda
+    console.log('Quantity', this.quantity);
+    console.log('Amount', this.$store.state.baskets.amountToAdd);
+
     this.$store.dispatch('baskets/addProduct', {
       id,
       quantity,
     });
+    this.$store.dispatch(
+      'baskets/saveBasket',
+      this.$store.state.users.currentUser.id
+    );
     this.viewDetails = false;
   }
 

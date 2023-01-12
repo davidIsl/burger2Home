@@ -129,12 +129,6 @@ export default class Baskets extends VuexModule {
     this.amountToAdd = 1;
   }
 
-  @Mutation
-  updateQuantity(amount: number) {
-    this.amountToAdd = amount;
-    // this.quantity += amount;
-  }
-
   @Action({ rawError: true })
   async addProduct({ id, quantity }: { id: number; quantity: number }) {
     console.log('ID STORE PRODUCT', id);
@@ -182,18 +176,17 @@ export default class Baskets extends VuexModule {
   }
 
   @Action({ rawError: true })
-  async saveBasket() {
+  async saveBasket(userId: number) {
     console.log('MIDDLEWARE SAVE');
-    // if (userId === null || userId === 0) {
-    //   console.log('PAS CONNECTE');
+    if (userId === null || userId === 0) {
+      console.log('PAS CONNECTE');
 
-    //   return;
-    // }
+      return;
+    }
+    console.log('user ID', userId);
     console.log('BASKET ID', this.context.state as any);
 
-    const responseBasket = await API.getBasketById(
-      (this.context.state as any).basketLine[0].basketId
-    );
+    const responseBasket = await API.getBasketByUserId(userId);
 
     if (responseBasket.status !== 200) {
       return;
@@ -232,33 +225,66 @@ export default class Baskets extends VuexModule {
     console.log('LINES', responseBasketLines.data);
     console.log('LINES STORE', (this.context.state as any).basketLine);
 
-    for (let i = 0; i < responseBasketLines.data.length; i++) {
-      // const responseRemoveExistingLines = await API.removeBasketLine(
-      //   responseBasketLines.data[i].id as number
-      // );
-      // if (responseRemoveExistingLines.status !== 200) {
-      //   return;
-      // }
-      for (let j = 0; j < (this.context.state as any).basketLine.length; j++) {
-        // SAME PRODUCT BUT DIFF AMOUNT
-        if (
-          responseBasket.data[i].productId ===
-            (this.context.state as any).basketLine[j].productId &&
-          responseBasket.data[i].amount !==
-            (this.context.state as any).basketLine[j].amount
-        ) {
-          const responseUpdate = await API.updateBasketLine(
-            responseBasket.data[i].id,
-            responseBasket.data[i].basketId,
-            responseBasket.data[i].productId,
-            (this.context.state as any).basketLine[j].amount
-          );
+    // for (const storeLine of (this.context.state as any).basketLine) {
+    //   console.log('STORE LINE', storeLine);
+    //   if (responseBasketLines.data.length === 0) {
+    //     const responseAddBasketLine = await API.addBasketLine(
+    //       responseBasket.data.id,
+    //       storeLine.productId,
+    //       storeLine.amount
+    //     );
+    //     if (responseAddBasketLine.status !== 200) {
+    //       return;
+    //     }
+    //   }
+    //   for (const line of responseBasketLines.data) {
+    //     console.log('LINE', line);
+    //     if (
+    //       line.productId === storeLine.productId &&
+    //       line.amount !== storeLine.amount
+    //     ) {
+    //       console.log('SAME PRODUCT BUT NOT SAME QUANTIYY');
+    //       const responseUpdate = await API.updateBasketLine(
+    //         line.id as number,
+    //         line.basketId,
+    //         line.productId,
+    //         storeLine.amount
+    //       );
 
-          if (responseUpdate.status !== 200) {
-            return;
-          }
-        }
+    //       if (responseUpdate.status !== 200) {
+    //         return;
+    //       }
+    //     }
+    //   }
+    // }
+
+    for (let i = 0; i < responseBasketLines.data.length; i++) {
+      const responseRemoveExistingLines = await API.removeBasketLine(
+        responseBasketLines.data[i].id as number
+      );
+      if (responseRemoveExistingLines.status !== 200) {
+        return;
       }
+      // for (let j = 0; j < (this.context.state as any).basketLine.length; j++) {
+      //   // SAME PRODUCT BUT DIFF AMOUNT
+      //   if (
+      //     responseBasketLines.data[i].productId ===
+      //       (this.context.state as any).basketLine[j].productId &&
+      //     responseBasketLines.data[i].amount !==
+      //       (this.context.state as any).basketLine[j].amount
+      //   ) {
+      //     const responseUpdate = await API.updateBasketLine(
+      //       responseBasketLines.data[i].id as number,
+      //       responseBasketLines.data[i].basketId,
+      //       responseBasketLines.data[i].productId,
+      //       (this.context.state as any).basketLine[j].amount
+      //     );
+
+      //     if (responseUpdate.status !== 200) {
+      //       return;
+      //     }
+      //   }
+      // }
     }
 
     for (let i = 0; i < (this.context.state as any).basketLine.length; i++) {

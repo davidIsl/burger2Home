@@ -210,7 +210,6 @@ import { Validate } from 'vuelidate-property-decorators';
 import { required, maxLength } from 'vuelidate/lib/validators';
 import {
   Basket,
-  BasketLine,
   formatDate,
   Product,
   SelectOption,
@@ -341,15 +340,29 @@ export default class extends mixins(validationMixin) {
 
   incrementQuantity(productId: number) {
     this.$store.commit('baskets/incrementAmount', productId);
-    // this.$store.dispatch('baskets/saveBasket');
+    this.$store.dispatch(
+      'baskets/saveBasket',
+      this.$store.state.users.currentUser.id
+    );
   }
 
   decrementQuantity(productId: number) {
     this.$store.commit('baskets/decrementAmount', productId);
+    this.$store.dispatch(
+      'baskets/saveBasket',
+      this.$store.state.users.currentUser.id
+    );
+    if (this.$store.state.baskets.amountToAdd <= 0) {
+      this.$store.commit('baskets/removeBasketLine', productId);
+    }
   }
 
-  removeProduct(bLines: BasketLine) {
-    this.$store.commit('baskets/removeBasketLine', bLines);
+  removeProduct(productId: number) {
+    this.$store.commit('baskets/removeBasketLine', productId);
+    this.$store.dispatch(
+      'baskets/saveBasket',
+      this.$store.state.users.currentUser.id
+    );
   }
 
   getLink(productId: number) {
