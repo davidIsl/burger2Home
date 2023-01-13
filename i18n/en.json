@@ -73,14 +73,19 @@
     "register": {
       "title1": "Sign in to Burger2Home",
       "button1": "Sign in",
+      "button2": "Next Step",
       "label1": "Email Adress",
       "label2": "Password",
       "label3": "Confirm Password",
       "label4": "Lastname",
       "label5": "Firstname",
-      "label6": "Address",
-      "label7": "Zip Code",
-      "label8": "Locality",
+      "label6": "Username",
+      "label7": "Address",
+      "label8": "Number",
+      "label9": "Extension",
+      "label10": "Zip Code",
+      "label11": "Locality",
+      "label12": "Dénomination",
       "text1": "Or ",
       "text2": "Log in if you already have an account",
       "text3": "Sign in with",
@@ -91,9 +96,17 @@
       "placeholder2": "********",
       "placeholder3": "Doe",
       "placeholder4": "John",
-      "placeholder5": "Station Street 15",
-      "placeholder6": "4280",
-      "placeholder7": "Hannut"
+      "placeholder5": "Enter a username",
+      "placeholder6": "Station street",
+      "placeholder7": "Hannut",
+      "placeholder8": "Enter a denomination",
+      "errors": {
+        "fields": "you have to fill all the fields"
+      },
+      "success": {
+        "create": "User created with SUCCESS",
+        "update": "User updated with SUCCESS"
+      }
     },
     "forgot": {
       "title1": "Forgotten password ?",

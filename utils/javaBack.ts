@@ -72,7 +72,7 @@ export class API {
       config.api_url + endpoint,
       body,
       {
-        // withCredentials: true,
+        withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -1050,6 +1050,38 @@ export class API {
 
   static getAddressByUser(userId: number): Promise<APIDataResponse<Address>> {
     return this.get(`/users/${userId}/addresses`);
+  }
+
+  /**
+   * CREATE A NEW ADDRESS
+   * @param userId
+   * @param city
+   * @param zipcode
+   * @param street
+   * @param number
+   * @param label
+   * @param extension
+   * @returns CREATED ADDRESS
+   */
+
+  static addAddress(
+    userId: number,
+    city: string,
+    zipcode: number,
+    street: string,
+    number: number,
+    label: string,
+    extension: number
+  ): Promise<APIResponse> {
+    return this.post(`/addresses`, {
+      userId,
+      city,
+      zipcode,
+      street,
+      number,
+      label,
+      extension,
+    });
   }
 
   /********************
