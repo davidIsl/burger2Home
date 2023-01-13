@@ -72,7 +72,7 @@ export class API {
       config.api_url + endpoint,
       body,
       {
-        withCredentials: true,
+        // withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -403,16 +403,28 @@ export class API {
     return this.del(`/products/families/${id}`);
   }
 
-  /*
-   * CREATE PRODUCTS
+  /**
+   * CREATE A NEW PRODUCT
+   * @param ingredients
+   * @param productFamilies
+   * @param typeId
+   * @param imageName
+   * @param onMenu
+   * @returns PRODUCTS CREATED
    */
 
   static addProducts(
     ingredients: Ingredients[],
     productFamilies: Families[],
+    typeId: number,
     onMenu: boolean
   ): Promise<APIResponse> {
-    return this.post('/products', { ingredients, productFamilies, onMenu });
+    return this.post('/products', {
+      ingredients,
+      productFamilies,
+      typeId,
+      onMenu,
+    });
   }
 
   /**
@@ -454,9 +466,23 @@ export class API {
     return this.postFormData(`/products/${productId}/image`, { imageName });
   }
 
+  /************************
+   * ENDPOINT INGREDIENTS *
+   *                      *
+   ***********************/
+
+  /**
+   * GET INGREDIENTS LIST
+   * @returns LIST INGREDIENTS
+   */
+
+  static getIngredientsList(): Promise<APIDataResponse<Ingredients>> {
+    return this.get(`/ingredients`);
+  }
+
   /**
    * INGREDIENTS LIST TRANSLATION
-   * @returns LIST INGREDIENTS
+   * @returns LIST INGREDIENTS TRANSLATION
    */
 
   static ingredientsList(): Promise<APIDataResponse<Ingredients>> {
@@ -498,7 +524,25 @@ export class API {
   }
 
   /**
-   * ENDPOINT CREATE INGREDIENTS
+   * GET INGREDIENTS TRANSLATION BY ID AND BY LANG
+   * @param ingredientId
+   * @param lang
+   * @returns INGREDIENT TRANSLATION
+   */
+
+  static getIngredientsTranslationByIdAndLang(
+    ingredientId: number,
+    lang: string
+  ): Promise<APIResponse> {
+    return this.get(
+      `/ingredients/${ingredientId}/translations?language=${lang.toUpperCase()}`
+    );
+  }
+
+  /**
+   * CREATE A NEW INGREDIENTS
+   * @param allergens
+   * @returns INGREDIENTS CREATED
    */
 
   static addIngredient(allergens: Allergens[]): Promise<APIResponse> {
@@ -506,7 +550,11 @@ export class API {
   }
 
   /**
-   * ENDPOINT CREATE INGREDIENTS TRANSLATION
+   * CREATE A NEW INGREDIENT TRANSLATION
+   * @param name
+   * @param language
+   * @param ingredientId
+   * @returns INGREDIENTS TRANSLATION CREATED
    */
 
   static addIngredientTranslation(
@@ -581,6 +629,48 @@ export class API {
 
   static deleteIngredients(id: number): Promise<APIResponse> {
     return this.del(`/ingredients/${id}`);
+  }
+
+  /******************
+   * STOCK ENDPOINT *
+   *                *
+   *****************/
+
+  /**
+   * GET ALL STOCKS
+   * @returns STOCK LIST
+   */
+
+  static getAllStocks(): Promise<APIDataResponse<Stock>> {
+    return this.get(`/stocks`);
+  }
+
+  /**
+   * GET STOCK BY INGREDIENTS
+   * @param id
+   * @returns STOCK
+   */
+
+  static getStocks(id: number): Promise<APIDataResponse<Stock>> {
+    return this.get(`/ingredients/${id}/stocks`);
+  }
+
+  /**
+   * UPDATE STOCK INGREDIENTS
+   * @param id
+   * @param ingredientId
+   * @param amount
+   * @param creationDate
+   * @returns STOCK UPDATED
+   */
+
+  static updateStock(
+    id: number,
+    ingredientId: number,
+    amount: number,
+    creationDate: string
+  ): Promise<APIResponse> {
+    return this.update(`/stocks`, { id, ingredientId, amount, creationDate });
   }
 
   /**********************
@@ -826,39 +916,6 @@ export class API {
   }
 
   /******************
-   * STOCK ENDPOINT *
-   *                *
-   *****************/
-
-  /**
-   * GET STOCK BY INGREDIENTS
-   * @param id
-   * @returns STOCK
-   */
-
-  static getStocks(id: number): Promise<APIDataResponse<Stock>> {
-    return this.get(`/ingredients/${id}/stocks`);
-  }
-
-  /**
-   * UPDATE STOCK INGREDIENTS
-   * @param id
-   * @param ingredientId
-   * @param amount
-   * @param creationDate
-   * @returns STOCK UPDATED
-   */
-
-  static updateStock(
-    id: number,
-    ingredientId: number,
-    amount: number,
-    creationDate: string
-  ): Promise<APIResponse> {
-    return this.update(`/stocks`, { id, ingredientId, amount, creationDate });
-  }
-
-  /******************
    * USERS ENDPOINT *
    *                *
    *****************/
@@ -880,6 +937,32 @@ export class API {
 
   static getUserById(userId: number): Promise<APIResponse> {
     return this.get(`/users/${userId}`);
+  }
+
+  /**
+   * CREATE A NEW USER
+   * @param email
+   * @param firstname
+   * @param lastname
+   * @param password
+   * @param username
+   * @returns CREATED USER
+   */
+
+  static addUser(
+    email: string,
+    firstname: string,
+    lastname: string,
+    password: string,
+    username: string
+  ): Promise<APIResponse> {
+    return this.post(`/users`, {
+      email,
+      firstname,
+      lastname,
+      password,
+      username,
+    });
   }
 
   /**

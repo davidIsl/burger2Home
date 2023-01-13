@@ -750,28 +750,28 @@ export default class extends mixins(validationMixin) {
   }
 
   async getIngredients() {
-    const response = await API.ingredientsListByLang(this.$i18n.locale);
+    const response = await API.getAllStocks();
 
     if (response.status !== 200) {
       return;
     }
+    this.stocks = response.data;
 
-    for (let i = 0; i < response.data.length; i++) {
-      const responseStock = await API.getStocks(response.data[i].ingredientId);
+    const tempTab = await Promise.all(
+      response.data.map((item) =>
+        API.getIngredientsTranslationByIdAndLang(
+          item.ingredientId,
+          this.$i18n.locale
+        )
+      )
+    );
 
-      if (responseStock.status !== 200) {
-        return;
+    for (const stock of this.stocks) {
+      for (const temp of tempTab) {
+        if (stock.ingredientId === temp.data[0].ingredientId) {
+          stock.name = temp.data[0].name;
+        }
       }
-      console.log('RESPONSE STOCK', responseStock);
-
-      this.stocks[i] = responseStock.data[0];
-      // this.stocks[i] = responseStock.data.sort(
-      //   (a, b) =>
-      //     new Date(b.creationDate).getTime() -
-      //     new Date(a.creationDate).getTime()
-      // )[0];
-      this.stocks[i].name = response.data[i].name;
-      console.log('STOCK ITEM', responseStock.data[0]);
     }
     console.log('STOCK', this.stocks);
     this.totalStocks = this.stocks.length;

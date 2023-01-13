@@ -278,7 +278,7 @@ b-container.p-5.bg-gray(fluid)
                 )
                   b-button.mt-3.button.w-100(
                     variant='secondary'
-                    @click='onSubmit'
+                    @click='createProduct'
                   ) {{ $t('pages.admin.products.add.button1') }}
               b-row.mt-5(align-h='center')
                 b-col.p-0(cols='22')
@@ -390,10 +390,17 @@ export default class extends mixins(validationMixin) {
     if (response.status !== 200) {
       return;
     }
+    console.log('TYPE', response.data);
 
-    this.familyTypes = response.data.map((type) => ({
+    const filterType = response.data.filter(
+      (type) => type.language.abbreviation?.toLowerCase() === this.$i18n.locale
+    );
+
+    console.log('FILTER TYPE', filterType);
+
+    this.familyTypes = filterType.map((type) => ({
       value: type.typeId,
-      text: type.name.toUpperCase(),
+      text: type.name[0].toUpperCase() + type.name.slice(1),
     }));
   }
 
@@ -485,7 +492,7 @@ export default class extends mixins(validationMixin) {
     return true;
   }
 
-  async onSubmit() {
+  async createProduct() {
     this.$v.$touch();
     console.log('ADD PRODUCT');
 
@@ -500,6 +507,7 @@ export default class extends mixins(validationMixin) {
     const responseCreateProduct = await API.addProducts(
       this.ingredientsId,
       this.productFamilies,
+      parseInt(this.familyType),
       true
     );
 
@@ -565,11 +573,12 @@ export default class extends mixins(validationMixin) {
     }
 
     // const fileInput = this.$refs.fileInput as HTMLInputElement;
-    // const file = fileInput.files[0];
+    // const file = (fileInput.files[0] as FileList).name;
 
     // console.log('FILE', file
     const formData = new FormData();
-    formData.append('image', this.imageName);
+
+    formData.append('file', this.imageName);
     console.log('FILE', formData);
 
     const responseUploadImg = await API.uploadImage(

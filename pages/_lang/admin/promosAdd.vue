@@ -968,6 +968,7 @@ export default class extends mixins(validationMixin) {
     this.getPromos();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.promos.success.stopPromo');
+    this.deleteAlert = false;
   }
 }
 </script>

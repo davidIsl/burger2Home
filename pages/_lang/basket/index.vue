@@ -436,13 +436,24 @@ export default class extends mixins(validationMixin) {
     }
 
     // PAYMENT
-    const responseConfirmPayment = await API.confirmPayment(
-      order.id,
-      paymentMethod.id
-    );
+    try {
+      const responseConfirmPayment = await API.confirmPayment(
+        order.id,
+        paymentMethod.id
+      );
 
-    if (responseConfirmPayment.status !== 200) {
-      console.log('ERROR CONFIRM PAYMENT');
+      if (responseConfirmPayment.status !== 200) {
+        console.log('ERROR CONFIRM PAYMENT');
+        return;
+      }
+    } catch (error) {
+      this.submitOrder = submitOrderType.ERROR;
+      this.errorMsg = this.$tc('pages.basket.stripe.funds');
+      setTimeout(() => {
+        this.submitOrder = submitOrderType.NONE;
+        this.errorMsg = '';
+      }, 4000);
+      this.stepOrder = stepOrderType.NONE;
       return;
     }
 
@@ -463,7 +474,7 @@ export default class extends mixins(validationMixin) {
     // RESET STORE BASKET & DELETE BASKET LINES IN DB
     this.$store.commit('baskets/resetBasket');
     this.deleteBasket();
-    console.log('ORDER CREATED');
+    console.log('ORDER FINISH');
     this.stepOrder = stepOrderType.NONE;
     this.submitOrder = submitOrderType.SUCCESS;
     this.errorMsg = this.$tc('pages.basket.success.order');
