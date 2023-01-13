@@ -72,14 +72,19 @@
     "register": {
       "title1": "S'inscrire à Burger2Home",
       "button1": "S'inscrire",
+      "button2": "Suivant",
       "label1": "Adresse Email",
       "label2": "Mot de passe",
       "label3": "Confirmer mot de passe",
       "label4": "Nom",
       "label5": "Prénom",
-      "label6": "Adresse",
-      "label7": "Code Postal",
-      "label8": "Localité",
+      "label6": "Pseudos",
+      "label7": "Addresse",
+      "label8": "Numéro",
+      "label9": "Boite",
+      "label10": "Code Postal",
+      "label11": "Localité",
+      "label12": "Dénomination",
       "text1": "Ou ",
       "text2": "Se connecter si vous avez déjà un compte",
       "text3": "S'inscrire avec",
@@ -92,7 +97,14 @@
       "placeholder4": "John",
       "placeholder5": "Rue de la station 15",
       "placeholder6": "4280",
-      "placeholder7": "Hannut"
+      "placeholder7": "Hannut",
+      "errors": {
+        "fields": "Attention, vous devez remplir tous les champs"
+      },
+      "success": {
+        "create": "Votre compte a été crée avec succès",
+        "update": "Votre compte a été mis à jour avec succès"
+      }
     },
     "forgot": {
       "title1": "Mot de passe oublié ?",
@@ -187,6 +199,7 @@
     "basket": {
       "title1": "Mon panier",
       "title2": "Informations de livraison",
+      "text1": "Montant Total",
       "label1": "Selectionnez une adresse",
       "label2": "Adresse",
       "label3": "Numéro",
@@ -668,10 +681,10 @@
       }
     },
     "errors": {
-      "required": "This field is required",
-      "invalidEmail": "Please, enter a valid Email",
-      "invalidPasswordFormat": "The password must contain 8 characters including at least one upper case, one lower case and one digit.",
-      "invalidConfirmPassword": "The confirm password must be the same as the password."
+      "required": "Ce champ est requis.",
+      "invalidEmail": "Entrez un email valide",
+      "invalidPasswordFormat": "Le mot de pass doit contenir 8 caractères incluant 1 majuscule, 1 minuscule et 1 chiffre",
+      "invalidConfirmPassword": "Le mot de passe de confirmation doit etre le meme que le mot de passe"
     },
     "email": {
       "placeHolder": "Adresse e-mail",
@@ -691,12 +704,6 @@
       "mailNotExist": "L'e-mail n'existe pas dans notre base de données, veuillez-vous inscrire via le lien ci-dessous.",
       "mailNotActive": "Veuillez valider votre adresse e-mail avant de pouvoir vous connecter."
     }
-  },
-  "error": {
-    "title": "Une erreur est survenue",
-    "label": "ERREUR",
-    "buttonBack": "Retour à la page d'accueil",
-    "404": "Cette page est introuvable ..."
   },
 
   "gdpr": {

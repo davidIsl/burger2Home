@@ -227,6 +227,7 @@
     "basket": {
       "title1": "Your basket",
       "title2": "Delivery Informations",
+      "text1": "Total Amount",
       "label1": "Select Addres",
       "label2": "Address",
       "label3": "Number",
