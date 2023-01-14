@@ -133,24 +133,30 @@
       "label8": "Extension",
       "label9": "ZipCode",
       "label10": "City",
-      "label14": "Card Number",
-      "label11": "Card Name",
-      "label12": "Validity Date",
-      "label13": "CVV",
+      "label11": "Denomination",
+      "label12": "Select an Address",
       "placeholder1": "Joe",
       "placeholder2": "Doe",
       "placeholder3": "you@example.com",
-      "placeholder4": "0495/45.56.65",
       "placeholder5": "Enter a pseudo",
       "placeholder6": "Enter an address",
       "placeholder7": "Enter a street number",
       "placeholder8": "Enter an extension",
       "placeholder9": "Enter a zip code",
       "placeholder10": "Enter a locality",
+      "placeholder11": "Enter a denomination",
       "button1": "Save",
-      "button2": "Reset Data",
-      "button3": "Add an address",
-      "button4": "Add a card"
+      "button2": "Add Address",
+      "errors": {
+        "fields": "you have to fill all the fields",
+        "addressSelected": "Warning, you have selected an existing address. Please, deselect it !",
+        "noAddress": "Warning, you don't have selected an address to update",
+        "zipcode": "Please, select a valid Zip Code"
+      },
+      "success": {
+        "createAddress": "Address created with SUCCESS",
+        "update": "Address updated with SUCCESS"
+      }
     },
     "history": {
       "title1": "My Orders",
@@ -248,6 +254,12 @@
       "button4": "Next",
       "table": {
         "image": "Image"
+      },
+      "stripe": {
+        "button1": "Pay Order "
+      },
+      "success": {
+        "order": "Order validated and paid with SUCCESS"
       }
     },
     "filters": {
@@ -727,7 +739,9 @@
       "required": "This field is required",
       "invalidEmail": "Please, enter a valid Email",
       "invalidPasswordFormat": "The password must contain 8 characters including at least one upper case, one lower case and one digit.",
-      "invalidConfirmPassword": "The confirm password must be the same as the password."
+      "invalidConfirmPassword": "The confirm password must be the same as the password.",
+      "maxLength": "This Field must contains only 45 characters MAX",
+      "zipcode": "Please, select a valid Zip Code"
     },
     "index": {
       "title": "AntelopeJS Nuxt : Bootstrap Template",

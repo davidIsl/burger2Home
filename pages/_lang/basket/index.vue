@@ -84,6 +84,7 @@ b-container.p-4.bg-gray(fluid)
                 v-model='addresses'
                 :placeholder='$t("pages.basket.placeholder1")'
                 :options='add'
+                selected='0'
                 @change='handleChangeAddress'
               )
                 //- .input-error(v-if='$v.addresses.$error')
@@ -226,7 +227,7 @@ import alert from '@/components/global/alert.vue';
   components: { alert, stripePay },
 })
 export default class extends mixins(validationMixin) {
-  @Validate({ required }) addresses: string = '';
+  @Validate({ required }) addresses: string = '0';
   @Validate({ required, maxLength: maxLength(45) }) address: string = '';
   @Validate({ required, maxLength: maxLength(45) }) city: string = '';
   @Validate({ required }) zip: string = '';
@@ -290,6 +291,10 @@ export default class extends mixins(validationMixin) {
       value: address.id,
       text: address.label,
     }));
+    this.add.push({
+      value: 0,
+      text: 'Please, Select an Address',
+    });
   }
 
   async handleChangeAddress() {

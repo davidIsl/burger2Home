@@ -132,23 +132,30 @@
       "label9": "Code Postal",
       "label10": "Localité",
       "label14": "Numéro de carte",
-      "label11": "Titulaire de la carte",
-      "label12": "DAte de validité",
-      "label13": "CVV",
+      "label11": "Dénomination",
+      "label12": "Sélectionnez une adresse",
       "placeholder1": "Joe",
       "placeholder2": "Doe",
       "placeholder3": "you@example.com",
-      "placeholder4": "0495/45.56.65",
       "placeholder5": "Entrez un pseudo",
       "placeholder6": "Entrez une adresse",
       "placeholder7": "Entrez un numéro",
       "placeholder8": "Entrez une boite",
       "placeholder9": "Entrez un code postal",
       "placeholder10": "Entrez une localité",
-      "button1": "Enregistrer",
-      "button2": "Reset données",
-      "button3": "Ajouter une adresse",
-      "button4": "Ajouter une carte"
+      "placeholder11": "Dénomination",
+      "button1": "Modifier Adresse",
+      "button2": "Ajouter une adresse",
+      "errors": {
+        "fields": "Attention, vous devez remplir tous les champs",
+        "addressSelected": "Attenion, vous avez sélectionné une adresse existante. Veuillez la déselectionner !",
+        "noAddress": "Attention, vous n'avez pas sélectionné d'adresse afin de la mettre à jour",
+        "zipcode": "Veuillez entrer un code postal valide"
+      },
+      "success": {
+        "createAddress": "Nouvelle adresse crée avec SUCCES",
+        "update": "Adresse mise à jour avec SUCCES"
+      }
     },
     "history": {
       "title1": "Mes Commandes",
@@ -217,7 +224,16 @@
       "button1": "Commander",
       "button2": "Se connecter",
       "button3": "S'inscrire",
-      "button4": "Suivant"
+      "button4": "Suivant",
+      "table": {
+        "image": "Image"
+      },
+      "stripe": {
+        "button1": "Payer Commande "
+      },
+      "success": {
+        "order": "Commande payée et validée avec SUCCES"
+      }
     },
     "filters": {
       "title1": "Filtres",
@@ -684,7 +700,9 @@
       "required": "Ce champ est requis.",
       "invalidEmail": "Entrez un email valide",
       "invalidPasswordFormat": "Le mot de pass doit contenir 8 caractères incluant 1 majuscule, 1 minuscule et 1 chiffre",
-      "invalidConfirmPassword": "Le mot de passe de confirmation doit etre le meme que le mot de passe"
+      "invalidConfirmPassword": "Le mot de passe de confirmation doit etre le meme que le mot de passe",
+      "maxLength": "Ce champ doit contenir 45 caractères MAX",
+      "zipcode": "Veuillez entrer un code postal valide"
     },
     "email": {
       "placeHolder": "Adresse e-mail",

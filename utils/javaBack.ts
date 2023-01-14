@@ -1084,6 +1084,40 @@ export class API {
     });
   }
 
+  /**
+   * UPDATE AN ADDRESS
+   * @param addressId
+   * @param city
+   * @param zipcode
+   * @param street
+   * @param number
+   * @param extension
+   * @param label
+   * @returns UPDATED ADDRESS
+   */
+
+  static updateAddress(
+    id: number,
+    city: string,
+    zipcode: number,
+    street: string,
+    number: number,
+    extension: number,
+    label: string,
+    userId: number
+  ): Promise<APIResponse> {
+    return this.update(`/addresses`, {
+      id,
+      city,
+      zipcode,
+      street,
+      number,
+      extension,
+      label,
+      userId,
+    });
+  }
+
   /********************
    * ENDPOINT BASKET  *
    *                  *

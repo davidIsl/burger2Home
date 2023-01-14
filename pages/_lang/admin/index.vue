@@ -681,6 +681,11 @@ export default class extends mixins(validationMixin) {
   ];
 
   mounted() {
+    console.log('USERS ADMIN', this.$store.state.users.currentUser);
+
+    if (this.$store.state.users.currentUser.role.name === 'user') {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
     this.updateData();
   }
 
