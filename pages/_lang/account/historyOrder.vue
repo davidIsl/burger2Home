@@ -27,22 +27,28 @@ b-container.p-4.bg-gray(fluid)
             :items='orderInProgress'
             :fields='fields'
           )
-            //- template(#cell(image)='data')
-            //-   b-img(:src='data.item.image' width='40' height='40')
+            template(#head(orderDate)='data')
+              p {{ $t('pages.history.table.date') }}
+            template(#head(totalPrice)='data')
+              p {{ $t('pages.history.table.price') }}
+            template(#head(status)='data')
+              p {{ $t('pages.history.table.status') }}
+            template(#head(Details)='data')
+              p {{ $t('pages.history.table.details') }}
             template(#cell(details)='data')
               font-awesome-icon.mt-1(
                 :icon='["fa", "eye"]'
                 @click='openDetails(data.item)'
               )
-          b-pagination(
-            pills='pills'
-            size='sm'
-            v-model='currentPageInProgress'
-            :total-rows='totalRowsInProgress'
-            :per-page='perPage'
-            aria-controls='my-table'
-            align='right'
-          )
+          //- b-pagination(
+          //-   pills='pills'
+          //-   size='sm'
+          //-   v-model='currentPageInProgress'
+          //-   :total-rows='totalRowsInProgress'
+          //-   :per-page='perPage'
+          //-   aria-controls='my-table'
+          //-   align='right'
+          //- )
   .p-2
     b-row.pt-3(lg='18')
       b-col.pb-3.text-left.mx-auto(lg='18')
@@ -71,15 +77,14 @@ b-container.p-4.bg-gray(fluid)
               :items='orderList'
               :fields='fields'
             )
-              //- template(#head(x)='data')
-              //-   b-form-checkbox#checkbox-header(
-              //-     name='checkbox-header'
-              //-     @change='selectItems($event)'
-              //-   )
-              //- template(#cell(x)='data')
-              //-   b-form-checkbox(v-model='itemSelected')
-              //- template(#cell(image)='data')
-              //-   b-img(:src='data.item.image' width='40' height='40')
+              template(#head(orderDate)='data')
+                p {{ $t('pages.history.table.date') }}
+              template(#head(totalPrice)='data')
+                p {{ $t('pages.history.table.price') }}
+              template(#head(status)='data')
+                p {{ $t('pages.history.table.status') }}
+              template(#head(Details)='data')
+                p {{ $t('pages.history.table.details') }}
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
                   :icon='["fa", "eye"]'
@@ -119,6 +124,12 @@ b-container.p-4.bg-gray(fluid)
       )
         template(#head(image)='data')
           p {{ $t('pages.history.modal.table.image') }}
+        template(#head(productName)='data')
+          p {{ $t('pages.history.modal.table.name') }}
+        template(#head(productPrice)='data')
+          p {{ $t('pages.history.modal.table.price') }}
+        template(#head(amount)='data')
+          p {{ $t('pages.history.modal.table.quantity') }}
         template(#cell(image)='data')
           b-img(:src='getLink(data.item.productId)' width='50' height='50')
         b-pagination(

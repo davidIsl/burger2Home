@@ -164,10 +164,22 @@
       "title3": "Order Listing",
       "placeholder1": "Search an order",
       "text1": "Hello, ",
+      "table": {
+        "date": "Order Date",
+        "price": "Total Order Amount",
+        "status": "Order Status",
+        "details": "Order Details"
+      },
       "modal": {
         "title1": "Order of ",
         "text1": "Delivered to",
-        "text2": "Total amount"
+        "text2": "Total amount",
+        "table": {
+          "image": "Image",
+          "name": "Product Name",
+          "price": "Product Price",
+          "quantity": "Quantity"
+        }
       }
     },
     "home": {

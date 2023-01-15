@@ -163,9 +163,22 @@
       "title3": "Listing des commandes",
       "placeholder1": "Chercher une commande",
       "text1": "Bonjour, ",
+      "table": {
+        "date": "Date Commande",
+        "price": "Montant Total Commande",
+        "status": "Statut Commande",
+        "details": "Détails Commande"
+      },
       "modal": {
+        "title1": "Commande du ",
         "text1": "Livré à",
-        "text2": "Montant Total"
+        "text2": "Montant Total",
+        "table": {
+          "image": "Image",
+          "name": "Nom du Produit",
+          "price": "Prix",
+          "quantity": "Quantité"
+        }
       }
     },
     "home": {
