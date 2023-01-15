@@ -455,6 +455,16 @@ export class API {
   }
 
   /**
+   * GET PRICE BY ID
+   * @param priceId
+   * @returns PRICE
+   */
+
+  static getPriceById(priceId: number): Promise<APIResponse> {
+    return this.get(`/prices/${priceId}`);
+  }
+
+  /**
    *
    * ENDPOINT UPLOAD PRODUCT IMAGE
    */

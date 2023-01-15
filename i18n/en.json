@@ -165,6 +165,7 @@
       "placeholder1": "Search an order",
       "text1": "Hello, ",
       "modal": {
+        "title1": "Order of ",
         "text1": "Delivered to",
         "text2": "Total amount"
       }

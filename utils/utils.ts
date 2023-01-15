@@ -1,5 +1,5 @@
 /**
- * DATE FORMATER FUNCTION
+ * DATE FORMATER FUNCTION WITH TIME
  * @param sDate
  * @returns FORMATED DATE STRING
  */
@@ -18,6 +18,20 @@ export const formatDate = (sDate: string) => {
     .padStart(2, '0')}`;
 };
 
+/**
+ * DATE FORMATER FUNCTION WITHOUT TIME
+ * @param sDate
+ * @returns
+ */
+
+export const formatDateWithoutTime = (sDate: string) => {
+  const date = new Date(sDate);
+
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+};
+
 /*
  *   INTERFACE
  */
@@ -31,6 +45,7 @@ export interface APIDataResponse<T = any> {
   data: T[];
   status: number;
 }
+
 export interface SelectOption {
   value: number;
   text?: string;
@@ -117,6 +132,9 @@ export interface orderLines {
   amount: number;
   priceId: number;
   promotionId: number;
+  productName: string;
+  productPrice: number;
+  imageName: string;
 }
 export interface Order {
   id: number;
@@ -151,6 +169,7 @@ export interface Address {
   zipcode: number;
   street: string;
   number: number;
+  extension?: number;
   userId: number;
   active: boolean;
   label: string;
