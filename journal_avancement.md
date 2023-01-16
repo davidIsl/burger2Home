@@ -122,3 +122,7 @@
 - [x] 2023/01/13: Fix Add products types, ingredients stock(admin), inscription
 - [x] 2023/01/14: profiles pages, history orders
 - [x] 2023/01/15: history order et details orders, responsive basket, filters burgers
+
+## Semaine 3
+
+- [x] 2023/01/16: filters burgers just one family,

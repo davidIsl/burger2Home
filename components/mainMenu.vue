@@ -36,7 +36,7 @@ b-container.m-0.p-0(fluid)
                     :to='`/${$i18n.locale}/products/`'
                     :class='{ "active-menu": "/" + $i18n.locale + "/products/" == $route.path || "/" + $i18n.locale + "/table/" == $route.path || "/" + $i18n.locale + "/form/" == $route.path || "/" + $i18n.locale + "/account/" == $route.path }'
                   ) {{ $t('menu.title2') }}
-                //- b-dropdown-item(:to='`/${$i18n.locale}/products/menu/`') {{ $t('menu.title2sub1') }}
+
                 b-dropdown-item(:to='`/${$i18n.locale}/products/burgers/`') {{ $t('menu.title2sub2') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/products/fries/`') {{ $t('menu.title2sub3') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/products/drinks/`') {{ $t('menu.title2sub4') }}
@@ -65,13 +65,13 @@ b-container.m-0.p-0(fluid)
                 span.menu-color(
                   :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
                 ) {{ $t('menu.title5') }}
-              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-                :to='`/${$i18n.locale}/`'
-                :link-attrs='{ "aria-label": $t("menu.title6") }'
-              )
-                span.menu-color(
-                  :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
-                ) {{ $t('menu.title6') }}
+              //- b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
+              //-   :to='`/${$i18n.locale}/`'
+              //-   :link-attrs='{ "aria-label": $t("menu.title6") }'
+              //- )
+              //-   span.menu-color(
+              //-     :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
+              //-   ) {{ $t('menu.title6') }}
               b-nav-item-dropdown.ml-2.ml-md-0.mr-3.mb-2.mb-md-0(
                 right
                 no-caret

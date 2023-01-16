@@ -102,7 +102,7 @@ b-container.bg-gray(fluid)
 import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
-import { Filter, Product } from '@/utils/utils';
+import { Product } from '@/utils/utils';
 
 @Component({
   components: { filters },
@@ -111,7 +111,7 @@ export default class extends Vue {
   viewDetails: boolean = false;
   filters: boolean = false;
   filterSearch: string = '';
-  filtersProduct: Filter[] = [];
+  // filtersProduct: Filter[] = [];
   // filtersFamily: Families[] = [];
   type: number = 1;
   quantity: number = 1;

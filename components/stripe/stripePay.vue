@@ -8,10 +8,7 @@ b-container(fluid)
             h3.title.line.text-secondary.text-center Enter your card information
         b-row
           b-col.mt-3(offset-md='7')
-            Card.p-3.stripe-card.text-primary.form-control(
-              @Change='checkField'
-              :stripe='stripeKey'
-            )
+            Card.p-3.stripe-card.text-primary.form-control(:stripe='stripeKey')
 
         b-row
           b-col.mt-3(offset-md='7')

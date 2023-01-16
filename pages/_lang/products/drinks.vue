@@ -8,49 +8,62 @@ b-container.bg-gray(fluid)
         :lg='filters ? "24" : "20"'
       )
         h2.pb-2.text-secondary.title-line {{ $t('pages.products.drinks.title1') }}
-  b-row
-    b-col(:offset-lg='filters ? "0" : "2"' :md='filters ? "18" : "16"' sm='16')
-      b-form-input.input(
-        v-model='filterSearch'
-        :placeholder='$t("pages.admin.placeholder1")'
+    b-row
+      b-col(
+        :offset-lg='filters ? "0" : "2"'
+        :md='filters ? "18" : "16"'
+        sm='16'
       )
-    b-col.mt-3.mt-sm-0(
-      :md='filters ? "6" : "8"'
-      :lg='filters ? "6" : "4"'
-      sm='8'
-    )
-      b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
-  b-row
-    b-col.p-3(v-if='filters' lg='4')
-      filters
-    b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
-      .m-3.p-sm-5.content.mx-auto
-        b-row
-          b-col(v-for='(product, index) in products' :key='index')
-            b-card.m-3.p-2.text-center.card.mx-auto(
-              :title='product.name'
-              :img-src='getLink(product.id)'
-              img-alt='Image'
-              img-top
-              img-height='220'
-              tag='article'
-              text-variant='secondary'
-              bg-variant='gray'
-            )
-              b-card-header
-                h6 {{ $t('pages.products.title2') }}:&nbsp;
-                  b-badge(variant='darkRed') {{ product.currentDiscount }}%
-              b-card-text.text-muted.text-center.text-card {{ product.description }}
-              b-button.mr-2.w-48.button {{ $t('pages.products.button1') }}
-              b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+        b-form-input.input(
+          v-model='filterSearch'
+          :placeholder='$t("pages.admin.placeholder1")'
+        )
+      b-col.mt-3.mt-sm-0(
+        :md='filters ? "6" : "8"'
+        :lg='filters ? "6" : "4"'
+        sm='8'
+      )
+        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
+    b-row
+      b-col.p-3(v-if='filters' lg='4')
+        filters(:type='type' @change='handleChangeFilter')
+      b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
+        .m-3.p-sm-5.content.mx-auto
+          b-row
+            b-col(v-for='(product, index) in products' :key='index')
+              b-card.m-3.p-2.text-center.card.mx-auto(
+                :title='product.name'
+                :img-src='getLink(product.id)'
+                img-alt='Image'
+                img-top
+                img-height='220'
+                tag='article'
+                text-variant='secondary'
+                bg-variant='gray'
+              )
+                b-card-header
+                  h6 {{ $t('pages.products.title2') }}:&nbsp;
+                    b-badge(
+                      v-if='product.currentDiscount !== null'
+                      variant='darkRed'
+                    ) {{ product.currentDiscount }}%
+                    b-badge(
+                      v-if='product.currentDiscount === null'
+                      variant='darkRed'
+                    ) 0%
+                b-card-text.text-muted.text-center.text-card {{ product.description }}
+                b-card-footer
+                  b-button.mr-2.w-48.button.justify-content-between(
+                    @click='addToBasket({ id: product.id, quantity: quantity })'
+                  ) {{ $t('pages.products.button1') }}
+                  b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    cancel-variant='secondary'
     v-if='viewDetails'
     v-model='viewDetails'
-    size='sm'
-    centered
   )
     template(#modal-title)
       b-container
@@ -58,10 +71,12 @@ b-container.bg-gray(fluid)
     template(#modal-footer)
       b-button.button(@click='decrementQuantity')
         font-awesome-icon(:icon='["fa", "minus"]')
-      p.d-inline.my-3 {{ numberToAdd }}
+      p.d-inline.my-3 {{ quantity }}
       b-button.button(@click='incrementQuantity')
         font-awesome-icon(:icon='["fa", "plus"]')
-      b-button.button {{ $t('pages.products.button1') }}
+      b-button.button(
+        @click='addToBasket({ id: currentProduct.id, quantity: quantity })'
+      ) {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
       p.text-modal {{ currentProduct.description }}
@@ -71,7 +86,7 @@ b-container.bg-gray(fluid)
           h6.pt-3.text-secondary {{ $t('pages.products.modal.title1') }}
           span.text-modal {{ currentProduct.actualPrice }} €
         b-col(v-if='currentProduct.currentDiscount > 0')
-          h6.pt-3.text-secondary Old Price
+          h6.pt-3.text-secondary {{ $t('pages.products.modal.title3') }}
           span.text-modal.crossed-text {{ currentProduct.currentPrice }} €
       h6.pt-3.text-secondary {{ $t('pages.products.modal.title2') }}
       .pl-3.text-modal(
@@ -108,205 +123,11 @@ export default class extends Vue {
   filters: boolean = false;
   filterSearch: string = '';
 
-  numberToAdd: number = 0;
+  type: number = 1;
+  quantity: number = 1;
 
   currentProduct: Product | null = null;
   products: Product[] | null = null;
-
-  // allergens: Allergens[] = [
-  //   {
-  //     name: 'Gluten',
-  //   },
-  //   {
-  //     name: 'Oeufs',
-  //   },
-  //   {
-  //     name: 'Poissons',
-  //   },
-  //   {
-  //     name: 'Soja',
-  //   },
-  //   {
-  //     name: 'Arachides',
-  //   },
-  // ];
-
-  // products: Product[] = [
-  //   {
-  //     name: 'Le classico',
-  //     image: '../../img/produits/classico.jpg',
-  //     description:
-  //       'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-  //     price: 10.5,
-  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-  //   },
-  //   {
-  //     name: 'Smokey Bacon',
-  //     image: '../../img/produits/smokey-bacon.jpg',
-  //     description:
-  //       'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-  //     price: 11,
-  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-  //   },
-  //   {
-  //     name: 'Habibi',
-  //     image: '../../img/produits/habibi.jpg',
-  //     description:
-  //       "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
-  //     price: 11.5,
-  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-  //   },
-  //   {
-  //     name: 'Double Decker',
-  //     image: '../../img/produits/double-dekker.jpg',
-  //     description:
-  //       'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-  //     price: 13,
-  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-  //   },
-  //   {
-  //     name: 'El Sombrero',
-  //     image: '../../img/produits/el-sombrero.jpg',
-  //     description:
-  //       'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
-  //     price: 12,
-  //     allergens: [this.allergens[0], this.allergens[4], this.allergens[2]],
-  //   },
-  //   {
-  //     name: 'Le classico',
-  //     image: '../../img/produits/classico.jpg',
-  //     description:
-  //       'Viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-  //     price: 10.5,
-  //     allergens: [this.allergens[0], this.allergens[5], this.allergens[2]],
-  //   },
-  //   {
-  //     name: 'Smokey Bacon',
-  //     image: '../../img/produits/smokey-bacon.jpg',
-  //     description:
-  //       'Viande de Boeuf hachée, tranches de bacon, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-  //     price: 11,
-  //     allergens: [this.allergens[0], this.allergens[1], this.allergens[5]],
-  //   },
-  //   {
-  //     name: 'Habibi',
-  //     image: '../../img/produits/habibi.jpg',
-  //     description:
-  //       "Viande d'agneau hachée, laitue iceberg, houmous, concombre mariné, sauce tomate épicée",
-  //     price: 11.5,
-  //     allergens: [this.allergens[0], this.allergens[3], this.allergens[2]],
-  //   },
-  //   {
-  //     name: 'Double Decker',
-  //     image: '../../img/produits/double-dekker.jpg',
-  //     description:
-  //       'Double Hamburger de viande de Boeuf hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, cornichons, opignons frits, sauce barbecue',
-  //     price: 13,
-  //     allergens: [this.allergens[0], this.allergens[3]],
-  //   },
-  //   {
-  //     name: 'El Sombrero',
-  //     image: '../../img/produits/el-sombrero.jpg',
-  //     description:
-  //       'Viande de poulet hachée, fromage cheddar, laitue iceberg, fines tranches de tomates, salsa verde, oignons rouges, guacamole et crème aigre',
-  //     price: 12,
-  //     allergens: [this.allergens[0], this.allergens[1], this.allergens[2]],
-  //   },
-  // ];
-
-  // fieldList: Field[] = [
-  //   {
-  //     key: 'id',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'product_name',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'price',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'description',
-  //     sortable: true,
-  //   },
-  // ];
-
-  // itemList: Item[] = [
-  //   {
-  //     id: 1,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 2,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 3,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 4,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 5,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 6,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 7,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 8,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 9,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 10,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 11,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 12,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  // ];
 
   mounted() {
     this.getBurgers();
@@ -340,14 +161,34 @@ export default class extends Vue {
   }
 
   decrementQuantity() {
-    if (this.numberToAdd === 0) {
-      return;
+    if (this.quantity > 1) {
+      this.quantity--;
     }
-    this.numberToAdd--;
   }
 
   incrementQuantity() {
-    this.numberToAdd++;
+    if (this.quantity < 10) {
+      this.quantity++;
+    }
+  }
+
+  addToBasket({ id, quantity }: { id: number; quantity: number }) {
+    console.log('Quantity', this.quantity);
+    console.log('Amount', this.$store.state.baskets.amountToAdd);
+
+    this.$store.dispatch('baskets/addProduct', {
+      id,
+      quantity,
+    });
+    this.$store.dispatch(
+      'baskets/saveBasket',
+      this.$store.state.users.currentUser.id
+    );
+    this.viewDetails = false;
+  }
+
+  handleChangeFilter(event: Product[]) {
+    this.products = event;
   }
 }
 </script>

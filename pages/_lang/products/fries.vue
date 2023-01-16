@@ -22,7 +22,7 @@ b-container.bg-gray(fluid)
       b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
   b-row
     b-col.p-3(v-if='filters' lg='4')
-      filters
+      filters(:type='type' @change='handleChangeFilter')
     b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
       .m-3.p-sm-5.content.mx-auto
         b-row
@@ -39,18 +39,27 @@ b-container.bg-gray(fluid)
             )
               b-card-header
                 h6 {{ $t('pages.products.title2') }}:&nbsp;
-                  b-badge(variant='darkRed') {{ product.currentDiscount }}%
+                  b-badge(
+                    v-if='product.currentDiscount !== null'
+                    variant='darkRed'
+                  ) {{ product.currentDiscount }}%
+                  b-badge(
+                    v-if='product.currentDiscount === null'
+                    variant='darkRed'
+                  ) 0%
               b-card-text.text-muted.text-center.text-card {{ product.description }}
-              b-button.mr-2.w-48.button {{ $t('pages.products.button1') }}
-              b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+              b-card-footer
+                b-button.mr-2.w-48.button.justify-content-between(
+                  @click='addToBasket({ id: product.id, quantity: quantity })'
+                ) {{ $t('pages.products.button1') }}
+                b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
     footer-bg-variant='gray'
+    cancel-variant='secondary'
     v-if='viewDetails'
     v-model='viewDetails'
-    size='sm'
-    centered
   )
     template(#modal-title)
       b-container
@@ -58,10 +67,12 @@ b-container.bg-gray(fluid)
     template(#modal-footer)
       b-button.button(@click='decrementQuantity')
         font-awesome-icon(:icon='["fa", "minus"]')
-      p.d-inline.my-3 {{ numberToAdd }}
+      p.d-inline.my-3 {{ quantity }}
       b-button.button(@click='incrementQuantity')
         font-awesome-icon(:icon='["fa", "plus"]')
-      b-button.button {{ $t('pages.products.button1') }}
+      b-button.button(
+        @click='addToBasket({ id: currentProduct.id, quantity: quantity })'
+      ) {{ $t('pages.products.button1') }}
     b-container
       h4.text-secondary.text-center {{ currentProduct.name }}
       p.text-modal {{ currentProduct.description }}
@@ -71,7 +82,7 @@ b-container.bg-gray(fluid)
           h6.pt-3.text-secondary {{ $t('pages.products.modal.title1') }}
           span.text-modal {{ currentProduct.actualPrice }} €
         b-col(v-if='currentProduct.currentDiscount > 0')
-          h6.pt-3.text-secondary Old Price
+          h6.pt-3.text-secondary {{ $t('pages.products.modal.title3') }}
           span.text-modal.crossed-text {{ currentProduct.currentPrice }} €
       h6.pt-3.text-secondary {{ $t('pages.products.modal.title2') }}
       .pl-3.text-modal(
@@ -88,18 +99,6 @@ import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
 import { Product } from '@/utils/utils';
 
-// export interface Field {
-//   key: string;
-//   sortable: boolean;
-// }
-
-// export interface Item {
-//   id: number;
-//   product_name: string;
-//   price: number;
-//   description: string;
-// }
-
 @Component({
   components: { filters },
 })
@@ -108,7 +107,8 @@ export default class extends Vue {
   filters: boolean = false;
   filterSearch: string = '';
 
-  numberToAdd: number = 0;
+  type: number = 1;
+  quantity: number = 1;
 
   currentProduct: Product | null = null;
   products: Product[] | null = null;
@@ -151,14 +151,35 @@ export default class extends Vue {
   }
 
   decrementQuantity() {
-    if (this.numberToAdd === 0) {
-      return;
+    if (this.quantity > 1) {
+      this.quantity--;
     }
-    this.numberToAdd--;
   }
 
   incrementQuantity() {
-    this.numberToAdd++;
+    if (this.quantity < 10) {
+      this.quantity++;
+    }
+  }
+
+  addToBasket({ id, quantity }: { id: number; quantity: number }) {
+    // const response = await API.upda
+    console.log('Quantity', this.quantity);
+    console.log('Amount', this.$store.state.baskets.amountToAdd);
+
+    this.$store.dispatch('baskets/addProduct', {
+      id,
+      quantity,
+    });
+    this.$store.dispatch(
+      'baskets/saveBasket',
+      this.$store.state.users.currentUser.id
+    );
+    this.viewDetails = false;
+  }
+
+  handleChangeFilter(event: Product[]) {
+    this.products = event;
   }
 }
 </script>
