@@ -269,7 +269,8 @@
         "image": "Image"
       },
       "stripe": {
-        "button1": "Pay Order "
+        "button1": "Pay Order ",
+        "funds": "Insufficient Funds on your card"
       },
       "success": {
         "order": "Order validated and paid with SUCCESS"

@@ -137,7 +137,7 @@ b-container.m-0.p-0(fluid)
 // https://github.com/nuxt-community/nuxt-property-decorator
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
 import logoAntelopeBanner from '~/components/svg/logoAntelopeBanner.vue';
-import themeSwitcher from '~/components/themeSwitcher.vue';
+// import themeSwitcher from '~/components/themeSwitcher.vue';
 // import { API } from '~/utils/javaBack';
 
 export interface Lang {
@@ -151,7 +151,7 @@ export interface BCollapse {
 }
 
 @Component({
-  components: { logoAntelopeBanner, themeSwitcher },
+  components: { logoAntelopeBanner },
 })
 export default class extends Vue {
   isMenuOpen: boolean = false;

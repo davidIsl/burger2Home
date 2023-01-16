@@ -80,12 +80,12 @@ pre {
 //   cursor: not-allowed;
 // }
 
-.custom-select,
-.custom-select:focus {
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%237f8c8d' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
-      right 0.75rem center/8px 10px no-repeat,
-    var(--backgroundForm);
-}
+// .custom-select,
+// .custom-select:focus {
+//   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%237f8c8d' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
+//       right 0.75rem center/8px 10px no-repeat,
+//     var(--backgroundForm);
+// }
 
 // .was-validated .custom-select:invalid,
 // .custom-select.is-invalid {
@@ -261,8 +261,8 @@ pre {
 }
 
 .card {
-  width: 22em;
-  height: 40em;
+  width: 24em;
+  height: 42em;
   font-size: 0.8em;
   text-shadow: 1px 1px 1px var(--darkRed);
   border: 1px var(--primary) solid;

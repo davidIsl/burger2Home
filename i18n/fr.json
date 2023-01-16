@@ -242,7 +242,8 @@
         "image": "Image"
       },
       "stripe": {
-        "button1": "Payer Commande "
+        "button1": "Payer Commande ",
+        "funds": "Fonds insuffisants sur votre carte"
       },
       "success": {
         "order": "Commande payée et validée avec SUCCES"

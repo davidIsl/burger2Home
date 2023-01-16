@@ -1,12 +1,12 @@
 <template lang="pug">
 b-container.p-4.bg-gray(fluid)
   b-row
-    b-col.mt-2(offset-md='1' md='18')
+    b-col.mt-2.mx-auto(offset-md='1')
       h3.p-1.text-secondary.title-line {{ $t('pages.basket.title1') }}
     //- b-col.mt-2(md='6')
     //-   h3.p-1.text-secondary.title-line {{ $t('pages.basket.title2') }}
   b-row
-    b-col.mt-3(offset-md='1' md='18')
+    b-col.mt-3.mx-auto(offset-md='1' md='18')
       .p-3.content
         b-table(
           hover
@@ -55,12 +55,15 @@ b-container.p-4.bg-gray(fluid)
           :per-page='perPage'
           align='right'
         )
-    b-col.mt-3(md='4')
+    b-col.mt-3(md='6' lg='4')
       .py-2.content
         p.mb-1.pb-2.text-center.border-bottom.title.text-secondary {{ $t('pages.basket.text1') }} {{ this.$store.state.baskets.totalPrice }}€
         .p-3
-          b-button.mb-2.w-100.button(@click='saveBasket') Save Basket
-          b-button.mb-2.w-100.button(@click='createOrder') {{ $t('pages.basket.button1') }}
+          //- b-button.mb-2.w-100.button(@click='saveBasket') Save Basket
+          b-button.mb-2.w-100.button(
+            v-if='stepOrder === stepOrderType.NONE'
+            @click='createOrder'
+          ) {{ $t('pages.basket.button1') }}
           b-button.mb-2.w-100.button(
             @click='goToUrl("/" + $i18n.locale + "/account/")'
           ) {{ $t('pages.basket.button2') }}
@@ -69,7 +72,12 @@ b-container.p-4.bg-gray(fluid)
           ) {{ $t('pages.basket.button3') }}
 
   b-row
-    b-col.mx-auto(v-if='stepOrder === stepOrderType.STEP1' md='20')
+    b-col(
+      v-if='stepOrder === stepOrderType.STEP1'
+      offset-lg='1'
+      offset='0'
+      md='18'
+    )
       .content.p-3.mt-3
         b-row.pt-3
           b-col.mx-auto(md='22')
@@ -92,7 +100,7 @@ b-container.p-4.bg-gray(fluid)
                 //-     :icon='["fa", "exclamation-triangle"]'
                 //-   )
                 //-   | {{ $t('pages.errors.required') }}
-          b-col(offset-md='2' md='12' lg='10')
+          b-col(offset-lg='2' md='12' lg='10')
             b-form-group(:label='$t("pages.basket.label7")' label-for='note')
               b-form-input#note.input-form(
                 v-model='$v.note.$model'

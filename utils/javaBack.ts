@@ -300,8 +300,22 @@ export class API {
     );
   }
 
-  static getProductsByFamily(id: number): Promise<APIDataResponse<Product>> {
-    return this.get(`/products/${id}/families`);
+  /**
+   * GET PRODUCT BY FAMILY AND TYPE
+   * @param lang
+   * @param typeId
+   * @param familyId
+   * @returns FILTERS PRODUCT LIST BY FAMILY AND TYPE
+   */
+
+  static getProductsSumByLangAndFamilies(
+    lang: string,
+    typeId: number,
+    familyId: number
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true&productFamily=${familyId}&type=${typeId}`
+    );
   }
 
   /**

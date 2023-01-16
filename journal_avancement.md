@@ -121,4 +121,4 @@
 - [x] 2023/01/12: Fix basket middlwere save to DB (add, remove, quantity), stripe ok
 - [x] 2023/01/13: Fix Add products types, ingredients stock(admin), inscription
 - [x] 2023/01/14: profiles pages, history orders
-- [x] 2023/01/15: history order et details orders
+- [x] 2023/01/15: history order et details orders, responsive basket, filters burgers

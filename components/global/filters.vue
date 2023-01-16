@@ -3,21 +3,27 @@
   h3.title {{ $t('pages.filters.title1') }}
   div
     div(v-for='(filter, index) in currentFilters')
-      b-form-checkbox(@change='selectFilters(filter.productFamilyId)') {{ filter.name }}
+      b-form-checkbox(
+        v-model='checked'
+        @change='selectFilters(filter.productFamilyId)'
+      ) {{ filter.name }}
         //- b-badge.ml-2.bg-darkRed {{  }}
       //- font-awesome-icon.mr-3.mt-1.ml-1(:icon='["fa", "tag"]')
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import { API } from '@/utils/javaBack';
-import { Families, Product } from '@/utils/utils';
+import { Filter } from '@/utils/utils';
 
 @Component({})
 export default class extends Vue {
-  @Prop() filters!: Product[];
-  // @Prop() numberFilterProduct!: number;
+  // @Prop() filters!: Families[];
+  @Prop() type!: number;
 
-  currentFilters: Families[] | null = null;
+  checked: boolean = false;
+
+  currentFilters: Filter[] = [];
+  // selectedFilters: Families[] = [];
 
   mounted() {
     this.filtersList();
@@ -33,20 +39,43 @@ export default class extends Vue {
       return null;
     }
 
-    this.currentFilters = response.data;
+    this.currentFilters = response.data.map((item) => ({
+      id: item.productFamilyId,
+      name: item.name,
+      productFamilyId: item.productFamilyId,
+    }));
     console.log('FiltersCurrent', this.currentFilters);
   }
 
-  async selectFilters(id: number) {
-    const response = await API.getProductsByFamily(id);
+  async selectFilters(familyId: number) {
+    if (this.checked) {
+      const response = await API.getProductsSumByLangAndFamilies(
+        this.$i18n.locale,
+        this.type,
+        familyId
+      );
 
-    if (response.status !== 200) {
-      return null;
+      if (response.status !== 200) {
+        return null;
+      }
+      console.log('FAMILY ID', familyId);
+
+      // this.filters = response.data;
+      // console.log('Filters', this.filters);
+
+      this.$emit('change', response.data);
+    } else {
+      const response = await API.productAvailableListByLang(
+        this.$i18n.locale,
+        1
+      );
+
+      if (response.status !== 200) {
+        return null;
+      }
+
+      this.$emit('change', response.data);
     }
-    // this.filters = response.data;
-    // console.log('Filters', this.filters);
-
-    this.$emit('change', response.data);
   }
 }
 </script>
@@ -55,5 +84,6 @@ export default class extends Vue {
 .filters {
   background-image: url('@/assets/img/chalkboard.jpg');
   border-radius: 15px !important;
+  border: 1px solid var(--primary);
 }
 </style>

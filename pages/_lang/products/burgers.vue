@@ -26,7 +26,7 @@ b-container.bg-gray(fluid)
         b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
-        filters(:filters='products' @change='handleChangeFilter')
+        filters(:type='type' @change='handleChangeFilter')
       b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
         .m-3.p-sm-5.content.mx-auto
           b-row
@@ -52,10 +52,11 @@ b-container.bg-gray(fluid)
                       variant='darkRed'
                     ) 0%
                 b-card-text.text-muted.text-center.text-card {{ product.description }}
-                b-button.mr-2.w-48.button.justify-content-between(
-                  @click='addToBasket({ id: product.id, quantity: quantity })'
-                ) {{ $t('pages.products.button1') }}
-                b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
+                b-card-footer
+                  b-button.mr-2.w-48.button.justify-content-between(
+                    @click='addToBasket({ id: product.id, quantity: quantity })'
+                  ) {{ $t('pages.products.button1') }}
+                  b-button.w-48.button(@click='openDetails(product)') {{ $t('pages.products.button2') }}
   // MODAL
   b-modal(
     body-bg-variant='gray'
@@ -101,7 +102,7 @@ b-container.bg-gray(fluid)
 import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
-import { Product } from '@/utils/utils';
+import { Filter, Product } from '@/utils/utils';
 
 @Component({
   components: { filters },
@@ -110,7 +111,9 @@ export default class extends Vue {
   viewDetails: boolean = false;
   filters: boolean = false;
   filterSearch: string = '';
-
+  filtersProduct: Filter[] = [];
+  // filtersFamily: Families[] = [];
+  type: number = 1;
   quantity: number = 1;
 
   products: Product[] | null = null;
@@ -118,6 +121,7 @@ export default class extends Vue {
 
   mounted() {
     this.getBurgers();
+    // this.updateData();
   }
 
   getLink(productId: number) {
@@ -125,6 +129,26 @@ export default class extends Vue {
       'http://localhost:8080/products/' + productId + '/image';
     return link;
   }
+
+  // async updateData() {
+  //   const response = await API.familiesListByLang(this.$i18n.locale);
+
+  //   if (response.status !== 200) {
+  //     return;
+  //   }
+
+  //   this.filtersFamily = response.data;
+
+  //   const responseProduct = await API.getProductSummaryByLang(
+  //     this.$i18n.locale
+  //   );
+  //   if (responseProduct.status !== 200) {
+  //     return;
+  //   }
+
+  //   // this.filtersProduct.push(responseProduct.data);
+  //   console.log('FILTRES PRODUCT', this.filtersProduct);
+  // }
 
   async getBurgers() {
     const response = await API.productAvailableListByLang(this.$i18n.locale, 1);

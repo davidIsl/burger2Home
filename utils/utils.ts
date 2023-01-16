@@ -78,6 +78,11 @@ export interface Families {
   language: Language;
 }
 
+export interface Filter {
+  id: number;
+  name: string;
+  productFamilyId: number;
+}
 export interface Price {
   amount: number;
 }
@@ -189,10 +194,6 @@ export interface Basket {
   basketLines: BasketLine[];
 }
 
-export interface Filters {
-  id: number;
-  name: string[];
-}
 /*
  * ENUM
  */
