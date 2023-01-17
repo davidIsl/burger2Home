@@ -345,6 +345,10 @@ export default class extends mixins(validationMixin) {
   error?: boolean = false;
 
   mounted() {
+    if (this.$store.state.users.currentUser.role.name !== 'admin') {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
+
     this.updateData();
   }
 
@@ -368,7 +372,6 @@ export default class extends mixins(validationMixin) {
     }
 
     this.ingredients = response.data;
-    console.log('INGREDIENTS:', this.ingredients);
   }
 
   async getLanguages() {
@@ -572,14 +575,16 @@ export default class extends mixins(validationMixin) {
       return null;
     }
 
-    // const fileInput = this.$refs.fileInput as HTMLInputElement;
+    // const fileInput = this.$refs.input as HTMLInputElement;
     // const file = (fileInput.files[0] as FileList).name;
 
-    // console.log('FILE', file
+    // console.log('FILE', fileInput);
     const formData = new FormData();
 
     formData.append('file', this.imageName);
-    console.log('FILE', formData);
+    console.log('IMAGE', this.imageName);
+
+    console.log('FILE', this.imageName);
 
     const responseUploadImg = await API.uploadImage(
       responseCreateProduct.data.id,

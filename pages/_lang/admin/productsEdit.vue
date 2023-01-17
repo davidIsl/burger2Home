@@ -348,53 +348,6 @@ b-container.p-5.bg-gray(fluid)
                       :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
                     )
                       h6.m-0.mb-2.text-center {{ errorMsg }}
-  //- // MODAL DETAILS PRODUCT
-  //- b-modal(
-  //-   body-bg-variant='gray'
-  //-   header-bg-variant='gray'
-  //-   footer-bg-variant='gray'
-  //-   v-if='viewDetails'
-  //-   v-model='viewDetails'
-  //-   right
-  //- )
-  //-   template(#modal-title)
-  //-     b-container
-  //-       b-img(
-  //-         thumbnail
-  //-         body-bg-variant='darkRed'
-  //-         :src='getLink(currentProduct.id)'
-  //-       ) 
-  //-   template(#modal-footer)
-  //-     //- div
-  //-     //-   font-awesome-icon(:icon='["fas", "minus"]')
-  //-     b-button.w-48.button(@click='viewDetails = false') {{ $t('pages.admin.products.edit.modal.button7') }}
-  //-     b-button.w-48.button(
-  //-       @click='goToUrl(`/${$i18n.locale}/admin/productsEdit/`)'
-  //-     ) {{ $t('pages.admin.products.edit.modal.button6') }}
-  //-   div
-  //-     h4.text-secondary.text-center.title {{ currentProduct.name }}
-  //-     .text-modal 
-  //-       p {{ currentProduct.description }}
-  //-   .border-top.pb-3
-  //-     h6.pt-3.title.text-secondary {{ $t('pages.admin.products.edit.modal.title4') }}
-  //-     .text-modal
-  //-       span {{ currentProduct.currentPrice }}€
-  //-   .border-top.pb-3
-  //-     h6.pt-3.text-secondary.title {{ $t('pages.admin.products.edit.modal.title5') }}
-  //-     .pl-3.text-modal(
-  //-       v-for='(ingredient, index) in currentProduct.ingredients'
-  //-       :key='index'
-  //-     )
-  //-       li
-  //-         ul.m-0.p-0 {{ ingredient }}
-  //-   .border-top
-  //-     h6.pt-3.text-secondary.title {{ $t('pages.admin.products.edit.modal.title6') }}
-  //-     .pl-3.text-modal(
-  //-       v-for='(allergen, index) in currentProduct.allergens'
-  //-       :key='index'
-  //-     )
-  //-       li
-  //-         ul.m-0.p-0 {{ allergen }}
 </template>
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
@@ -427,6 +380,7 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) price: number = 0;
   @Validate({ required }) ingredient: Ingredients[] = [];
   @Validate({ required }) productFamily: Families[] = [];
+  typeId: number = 0;
   imageName: any = '';
 
   onMenu: boolean = false;
@@ -487,6 +441,10 @@ export default class extends mixins(validationMixin) {
   ];
 
   mounted() {
+    if (this.$store.state.users.currentUser.role.name !== 'admin') {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
+
     this.updateData();
   }
 
@@ -495,6 +453,19 @@ export default class extends mixins(validationMixin) {
     this.getBurgers();
     this.getIngredients();
     this.getFamilies();
+  }
+
+  resetData() {
+    this.name = '';
+    this.imageName = '';
+    this.onMenu = false;
+    this.frenchName = '';
+    this.description = '';
+    this.frenchDescription = '';
+    this.ingredient = [];
+    this.productFamily = [];
+    this.price = 0;
+    this.typeId = 0;
   }
 
   checkLang(lang1: string, lang2: string): boolean {
@@ -583,6 +554,7 @@ export default class extends mixins(validationMixin) {
     this.description = response.data.description;
     this.price = response.data.currentPrice;
     this.onMenu = response.data.onMenu;
+    this.typeId = response.data.type;
 
     // GET FR TRANSLATION TO UPDATE
     const responseFrTranslation = await API.getProductTranslationById(id);
@@ -695,7 +667,8 @@ export default class extends mixins(validationMixin) {
       response.data.image,
       response.data.ingredients,
       response.data.productFamilies,
-      onMenu
+      onMenu,
+      this.typeId
     );
 
     if (updateOnMenu.status !== 200) {
@@ -703,7 +676,7 @@ export default class extends mixins(validationMixin) {
     }
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
-    this.errorMsg = this.$tc('pages.admin.products.edit.success.onMenu');
+    this.errorMsg = this.$tc('pages.admin.products.success.onMenu');
   }
 
   async updateProduct() {
@@ -716,6 +689,10 @@ export default class extends mixins(validationMixin) {
     if (this.$v.$invalid) {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.products.errors.fields');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
 
@@ -737,7 +714,8 @@ export default class extends mixins(validationMixin) {
       this.imageName,
       this.ingredientsId,
       this.familiesId,
-      this.onMenu
+      this.onMenu,
+      this.typeId
     );
 
     if (responseUpdateProduct.status !== 200) {
@@ -814,7 +792,13 @@ export default class extends mixins(validationMixin) {
     }
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
-    this.errorMsg = this.$tc('pages.admin.products.edit.success');
+    this.errorMsg = this.$tc('pages.admin.products.success.update');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
+    this.$v.$reset();
+    this.resetData();
     this.updateData();
     console.log('UPDATED PRODUCT');
     // console.log('FILE', this.image.size);

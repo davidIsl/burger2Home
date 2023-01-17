@@ -874,6 +874,10 @@ export default class extends mixins(validationMixin) {
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.stock.success.update');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
     this.editingStock = false;
     this.getIngredients();
     console.log('FINISH UPDATE');

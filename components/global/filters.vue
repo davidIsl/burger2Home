@@ -13,39 +13,40 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
 import { API } from '@/utils/javaBack';
-import { Filter } from '@/utils/utils';
+import { Families } from '@/utils/utils';
 
 @Component({})
 export default class extends Vue {
-  // @Prop() filters!: Families[];
+  @Prop() filters!: Families[];
   @Prop() type!: number;
 
   checked: boolean = false;
 
-  currentFilters: Filter[] = [];
+  currentFilters: Families[] = [];
   // selectedFilters: Families[] = [];
 
   mounted() {
-    this.filtersList();
+    // this.filtersList();
+    this.currentFilters = this.filters;
   }
   /*
    * Filters List
    */
 
-  async filtersList() {
-    const response = await API.familiesListByLang(this.$i18n.locale);
+  // async filtersList() {
+  //   const response = await API.familiesListByLang(this.$i18n.locale);
 
-    if (response.status !== 200) {
-      return null;
-    }
+  //   if (response.status !== 200) {
+  //     return null;
+  //   }
 
-    this.currentFilters = response.data.map((item) => ({
-      id: item.productFamilyId,
-      name: item.name,
-      productFamilyId: item.productFamilyId,
-    }));
-    console.log('FiltersCurrent', this.currentFilters);
-  }
+  //   this.currentFilters = response.data.map((item) => ({
+  //     id: item.productFamilyId,
+  //     name: item.name,
+  //     productFamilyId: item.productFamilyId,
+  //   }));
+  //   console.log('FiltersCurrent', this.currentFilters);
+  // }
 
   async selectFilters(familyId: number) {
     if (this.checked) {

@@ -125,4 +125,4 @@
 
 ## Semaine 3
 
-- [x] 2023/01/16: filters burgers just one family,
+- [x] 2023/01/16: filters burgers just one family, drinks and fries pages,

@@ -1,43 +1,21 @@
 <template lang="pug">
 b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
   b-row
-    b-col
+    b-col(offset-lg='2' sm='16' lg='20')
       .title-line
-        h1.p-3.title.text-center.text-secondary {{ $t('pages.admin.allergens.add.title') }}
+        h1.pb-3.title.text-secondary {{ $t('pages.admin.allergens.add.title') }}
   b-row
-    b-col(
-      :offset-lg='filters ? "2" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "18" : "14"'
-    )
+    b-col(offset-lg='2' sm='16' lg='14')
       h3.py-3.title.text-secondary {{ $t('pages.admin.allergens.add.title4') }}
   b-row.mt-3
-    b-col(
-      :offset-lg='filters ? "2" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "16" : "14"'
-    )
+    b-col(offset-lg='2' sm='16' lg='14')
       b-form-input.input(
         v-model='filterSearch'
         :placeholder='$t("pages.admin.allergens.add.placeholder3")'
       )
-    b-col.mt-3.mt-sm-0(
-      sm='8'
-      :md='filters ? "6" : "8"'
-      :lg='filters ? "4" : "6"'
-    )
-      b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+
   b-row
-    b-col.mt-3(v-if='filters' :offset-lg='filters ? "2" : "2"' lg='4')
-      filters
-    b-col.mt-3(:offset-lg='filters ? "0" : "2"' :lg='filters ? "16" : "20"')
-      //- div(v-if='itemSelected.length > 0')
-      //-   b-button.mb-3(
-      //-     variant='outline-danger'
-      //-     @click='handleDelete($event, data.item.allergenId)'
-      //-   ) {{ $t('pages.allergens.add.button3') }}
+    b-col.mt-3(offset-lg='2' lg='20')
       .p-3.content.text-secondary
         .m-2
           b-table(
@@ -51,7 +29,6 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
             :items='allergens'
             :fields='fields'
             :totalAllergens='totalAllergens'
-            @pageChange='handleChangePage'
           )
             //- template(#head(x)='data')
             //-   b-form-checkbox#checkbox-header(
@@ -68,7 +45,6 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
                 :icon='["fa", "pencil-alt"]'
                 @click='openDetails(data.item.allergenId)'
               )
-                //                 @click='goToUrl(`/${$i18n.locale}/admin/allergensEdit/?allergen=${data.item.id}`)'
             template(#cell(trash)='data')
               font-awesome-icon.mt-1(
                 :icon='["fa", "trash"]'
@@ -84,15 +60,10 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
             @change='handleChangePage'
           )
   b-row.pt-5
-    b-col(
-      :offset-lg='filters ? "6" : "2"'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "16" : "20"'
-    )
+    b-col(offset-lg='2' md='16' lg='20')
       h3.py-3.text-secondary.title {{ $t('pages.admin.allergens.add.title1') }}
   b-row
-    b-col(:offset-lg='filters ? "6" : "2"' sm='24' :lg='filters ? "16" : "20"')
-      // form(ref='form' @submit.stop.prevent='onSubmit')
+    b-col(offset-lg='2' sm='24' lg='20')
       .p-4.content
         b-row
           b-col.mx-auto(md='12' xl='9')
@@ -230,29 +201,7 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
     template(#modal-footer)
       //- b-button.w-48(variant='outline-danger' @click='stopEditing') {{ $t('pages.admin.allergens.alert.button3') }}
       b-button.w-48(variant='outline-danger' @click='errorUpdateAlert = false') {{ $t('pages.admin.allergens.alert.button5') }}
-  //- // SIDEBAR ALLERGEN
-  //- b-sidebar#sidebar-allergen(bg-variant='primary' right width='360')
-  //-   b-container
-  //-     h3 {{ $t('pages.admin.allergens.sidebar.title1') }}
-  //-     b-form-group.pt-3.text-gray(
-  //-       :label='$t("pages.admin.allergens.label3")'
-  //-       label-for='allergenName'
-  //-     )
-  //-       b-form-input#ingredientName.input-form(
-  //-         v-model='$v.ingredientName.$model'
-  //-         :class='{ "is-invalid": $v.ingredientName.$error, "is-valid": !$v.ingredientName.$invalid }'
-  //-         :placeholder='$t("pages.admin.allergens.placeholder3")'
-  //-         type='text'
-  //-         name='ingredientName'
-  //-         @blur='$v.ingredientName.$touch()'
-  //-       )
-  //-       .input-error(v-if='$v.ingredientName.$error')
-  //-         font-awesome-icon.mr-2(:icon='["fa", "exclamation-triangle"]')
-  //-         | {{ $t('pages.errors.required') }}
-  //-   div
-  //-     b-button.button.w-48.ml-1 {{ $t('pages.admin.add.sidebar.button1') }}
-  //-     b-button.ml-1.button.w-48 {{ $t('pages.admin.add.sidebar.button2') }}
-  // MODAL EDITING ALLERGEN
+    // MODAL EDITING ALLERGEN
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -355,7 +304,6 @@ export default class extends mixins(validationMixin) {
   submitProductAdd = submitProductAddType.NONE;
   errorMsg: string = '';
 
-  filters: boolean = false;
   filterSearch: string = '';
   // viewDetails: boolean = false;
 
@@ -399,6 +347,10 @@ export default class extends mixins(validationMixin) {
   ];
 
   mounted() {
+    if (this.$store.state.users.currentUser.role.name !== 'admin') {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
+
     this.updateData();
     console.log('ROUTE', this.$route.params);
   }
@@ -425,7 +377,6 @@ export default class extends mixins(validationMixin) {
       value: lang.id,
       text: lang.name,
     }));
-    console.log('LANGUAGE:', this.langs);
   }
 
   async getAllergens() {
@@ -439,12 +390,9 @@ export default class extends mixins(validationMixin) {
 
     this.allergens = response.data;
     this.totalAllergens = response.data.length;
-    console.log('AZLLERGENS:', this.allergens);
   }
 
   async getAllergenTranslationById(id: number) {
-    console.log('ID:!', id);
-
     const response = await API.getAllergensTranslationById(id);
 
     if (response.status !== 200) {
@@ -459,7 +407,6 @@ export default class extends mixins(validationMixin) {
     this.editName = this.currentAllergen[0].name;
     this.editLanguage2 = this.currentAllergen[1].language.id.toString();
     this.editFrenchName = this.currentAllergen[1].name;
-    console.log('DATA:', this.currentAllergen);
   }
 
   async deleteAllergen(id: number) {
@@ -483,8 +430,6 @@ export default class extends mixins(validationMixin) {
   }
 
   checkLang(lang1: string, lang2: string): boolean {
-    console.log('LANG1', lang1);
-
     if (lang1.toString() === '2') {
       if (!this.editingAllergen) {
         this.submitProductAdd = submitProductAddType.ERROR;
@@ -507,17 +452,10 @@ export default class extends mixins(validationMixin) {
     return true;
   }
 
-  // @Watch('focus')
-  // resetAlertMsg() {
-  //   this.errorMsg = '';
-  //   this.submitProductAdd = submitProductAddType.NONE;
-  // }
-
   async createAllergen() {
     if (!this.checkLang(this.language1, this.language2)) {
       return null;
     }
-    // this.$v.$touch();
     this.$v.name.$touch();
     this.$v.frenchName.$touch();
     this.$v.language1.$touch();
@@ -590,14 +528,16 @@ export default class extends mixins(validationMixin) {
       this.errorMsg = this.$tc(
         'pages.admin.allergens.errors.createTranslation'
       );
-      return; // ERROR DOES NOT DISPLAYED ... ERROR PAGE NOT ALERT !!!
+      return;
     }
 
-    this.getAllergens();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.allergens.success.create');
-    // this.resetData();
-    // window.location.reload();
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
+    this.getAllergens();
   }
 
   async updateAllergen() {
@@ -647,6 +587,10 @@ export default class extends mixins(validationMixin) {
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.allergens.success.update');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
     this.editingAllergen = false;
     this.$v.$reset();
     this.getAllergens();
@@ -667,8 +611,6 @@ export default class extends mixins(validationMixin) {
 
   async handleDelete(id: number) {
     this.deleteAlert = true;
-
-    console.log('ID:', id);
 
     const response = await API.getAllergenById(id);
 

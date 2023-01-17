@@ -171,7 +171,21 @@ export class API {
   }
 
   /**
-   * PRODUCT SUMMARY AVAILABLE BY LANG
+   * GET ALL AVAILABLE PRODUCT ALL TYPE
+   * @param lang
+   * @returns PRODUCT LIST
+   */
+
+  static getAllProductAvailable(
+    lang: string
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true`
+    );
+  }
+
+  /**
+   * PRODUCT SUMMARY AVAILABLE BY LANG AND TYPE
    * @param lang
    * @returns PRODUCT SUMMARY
    */
@@ -240,7 +254,8 @@ export class API {
     imageName: string,
     ingredients: Ingredients[],
     productFamilies: Families[],
-    onMenu: boolean
+    onMenu: boolean,
+    typeId: number
   ): Promise<APIResponse> {
     return this.update(`/products`, {
       id,
@@ -248,6 +263,7 @@ export class API {
       ingredients,
       productFamilies,
       onMenu,
+      typeId,
     });
   }
 

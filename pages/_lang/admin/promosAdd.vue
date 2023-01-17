@@ -531,6 +531,10 @@ export default class extends mixins(validationMixin) {
   ];
 
   mounted() {
+    if (this.$store.state.users.currentUser.role.name !== 'marketing') {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
+
     this.updateData();
   }
 
@@ -682,6 +686,10 @@ export default class extends mixins(validationMixin) {
         this.errorUpdateAlert = true;
       }
       this.errorMsg = this.$tc('pages.admin.promos.errors.lang1');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return false;
     }
 
@@ -692,6 +700,10 @@ export default class extends mixins(validationMixin) {
         this.errorUpdateAlert = true;
       }
       this.errorMsg = this.$tc('pages.admin.promos.errors.lang2');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return false;
     }
     return true;
@@ -742,12 +754,20 @@ export default class extends mixins(validationMixin) {
     ) {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.promos.errors.fields');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
 
     if (this.amount <= 0) {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.promos.errors.amount');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
     const creationDate = new Date();
@@ -851,12 +871,20 @@ export default class extends mixins(validationMixin) {
     ) {
       this.errorUpdateAlert = true;
       this.errorMsg = this.$tc('pages.admin.promos.errors.fields');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
 
     if (this.editAmount <= 0) {
       this.errorUpdateAlert = true;
       this.errorMsg = this.$tc('pages.admin.promos.errors.amount');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       // return;
     }
 
@@ -933,6 +961,10 @@ export default class extends mixins(validationMixin) {
     this.$v.$reset();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.promos.success.update');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
     console.log('UPDATED PROMO');
   }
 
@@ -965,9 +997,13 @@ export default class extends mixins(validationMixin) {
     if (response.status !== 200) {
       return;
     }
-    this.getPromos();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.promos.success.stopPromo');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
+    this.getPromos();
     this.deleteAlert = false;
   }
 }

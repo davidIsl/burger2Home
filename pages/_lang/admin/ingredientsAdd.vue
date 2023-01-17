@@ -1,43 +1,20 @@
 <template lang="pug">
 b-container.p-5.bg-gray(fluid)
   b-row
-    b-col
+    b-col(offset-lg='2' sm='16' lg='20')
       .title-line
-        h1.p-3.title.text-center.text-secondary {{ $t('pages.admin.ingredients.add.title') }}
+        h1.pb-3.title.text-secondary {{ $t('pages.admin.ingredients.add.title') }}
   b-row
-    b-col(
-      :offset-lg='filters ? "2" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "18" : "14"'
-    )
+    b-col(offset-lg='2' sm='16' lg='14')
       h3.py-3.title.text-secondary {{ $t('pages.admin.ingredients.add.title4') }}
   b-row.mt-3
-    b-col(
-      :offset-lg='filters ? "2" : "2"'
-      sm='16'
-      :md='filters ? "18" : "16"'
-      :lg='filters ? "16" : "14"'
-    )
+    b-col(offset-lg='2' sm='16' lg='14')
       b-form-input.input(
         v-model='filterSearch'
         :placeholder='$t("pages.admin.ingredients.add.placeholder3")'
       )
-    //- b-col.mt-3.mt-sm-0(
-    //-   sm='8'
-    //-   :md='filters ? "6" : "8"'
-    //-   :lg='filters ? "4" : "6"'
-    //- )
-    //-   b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
   b-row
-    //- b-col.mt-3(v-if='filters' :offset-lg='filters ? "2" : "2"' lg='4')
-    //-   filters
-    b-col.mt-3(:offset-lg='filters ? "0" : "2"' :lg='filters ? "16" : "20"')
-      //- div(v-if='itemSelected.length > 0')
-      //-   b-button.mb-3(
-      //-     variant='outline-danger'
-      //-     @click='handleDelete($event, data.item.allergenId)'
-      //-   ) {{ $t('pages.ingredients.add.button3') }}
+    b-col.mt-3(offset-lg='2' lg='20')
       .p-3.content.text-secondary
         .m-2
           b-table(
@@ -87,126 +64,125 @@ b-container.p-5.bg-gray(fluid)
       xl='10'
       xxl='8'
     )
-      form(ref='form' @submit.stop.prevent='onSubmit')
-        b-row.mb-1
-          b-col.pb-3
-            b-container.p-4.content.mb-5
-              .div.p-0
-                h5.text-secondary.title {{ $t('pages.admin.ingredients.add.title2') }}
-                b-form-group.pt-1.text-primary(
-                  :label='$t("pages.admin.ingredients.add.label1")'
-                  label-for='language1'
+      b-row.mb-1
+        b-col.pb-3
+          b-container.p-4.content.mb-5
+            .div.p-0
+              h5.text-secondary.title {{ $t('pages.admin.ingredients.add.title2') }}
+              b-form-group.pt-1.text-primary(
+                :label='$t("pages.admin.ingredients.add.label1")'
+                label-for='language1'
+              )
+                b-form-select#language1.input-form(
+                  v-model='$v.language1.$model'
+                  :class='{ "is-invalid": $v.language1.$error, "is-valid": !$v.language1.$invalid }'
+                  :placeholder='$t("pages.admin.ingredients.add.placeholder1")'
+                  :options='langs'
+                  selected='langs.value'
+                  @blur='$v.language1.$touch()'
                 )
-                  b-form-select#language1.input-form(
-                    v-model='$v.language1.$model'
-                    :class='{ "is-invalid": $v.language1.$error, "is-valid": !$v.language1.$invalid }'
-                    :placeholder='$t("pages.admin.ingredients.add.placeholder1")'
-                    :options='langs'
-                    selected='langs.value'
-                    @blur='$v.language1.$touch()'
+                .input-error(v-if='$v.language1.$error')
+                  font-awesome-icon.mr-2(
+                    :icon='["fa", "exclamation-triangle"]'
                   )
-                  .input-error(v-if='$v.language1.$error')
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
-                    )
-                    | {{ $t('pages.errors.required') }}
-                b-form-group.text-primary(
-                  :label='$t("pages.admin.ingredients.add.label2")'
-                  label-for='name'
+                  | {{ $t('pages.errors.required') }}
+              b-form-group.text-primary(
+                :label='$t("pages.admin.ingredients.add.label2")'
+                label-for='name'
+              )
+                b-form-input#name.input-form(
+                  v-model='$v.name.$model'
+                  :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
+                  :placeholder='$t("pages.admin.ingredients.add.placeholder2")'
+                  type='text'
+                  name='name'
+                  @blur='$v.name.$touch()'
                 )
-                  b-form-input#name.input-form(
-                    v-model='$v.name.$model'
-                    :class='{ "is-invalid": $v.name.$error, "is-valid": !$v.name.$invalid }'
-                    :placeholder='$t("pages.admin.ingredients.add.placeholder2")'
-                    type='text'
-                    name='name'
-                    @blur='$v.name.$touch()'
+                .input-error(v-if='$v.name.$error')
+                  font-awesome-icon.mr-2(
+                    :icon='["fa", "exclamation-triangle"]'
                   )
-                  .input-error(v-if='$v.name.$error')
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
-                    )
-                    | {{ $t('pages.errors.required') }}
-              .div.p-0
-                h5.pt-3.text-secondary.title {{ $t('pages.admin.ingredients.add.title3') }}
-                b-form-group.pt-1.text-primary(
-                  :label='$t("pages.admin.ingredients.add.label1")'
-                  label-for='language2'
+                  | {{ $t('pages.errors.required') }}
+            .div.p-0
+              h5.pt-3.text-secondary.title {{ $t('pages.admin.ingredients.add.title3') }}
+              b-form-group.pt-1.text-primary(
+                :label='$t("pages.admin.ingredients.add.label1")'
+                label-for='language2'
+              )
+                b-form-select#language2.input-form(
+                  v-model='$v.language2.$model'
+                  :class='{ "is-invalid": $v.language2.$error, "is-valid": !$v.language2.$invalid }'
+                  :placeholder='$t("pages.admin.ingredients.add.placeholder1")'
+                  :options='langs'
+                  @blur='$v.language2.$touch()'
                 )
-                  b-form-select#language2.input-form(
-                    v-model='$v.language2.$model'
-                    :class='{ "is-invalid": $v.language2.$error, "is-valid": !$v.language2.$invalid }'
-                    :placeholder='$t("pages.admin.ingredients.add.placeholder1")'
-                    :options='langs'
-                    @blur='$v.language2.$touch()'
+                .input-error(v-if='$v.language2.$error')
+                  font-awesome-icon.mr-2(
+                    :icon='["fa", "exclamation-triangle"]'
                   )
-                  .input-error(v-if='$v.language2.$error')
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
-                    )
-                    | {{ $t('pages.errors.required') }}
-                b-form-group.text-primary(
-                  :label='$t("pages.admin.ingredients.add.label3")'
-                  label-for='frenchName'
+                  | {{ $t('pages.errors.required') }}
+              b-form-group.text-primary(
+                :label='$t("pages.admin.ingredients.add.label3")'
+                label-for='frenchName'
+              )
+                b-form-input#frenchName.input-form(
+                  v-model='$v.frenchName.$model'
+                  :class='{ "is-invalid": $v.frenchName.$error, "is-valid": !$v.frenchName.$invalid }'
+                  :placeholder='$t("pages.admin.ingredients.add.placeholder3")'
+                  type='text'
+                  name='frenchName'
+                  @blur='$v.frenchName.$touch()'
                 )
-                  b-form-input#frenchName.input-form(
-                    v-model='$v.frenchName.$model'
-                    :class='{ "is-invalid": $v.frenchName.$error, "is-valid": !$v.frenchName.$invalid }'
-                    :placeholder='$t("pages.admin.ingredients.add.placeholder3")'
-                    type='text'
-                    name='frenchName'
-                    @blur='$v.frenchName.$touch()'
+                .input-error(v-if='$v.frenchName.$error')
+                  font-awesome-icon.mr-2(
+                    :icon='["fa", "exclamation-triangle"]'
                   )
-                  .input-error(v-if='$v.frenchName.$error')
-                    font-awesome-icon.mr-2(
-                      :icon='["fa", "exclamation-triangle"]'
-                    )
-                    | {{ $t('pages.errors.required') }}
-                b-form-group.m-0.pt-3(
-                  :label='$t("pages.admin.ingredients.add.label4")'
-                  label-for='allergens'
-                )
-                  b-row
-                    b-col
-                      multiselect#allergens(
-                        v-model='allergen'
-                        :options='allergens'
-                        :multiple='true'
-                        :placeholder='$t("pages.admin.ingredients.add.placeholder4")'
-                        :selectLabel='$t("pages.admin.ingredients.add.label5")'
-                        :selectedLabel='$t("pages.admin.ingredients.add.label6")'
-                        :deselectLabel='$t("pages.admin.ingredients.add.label7")'
-                        :searchable='true'
-                        label='name'
-                        track-by='name'
-                      )
-                      //- .input-error.my-2(v-if='$v.allergen.$error')
-                      //-   font-awesome-icon.mr-2(
-                      //-     :icon='["fa", "exclamation-triangle"]'
-                      //-   )
-                      //-   | {{ $t('pages.errors.required') }}
-                  b-row
-                    b-col.mx-auto.mt-3(sm='12')
-                      .flex.text-center
-                        b-button.my-3.button.w-100(
-                          :to='`/${$i18n.locale}/admin/allergensAdd/`'
-                        ) {{ $t('pages.admin.ingredients.add.button1') }}
+                  | {{ $t('pages.errors.required') }}
+              b-form-group.m-0.pt-3(
+                :label='$t("pages.admin.ingredients.add.label4")'
+                label-for='allergens'
+              )
                 b-row
-                  b-col.mx-auto(sm='12')
-                    .flex.text-center
-                      b-button.button.w-100(
-                        variant='secondary'
-                        @click='createIngredient'
-                      ) {{ $t('pages.admin.ingredients.add.button2') }}
-              b-row.mt-3(align-h='center')
-                b-col.p-0(cols='22')
-                  b-container.p-0
-                    alert(
-                      :show='submitProductAdd === submitProductAddType.ERROR || submitProductAdd === submitProductAddType.SUCCESS'
-                      :variant='submitProductAdd === submitProductAddType.ERROR ? "error" : "success"'
-                      :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+                  b-col
+                    multiselect#allergens(
+                      v-model='allergen'
+                      :options='allergens'
+                      :multiple='true'
+                      :placeholder='$t("pages.admin.ingredients.add.placeholder4")'
+                      :selectLabel='$t("pages.admin.ingredients.add.label5")'
+                      :selectedLabel='$t("pages.admin.ingredients.add.label6")'
+                      :deselectLabel='$t("pages.admin.ingredients.add.label7")'
+                      :searchable='true'
+                      label='name'
+                      track-by='name'
                     )
-                      h6.m-0.mb-2.text-center {{ errorMsg }}
+                    //- .input-error.my-2(v-if='$v.allergen.$error')
+                    //-   font-awesome-icon.mr-2(
+                    //-     :icon='["fa", "exclamation-triangle"]'
+                    //-   )
+                    //-   | {{ $t('pages.errors.required') }}
+                b-row
+                  b-col.mx-auto.mt-3(sm='12')
+                    .flex.text-center
+                      b-button.my-3.button.w-100(
+                        :to='`/${$i18n.locale}/admin/allergensAdd/`'
+                      ) {{ $t('pages.admin.ingredients.add.button1') }}
+              b-row
+                b-col.mx-auto(sm='12')
+                  .flex.text-center
+                    b-button.button.w-100(
+                      variant='secondary'
+                      @click='createIngredient'
+                    ) {{ $t('pages.admin.ingredients.add.button2') }}
+            b-row.mt-3(align-h='center')
+              b-col.p-0(cols='22')
+                b-container.p-0
+                  alert(
+                    :show='submitProductAdd === submitProductAddType.ERROR || submitProductAdd === submitProductAddType.SUCCESS'
+                    :variant='submitProductAdd === submitProductAddType.ERROR ? "error" : "success"'
+                    :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+                  )
+                    h6.m-0.mb-2.text-center {{ errorMsg }}
   // DELETE MODAL
   b-modal(
     body-bg-variant='gray'
@@ -468,7 +444,12 @@ export default class extends mixins(validationMixin) {
   ];
 
   mounted() {
+    if (this.$store.state.users.currentUser.role.name !== 'admin') {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
+
     this.updateData();
+    console.log('ROUTE', this.$route.params);
   }
 
   openDetails(id: number) {
@@ -483,17 +464,17 @@ export default class extends mixins(validationMixin) {
     this.editAllergen = [];
   }
 
-  emptyFieldDecision(decision: boolean) {
-    if (decision) {
-      this.emptyDecision = true;
-      console.log('YES', this.emptyDecision);
-      console.log('LENGTH', this.allergen.length);
-    } else {
-      this.emptyDecision = false;
-      console.log('NO');
-    }
-    this.emptyOptionalFieldAlert = false;
-  }
+  // emptyFieldDecision(decision: boolean) {
+  //   if (decision) {
+  //     this.emptyDecision = true;
+  //     console.log('YES', this.emptyDecision);
+  //     console.log('LENGTH', this.allergen.length);
+  //   } else {
+  //     this.emptyDecision = false;
+  //     console.log('NO');
+  //   }
+  //   this.emptyOptionalFieldAlert = false;
+  // }
 
   async getLanguages() {
     const response = await API.languagesList();
@@ -628,6 +609,10 @@ export default class extends mixins(validationMixin) {
     ) {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.ingredients.errors.fields');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
     console.log('ALLERGEN LENGTH:', this.allergen.length);
@@ -666,6 +651,10 @@ export default class extends mixins(validationMixin) {
     if (responseEnglishLang.status !== 200) {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.ingredients.errors.getLanguage');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
     const englishLang = responseEnglishLang.data;
@@ -687,6 +676,10 @@ export default class extends mixins(validationMixin) {
     if (responseFrenchLang.status !== 200) {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.ingredients.errors.getLanguage');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
     const frenchLang = responseFrenchLang.data;
@@ -715,15 +708,19 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    this.getIngredients();
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.ingredients.success.create');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
     this.language1 = '';
     this.name = '';
     this.language2 = '';
     this.frenchName = '';
     this.allergen = [];
     this.$v.$reset();
+    this.getIngredients();
     // }
   }
 
@@ -786,6 +783,10 @@ export default class extends mixins(validationMixin) {
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.ingredients.success.update');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
     this.editingIngredient = false;
     this.$v.$reset();
     this.editAllergen = [];
