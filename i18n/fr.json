@@ -11,7 +11,8 @@
     "title5": "Contacts",
     "title6": "A propos",
     "title7": "Mon compte",
-    "title8": "Mes commandes"
+    "title8": "Mes commandes",
+    "title9": "Se déconnecter"
   },
   "footer": {
     "title1": "Informations",
@@ -36,24 +37,6 @@
     "link10": "A propos",
     "viewOnMap": "Voir sur Google Maps",
     "contacts": "Contactez-nous"
-  },
-  "country": {
-    "belgium": "Belgique",
-    "france": "France",
-    "netherlands": "Pays-Bas",
-    "germany": "Allemagne",
-    "spain": "Espagne",
-    "italy": "Italie"
-  },
-  "swal": {
-    "confirmDelete": {
-      "title": "Êtes-vous sûr ?",
-      "text": "Vous ne pourrez pas revenir en arrière !",
-      "confirButton": "Oui, supprimez !",
-      "cancelButton": "Annuler",
-      "nextTitle": "Supprimé !",
-      "nextText": "Votre saisie a été supprimée."
-    }
   },
   "pages": {
     "login": {

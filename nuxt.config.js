@@ -215,6 +215,7 @@ export default {
         'faEyeSlash',
         'faCamera',
         'faPencilAlt',
+        'faUserCheck',
         // 'fasBasketShopping',
       ],
       regular: [],

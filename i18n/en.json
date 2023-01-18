@@ -11,7 +11,8 @@
     "title5": "Contacts",
     "title6": "About us",
     "title7": "My Profile",
-    "title8": "My Orders"
+    "title8": "My Orders",
+    "title9": "Log Off"
   },
   "footer": {
     "title1": "Informations",
@@ -36,25 +37,6 @@
     "link10": "About us",
     "viewOnMap": "See on Google Maps",
     "contacts": "Contacts Us"
-  },
-
-  "country": {
-    "belgium": "Belgium",
-    "france": "France",
-    "netherlands": "Netherlands",
-    "germany": "Germany",
-    "spain": "Spain",
-    "italy": "Italy"
-  },
-  "swal": {
-    "confirmDelete": {
-      "title": "Are you sure ?",
-      "text": "You won't be able to revert this !",
-      "confirButton": "Yes, delete it !",
-      "cancelButton": "Cancel",
-      "nextTitle": "Deleted !",
-      "nextText": "Your input has been deleted."
-    }
   },
   "pages": {
     "login": {

@@ -103,10 +103,12 @@ b-container.m-0.p-0(fluid)
                 menu-class='p-0'
               )
                 template(v-slot:button-content)
-                  b-badge(variant='darkRed')
                   b-avatar(variant='secondary')
+                    b-badge(variant='darkRed')
+                      font-awesome-icon(:icon='["fa", "user-check"]') 
                 b-dropdown-item(:to='`/${$i18n.locale}/account/profile/`') {{ $t('menu.title7') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/account/historyOrder/`') {{ $t('menu.title8') }}
+                b-dropdown-item(@click='reset') {{ $t('menu.title9') }}
               //- .basket.text-center.ml-md-2.mt-2.mt-md-0
               b-avatar(
                 v-if='!$store.state.users.currentUser'
@@ -114,7 +116,7 @@ b-container.m-0.p-0(fluid)
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
-              b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2(
+              b-button.basket.p-0.mt-2.ml-2.my-auto(
                 @click='goToUrl("/" + $i18n.locale + "/basket/")'
               )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
@@ -126,8 +128,8 @@ b-container.m-0.p-0(fluid)
               //-   @click='goToUrl("/" + $i18n.locale + "/basket/")'
               //- )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
-              b-button.button.w-50.mr-2(@click='connect') Connect
-              b-button.button.w-50(@click='reset') RESET
+              //- b-button.button.w-50.mr-2(@click='connect') Connect
+              //- b-button.button.w-50(@click='reset') RESET
               //- b-button.ml-2 Identify
               //- .pl-2
               //-   themeSwitcher
