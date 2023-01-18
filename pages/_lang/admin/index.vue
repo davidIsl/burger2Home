@@ -1,7 +1,9 @@
 <template lang="pug">
 b-container.p-4.bg-gray(fluid)
   // ADMIN 
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "admin"'
+  )
     b-row
       b-col.pb-3.text-md-left(
         :offset-lg='filters ? "0" : "2"'
@@ -112,7 +114,9 @@ b-container.p-4.bg-gray(fluid)
               @change='handleChangePage'
             )
   // ADMIN ROLES
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "admin"'
+  )
     b-row
       b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title7') }}
@@ -124,8 +128,6 @@ b-container.p-4.bg-gray(fluid)
         )
     b-row
       b-col.mt-3(offset-lg='2' lg='20')
-        //- div(v-if='itemSelected.length > 0')
-        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-3
             b-table(
@@ -167,7 +169,9 @@ b-container.p-4.bg-gray(fluid)
               align='right'
             )
   // MARKETING
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "marketing"'
+  )
     b-row
       b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title2') }}
@@ -214,7 +218,9 @@ b-container.p-4.bg-gray(fluid)
               align='right'
             )
   // STOCK
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "stock"'
+  )
     b-row
       b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title3') }}
@@ -679,6 +685,12 @@ export default class extends mixins(validationMixin) {
       amount: 159,
     },
   ];
+
+  beforeMounted() {
+    if (!this.$store.state.users.currentUser) {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
+  }
 
   mounted() {
     console.log('USERS ADMIN', this.$store.state.users.currentUser);

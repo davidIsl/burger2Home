@@ -127,4 +127,4 @@
 
 - [x] 2023/01/16: filters burgers just one family, drinks and fries pages,
 - [x] 2023/01/17: admin roles on page admin, filterSearch Burgers & filters burgers by family
-- [x] 2023/01/18: fake login, and update basket pages for more users
+- [x] 2023/01/18: fake login, and update basket pages for more users, filters all products, secure admin

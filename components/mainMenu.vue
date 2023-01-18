@@ -42,7 +42,7 @@ b-container.m-0.p-0(fluid)
                 b-dropdown-item(:to='`/${$i18n.locale}/products/drinks/`') {{ $t('menu.title2sub4') }}
               // ADMIN
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-                v-if='this.$store.state.users.currentUser !== null'
+                v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name !== "customer"'
                 left
                 no-caret
                 menu-class='p-0'
