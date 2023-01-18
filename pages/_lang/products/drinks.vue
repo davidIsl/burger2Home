@@ -17,6 +17,7 @@ b-container.bg-gray(fluid)
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder1")'
+          @input='handleSearchFilter(filterSearch)'
         )
       b-col.mt-3.mt-sm-0(
         :md='filters ? "6" : "8"'
@@ -128,15 +129,21 @@ export default class extends Vue {
 
   currentProduct: Product | null = null;
   products: Product[] | null = null;
+  filterProducts: Product[] = [];
 
   mounted() {
-    this.getBurgers();
+    this.updateData();
   }
 
   getLink(productId: number) {
     const link: string =
       'http://localhost:8080/products/' + productId + '/image';
     return link;
+  }
+
+  updateData() {
+    this.getBurgers();
+    // this.getFamily();
   }
 
   async getBurgers() {
@@ -149,6 +156,7 @@ export default class extends Vue {
       return null;
     }
     this.products = response.data;
+    this.filterProducts = response.data;
     console.log('LOG SUCCESS');
     console.log('RESPONSE', response.data);
   }
@@ -189,6 +197,19 @@ export default class extends Vue {
 
   handleChangeFilter(event: Product[]) {
     this.products = event;
+  }
+
+  handleSearchFilter(str: string) {
+    // const tabTemp = this.products;
+    console.log('FILTER', this.filterSearch);
+    console.log('STR', str);
+
+    const searchTab = (this.filterProducts as Product[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    console.log('SERARCH FILTER', searchTab);
+    this.products = searchTab;
   }
 }
 </script>

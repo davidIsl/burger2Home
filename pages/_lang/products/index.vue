@@ -137,110 +137,21 @@ export default class extends Vue {
   filters: boolean = false;
   filterSearch: string = '';
 
-  quantity: number = 0;
+  quantity: number = 1;
 
+  filterProducts: Product[] = [];
   currentProduct: Product[] = [];
   products: Product[] = [];
-
-  // fieldList: Field[] = [
-  //   {
-  //     key: 'id',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'product_name',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'price',
-  //     sortable: true,
-  //   },
-  //   {
-  //     key: 'description',
-  //     sortable: true,
-  //   },
-  // ];
-
-  // itemList: Item[] = [
-  //   {
-  //     id: 1,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 2,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 3,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 4,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 5,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 6,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 7,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 8,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 9,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 10,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 11,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  //   {
-  //     id: 12,
-  //     product_name: 'Le Classico',
-  //     price: 12.5,
-  //     description: 'Viande de boeuf hachée',
-  //   },
-  // ];
 
   mounted() {
     this.updateData();
   }
 
-  async updateData() {
+  updateData() {
+    this.getProducts();
+  }
+
+  async getProducts() {
     const response = await API.getAllProductAvailable(this.$i18n.locale);
 
     if (response.status !== 200) {
@@ -248,6 +159,7 @@ export default class extends Vue {
     }
 
     this.products = response.data;
+    this.filterProducts = response.data;
   }
 
   getLink(productId: number) {
@@ -259,8 +171,51 @@ export default class extends Vue {
   openDetails(product: any) {
     this.viewDetails = true;
     this.currentProduct = product;
-    console.log('MODAL', product);
-    console.log('viewDetails', this.viewDetails);
+  }
+
+  decrementQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+
+  incrementQuantity() {
+    if (this.quantity < 10) {
+      this.quantity++;
+    }
+  }
+
+  addToBasket({ id, quantity }: { id: number; quantity: number }) {
+    // const response = await API.upda
+    console.log('Quantity', this.quantity);
+    console.log('Amount', this.$store.state.baskets.amountToAdd);
+
+    this.$store.dispatch('baskets/addProduct', {
+      id,
+      quantity,
+    });
+    this.$store.dispatch(
+      'baskets/saveBasket',
+      this.$store.state.users.currentUser.id
+    );
+    this.viewDetails = false;
+  }
+
+  handleChangeFilter(event: Product[]) {
+    this.products = event;
+  }
+
+  handleSearchFilter(str: string) {
+    // const tabTemp = this.products;
+    console.log('FILTER', this.filterSearch);
+    console.log('STR', str);
+
+    const searchTab = (this.filterProducts as Product[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    console.log('SERARCH FILTER', searchTab);
+    this.products = searchTab;
   }
 }
 </script>

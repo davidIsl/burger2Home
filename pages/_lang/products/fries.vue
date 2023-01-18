@@ -13,6 +13,7 @@ b-container.bg-gray(fluid)
       b-form-input.input(
         v-model='filterSearch'
         :placeholder='$t("pages.admin.placeholder1")'
+        @input='handleSearchFilter(filterSearch)'
       )
     b-col.mt-3.mt-sm-0(
       :md='filters ? "6" : "8"'
@@ -22,7 +23,11 @@ b-container.bg-gray(fluid)
       b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
   b-row
     b-col.p-3(v-if='filters' lg='4')
-      filters(:type='type' @change='handleChangeFilter')
+      filters(
+        :filters='filtersFamily'
+        :type='type'
+        @change='handleChangeFilter'
+      )
     b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
       .m-3.p-sm-5.content.mx-auto
         b-row
@@ -97,7 +102,7 @@ b-container.bg-gray(fluid)
 import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
-import { Product } from '@/utils/utils';
+import { Families, Product } from '@/utils/utils';
 
 @Component({
   components: { filters },
@@ -106,15 +111,17 @@ export default class extends Vue {
   viewDetails: boolean = false;
   filters: boolean = false;
   filterSearch: string = '';
+  filtersFamily: Families[] = [];
 
   type: number = 1;
   quantity: number = 1;
 
+  filterProducts: Product[] = [];
   currentProduct: Product | null = null;
   products: Product[] | null = null;
 
   mounted() {
-    this.getBurgers();
+    this.updateData();
   }
 
   getLink(productId: number) {
@@ -123,21 +130,33 @@ export default class extends Vue {
     return link;
   }
 
+  async getFamily() {
+    const response = await API.familiesListByLang(this.$i18n.locale);
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.filtersFamily = response.data;
+  }
+
+  updateData() {
+    this.getBurgers();
+    this.getFamily();
+  }
+
   /*
    * END POINT GET PRODUCTS SUMMARY
    */
+
   async getBurgers() {
     const response = await API.productAvailableListByLang(this.$i18n.locale, 3);
 
     if (response.status !== 200) {
-      console.log('LOG ERROR');
-      console.log('RESPONSE', response.data);
-
       return null;
     }
     this.products = response.data;
-    console.log('LOG SUCCESS');
-    console.log('RESPONSE', response.data);
+    this.filterProducts = response.data;
   }
 
   /*
@@ -180,6 +199,22 @@ export default class extends Vue {
 
   handleChangeFilter(event: Product[]) {
     this.products = event;
+  }
+
+  handleSearchFilter(str: string) {
+    // const tabTemp = this.products;
+    console.log('FILTER', this.filterSearch);
+    console.log('STR', str);
+
+    const searchTab = (this.filterProducts as Product[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    console.log('SERARCH FILTER', searchTab);
+    this.products = searchTab;
+    // if (searchTab.length === 0) {
+    //   this.products = tabTemp;
+    // }
   }
 }
 </script>
