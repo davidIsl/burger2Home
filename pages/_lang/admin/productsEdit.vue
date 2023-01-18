@@ -301,7 +301,9 @@ b-container.p-5.bg-gray(fluid)
                     b-row
                       b-col.mx-auto(sm='12')
                         .flex.text-center
-                          b-button.mt-3.button.w-100 {{ $t('pages.admin.products.edit.button3') }}
+                          b-button.mt-3.button.w-100(
+                            :to='`/${$i18n.locale}/admin/familyAdd/`'
+                          ) {{ $t('pages.admin.products.edit.button3') }}
                 b-col
                   b-form-group.pt-3.text-primary(
                     :label='$t("pages.admin.products.edit.label7")'

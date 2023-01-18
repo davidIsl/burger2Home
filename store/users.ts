@@ -33,14 +33,14 @@ export default class Users extends VuexModule {
   }
 
   @Action
-  async getUser() {
-    const response = await API.getUserById(1);
+  async getUser(userId: number) {
+    const response = await API.getUserById(userId);
 
     if (response.status !== 200) {
       return;
     }
 
-    const responseBasket = await API.getBasketByUserId(1);
+    const responseBasket = await API.getBasketByUserId(userId);
 
     if (responseBasket.status !== 200) {
       return;

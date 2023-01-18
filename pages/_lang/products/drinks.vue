@@ -24,10 +24,14 @@ b-container.bg-gray(fluid)
         :lg='filters ? "6" : "4"'
         sm='8'
       )
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.products.filters') }}
+        b-button.button.w-100(variant='secondary' @click='getFamily') {{ $t('pages.filters.button1') }}
     b-row
       b-col.p-3(v-if='filters' lg='4')
-        filters(:type='type' @change='handleChangeFilter')
+        filters(
+          :filters='filtersFamily'
+          :type='type'
+          @change='handleChangeFilter'
+        )
       b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
         .m-3.p-sm-5.content.mx-auto
           b-row
@@ -102,7 +106,7 @@ b-container.bg-gray(fluid)
 import { Vue, Component } from 'nuxt-property-decorator';
 import filters from '@/components/global/filters.vue';
 import { API } from '@/utils/javaBack';
-import { Product } from '@/utils/utils';
+import { Families, Product } from '@/utils/utils';
 
 export interface Field {
   key: string;
@@ -124,12 +128,14 @@ export default class extends Vue {
   filters: boolean = false;
   filterSearch: string = '';
 
-  type: number = 1;
+  type: number = 2;
   quantity: number = 1;
 
   currentProduct: Product | null = null;
   products: Product[] | null = null;
   filterProducts: Product[] = [];
+  filtersFamily: Families[] = [];
+  familiesId: Families[] = [];
 
   mounted() {
     this.updateData();
@@ -144,6 +150,54 @@ export default class extends Vue {
   updateData() {
     this.getBurgers();
     // this.getFamily();
+  }
+
+  async getFamily() {
+    this.filters = !this.filters;
+    this.filtersFamily = [];
+    const productId: any = (this.products as Product[]).map((item) => ({
+      productId: item.id,
+    }));
+    console.log('PRODUCTID', productId);
+
+    for (const item of productId) {
+      const responseFamilies = API.getFamiliesByProductId(item.productId);
+
+      if ((await responseFamilies).status !== 200) {
+        return null;
+      }
+
+      for (const line of (await responseFamilies).data) {
+        // if (this.familiesId.length === 0) {
+        this.familiesId.push(line);
+        // }
+        console.log('LINE', line);
+      }
+
+      console.log('FAMILY', this.familiesId);
+    }
+    const filterFam: Families[] = [];
+
+    this.familiesId.forEach((item) => {
+      console.log('ITEM', item);
+
+      if (!filterFam.find((cur) => cur.id === item.id)) {
+        filterFam.push(item);
+      }
+    });
+    console.log('FILTERS IF', filterFam);
+
+    const tempTab = await Promise.all(
+      filterFam.map((fam) =>
+        API.getFamilyTranslationByIdAndLang(this.$i18n.locale, fam.id)
+      )
+    );
+
+    console.log('temp', tempTab);
+
+    tempTab.forEach((cur) => this.filtersFamily.push(cur.data[0]));
+
+    console.log('Filters', this.filtersFamily);
   }
 
   async getBurgers() {

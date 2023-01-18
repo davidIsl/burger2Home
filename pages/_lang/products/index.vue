@@ -24,10 +24,10 @@ b-container.bg-gray(fluid)
         :lg='filters ? "6" : "4"'
         sm='8'
       )
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+        b-button.button.w-100(variant='secondary' @click='getFamily') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
-        filters(:type='type' @change='handleChangeFilter')
+        filtersAll(:filters='filtersFamily' @change='handleChangeFilter')
       b-col.mt-3.mt-lg-0(:offset-lg='filters ? "0" : "2"' lg='20')
         .m-3.p-sm-5.content.mx-auto
           b-row
@@ -101,36 +101,12 @@ b-container.bg-gray(fluid)
 </template>
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
-import filters from '@/components/global/filters.vue';
-import { Product } from '~/utils/utils';
+import filtersAll from '@/components/global/filtersAll.vue';
+import { Families, Product } from '~/utils/utils';
 import { API } from '~/utils/javaBack';
 
-// export interface Field {
-//   key: string;
-//   sortable: boolean;
-// }
-
-// export interface Item {
-//   id: number;
-//   product_name: string;
-//   price: number;
-//   description: string;
-// }
-
-// interface Allergens {
-//   name: string;
-// }
-
-// interface Product {
-//   name: string;
-//   image: string;
-//   description: string;
-//   price: number;
-//   allergens: Allergens[];
-// }
-
 @Component({
-  components: { filters },
+  components: { filtersAll },
 })
 export default class extends Vue {
   viewDetails: boolean = false;
@@ -142,6 +118,8 @@ export default class extends Vue {
   filterProducts: Product[] = [];
   currentProduct: Product[] = [];
   products: Product[] = [];
+  filtersFamily: Families[] = [];
+  familiesId: Families[] = [];
 
   mounted() {
     this.updateData();
@@ -149,6 +127,19 @@ export default class extends Vue {
 
   updateData() {
     this.getProducts();
+  }
+
+  async getFamily() {
+    this.filters = !this.filters;
+    this.filtersFamily = [];
+    const response = await API.familiesListByLang(this.$i18n.locale);
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    response.data.map((cur) => this.filtersFamily.push(cur));
+    console.log('filters FAm', this.filtersFamily);
   }
 
   async getProducts() {

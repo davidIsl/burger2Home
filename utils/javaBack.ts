@@ -335,6 +335,22 @@ export class API {
   }
 
   /**
+   * GET PRODUCT BY FAMILY
+   * @param lang
+   * @param familyId
+   * @returns FILTERS PRODUCT LIST BY FAMILY
+   */
+
+  static getProductListByFamily(
+    lang: string,
+    familyId: number
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true&productFamily=${familyId}`
+    );
+  }
+
+  /**
    * GET FAMILY BY ID
    * @param id
    * @returns FAMILY
@@ -344,6 +360,17 @@ export class API {
     return this.get(`/products/families/${id}`);
   }
 
+  /**
+   * GET MULTIPLE FAMILIES BY PRODUCT ID
+   * @param productId
+   * @returns FAMILIES[]
+   */
+
+  static getFamiliesByProductId(
+    productId: number
+  ): Promise<APIDataResponse<Families>> {
+    return this.get(`/products/${productId}/families`);
+  }
   /**
    * GET ALL FAMILY TRANSLATION
    * @returns Family TRANSLATION []
@@ -363,6 +390,22 @@ export class API {
     id: number
   ): Promise<APIDataResponse<Families>> {
     return this.get(`/products/families/${id}/translations`);
+  }
+
+  /**
+   * GET FAMILY TRANSLATION BY LANG & ID
+   * @param lang
+   * @param familyId
+   * @returns FAMILY TRANSLATION
+   */
+
+  static getFamilyTranslationByIdAndLang(
+    lang: string,
+    familyId: number
+  ): Promise<APIResponse> {
+    return this.get(
+      `/products/families/${familyId}/translations?language=${lang.toUpperCase()}`
+    );
   }
 
   /**

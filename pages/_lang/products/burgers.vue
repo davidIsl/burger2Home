@@ -24,7 +24,7 @@ b-container.bg-gray(fluid)
         :lg='filters ? "6" : "4"'
         sm='8'
       )
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+        b-button.button.w-100(variant='secondary' @click='getFamily') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' lg='4')
         filters(
@@ -116,18 +116,19 @@ export default class extends Vue {
   viewDetails: boolean = false;
   filters: boolean = false;
   filterSearch: string = '';
-  // filtersProduct: Filter[] = [];
-  filtersFamily: Families[] = [];
+
   type: number = 1;
   quantity: number = 1;
 
   products: Product[] | null = null;
-  filterProducts: Product[] | null = null;
+  filtersFamily: Families[] = [];
+  filterProducts: Product[] = [];
   currentProduct: Product | null = null;
+  familiesId: Families[] = [];
 
   mounted() {
-    this.getBurgers();
-    // this.updateData();
+    // this.getBurgers();
+    this.updateData();
   }
 
   getLink(productId: number) {
@@ -136,14 +137,58 @@ export default class extends Vue {
     return link;
   }
 
-  async updateData() {
-    const response = await API.familiesListByLang(this.$i18n.locale);
+  async getFamily() {
+    this.filters = !this.filters;
+    this.filtersFamily = [];
 
-    if (response.status !== 200) {
-      return;
+    const productId: any = (this.products as Product[]).map((item) => ({
+      productId: item.id,
+    }));
+    console.log('PRODUCTID', productId);
+
+    for (const item of productId) {
+      const responseFamilies = API.getFamiliesByProductId(item.productId);
+
+      if ((await responseFamilies).status !== 200) {
+        return null;
+      }
+
+      for (const line of (await responseFamilies).data) {
+        // if (this.familiesId.length === 0) {
+        this.familiesId.push(line);
+        // }
+        console.log('LINE', line);
+      }
+
+      console.log('FAMILY', this.familiesId);
     }
+    const filterFam: Families[] = [];
 
-    this.filtersFamily = response.data;
+    this.familiesId.forEach((item) => {
+      console.log('ITEM', item);
+
+      if (!filterFam.find((cur) => cur.id === item.id)) {
+        filterFam.push(item);
+      }
+    });
+    console.log('FILTERS IF', filterFam);
+
+    const tempTab = await Promise.all(
+      filterFam.map((fam) =>
+        API.getFamilyTranslationByIdAndLang(this.$i18n.locale, fam.id)
+      )
+    );
+
+    console.log('temp', tempTab);
+
+    tempTab.forEach((cur) => this.filtersFamily.push(cur.data[0]));
+
+    console.log('Filters', this.filtersFamily);
+  }
+
+  updateData() {
+    this.getBurgers();
+    // this.getFamily();
   }
 
   async getBurgers() {
@@ -157,9 +202,6 @@ export default class extends Vue {
     }
     this.products = response.data;
     this.filterProducts = response.data;
-    console.log('PRODUCTS:', this.products);
-    console.log('LOG SUCCESS');
-    console.log('RESPONSE', response.data);
   }
 
   async getProductImage(productId: number) {
@@ -224,9 +266,6 @@ export default class extends Vue {
 
     console.log('SERARCH FILTER', searchTab);
     this.products = searchTab;
-    // if (searchTab.length === 0) {
-    //   this.products = tabTemp;
-    // }
   }
 }
 </script>

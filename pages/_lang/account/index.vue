@@ -185,14 +185,10 @@ export default class extends mixins(validationMixin) {
   }
 
   onSubmit() {
-    // this.$v.$touch();
-    // this.submitState = submitStateType.ERROR;
-    // this.error = this.$tc('ERROR Connected');
     console.log('USER ID', this.user);
 
     this.$store.dispatch('users/getUser', parseInt(this.user));
-
-    console.log('USERS', this.$store.state.users.currentUser);
+    return this.$router.push(`/${this.$i18n.locale}/`);
   }
 }
 </script>
