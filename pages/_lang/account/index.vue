@@ -26,7 +26,15 @@ b-container.p-5.bg-gray(fluid)
           b-col.mx-auto(cols='18')
             form(ref='form' @submit.stop.prevent='onSubmit')
               b-row
-                b-col
+                b-col.mt-3
+                  b-form-group(
+                    :label='$t("pages.login.label3")'
+                    label-for='users'
+                  )
+                    b-form-select#addresses.input-form(
+                      v-model='user'
+                      :options='users'
+                    )
                   b-form-group.pt-3.text-primary(
                     :label='$t("pages.login.label1")'
                     label-for='email'
@@ -131,8 +139,9 @@ import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required, email, helpers } from 'vuelidate/lib/validators';
-import { submitStateType } from '@/utils/utils';
+import { SelectOption, submitStateType } from '@/utils/utils';
 import alert from '@/components/global/alert.vue';
+import { API } from '~/utils/javaBack';
 
 const passRegex = helpers.regex(
   'passRegex',
@@ -151,11 +160,39 @@ export default class extends mixins(validationMixin) {
   secure: boolean = true;
   rememberMe: boolean = false;
 
+  users: SelectOption[] = [];
+  user: string = '0';
+
+  mounted() {
+    this.getUsers();
+  }
+
+  async getUsers() {
+    const response = await API.getUsersList();
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.users = response.data.map((user) => ({
+      value: user.id,
+      text: `${user.lastname} ${user.firstname}`,
+    }));
+    this.users.push({
+      value: 0,
+      text: 'Select User',
+    });
+  }
+
   onSubmit() {
-    this.$v.$touch();
-    this.submitState = submitStateType.ERROR;
-    this.error = this.$tc('ERROR Connected');
-    console.log('HELLO');
+    // this.$v.$touch();
+    // this.submitState = submitStateType.ERROR;
+    // this.error = this.$tc('ERROR Connected');
+    console.log('USER ID', this.user);
+
+    this.$store.dispatch('users/getUser', parseInt(this.user));
+
+    console.log('USERS', this.$store.state.users.currentUser);
   }
 }
 </script>

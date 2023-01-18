@@ -60,6 +60,7 @@
       "title1": "Se connecter à Burger2Home",
       "label1": "Adresse Email",
       "label2": "Mot de passe",
+      "label3": "Utilisateurs",
       "button1": "Se connecter",
       "placeholder1": "you@example.com",
       "placeholder2": "********",
@@ -227,6 +228,7 @@
       "label5": "Code postal",
       "label6": "Localité",
       "label7": "Note",
+      "label8": "Dénomination",
       "placeholder1": "Choisir une adresse",
       "placeholder2": "Entrez une adresse",
       "placeholder3": "Entrez un numéro de rue",
@@ -234,10 +236,14 @@
       "placeholder5": "Entrez un code postal",
       "placeholder6": "Entrez une localité",
       "placeholder7": "Entrez une note",
+      "placeholder8": "Entrez une dénomination",
       "button1": "Commander",
       "button2": "Se connecter",
       "button3": "S'inscrire",
       "button4": "Suivant",
+      "errors": {
+        "address": "Attention, veuillez ajouter une adresse de livraison"
+      },
       "table": {
         "image": "Image"
       },

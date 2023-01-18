@@ -277,10 +277,6 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) extension: number = 0;
   addresses: string = '0';
   adds: SelectOption[] = [];
-  // @Validate({ required }) cardNumber: string = '';
-  // @Validate({ required }) cardName: string = '';
-  // @Validate({ required }) validityDate: Date | null = null;
-  // @Validate({ required }) securityCode: string = '';
 
   submitStateType = submitStateType;
   submitState = submitStateType.NONE;

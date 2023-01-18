@@ -61,6 +61,7 @@
       "title1": "Login to Burger2Home",
       "label1": "Email Address",
       "label2": "Password",
+      "label3": "Users",
       "button1": "Log in",
       "placeholder1": "you@example.com",
       "placeholder2": "********",
@@ -254,6 +255,7 @@
       "label5": "Zip Code",
       "label6": "City",
       "label7": "Note",
+      "label8": "Denomination",
       "placeholder1": "Select an Address",
       "placeholder2": "Enter an address",
       "placeholder3": "Enter a number of street",
@@ -261,10 +263,14 @@
       "placeholder5": "Enter zip code",
       "placeholder6": "Enter a city",
       "placeholder7": "Enter a note",
+      "placeholder8": "Enter a denomination",
       "button1": "Order",
       "button2": "Log In",
       "button3": "Sign In",
       "button4": "Next",
+      "errors": {
+        "address": "Warning, Add a delivery Address to your account"
+      },
       "table": {
         "image": "Image"
       },
