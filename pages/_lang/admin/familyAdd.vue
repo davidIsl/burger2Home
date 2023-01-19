@@ -1,17 +1,18 @@
 <template lang="pug">
 b-container.p-5.bg-gray(fluid)
   b-row
-    b-col(offset-lg='2' sm='16' lg='20')
+    b-col(offset-lg='2' lg='20')
       .title-line
         h1.pb-3.title.text-secondary {{ $t('pages.admin.family.add.title1') }}
   b-row
-    b-col(offset-lg='2' sm='16' lg='14')
+    b-col(offset-lg='2' lg='14')
       h3.py-3.title.text-secondary {{ $t('pages.admin.family.add.title2') }}
   b-row.mt-3
-    b-col(offset-lg='2' sm='16' lg='14')
+    b-col(offset-lg='2' lg='14')
       b-form-input.input(
         v-model='filterSearch'
         :placeholder='$t("pages.admin.family.add.placeholder0")'
+        @input='handleSearchFilter(filterSearch)'
       )
   b-row
     b-col.mt-3(offset-lg='2' lg='20')
@@ -29,6 +30,18 @@ b-container.p-5.bg-gray(fluid)
             :fields='fields'
             :totalIngredients='totalFamilies'
           )
+            template(#head(productFamilyId)='data')
+              p {{ $t('pages.admin.family.table.id') }}
+            template(#head(language.name)='data')
+              p {{ $t('pages.admin.family.table.langage') }}
+            template(#head(name)='data')
+              p {{ $t('pages.admin.family.table.name') }}
+            template(#head(description)='data')
+              p {{ $t('pages.admin.family.table.description') }}
+            template(#head(details)='data')
+              p {{ $t('pages.admin.family.table.details') }}
+            template(#head(trash)='data')
+              p {{ $t('pages.admin.family.table.trash') }}
             template(#cell(details)='data')
               font-awesome-icon.mt-1(
                 :icon='["fa", "pencil-alt"]'
@@ -354,8 +367,8 @@ import { API } from '@/utils/javaBack';
 export default class extends mixins(validationMixin) {
   @Validate({ required }) name: string = '';
   @Validate({ required }) description: string = '';
-  @Validate({ required }) language1: string = '';
-  @Validate({ required }) language2: string = '';
+  @Validate({ required }) language1: string = '1';
+  @Validate({ required }) language2: string = '2';
   @Validate({ required }) frenchName: string = '';
   @Validate({ required }) frenchDescription: string = '';
   @Validate({ required }) editName: string = '';
@@ -373,6 +386,8 @@ export default class extends mixins(validationMixin) {
   langs: SelectOption[] = [];
 
   filterSearch: string = '';
+  filterFamily: Families[] = [];
+
   currentPage: number = 1;
   perPage: number = 8;
   totalFamilies: number = 0;
@@ -456,6 +471,7 @@ export default class extends mixins(validationMixin) {
     }
 
     this.families = response.data;
+    this.filterFamily = this.families;
     this.totalFamilies = this.families.length;
   }
 
@@ -536,8 +552,8 @@ export default class extends mixins(validationMixin) {
   }
 
   resetField() {
-    this.language1 = '';
-    this.language2 = '';
+    this.language1 = '1';
+    this.language2 = '2';
     this.name = '';
     this.frenchName = '';
     this.description = '';
@@ -695,6 +711,14 @@ export default class extends mixins(validationMixin) {
       this.errorMsg = '';
     }, 2000);
     this.getFamilyList();
+  }
+
+  handleSearchFilter(str: string) {
+    const searchTab = (this.filterFamily as Families[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.families = searchTab;
   }
 }
 </script>

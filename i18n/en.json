@@ -278,6 +278,8 @@
       "title7": "Users Role List",
       "placeholder1": "Search a product",
       "placeholder2": "Search a promo",
+      "placeholder3": "Search an ingredients",
+      "placeholder4": "Search a user",
       "button1": "Create a new product",
       "button2": "Create a new promo",
       "button3": "Add Ingredients",
@@ -425,6 +427,7 @@
           "placeholder2": "Enter a English Name",
           "placeholder3": "Enter a French Name",
           "placeholder4": "Select one or more allergen",
+          "placeholder5": "Search an ingredient",
           "button1": "Add Allergens",
           "button2": "Create Ingredients"
         },
@@ -447,6 +450,13 @@
           "placeholder4": "Select one or more allergen",
           "button1": "Update Ingredient",
           "button2": "Cancel"
+        },
+        "table": {
+          "id": "Ingredient Id",
+          "langage": "Langage",
+          "name": "Name",
+          "details": "Details",
+          "trash": "Trash"
         },
         "alert": {
           "title1": "Delete Alert",
@@ -508,6 +518,13 @@
 
           "button1": "Update Allergen",
           "button2": "Cancel"
+        },
+        "table": {
+          "id": "Allergens Id",
+          "langage": "Langage",
+          "name": "Name",
+          "details": "Details",
+          "trash": "Trash"
         },
         "alert": {
           "title1": "Delete Alert",
@@ -573,6 +590,14 @@
           "placeholder5": "Enter a french description",
           "button1": "Update Family",
           "button2": "Cancel"
+        },
+        "table": {
+          "id": "Family Id",
+          "langage": "Langage",
+          "name": "Name",
+          "description": "Description",
+          "details": "Details",
+          "trash": "Trash"
         },
         "alert": {
           "title1": "Delete Alert",

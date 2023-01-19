@@ -267,7 +267,6 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) firstname: string = '';
   @Validate({ required }) lastname: string = '';
   @Validate({ required, email }) email: string = '';
-  // @Validate({ required, phoneRegex }) phone: string = '';
   @Validate({ required }) userName: Date | null = null;
   @Validate({ required, maxLength: maxLength(45) }) address: string = '';
   @Validate({ required }) city: string = '';

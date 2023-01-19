@@ -179,7 +179,7 @@
       "filters3": "Chicken",
       "filters4": "Fish",
       "filters5": "Vegan",
-      "button1": "Ajouter panier",
+      "button1": "Ajouter5",
       "button2": "Voir Infos",
       "menu": {
         "title1": "Here is a listing with our Burgers Menus"
@@ -251,6 +251,8 @@
       "title6": "Allergèness",
       "placeholder1": "Chercher un produit",
       "placeholder2": "Chercher une promotion",
+      "placeholder3": "Chercher un ingrédient",
+      "placeholder4": "Chercher un utilisateur",
       "button1": "Ajouter Produit",
       "button2": "Ajouter Promotion",
       "button3": "Ajouter Ingrédients",
@@ -406,6 +408,7 @@
           "placeholder2": "Entrez un nom anglais",
           "placeholder3": "Entrez un nom français",
           "placeholder4": "Selectionné un ou plusieurs allergène",
+          "placeholder5": "Chercher un ingrédient",
           "button1": "Ajouter Allergène",
           "button2": "Créer Ingrédient"
         },
@@ -429,6 +432,13 @@
           "button1": "Maj Ingrédient",
           "button2": "Annuler"
         },
+        "table": {
+          "id": "Ingrédients Id",
+          "langage": "Langue",
+          "name": "Nom",
+          "details": "Details",
+          "trash": "Trash"
+        },
         "alert": {
           "title1": "Alerte de suppression",
           "title2": "Annuler Mise à jour",
@@ -446,7 +456,7 @@
         "success": {
           "create": "Ingrédient crée avec SUCCES",
           "update": "Ingrédient mis à jour avec SUCCES",
-          "delete": "Ingrédient effacé SUCCES"
+          "delete": "Ingrédient effacé avec SUCCES"
         },
         "errors": {
           "create": "Erreur pendant la création de l'ingrédient",
@@ -488,6 +498,13 @@
           "placeholder3": "Entrez un nom français",
           "button1": "Modifier Allergène",
           "button2": "Annuler"
+        },
+        "table": {
+          "id": "Allergène Id",
+          "langage": "Langue",
+          "name": "Nom",
+          "details": "Details",
+          "trash": "Trash"
         },
         "alert": {
           "title1": "Alerte de suppression",
@@ -554,6 +571,14 @@
           "button1": "Modifier Famille",
           "button2": "Annuler"
         },
+        "table": {
+          "id": "Famille Id",
+          "langage": "Langue",
+          "name": "Nom",
+          "description": "Description",
+          "details": "Details",
+          "trash": "Trash"
+        },
         "alert": {
           "title1": "Alerte de suppression",
           "title2": "Annuler Mise à jour",
@@ -569,7 +594,7 @@
         "success": {
           "create": "Famille crée avec SUCCES",
           "update": "Famille mise à jour avec SUCCES",
-          "delete": "Famille effacée SUCCES"
+          "delete": "Famille effacée avec SUCCES"
         },
         "errors": {
           "create": "Erreur pendant la création de la famille",

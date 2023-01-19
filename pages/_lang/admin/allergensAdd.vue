@@ -1,17 +1,18 @@
 <template lang="pug">
 b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
   b-row
-    b-col(offset-lg='2' sm='16' lg='20')
+    b-col(offset-lg='2' lg='20')
       .title-line
         h1.pb-3.title.text-secondary {{ $t('pages.admin.allergens.add.title') }}
   b-row
-    b-col(offset-lg='2' sm='16' lg='14')
+    b-col(offset-lg='2' lg='14')
       h3.py-3.title.text-secondary {{ $t('pages.admin.allergens.add.title4') }}
   b-row.mt-3
-    b-col(offset-lg='2' sm='16' lg='14')
+    b-col(offset-lg='2' lg='14')
       b-form-input.input(
         v-model='filterSearch'
         :placeholder='$t("pages.admin.allergens.add.placeholder3")'
+        @input='handleSearchFilter(filterSearch)'
       )
 
   b-row
@@ -30,16 +31,16 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
             :fields='fields'
             :totalAllergens='totalAllergens'
           )
-            //- template(#head(x)='data')
-            //-   b-form-checkbox#checkbox-header(
-            //-     name='checkbox-header'
-            //-     @change='selectAllTableItems($event)'
-            //-   )
-            //- template(#cell(x)='data')
-            //-   b-form-checkbox(
-            //-     :checked='selectedAllItems'
-            //-     @input='selectTableItem($event, data.item.id)'
-            //-   )
+            template(#head(allergenId)='data')
+              p {{ $t('pages.admin.allergens.table.id') }}
+            template(#head(language.name)='data')
+              p {{ $t('pages.admin.allergens.table.langage') }}
+            template(#head(name)='data')
+              p {{ $t('pages.admin.allergens.table.name') }}
+            template(#head(details)='data')
+              p {{ $t('pages.admin.allergens.table.details') }}
+            template(#head(trash)='data')
+              p {{ $t('pages.admin.allergens.table.trash') }}
             template(#cell(details)='data')
               font-awesome-icon.mt-1(
                 :icon='["fa", "pencil-alt"]'
@@ -57,7 +58,6 @@ b-container.p-sm-5.pb-3.pb-sm-0.bg-gray(fluid)
             :total-rows='totalAllergens'
             :per-page='perPage'
             align='right'
-            @change='handleChangePage'
           )
   b-row.pt-5
     b-col(offset-lg='2' md='16' lg='20')
@@ -288,8 +288,8 @@ import { API } from '@/utils/javaBack';
 })
 export default class extends mixins(validationMixin) {
   @Validate({ required }) name: string = '';
-  @Validate({ required }) language1: string = '';
-  @Validate({ required }) language2: string = '';
+  @Validate({ required }) language1: string = '1';
+  @Validate({ required }) language2: string = '2';
   @Validate({ required }) frenchName: string = '';
   @Validate({ required }) editName: string = '';
   @Validate({ required }) editLanguage1: string = '';
@@ -305,7 +305,7 @@ export default class extends mixins(validationMixin) {
   errorMsg: string = '';
 
   filterSearch: string = '';
-  // viewDetails: boolean = false;
+  filterAllergens: Allergens[] = [];
 
   currentPage: number = 1;
   perPage: number = 8;
@@ -322,10 +322,6 @@ export default class extends mixins(validationMixin) {
   fields = [
     {
       key: 'allergenId',
-      sortable: true,
-    },
-    {
-      key: 'id',
       sortable: true,
     },
     {
@@ -352,7 +348,6 @@ export default class extends mixins(validationMixin) {
     }
 
     this.updateData();
-    console.log('ROUTE', this.$route.params);
   }
 
   openDetails(id: number) {
@@ -389,6 +384,7 @@ export default class extends mixins(validationMixin) {
     }
 
     this.allergens = response.data;
+    this.filterAllergens = this.allergens;
     this.totalAllergens = response.data.length;
   }
 
@@ -421,6 +417,10 @@ export default class extends mixins(validationMixin) {
     this.deleteAlert = false;
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.allergens.success.delete');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
     this.getAllergens();
   }
 
@@ -537,6 +537,8 @@ export default class extends mixins(validationMixin) {
       this.submitProductAdd = submitProductAddType.NONE;
       this.errorMsg = '';
     }, 4000);
+    this.name = '';
+    this.frenchName = '';
     this.getAllergens();
   }
 
@@ -592,6 +594,8 @@ export default class extends mixins(validationMixin) {
       this.errorMsg = '';
     }, 4000);
     this.editingAllergen = false;
+    this.editName = '';
+    this.editFrenchName = '';
     this.$v.$reset();
     this.getAllergens();
   }
@@ -605,8 +609,12 @@ export default class extends mixins(validationMixin) {
     this.$v.$reset();
   }
 
-  handleChangePage(e: number) {
-    this.currentPage = e;
+  handleSearchFilter(str: string) {
+    const searchTab = (this.filterAllergens as Allergens[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.allergens = searchTab;
   }
 
   async handleDelete(id: number) {
