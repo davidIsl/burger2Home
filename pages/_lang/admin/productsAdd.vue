@@ -193,29 +193,29 @@ b-container.p-5.bg-gray(fluid)
                         b-button.mt-3.button.w-100 {{ $t('pages.admin.products.add.button4') }}
                 b-row
                   b-col
-                    b-form-group.pt-3.text-primary(
-                      :label='$t("pages.admin.products.add.label7")'
-                      label-for='imageName'
-                    )
-                      //- input(
-                      //-   name='image'
-                      //-   :value='imageName'
-                      //-   accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
-                      //-   type='file'
-                      //-   ref='fileInput'
-                      //- )
+                    //- b-form-group.pt-3.text-primary(
+                    //-   :label='$t("pages.admin.products.add.label7")'
+                    //-   label-for='imageName'
+                    //- )
+                    //-   //- input(
+                    //-   //-   name='image'
+                    //-   //-   :value='imageName'
+                    //-   //-   accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
+                    //-   //-   type='file'
+                    //-   //-   ref='fileInput'
+                    //-   //- )
 
-                      uploadImage(
-                        :preview='$v.imageName.$model'
-                        :error='$v.imageName.$error'
-                        ref='fileInput'
-                        @change='$v.imageName.$model = $event'
-                      )
-                      .input-error.my-2(v-if='$v.imageName.$error')
-                        font-awesome-icon.mr-2(
-                          :icon='["fa", "exclamation-triangle"]'
-                        )
-                        | {{ $t('pages.errors.required') }}
+                    //-   uploadImage(
+                    //-     :preview='$v.imageName.$model'
+                    //-     :error='$v.imageName.$error'
+                    //-     ref='fileInput'
+                    //-     @change='$v.imageName.$model = $event'
+                    //-   )
+                    //-   .input-error.my-2(v-if='$v.imageName.$error')
+                    //-     font-awesome-icon.mr-2(
+                    //-       :icon='["fa", "exclamation-triangle"]'
+                    //-     )
+                    //-     | {{ $t('pages.errors.required') }}
                     b-form-group.pt-3.text-primary(
                       :label='$t("pages.admin.products.add.label8")'
                       label-for='familyType'
@@ -294,7 +294,6 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) description: string = '';
   @Validate({ required, minValue: minValue(0) }) price: number = 0;
   @Validate({ required }) ingredient: Ingredients[] = [];
-  @Validate({ required }) imageName: string = '';
   @Validate({ required }) language1: string = '1';
   @Validate({ required }) language2: string = '2';
   @Validate({ required }) frenchName: string = '';
@@ -303,8 +302,8 @@ export default class extends mixins(validationMixin) {
   @Validate({ required }) ingredientName: string = '';
   @Validate({ required }) ingredientDescription: string = '';
   @Validate({ required }) familyType: string = '0';
-  // @Validate({ required }) available: boolean = false;
 
+  imageName: string = '';
   ingredients: Ingredients[] = [];
   ingredientsId: any[] = [];
   langs: SelectOption[] = [];
@@ -372,13 +371,10 @@ export default class extends mixins(validationMixin) {
     if (response.status !== 200) {
       return;
     }
-    console.log('TYPE', response.data);
 
     const filterType = response.data.filter(
       (type) => type.language.abbreviation?.toLowerCase() === this.$i18n.locale
     );
-
-    console.log('FILTER TYPE', filterType);
 
     this.familyTypes = filterType.map((type) => ({
       value: type.typeId,
@@ -405,7 +401,6 @@ export default class extends mixins(validationMixin) {
     }
 
     this.families = response.data;
-    console.log('FAMILY', this.families);
   }
 
   nextStep() {
@@ -492,14 +487,14 @@ export default class extends mixins(validationMixin) {
     this.$v.price.$touch();
     this.$v.ingredient.$touch();
     this.$v.productFamily.$touch();
-    this.$v.imageName.$touch();
+    // this.$v.imageName.$touch();
     this.$v.familyType.$touch();
 
     if (
       this.$v.price.$invalid ||
       this.$v.ingredient.$invalid ||
       this.$v.productFamily.$invalid ||
-      this.$v.imageName.$invalid ||
+      // this.$v.imageName.$invalid ||
       this.$v.familyType.$invalid
     ) {
       this.submitProductAdd = submitProductAddType.ERROR;
@@ -520,7 +515,6 @@ export default class extends mixins(validationMixin) {
       }, 4000);
       return;
     }
-    console.log('ADD PRODUCT');
 
     this.ingredientsId = this.ingredient.map((ingredient) => ({
       id: ingredient.ingredientId,
@@ -604,22 +598,22 @@ export default class extends mixins(validationMixin) {
     // const file = fileInput.item(0) as File;
 
     // console.log('FILE', fileInput);22
-    const formData = new FormData();
-    console.log('B4 FORMDATA', this.imageName);
+    // const formData = new FormData();
+    // console.log('B4 FORMDATA', this.imageName);
 
-    formData.append('image', this.imageName);
-    console.log('AFTER FORMADATA', formData);
+    // formData.append('image', this.imageName);
+    // console.log('AFTER FORMADATA', formData);
 
-    console.log('FILE', formData);
+    // console.log('FILE', formData);
 
-    const responseUploadImg = await API.uploadImage(
-      responseCreateProduct.data.id,
-      formData
-    );
+    // const responseUploadImg = await API.uploadImage(
+    //   responseCreateProduct.data.id,
+    //   formData
+    // );
 
-    if (responseUploadImg.status !== 200) {
-      return null;
-    }
+    // if (responseUploadImg.status !== 200) {
+    //   return null;
+    // }
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.products.success.create');
     setTimeout(() => {

@@ -185,8 +185,6 @@ export default class extends mixins(validationMixin) {
   }
 
   onSubmit() {
-    console.log('USER ID', this.user);
-
     this.$store.dispatch('users/getUser', parseInt(this.user));
     setTimeout(() => {
       this.$store.dispatch(

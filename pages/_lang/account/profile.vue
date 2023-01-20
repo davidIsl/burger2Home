@@ -293,8 +293,6 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    console.log('USER', responseUser.data);
-
     this.firstname = responseUser.data.firstname;
     this.lastname = responseUser.data.lastname;
     this.email = responseUser.data.email;
@@ -328,7 +326,6 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    // this.isReadOnly = true;
     this.address = responseAddress.data.street;
     this.number = responseAddress.data.number;
     this.zip = responseAddress.data.zipcode;
@@ -338,8 +335,6 @@ export default class extends mixins(validationMixin) {
     if (responseAddress.data.extension !== null) {
       this.extension = responseAddress.data.extension;
     }
-
-    console.log('READ ONLY', responseAddress.data);
   }
 
   async createAddress() {
@@ -408,7 +403,6 @@ export default class extends mixins(validationMixin) {
       }, 4000);
       return;
     }
-    console.log('ADD START', this.addresses);
 
     this.$v.address.$touch();
     this.$v.city.$touch();
@@ -454,7 +448,6 @@ export default class extends mixins(validationMixin) {
       this.errorMsg = '';
     }, 4000);
     this.getAddressByUser();
-    console.log('ADD', this.address);
   }
 }
 </script>

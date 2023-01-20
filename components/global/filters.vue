@@ -7,8 +7,6 @@
         v-model='checked'
         @change='selectFilters(filter.productFamilyId)'
       ) {{ filter.name }}
-        //- b-badge.ml-2.bg-darkRed {{  }}
-      //- font-awesome-icon.mr-3.mt-1.ml-1(:icon='["fa", "tag"]')
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator';
@@ -23,30 +21,10 @@ export default class extends Vue {
   checked: boolean = false;
 
   currentFilters: Families[] = [];
-  // selectedFilters: Families[] = [];
 
   mounted() {
-    // this.filtersList();
     this.currentFilters = this.filters;
   }
-  /*
-   * Filters List
-   */
-
-  // async filtersList() {
-  //   const response = await API.familiesListByLang(this.$i18n.locale);
-
-  //   if (response.status !== 200) {
-  //     return null;
-  //   }
-
-  //   this.currentFilters = response.data.map((item) => ({
-  //     id: item.productFamilyId,
-  //     name: item.name,
-  //     productFamilyId: item.productFamilyId,
-  //   }));
-  //   console.log('FiltersCurrent', this.currentFilters);
-  // }
 
   async selectFilters(familyId: number) {
     if (this.checked) {
@@ -59,10 +37,6 @@ export default class extends Vue {
       if (response.status !== 200) {
         return null;
       }
-      console.log('FAMILY ID', familyId);
-
-      // this.filters = response.data;
-      // console.log('Filters', this.filters);
 
       this.$emit('change', response.data);
     } else {

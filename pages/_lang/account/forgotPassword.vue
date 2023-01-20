@@ -146,9 +146,5 @@ export default class extends mixins(validationMixin) {
   border: 1px solid var(--primary);
   border-radius: 0.5rem !important;
   padding-right: 10px;
-  // #password,
-  // #confirmPassword {
-  //   border: none;
-  // }
 }
 </style>

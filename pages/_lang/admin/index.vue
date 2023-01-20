@@ -625,8 +625,6 @@ export default class extends mixins(validationMixin) {
   }
 
   mounted() {
-    console.log('USERS ADMIN', this.$store.state.users.currentUser);
-
     if (this.$store.state.users.currentUser.role.name === 'customer') {
       return this.$router.push(`/${this.$i18n.locale}/error`);
     }
@@ -656,21 +654,14 @@ export default class extends mixins(validationMixin) {
     const response = await API.productList();
 
     if (response.status !== 200) {
-      console.log('LOG ERROR');
-      console.log('RESPONSE', response.data);
-
       return null;
     }
     this.products = response.data;
     this.totalProducts = response.data.length;
     this.filterProducts = this.products;
-    console.log('LOG SUCCESS');
-    console.log('RESPONSE', response.data);
   }
 
   async getPromos() {
-    console.log('GET PTOMOS');
-
     const response = await API.getPromoList();
 
     if (response.status !== 200) {
@@ -696,7 +687,6 @@ export default class extends mixins(validationMixin) {
         }
       }
     }
-    console.log('PROMOS', this.promos);
     this.filterPromos = this.promos;
   }
 
@@ -724,7 +714,6 @@ export default class extends mixins(validationMixin) {
         }
       }
     }
-    console.log('STOCK', this.stocks);
     this.filterStocks = this.stocks;
     this.totalStocks = this.stocks.length;
   }
@@ -828,7 +817,6 @@ export default class extends mixins(validationMixin) {
     }, 4000);
     this.editingStock = false;
     this.getIngredients();
-    console.log('FINISH UPDATE');
   }
 
   async updateRole() {

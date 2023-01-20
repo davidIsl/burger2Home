@@ -436,7 +436,6 @@ export default class extends mixins(validationMixin) {
     }
 
     this.updateData();
-    console.log('ROUTE', this.$route.params);
   }
 
   openDetails(id: number) {
@@ -584,7 +583,6 @@ export default class extends mixins(validationMixin) {
       this.errorMsg = this.$tc('pages.admin.family.errors.fields');
       return;
     }
-    console.log('ADD Family');
 
     const responseCreateFamily = await API.addFamily();
 

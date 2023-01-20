@@ -10,7 +10,6 @@ import { API } from '~/utils/javaBack';
   store,
 })
 export default class Baskets extends VuexModule {
-  // basket: Basket | {} = {};
   basketLine: BasketLine[] = [];
   totalPrice: number = 0;
   quantity: number = 0;
@@ -27,17 +26,12 @@ export default class Baskets extends VuexModule {
 
   @Mutation
   addBasketLine({ product, quantity }: { product: Product; quantity: number }) {
-    console.log('PRoducut', product);
-    console.log('AMOUNTTOADD BASKTLINEADD', this.amountToAdd);
-
     const existingBasketLine = this.basketLine.find(
       (line) => line.productId === product.id
     );
-    console.log('LINE', existingBasketLine);
 
     if (existingBasketLine) {
       existingBasketLine.amount += quantity;
-      console.log('SAME ID');
     } else {
       const item: BasketLine = {
         id: null,
@@ -47,30 +41,18 @@ export default class Baskets extends VuexModule {
         product,
       };
       this.basketLine.push(item);
-      console.log('OTHER ID', item);
     }
 
     this.totalPrice += product.actualPrice * quantity;
     this.quantity += quantity;
     this.amountToAdd = 1;
-    // this.context.dispatch('getProduct', productId);
-    // this.basketLine
-    console.log('QUANTITY', this.quantity);
-    console.log('BasketLine', this.basketLine);
-    console.log('TOTAL', this.totalPrice);
   }
-
-  // @Mutation
-  // addProduct(product: Product) {
-
-  // }
 
   @Mutation
   incrementAmount(productId: number) {
     const lineToIncrement = this.basketLine.find(
       (line) => line.productId === productId
     );
-    console.log('BL', lineToIncrement);
 
     if (lineToIncrement) {
       lineToIncrement.amount++;
@@ -84,7 +66,6 @@ export default class Baskets extends VuexModule {
     const lineToDecrement = this.basketLine.find(
       (line) => line.productId === productId
     );
-    console.log('BL', lineToDecrement);
 
     if (lineToDecrement) {
       lineToDecrement.amount--;
@@ -108,7 +89,6 @@ export default class Baskets extends VuexModule {
 
   @Mutation
   removeBasketLine(productId: number) {
-    console.log('PRODUCTID', productId);
     const index = this.basketLine.findIndex(
       (line) => line.productId === productId
     );
@@ -123,13 +103,10 @@ export default class Baskets extends VuexModule {
     this.totalPrice -=
       (amountToRemove?.product.actualPrice as number) *
       (amountToRemove?.amount as number);
-    console.log('BL REMOVE', this.basketLine);
-    // }
   }
 
   @Mutation
   resetBasket() {
-    // this.basket = {};
     this.basketLine = [];
     this.quantity = 0;
     this.totalPrice = 0;
@@ -138,8 +115,6 @@ export default class Baskets extends VuexModule {
 
   @Action({ rawError: true })
   async addProduct({ id, quantity }: { id: number; quantity: number }) {
-    console.log('ID STORE PRODUCT', id);
-
     const response = await API.getProductSummaryById(id); // TODO BY LANG
 
     if (response.status !== 200) {
@@ -150,7 +125,6 @@ export default class Baskets extends VuexModule {
       product: response.data,
       quantity,
     });
-    console.log('END ACTION');
   }
 
   @Action
@@ -166,14 +140,9 @@ export default class Baskets extends VuexModule {
 
   @Action({ rawError: true })
   async saveBasket(userId: number) {
-    console.log('MIDDLEWARE SAVE');
     if (userId === null || userId === 0) {
-      console.log('PAS CONNECTE');
-
       return;
     }
-    console.log('user ID', userId);
-    console.log('BASKET ID', this.context.state as any);
 
     const responseBasket = await API.getBasketByUserId(userId);
 
@@ -182,16 +151,6 @@ export default class Baskets extends VuexModule {
     }
 
     const lastUpdated = formatDate(new Date().toString());
-    console.log('STORE BL:', (this.context.state as any).basketLine);
-
-    // const basketLines: any = this.$store.state.baskets.basketLine.map(
-    //   (line: any) => ({
-    //     id: line.id,
-    //     basketId: line.basketId,
-    //     productId: line.productId,
-    //     amount: line.amount,
-    //   })
-    // );
 
     const responseUpdateBasket = await API.updateBasket(
       responseBasket.data.id,
@@ -211,42 +170,6 @@ export default class Baskets extends VuexModule {
       return;
     }
 
-    console.log('LINES', responseBasketLines.data);
-    console.log('LINES STORE', (this.context.state as any).basketLine);
-
-    // for (const storeLine of (this.context.state as any).basketLine) {
-    //   console.log('STORE LINE', storeLine);
-    //   if (responseBasketLines.data.length === 0) {
-    //     const responseAddBasketLine = await API.addBasketLine(
-    //       responseBasket.data.id,
-    //       storeLine.productId,
-    //       storeLine.amount
-    //     );
-    //     if (responseAddBasketLine.status !== 200) {
-    //       return;
-    //     }
-    //   }
-    //   for (const line of responseBasketLines.data) {
-    //     console.log('LINE', line);
-    //     if (
-    //       line.productId === storeLine.productId &&
-    //       line.amount !== storeLine.amount
-    //     ) {
-    //       console.log('SAME PRODUCT BUT NOT SAME QUANTIYY');
-    //       const responseUpdate = await API.updateBasketLine(
-    //         line.id as number,
-    //         line.basketId,
-    //         line.productId,
-    //         storeLine.amount
-    //       );
-
-    //       if (responseUpdate.status !== 200) {
-    //         return;
-    //       }
-    //     }
-    //   }
-    // }
-
     for (let i = 0; i < responseBasketLines.data.length; i++) {
       const responseRemoveExistingLines = await API.removeBasketLine(
         responseBasketLines.data[i].id as number
@@ -254,26 +177,6 @@ export default class Baskets extends VuexModule {
       if (responseRemoveExistingLines.status !== 200) {
         return;
       }
-      // for (let j = 0; j < (this.context.state as any).basketLine.length; j++) {
-      //   // SAME PRODUCT BUT DIFF AMOUNT
-      //   if (
-      //     responseBasketLines.data[i].productId ===
-      //       (this.context.state as any).basketLine[j].productId &&
-      //     responseBasketLines.data[i].amount !==
-      //       (this.context.state as any).basketLine[j].amount
-      //   ) {
-      //     const responseUpdate = await API.updateBasketLine(
-      //       responseBasketLines.data[i].id as number,
-      //       responseBasketLines.data[i].basketId,
-      //       responseBasketLines.data[i].productId,
-      //       (this.context.state as any).basketLine[j].amount
-      //     );
-
-      //     if (responseUpdate.status !== 200) {
-      //       return;
-      //     }
-      //   }
-      // }
     }
 
     for (let i = 0; i < (this.context.state as any).basketLine.length; i++) {
@@ -287,6 +190,5 @@ export default class Baskets extends VuexModule {
         return;
       }
     }
-    console.log('UPDATED BASKET OK');
   }
 }

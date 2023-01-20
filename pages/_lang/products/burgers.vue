@@ -144,7 +144,6 @@ export default class extends Vue {
     const productId: any = (this.products as Product[]).map((item) => ({
       productId: item.id,
     }));
-    console.log('PRODUCTID', productId);
 
     for (const item of productId) {
       const responseFamilies = API.getFamiliesByProductId(item.productId);
@@ -157,21 +156,15 @@ export default class extends Vue {
         // if (this.familiesId.length === 0) {
         this.familiesId.push(line);
         // }
-        console.log('LINE', line);
       }
-
-      console.log('FAMILY', this.familiesId);
     }
     const filterFam: Families[] = [];
 
     this.familiesId.forEach((item) => {
-      console.log('ITEM', item);
-
       if (!filterFam.find((cur) => cur.id === item.id)) {
         filterFam.push(item);
       }
     });
-    console.log('FILTERS IF', filterFam);
 
     const tempTab = await Promise.all(
       filterFam.map((fam) =>
@@ -179,25 +172,17 @@ export default class extends Vue {
       )
     );
 
-    console.log('temp', tempTab);
-
     tempTab.forEach((cur) => this.filtersFamily.push(cur.data[0]));
-
-    console.log('Filters', this.filtersFamily);
   }
 
   updateData() {
     this.getBurgers();
-    // this.getFamily();
   }
 
   async getBurgers() {
     const response = await API.productAvailableListByLang(this.$i18n.locale, 1);
 
     if (response.status !== 200) {
-      console.log('LOG ERROR');
-      console.log('RESPONSE', response.data);
-
       return null;
     }
     this.products = response.data;
@@ -217,29 +202,21 @@ export default class extends Vue {
   openDetails(product: any) {
     this.viewDetails = true;
     this.currentProduct = product;
-    console.log('MODAL', product);
-    console.log('viewDetails', this.viewDetails);
   }
 
   decrementQuantity() {
-    // this.$store.commit('baskets/decrementAmountToAdd');
     if (this.quantity > 1) {
       this.quantity--;
     }
   }
 
   incrementQuantity() {
-    // this.$store.commit('baskets/incrementAmountToAdd');
     if (this.quantity < 10) {
       this.quantity++;
     }
   }
 
   addToBasket({ id, quantity }: { id: number; quantity: number }) {
-    // const response = await API.upda
-    console.log('Quantity', this.quantity);
-    console.log('Amount', this.$store.state.baskets.amountToAdd);
-
     this.$store.dispatch('baskets/addProduct', {
       id,
       quantity,
@@ -258,15 +235,10 @@ export default class extends Vue {
   }
 
   handleSearchFilter(str: string) {
-    // const tabTemp = this.products;
-    console.log('FILTER', this.filterSearch);
-    console.log('STR', str);
-
     const searchTab = (this.filterProducts as Product[]).filter((item) => {
       return item.name.toLowerCase().includes(str.toLowerCase());
     });
 
-    console.log('SERARCH FILTER', searchTab);
     this.products = searchTab;
   }
 }

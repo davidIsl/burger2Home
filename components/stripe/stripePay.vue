@@ -29,15 +29,11 @@ declare let Stripe: any;
   components: { Card, CardElement, createPaymentMethod },
 })
 export default class StripePayments extends Vue {
-  // @Prop() addressId!: string;
-  // @Prop() basketId!: number;
-
   stripe: any = null;
   elements: any = null;
   paymentCard: any = null;
   stripeKey: string =
     'pk_test_51MNONxJptiWzEvlCEgYGUCW5vv20z8MQv0bqrKkegOEYupFQRNAf5TfRZX39I0pMXVyCUI8v5pwf97ji8gddNNVS00xOOaY1nw';
-  // cardOptions = {};
 
   options = {
     pk: process.env.PUBLIC_STRIPE_KEY,
@@ -53,9 +49,6 @@ export default class StripePayments extends Vue {
   }
 
   async payOrder() {
-    // console.log('PAY ORDER');
-    // console.log('card number', this.cardNumberElement);
-
     const data = await createPaymentMethod('card', {});
     if (data.paymentMethod !== 'undefined' || data.paymentMethod !== null) {
       const paymentMethod = data.paymentMethod;
@@ -67,8 +60,6 @@ export default class StripePayments extends Vue {
         default: paymentMethod.card.default,
         last4: paymentMethod.card.last4,
       };
-      console.log('DATA', data);
-      console.log('PAYMENT METHOD', paymentMethod);
 
       this.$emit('handleChangeStripe', paymentMethod);
     } else {

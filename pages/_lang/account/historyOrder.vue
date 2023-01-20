@@ -40,28 +40,10 @@ b-container.p-4.bg-gray(fluid)
                 :icon='["fa", "eye"]'
                 @click='openDetails(data.item)'
               )
-          //- b-pagination(
-          //-   pills='pills'
-          //-   size='sm'
-          //-   v-model='currentPageInProgress'
-          //-   :total-rows='totalRowsInProgress'
-          //-   :per-page='perPage'
-          //-   aria-controls='my-table'
-          //-   align='right'
-          //- )
   .p-2
     b-row.pt-3(lg='18')
       b-col.pb-3.text-left.mx-auto(lg='18')
         h2.text-secondary {{ $t('pages.history.title3') }}
-      //- b-col.pb-3.text-center(md='6')
-      //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.button1') }}
-    //- b-row
-    //-   b-col(offset-lg='3' lg='16')
-    //-     b-form-input.input(
-    //-       v-model='filterSearch'
-    //-       :placeholder='$t("pages.history.placeholder1")'
-    //-     )
-
     b-row
       b-col.mt-3.mx-auto(lg='18')
         .p-3.content.text-secondary
@@ -90,14 +72,6 @@ b-container.p-4.bg-gray(fluid)
                   :icon='["fa", "eye"]'
                   @click='openDetails(data.item)'
                 )
-            //- b-pagination(
-            //-   pills='pills'
-            //-   size='sm'
-            //-   v-model='currentPageList'
-            //-   :total-rows='totalRowsList'
-            //-   :per-page='perPage'
-            //-   align='right'
-            //- )
   b-modal(
     body-bg-variant='gray'
     header-bg-variant='gray'
@@ -165,12 +139,10 @@ import { API } from '~/utils/javaBack';
 export default class extends Vue {
   filters: boolean = false;
   orderDetail: orderLines[] = [];
-  // ordersList: Order[] = [];
   ordersInProgress: Order[] = [];
 
   filterSearch: string = '';
   viewOrder: boolean = false;
-  // viewOrderInProgress: boolean = false;
   itemSelected: boolean = false;
 
   currentPageList: number = 1;
@@ -250,97 +222,6 @@ export default class extends Vue {
     return responseAddress.data as Address;
   }
 
-  // async getOrders() {
-  //   const responseOrders = await API.getAllOrdersByUserId(
-  //     this.$store.state.users.currentUser.id
-  //   );
-
-  //   if (responseOrders.status !== 200) {
-  //     return;
-  //   }
-
-  //   this.ordersInProgress = responseOrders.data
-  //     .filter((order) => order.status === 'payment_confirmed')
-  //     .map((order: Order) => ({
-  //       orderDate: formatDateWithoutTime(order.orderDate),
-  //       id: order.id,
-  //       userId: order.userId,
-  //       addressId: order.addressId,
-  //       status: order.status,
-  //       orderLines: order.orderLines,
-  //     }));
-
-  //   for (const order of this.ordersInProgress) {
-  //     order.totalPrice = 0;
-  //     for (const ol of order.orderLines) {
-  //       console.log('line', ol);
-  //       console.log('order', order.id);
-  //       const price = await API.getPriceById(ol.priceId);
-  //       console.log('PROMISE PRICE', price);
-
-  //       (order.totalPrice as number) += price.data.amount * ol.amount;
-  //       console.log('total price', order.totalPrice);
-  //       console.log('price', price.data.amount);
-  //       console.log('quantity', ol.amount);
-  //     }
-  //   }
-
-  //   console.log('ORDERS LIST', responseOrders.data);
-
-  //   this.ordersList = responseOrders.data
-  //     .filter((order: Order) => order.status === 'shipment_confirmed')
-  //     .map((order: Order) => ({
-  //       orderDate: formatDateWithoutTime(order.orderDate),
-  //       id: order.id,
-  //       userId: order.userId,
-  //       addressId: order.addressId,
-  //       status: order.status,
-  //       orderLines: order.orderLines,
-  //     }));
-
-  //   // const tab = this.ordersList.map((order) => order.orderLines);
-  //   // console.log('TAB:', tab);
-
-  //   // const temp = await Promise.all(
-  //   //   tab.map((line) => line.map((price) => API.getPriceById(price.priceId)))
-  //   // );
-
-  //   // console.log('TEMP:', temp);
-  //   // console.log('PRICE', temp[0][0].value.data.priceId);
-
-  //   for (const order of this.ordersList) {
-  //     order.totalPrice = 0;
-  //     for (const ol of order.orderLines) {
-  //       console.log('line', ol);
-  //       console.log('order', order.id);
-  //       const price = await API.getPriceById(ol.priceId);
-  //       console.log('PROMISE PRICE', price);
-
-  //       (order.totalPrice as number) += price.data.amount * ol.amount;
-  //       console.log('total price', order.totalPrice);
-  //       console.log('price', price.data.amount);
-  //       console.log('quantity', ol.amount);
-  //     }
-  //     console.log('TOTAL price END BOUCLE', order.totalPrice);
-  //   }
-  //   // const tab = this.ordersList.map((order) => order.orderLines);
-  //   // console.log('TAB', tab);
-
-  //   // {
-  //   //   const temp = await Promise.all(
-  //   //     order.orderLines.map((ol) => API.getPriceById(ol.priceId))
-  //   //   );
-  //   // });
-
-  //   // this.ordersList.map((order) =>
-  //   //   priceTab.map((price) => price.map((line) => console.log('LINE', line)))
-  //   // );
-
-  //   console.log('this ORDERLIST', this.ordersList);
-
-  //   this.totalRowsList = this.ordersList.length;
-  //   this.totalRowsInProgress = this.ordersInProgress.length;
-  // }
   async orderInProgress() {
     const responseOrders = await API.getAllOrdersByUserId(
       this.$store.state.users.currentUser.id
@@ -364,20 +245,13 @@ export default class extends Vue {
     for (const order of list) {
       order.totalPrice = 0;
       for (const ol of order.orderLines) {
-        console.log('line', ol);
-        console.log('order', order.id);
         const product = await API.getProductSumByLangAndId(
           this.$i18n.locale,
           ol.productId
         );
-        console.log('PROMISE PRODUCT', product);
 
         (order.totalPrice as number) += product.data.actualPrice * ol.amount;
-        console.log('total price', order.totalPrice);
-        console.log('price', product.data.actualPrice);
-        console.log('quantity', ol.amount);
       }
-      console.log('TOTAL price END BOUCLE', order.totalPrice);
     }
     this.totalRowsInProgress = responseOrders.data.length;
     return list as Order[];
@@ -391,8 +265,6 @@ export default class extends Vue {
     if (responseOrders.status !== 200) {
       return;
     }
-
-    console.log('ORDERS LIST', responseOrders.data);
 
     const list: Order[] = responseOrders.data
       .filter((order: Order) => order.status === 'shipment_confirmed')

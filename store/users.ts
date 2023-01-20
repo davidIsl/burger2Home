@@ -22,9 +22,7 @@ export default class Users extends VuexModule {
 
   @Mutation
   resetUser() {
-    console.log('USERS', this.currentUser);
     this.currentUser = null;
-    console.log('USERS AFTER RESET', this.currentUser);
   }
 
   @Mutation
@@ -45,28 +43,10 @@ export default class Users extends VuexModule {
     if (responseBasket.status !== 200) {
       return;
     }
-    console.log('BASKET', responseBasket.data);
 
     this.context.commit('setCurrentUser', response.data);
     this.context.commit('setBasketId', responseBasket.data.id);
-    // this.context.dispatch('baskets/getUserBasket', this.currentUser.id);
   }
-
-  // @Watch('currentUser')
-  // getUserBasket() {}
-
-  // @Action
-  // async getUserBasketId() {
-  //   if (this.currentUser !== null) {
-  //     const response = await API.getBasketByUserId(this.currentUser.id);
-
-  //     if (response.status !== 200) {
-  //       return;
-  //     }
-
-  //     this.context.commit('setBasketId', response.data.id);
-  //   }
-  // }
 
   getRole() {
     if (this.currentUser !== null) {
