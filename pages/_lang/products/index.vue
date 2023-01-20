@@ -139,7 +139,6 @@ export default class extends Vue {
     }
 
     response.data.map((cur) => this.filtersFamily.push(cur));
-    console.log('filters FAm', this.filtersFamily);
   }
 
   async getProducts() {
@@ -177,18 +176,16 @@ export default class extends Vue {
   }
 
   addToBasket({ id, quantity }: { id: number; quantity: number }) {
-    // const response = await API.upda
-    console.log('Quantity', this.quantity);
-    console.log('Amount', this.$store.state.baskets.amountToAdd);
-
     this.$store.dispatch('baskets/addProduct', {
       id,
       quantity,
     });
-    this.$store.dispatch(
-      'baskets/saveBasket',
-      this.$store.state.users.currentUser.id
-    );
+    if (this.$store.state.users.currentUser) {
+      this.$store.dispatch(
+        'baskets/saveBasket',
+        this.$store.state.users.currentUser.id
+      );
+    }
     this.viewDetails = false;
   }
 
@@ -197,15 +194,10 @@ export default class extends Vue {
   }
 
   handleSearchFilter(str: string) {
-    // const tabTemp = this.products;
-    console.log('FILTER', this.filterSearch);
-    console.log('STR', str);
-
     const searchTab = (this.filterProducts as Product[]).filter((item) => {
       return item.name.toLowerCase().includes(str.toLowerCase());
     });
 
-    console.log('SERARCH FILTER', searchTab);
     this.products = searchTab;
   }
 }

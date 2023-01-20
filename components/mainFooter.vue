@@ -52,23 +52,19 @@
             .pt-3
               nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link1') }}
             div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link2') }}
+              nuxt-link.link(:to='`/${$i18n.locale}/products/`') {{ $t('footer.link2') }}
             div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link3') }}
+              nuxt-link.link(:to='`/${$i18n.locale}/products/burgers/`') {{ $t('footer.link4') }}
             div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link4') }}
+              nuxt-link.link(:to='`/${$i18n.locale}/products/fries/`') {{ $t('footer.link5') }}
             div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link5') }}
-            div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link6') }}
-            div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link7') }}
-            div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link8') }}
+              nuxt-link.link(:to='`/${$i18n.locale}/products/drinks/`') {{ $t('footer.link6') }}
+            div(
+              v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name !== "customer"'
+            )
+              nuxt-link.link(:to='`/${$i18n.locale}/admin/`') {{ $t('footer.link7') }}
             div
               nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link9') }}
-            div
-              nuxt-link.link(:to='`/${$i18n.locale}/`') {{ $t('footer.link10') }}
 </template>
 
 <script lang="ts">

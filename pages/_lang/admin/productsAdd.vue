@@ -205,7 +205,7 @@ b-container.p-5.bg-gray(fluid)
                       //-   ref='fileInput'
                       //- )
 
-                      uploadAvatar(
+                      uploadImage(
                         :preview='$v.imageName.$model'
                         :error='$v.imageName.$error'
                         ref='fileInput'
@@ -232,27 +232,6 @@ b-container.p-5.bg-gray(fluid)
                         :icon='["fa", "exclamation-triangle"]'
                       )
                       | {{ $t('pages.errors.required') }}
-                  //- b-col
-                  //-   b-form-group.pt-3.text-primary(
-                  //-     :label='$t("pages.admin.add.label7")'
-                  //-     label-for='available'
-                  //-   )
-                  //-     b-form-checkbox#available.checkBox(
-                  //-       v-model='available'
-                  //-       name='available-button'
-                  //-       switch
-                  //-       size='lg'
-                  //-     )
-                  //-   b-form-group.pt-3.text-primary(
-                  //-     :label='$t("pages.admin.add.label7")'
-                  //-     label-for='onMenu'
-                  //-   )
-                  //-     b-form-checkbox#onMenu.checkBox(
-                  //-       v-model='onMenu'
-                  //-       name='onMenu-button'
-                  //-       switch
-                  //-       size='lg'
-                  //-     )
               b-row
                 b-col.mx-auto(
                   v-if='stepProductAdd === stepProductAddType.STEP2 || stepProductAdd === stepProductAddType.STEP3'
@@ -294,8 +273,8 @@ b-container.p-5.bg-gray(fluid)
 import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
-import { required } from 'vuelidate/lib/validators';
-import uploadAvatar from '@/components/global/uploadAvatar.vue';
+import { minValue, required } from 'vuelidate/lib/validators';
+import uploadImage from '@/components/global/uploadImage.vue';
 import alert from '@/components/global/alert.vue';
 
 import {
@@ -308,22 +287,22 @@ import {
 import { API } from '@/utils/javaBack';
 
 @Component({
-  components: { alert, uploadAvatar },
+  components: { alert, uploadImage },
 })
 export default class extends mixins(validationMixin) {
   @Validate({ required }) name: string = '';
   @Validate({ required }) description: string = '';
-  @Validate({ required }) price: number = 0;
+  @Validate({ required, minValue: minValue(0) }) price: number = 0;
   @Validate({ required }) ingredient: Ingredients[] = [];
   @Validate({ required }) imageName: string = '';
-  @Validate({ required }) language1: string = '';
-  @Validate({ required }) language2: string = '';
+  @Validate({ required }) language1: string = '1';
+  @Validate({ required }) language2: string = '2';
   @Validate({ required }) frenchName: string = '';
   @Validate({ required }) frenchDescription: string = '';
   @Validate({ required }) productFamily: Families[] = [];
   @Validate({ required }) ingredientName: string = '';
   @Validate({ required }) ingredientDescription: string = '';
-  @Validate({ required }) familyType: string = '';
+  @Validate({ required }) familyType: string = '0';
   // @Validate({ required }) available: boolean = false;
 
   ingredients: Ingredients[] = [];
@@ -356,13 +335,13 @@ export default class extends mixins(validationMixin) {
     return file.size / 1048576 <= this.maxSize;
   }
 
-  async upload(productId: number, imageName: FormData) {
-    const response = await API.uploadImage(productId, imageName);
+  // async upload(productId: number, imageName: FormData) {
+  //   const response = await API.uploadImage(productId, imageName);
 
-    if (response.status !== 200) {
-      return null;
-    }
-  }
+  //   if (response.status !== 200) {
+  //     return null;
+  //   }
+  // }
 
   async getIngredients() {
     const response = await API.ingredientsListByLang(this.$i18n.locale);
@@ -405,6 +384,10 @@ export default class extends mixins(validationMixin) {
       value: type.typeId,
       text: type.name[0].toUpperCase() + type.name.slice(1),
     }));
+    this.familyTypes.push({
+      value: 0,
+      text: this.$tc('pages.admin.products.add.label9'),
+    });
   }
 
   updateData() {
@@ -437,6 +420,10 @@ export default class extends mixins(validationMixin) {
       ) {
         this.submitProductAdd = submitProductAddType.ERROR;
         this.errorMsg = this.$tc('pages.admin.products.errors.fields');
+        setTimeout(() => {
+          this.submitProductAdd = submitProductAddType.NONE;
+          this.errorMsg = '';
+        }, 4000);
         return;
       }
       if (!this.checkLang(this.language1, this.language2)) {
@@ -444,6 +431,10 @@ export default class extends mixins(validationMixin) {
       }
       this.submitProductAdd = submitProductAddType.NONE;
       this.stepProductAdd = stepProductAddType.STEP2;
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
       return;
     }
 
@@ -458,11 +449,15 @@ export default class extends mixins(validationMixin) {
       ) {
         this.submitProductAdd = submitProductAddType.ERROR;
         this.errorMsg = this.$tc('pages.admin.products.errors.fields');
+        setTimeout(() => {
+          this.submitProductAdd = submitProductAddType.NONE;
+          this.errorMsg = '';
+        }, 4000);
 
         return;
       }
 
-      this.submitProductAdd = submitProductAddType.NONE;
+      // this.submitProductAdd = submitProductAddType.NONE;
     }
     if (this.checkLang(this.language1, this.language2)) {
       this.stepProductAdd = stepProductAddType.STEP3;
@@ -479,8 +474,6 @@ export default class extends mixins(validationMixin) {
   }
 
   checkLang(lang1: string, lang2: string): boolean {
-    console.log('LANG1', lang1);
-
     if (lang1.toString() === '2') {
       this.submitProductAdd = submitProductAddType.ERROR;
       this.errorMsg = this.$tc('pages.admin.products.errors.lang1');
@@ -496,7 +489,37 @@ export default class extends mixins(validationMixin) {
   }
 
   async createProduct() {
-    this.$v.$touch();
+    this.$v.price.$touch();
+    this.$v.ingredient.$touch();
+    this.$v.productFamily.$touch();
+    this.$v.imageName.$touch();
+    this.$v.familyType.$touch();
+
+    if (
+      this.$v.price.$invalid ||
+      this.$v.ingredient.$invalid ||
+      this.$v.productFamily.$invalid ||
+      this.$v.imageName.$invalid ||
+      this.$v.familyType.$invalid
+    ) {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.products.errors.fields');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
+      return;
+    }
+
+    if (this.familyType === '0') {
+      this.submitProductAdd = submitProductAddType.ERROR;
+      this.errorMsg = this.$tc('pages.admin.products.errors.type');
+      setTimeout(() => {
+        this.submitProductAdd = submitProductAddType.NONE;
+        this.errorMsg = '';
+      }, 4000);
+      return;
+    }
     console.log('ADD PRODUCT');
 
     this.ingredientsId = this.ingredient.map((ingredient) => ({
@@ -575,16 +598,19 @@ export default class extends mixins(validationMixin) {
       return null;
     }
 
-    // const fileInput = this.$refs.input as HTMLInputElement;
-    // const file = (fileInput.files[0] as FileList).name;
+    // const fileInput = (this.$refs.fileInput as HTMLInputElement)
+    //   .files as FileList;
+    // // //   .files as FileList;
+    // const file = fileInput.item(0) as File;
 
-    // console.log('FILE', fileInput);
+    // console.log('FILE', fileInput);22
     const formData = new FormData();
+    console.log('B4 FORMDATA', this.imageName);
 
-    formData.append('file', this.imageName);
-    console.log('IMAGE', this.imageName);
+    formData.append('image', this.imageName);
+    console.log('AFTER FORMADATA', formData);
 
-    console.log('FILE', this.imageName);
+    console.log('FILE', formData);
 
     const responseUploadImg = await API.uploadImage(
       responseCreateProduct.data.id,
@@ -596,6 +622,10 @@ export default class extends mixins(validationMixin) {
     }
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.products.success.create');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
   }
 }
 </script>

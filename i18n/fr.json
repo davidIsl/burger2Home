@@ -225,10 +225,15 @@
       "button3": "S'inscrire",
       "button4": "Suivant",
       "errors": {
-        "address": "Attention, veuillez ajouter une adresse de livraison"
+        "address": "Attention, veuillez ajouter une adresse de livraison",
+        "notLog": "Attention, vous devez être connecté pour passer une commande"
       },
       "table": {
-        "image": "Image"
+        "image": "Image",
+        "name": "Nom Produit",
+        "price": "Prix",
+        "amount": "Quantité",
+        "trash": "Trash"
       },
       "stripe": {
         "button1": "Payer Commande ",
@@ -304,6 +309,8 @@
           "label5": "Ingrédients",
           "label6": "Famille",
           "label7": "Image",
+          "label8": "Type Produit",
+          "label9": "Sélectionnez un type de produit",
           "placeholder1": "Choississez une langue",
           "placeholder2": "Entrez un nom",
           "placeholder3": "Entrez une description",
@@ -342,6 +349,7 @@
           "label6": "Famille",
           "label7": "Image",
           "label8": "Visible",
+          "placeholder": "Chercher un pproduit",
           "placeholder1": "Choisir une langue",
           "placeholder2": "Entrez un nom",
           "placeholder3": "Entrez une description",
@@ -387,7 +395,8 @@
           "delete": "Erreur lors de la suppression du produit",
           "fields": "Attention, vous devez remplir tous les champs",
           "lang1": "Vous devez choisir Anglais / English comme première langue",
-          "lang2": "Vous devez choisir Français / French comme deuxième langue"
+          "lang2": "Vous devez choisir Français / French comme deuxième langue",
+          "type": "Veuillez sélectionner un type"
         }
       },
       "ingredients": {
@@ -730,33 +739,9 @@
       "invalidPasswordFormat": "Le mot de pass doit contenir 8 caractères incluant 1 majuscule, 1 minuscule et 1 chiffre",
       "invalidConfirmPassword": "Le mot de passe de confirmation doit etre le meme que le mot de passe",
       "maxLength": "Ce champ doit contenir 45 caractères MAX",
-      "zipcode": "Veuillez entrer un code postal valide"
-    },
-    "email": {
-      "placeHolder": "Adresse e-mail",
-      "error": "L'adresse e-mail doit être valide."
-    },
-    "password": {
-      "placeHolder": "Mot de passe",
-      "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
-    },
-
-    "success": "Merci, vous êtes maintenant identifié. Vous allez être redirigé dans quelques instants...",
-    "pending": "Identification en cours...",
-    "error": {
-      "required": "Ce champ est requis.",
-      "form": "Veuillez remplir le formulaire de connexion correctement.",
-      "notMatch": "L'e-mail et le mot de passe ne correspondent pas, veuillez réessayer.",
-      "mailNotExist": "L'e-mail n'existe pas dans notre base de données, veuillez-vous inscrire via le lien ci-dessous.",
-      "mailNotActive": "Veuillez valider votre adresse e-mail avant de pouvoir vous connecter."
+      "zipcode": "Veuillez entrer un code postal valide",
+      "buttonBack": "Vers la page Accueil",
+      "404": "Erreur 404"
     }
-  },
-
-  "gdpr": {
-    "text": "AntelopeJS utilise des cookies pour personnaliser les fonctions relatives au marketing et aux réseaux sociaux.",
-    "readMore": "En savoir plus sur les cookies.",
-    "button": "ACCEPTER"
-  },
-  "copyright": "© 2020-2021 AntelopeJS - Tous droits réservés - ",
-  "privacy_link": "Politique de confidentialité"
+  }
 }

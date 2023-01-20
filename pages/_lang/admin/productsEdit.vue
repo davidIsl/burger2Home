@@ -18,23 +18,6 @@ b-container.p-5.bg-gray(fluid)
         xl='4'
       )
         b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.products.edit.button4') }}
-    //- b-row
-    //-   b-col(
-    //-     offset-sm='16'
-    //-     :offset-md='filters ? "18" : "16"'
-    //-     offset-xl='18'
-    //-     sm='8'
-    //-     :md='filters ? "6" : "8"'
-    //-     lg='6'
-    //-     xl='4'
-    //-   )
-    //-     b-button.mb-3.button.w-100(
-    //-       :to='`/${$i18n.locale}/admin/ingredientsAdd/`'
-    //-     ) {{ $t('pages.admin.button3') }}
-    //-     b-button.mb-3.button.w-100(:to='`/${$i18n.locale}/admin/familyAdd/`') {{ $t('pages.admin.button4') }}
-    //-     b-button.mb-3.button.w-100(
-    //-       :to='`/${$i18n.locale}/admin/allergensAdd/`'
-    //-     ) {{ $t('pages.admin.button5') }}
     b-row
       b-col(
         :offset-lg='filters ? "0" : "2"'
@@ -47,6 +30,7 @@ b-container.p-5.bg-gray(fluid)
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.products.edit.placeholder")'
+          @input='handleSearchFilter(filterSearch)'
         )
       b-col.mt-3.mt-sm-0(
         sm='8'
@@ -54,17 +38,15 @@ b-container.p-5.bg-gray(fluid)
         lg='6'
         xl='4'
       )
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
+        b-button.button.w-100(variant='secondary' @click='getFamily') {{ $t('pages.filters.button1') }}
     b-row
       b-col.mt-3(v-if='filters' :offset-xl='filters ? "2" : "0"' xl='4')
-        filters
+        filtersAll(:filters='filtersFamily' @change='handleChangeFilter')
       b-col.mt-3(
         :offset-lg='filters ? "0" : "2"'
         :lg='filters ? "24" : "20"'
         :xl='filters ? "16" : "20"'
       )
-        //- div(v-if='itemSelected.length > 0')
-        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-3
             b-table(
@@ -78,7 +60,6 @@ b-container.p-5.bg-gray(fluid)
               :items='products'
               :fields='fields'
               :totalProducts='totalProducts'
-              @pageChange='handleChangePage'
             )
               template(#head(image)='data')
                 p {{ $t('pages.admin.products.table.image') }}
@@ -108,7 +89,6 @@ b-container.p-5.bg-gray(fluid)
               :total-rows='totalProducts'
               :per-page='perPage'
               align='right'
-              @change='handleChangePage'
             )
   b-row
     b-col
@@ -305,19 +285,18 @@ b-container.p-5.bg-gray(fluid)
                             :to='`/${$i18n.locale}/admin/familyAdd/`'
                           ) {{ $t('pages.admin.products.edit.button3') }}
                 b-col
-                  b-form-group.pt-3.text-primary(
-                    :label='$t("pages.admin.products.edit.label7")'
-                    label-for='imageName'
-                  )
-                    input(
-                      name='image'
-                      :value='imageName'
-                      accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
-                      type='file'
-                      ref='fileInput'
-                    )
-
-                    //- uploadAvatar(
+                  //- b-form-group.pt-3.text-primary(
+                  //-   :label='$t("pages.admin.products.edit.label7")'
+                  //-   label-for='imageName'
+                  //- )
+                  //-   input(
+                  //-     name='image'
+                  //-     :value='imageName'
+                  //-     accept='imageUrl/jpg, imageUrl/jpeg, imageUrl/png'
+                  //-     type='file'
+                  //-     ref='fileInput'
+                  //-   )
+                    //- uploadImage(
                     //-   :preview='$v.imageName.$model'
                     //-   :error='$v.imageName.$error'
                     //-   ref='fileInput'
@@ -357,7 +336,7 @@ import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
 
-import uploadAvatar from '@/components/global/uploadAvatar.vue';
+import filtersAll from '@/components/global/filtersAll.vue';
 import alert from '@/components/global/alert.vue';
 
 import {
@@ -370,28 +349,31 @@ import {
 import { API } from '~/utils/javaBack';
 
 @Component({
-  components: { alert, uploadAvatar },
+  components: { alert, filtersAll },
 })
 export default class extends mixins(validationMixin) {
-  @Validate({ required }) language1: string = '';
+  @Validate({ required }) language1: string = '1';
   @Validate({ required }) name: string = '';
   @Validate({ required }) description: string = '';
-  @Validate({ required }) language2: string = '';
+  @Validate({ required }) language2: string = '2';
   @Validate({ required }) frenchName: string = '';
   @Validate({ required }) frenchDescription: string = '';
   @Validate({ required }) price: number = 0;
   @Validate({ required }) ingredient: Ingredients[] = [];
   @Validate({ required }) productFamily: Families[] = [];
   typeId: number = 0;
-  imageName: any = '';
+  // imageName: any = '';
 
   onMenu: boolean = false;
   viewDetails: boolean = false;
 
   filters: boolean = false;
   filterSearch: string = '';
-  maxSize: number = 10;
+  filterProducts: Product[] = [];
+  filtersFamily: Families[] = [];
 
+  maxSize: number = 10;
+  file: any;
   submitProductAddType = submitProductAddType;
   submitProductAdd = submitProductAddType.NONE;
 
@@ -459,7 +441,7 @@ export default class extends mixins(validationMixin) {
 
   resetData() {
     this.name = '';
-    this.imageName = '';
+    // this.imageName = '';
     this.onMenu = false;
     this.frenchName = '';
     this.description = '';
@@ -491,6 +473,18 @@ export default class extends mixins(validationMixin) {
     return link;
   }
 
+  async getFamily() {
+    this.filters = !this.filters;
+    this.filtersFamily = [];
+    const response = await API.familiesListByLang(this.$i18n.locale);
+
+    if (response.status !== 200) {
+      return;
+    }
+
+    response.data.map((cur) => this.filtersFamily.push(cur));
+  }
+
   async getLanguages() {
     const response = await API.languagesList();
 
@@ -508,12 +502,10 @@ export default class extends mixins(validationMixin) {
     const response = await API.productList();
 
     if (response.status !== 200) {
-      console.log('LOG ERROR');
-      console.log('RESPONSE', response.data);
-
       return null;
     }
     this.products = response.data;
+    this.filterProducts = this.products;
     this.totalProducts = response.data.length;
   }
 
@@ -544,10 +536,7 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    console.log('RESPONSE', response.data);
-
     this.currentProduct = response.data;
-    console.log('Current', this.currentProduct);
 
     // SET THE EDIT FIELDS WITH THE CURRENT PRODUCT TO UPDATE IT
     this.language1 = this.langs[0].value.toString();
@@ -578,10 +567,6 @@ export default class extends mixins(validationMixin) {
     if (responseGetProductIngredients.status !== 200) {
       return;
     }
-    console.log(
-      'LENGTH',
-      responseGetProductIngredients.data.ingredients.length
-    );
 
     for (
       let index = 0;
@@ -596,21 +581,16 @@ export default class extends mixins(validationMixin) {
       if (responseIngredientTranslation.status !== 200) {
         return;
       }
-      console.log('INGREDIENTS', responseIngredientTranslation.data);
 
       if (this.$i18n.locale === 'en') {
         this.ingredient.push(responseIngredientTranslation.data[0]);
-        console.log('ENG');
       }
       if (this.$i18n.locale === 'fr') {
         this.ingredient.push(responseIngredientTranslation.data[1]);
-        console.log('FR');
       }
     }
-    console.log('THIS INGREDEINTS', this.ingredient);
 
     // Get FAmily To SET EDIT FIELDS
-    console.log('FAMILYU LENGTH', response.data.productFamilies.length);
 
     for (let index = 0; index < response.data.productFamilies.length; index++) {
       const responseGetFamilyTranslation = await API.getFamilyTranslationById(
@@ -623,21 +603,11 @@ export default class extends mixins(validationMixin) {
 
       if (this.$i18n.locale === 'en') {
         this.productFamily.push(responseGetFamilyTranslation.data[0]);
-        console.log('ENG');
       }
       if (this.$i18n.locale === 'fr') {
         this.productFamily.push(responseGetFamilyTranslation.data[1]);
-        console.log('FR');
       }
-      console.log('FAMILYTRANSLATION', responseGetFamilyTranslation);
     }
-
-    // this.ingredient = responseGetProductIngredients.data.ingredients;
-    // this.imageName = await API.getImages(id);
-    // this.productFamily = this.currentProduct[0].
-
-    // this.frenchName = this.currentProduct[1].name;
-    // this.frenchDescription = this.currentProduct[1].description;
   }
 
   openDetails(product: Product) {
@@ -652,9 +622,16 @@ export default class extends mixins(validationMixin) {
     return file.size / 1048576 <= this.maxSize;
   }
 
-  handleChangePage(e: number) {
-    this.currentPage = e;
-    // this.getBurgers();
+  handleChangeFilter(event: Product[]) {
+    this.products = event;
+  }
+
+  handleSearchFilter(str: string) {
+    const searchTab = (this.filterProducts as Product[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.products = searchTab;
   }
 
   async handleOnMenu(id: number, onMenu: boolean) {
@@ -666,7 +643,7 @@ export default class extends mixins(validationMixin) {
 
     const updateOnMenu = await API.updateProducts(
       id,
-      response.data.image,
+      // response.data.image,
       response.data.ingredients,
       response.data.productFamilies,
       onMenu,
@@ -698,8 +675,6 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    console.log('INGREDIENTS:', this.ingredient);
-
     /* CONFIGURE INGREDIENTS AND FAMILY TABLE TO SEND TO BACK */
     this.ingredientsId = this.ingredient.map((ing) => ({
       id: ing.ingredientId,
@@ -713,7 +688,7 @@ export default class extends mixins(validationMixin) {
     /** UPDATE PRODUCT */
     const responseUpdateProduct = await API.updateProducts(
       this.productId,
-      this.imageName,
+      // this.imageName,
       this.ingredientsId,
       this.familiesId,
       this.onMenu,
@@ -757,8 +732,6 @@ export default class extends mixins(validationMixin) {
     const responseFrenchLang = await API.getLanguageById(frenchId);
 
     if (responseFrenchLang.status !== 200) {
-      // this.submitProductAdd = submitProductAddType.ERROR;
-      // this.errorMsg = this.$tc('pages.admin.ingredients.errors.getLanguage');
       return;
     }
 
@@ -793,6 +766,25 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
+    // UPLOAD IMAGE NOT WORKING
+    // const fileInput = (this.$refs.fileInput as HTMLInputElement)
+    //   .files as FileList;
+    // const file = fileInput.item(0) as File;
+
+    // const formData = new FormData();
+    // console.log('B4 FORMDATA', file, file.name);
+
+    // formData.append('image', this.imageName, file.name);
+    // console.log('AFTER FORMADATA', formData);
+
+    // console.log('FILE', formData);
+
+    // const responseUploadImg = await API.uploadImage(this.productId, formData);
+
+    // if (responseUploadImg.status !== 200) {
+    //   return null;
+    // }
+
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.products.success.update');
     setTimeout(() => {
@@ -802,8 +794,38 @@ export default class extends mixins(validationMixin) {
     this.$v.$reset();
     this.resetData();
     this.updateData();
-    console.log('UPDATED PRODUCT');
-    // console.log('FILE', this.image.size);
   }
+
+  // handleChange(e: InputEvent) {
+  //   // this.fileTooBig = false;
+  //   // this.fileNotValid = false;
+
+  //   const inputFile = document.getElementById()
+  //   const file = this.fileList.item(0);
+
+  //   // if (!this.checkFileExt(file!)) {
+  //   //   this.fileNotValid = true;
+  //   //   return;
+  //   // }
+  //   // if (!this.checkMaxSize(file!)) {
+  //   //   this.fileTooBig = true;
+  //   //   return;
+  //   // }
+
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     const url = e.target?.result as string;
+  //     this.$emit('change', url);
+  //   };
+  //   reader.readAsDataURL(file as Blob);
+
+  //   // const formData = new FormData();
+
+  //   // formData.append('image', file as File);
+  //   // console.log('IMAGE', file);
+  //   // console.log('FD', formData);
+
+  //   // this.$emit('upload', file?.name);
+  // }
 }
 </script>

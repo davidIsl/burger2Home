@@ -33,7 +33,7 @@ export default class extends Vue {
   @Prop({ default: '1' }) id!: string | number;
   @Prop({ default: 'image/jpg,image/png,image/jpeg' }) accept!: string;
   @Prop({ default: 'https://picsum.photos/200/300' }) preview!: string;
-  @Prop({ default: 10 }) maxSize!: number;
+  @Prop({ default: 1 }) maxSize!: number;
   @Prop({ default: false }) error!: boolean;
 
   fileTooBig: boolean = false;
@@ -70,6 +70,12 @@ export default class extends Vue {
       this.$emit('change', url);
     };
     reader.readAsDataURL(file as Blob);
+
+    // const formData = new FormData();
+
+    // formData.append('image', file as File);
+    // console.log('IMAGE', file);
+    // console.log('FD', formData);
 
     this.$emit('upload', file?.name);
   }

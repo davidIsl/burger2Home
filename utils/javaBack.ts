@@ -31,7 +31,6 @@ export class API {
   private static async get(endpoint: string): Promise<APIResponse> {
     const { data, status } = await this.axios.get(config.api_url + endpoint, {
       withCredentials: true,
-      // validateStatus: () => true,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -47,17 +46,11 @@ export class API {
       config.api_url + endpoint,
       {
         ...body,
-        // lang: (body && body.lang) ?? Vue.prototype.i18n.locale,
       },
       {
-        // validateStatus: () => true,
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-
-          // 'x-antelopejs-namespace': config.datatable_namespace,
-          // 'x-antelopejs-webauth':
-          //   Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
         },
       }
     );
@@ -74,7 +67,7 @@ export class API {
       {
         withCredentials: true,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data; boundary=test',
         },
       }
     );
@@ -251,7 +244,7 @@ export class API {
 
   static updateProducts(
     id: number,
-    imageName: string,
+    // imageName: string,
     ingredients: Ingredients[],
     productFamilies: Families[],
     onMenu: boolean,
@@ -259,7 +252,7 @@ export class API {
   ): Promise<APIResponse> {
     return this.update(`/products`, {
       id,
-      imageName,
+      // imageName,
       ingredients,
       productFamilies,
       onMenu,
@@ -546,7 +539,7 @@ export class API {
     productId: number,
     imageName: FormData
   ): Promise<APIResponse> {
-    return this.postFormData(`/products/${productId}/image`, { imageName });
+    return this.postFormData(`/products/${productId}/image`, imageName);
   }
 
   /************************

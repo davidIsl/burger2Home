@@ -244,10 +244,12 @@ export default class extends Vue {
       id,
       quantity,
     });
-    this.$store.dispatch(
-      'baskets/saveBasket',
-      this.$store.state.users.currentUser.id
-    );
+    if (this.$store.state.users.currentUser) {
+      this.$store.dispatch(
+        'baskets/saveBasket',
+        this.$store.state.users.currentUser.id
+      );
+    }
     this.viewDetails = false;
   }
 

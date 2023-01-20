@@ -51,13 +51,6 @@ b-container.m-0.p-0(fluid)
                   :to='`/${$i18n.locale}/admin/`'
                   :class='{ "active-menu": "/" + $i18n.locale + "/admin/" == $route.path }'
                 ) {{ $t('menu.title3') }}
-              //- b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-              //-   :to='`/${$i18n.locale}/layout-error/`'
-              //-   :link-attrs='{ "aria-label": $t("menu.title4") }'
-              //- )
-              //-   span.menu-color(
-              //-     :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
-              //-   ) {{ $t('menu.title4') }}
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
                 :to='`/${$i18n.locale}/`'
                 :link-attrs='{ "aria-label": $t("menu.title5") }'
@@ -65,13 +58,6 @@ b-container.m-0.p-0(fluid)
                 span.menu-color(
                   :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
                 ) {{ $t('menu.title5') }}
-              //- b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-              //-   :to='`/${$i18n.locale}/`'
-              //-   :link-attrs='{ "aria-label": $t("menu.title6") }'
-              //- )
-              //-   span.menu-color(
-              //-     :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
-              //-   ) {{ $t('menu.title6') }}
               b-nav-item-dropdown.ml-2.ml-md-0.mr-3.mb-2.mb-md-0(
                 right
                 no-caret

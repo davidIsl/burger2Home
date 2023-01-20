@@ -207,6 +207,7 @@ b-container.p-4.bg-gray(fluid)
               table-variant='gray'
               :items='stocks'
               :fields='fieldsStock'
+              :current-page='currentPageStocks'
             )
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
@@ -221,15 +222,15 @@ b-container.p-4.bg-gray(fluid)
               :per-page='perPageStocks'
               align='right'
             )
-    b-row.mt-3(align-h='center')
-      b-col.m-2(cols='20')
-        .p-5.content(v-if='submitProductAdd !== submitProductAddType.NONE')
-          alert(
-            :show='submitProductAdd === submitProductAddType.ERROR || submitProductAdd === submitProductAddType.SUCCESS'
-            :variant='submitProductAdd === submitProductAddType.ERROR ? "error" : "success"'
-            :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
-          )
-            h6.m-0.mb-2.text-center {{ errorMsg }}
+  b-row.mt-3(align-h='center')
+    b-col.m-2(cols='20')
+      .p-5.content(v-if='submitProductAdd !== submitProductAddType.NONE')
+        alert(
+          :show='submitProductAdd === submitProductAddType.ERROR || submitProductAdd === submitProductAddType.SUCCESS'
+          :variant='submitProductAdd === submitProductAddType.ERROR ? "error" : "success"'
+          :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+        )
+          h6.m-0.mb-2.text-center {{ errorMsg }}
   // MODAL DETAILS PRODUCT
   b-modal(
     body-bg-variant='gray'
@@ -848,10 +849,6 @@ export default class extends mixins(validationMixin) {
       name: responseRole.data.name,
     };
 
-    console.log('ROLE', role);
-    console.log('RESONSE ROLE', responseRole.data);
-    console.log('USER', this.currentUser);
-
     const responseUpdate = await API.updateUser(
       (this.currentUser as UserCurrent).id,
       (this.currentUser as UserCurrent).email,
@@ -875,7 +872,7 @@ export default class extends mixins(validationMixin) {
     setTimeout(() => {
       this.submitProductAdd = submitProductAddType.NONE;
       this.errorMsg = '';
-    }, 2000);
+    }, 4000);
     this.newRole = '';
     this.$v.$reset();
   }

@@ -1,17 +1,17 @@
 <template lang="pug">
 b-container(fluid)
   b-row
-    b-col.mxauto(offset-md='2')
-      .content.payment-simple.p-3
+    b-col
+      .content.payment-simple.p-4
         b-row
-          b-col
-            h3.title.line.text-secondary.text-center Enter your card information
+          b-col.pl-4
+            h3.title.line.text-secondary Enter your card information
         b-row
-          b-col.mt-3(offset-md='7')
+          b-col.mt-3.pl-4
             Card.p-3.stripe-card.text-primary.form-control(:stripe='stripeKey')
 
         b-row
-          b-col.mt-3(offset-md='7')
+          b-col.mt-3.pl-4
             b-button.button(@click='payOrder') {{ $t('pages.basket.stripe.button1') }} {{ this.$store.state.baskets.totalPrice }}€
 </template>
 <script lang="ts">

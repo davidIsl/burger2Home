@@ -3,8 +3,6 @@ b-container.p-4.bg-gray(fluid)
   b-row
     b-col.mt-2.mx-auto(offset-md='1')
       h3.p-1.text-secondary.title-line {{ $t('pages.basket.title1') }}
-    //- b-col.mt-2(md='6')
-    //-   h3.p-1.text-secondary.title-line {{ $t('pages.basket.title2') }}
   b-row
     b-col.mt-3.mx-auto(offset-md='1' md='18')
       .p-3.content
@@ -21,11 +19,15 @@ b-container.p-4.bg-gray(fluid)
         )
           template(#head(product.imageName)='data')
             span {{ $t('pages.basket.table.image') }}
-          //- template(#cell(amount)='data')
-          //-   b-form-select(
-          //-     v-model='$store.state.baskets.basketLine.amount'
-          //-     :options='quantityToOrder'
-          //-   )
+          template(#head(product.name)='data')
+            span {{ $t('pages.basket.table.name') }}
+          template(#head(product.actualPrice)='data')
+            span {{ $t('pages.basket.table.price') }}
+          template(#head(amount)='data')
+            span {{ $t('pages.basket.table.amount') }}
+          template(#head(trash)='data')
+            span {{ $t('pages.basket.table.trash') }}
+
           template(#cell(product.imageName)='data')
             b-img(:src='getLink(data.item.productId)' width='50' height='50')
           template(#cell(trash)='data')
@@ -59,7 +61,6 @@ b-container.p-4.bg-gray(fluid)
       .py-2.content
         p.mb-1.pb-2.text-center.border-bottom.title.text-secondary {{ $t('pages.basket.text1') }} {{ this.$store.state.baskets.totalPrice }}€
         .p-3
-          //- b-button.mb-2.w-100.button(@click='saveBasket') Save Basket
           b-button.mb-2.w-100.button(
             v-if='stepOrder === stepOrderType.NONE'
             @click='createOrder'
@@ -95,11 +96,7 @@ b-container.p-4.bg-gray(fluid)
                 selected='0'
                 @change='handleChangeAddress'
               )
-                //- .input-error(v-if='$v.addresses.$error')
-                //-   font-awesome-icon.mr-2(
-                //-     :icon='["fa", "exclamation-triangle"]'
-                //-   )
-                //-   | {{ $t('pages.errors.required') }}
+
           b-col(offset-lg='2' md='12' lg='10')
             b-form-group(:label='$t("pages.basket.label7")' label-for='note')
               b-form-input#note.input-form(
@@ -216,7 +213,7 @@ b-container.p-4.bg-gray(fluid)
           b-col.mx-auto(md='6')
             b-button.w-100.button(@click='nextStep') {{ $t('pages.basket.button4') }}
   b-row.mt-3
-    b-col(v-if='stepOrder === stepOrderType.STEP2' md='19')
+    b-col.p-0(v-if='stepOrder === stepOrderType.STEP2' offset-md='1' md='18')
       stripePay(@handleChangeStripe='handleChangeStripe')
   b-row.mt-3
     b-col(offset-lg='1' offset='0' md='18')
@@ -262,7 +259,6 @@ export default class extends mixins(validationMixin) {
   isReadOnly: boolean = false;
 
   add: SelectOption[] = [];
-  // quantityToOrder: number[] = [1, 2, 3, 4, 5];
   filters: boolean = false;
   filterSearch: string = '';
 
@@ -320,7 +316,6 @@ export default class extends mixins(validationMixin) {
       value: 0,
       text: 'Please, Select an Address',
     });
-    console.log('ADD', this.add);
 
     if (this.add.length === 1) {
       this.submitOrder = submitOrderType.ERROR;
@@ -329,12 +324,10 @@ export default class extends mixins(validationMixin) {
         this.submitOrder = submitOrderType.NONE;
         this.errorMsg = '';
       }, 4000);
-      // return this.$router.push(`/${this.$i18n.locale}/account/profile`);
     }
   }
 
   async handleChangeAddress() {
-    console.log('ADDRESS', this.addresses);
     const responseAddress = await API.getAddressById(parseInt(this.addresses));
 
     if (responseAddress.status !== 200) {
@@ -351,8 +344,6 @@ export default class extends mixins(validationMixin) {
     if (responseAddress.data.extension !== null) {
       this.extension = responseAddress.data.extension;
     }
-
-    console.log('READ ONLY', responseAddress.data);
   }
 
   incrementQuantity(productId: number) {
@@ -369,18 +360,14 @@ export default class extends mixins(validationMixin) {
       'baskets/saveBasket',
       this.$store.state.users.currentUser.id
     );
-    console.log('QUANTITE PANIER', this.$store.state.baskets.quantity);
 
     for (const line of this.$store.state.baskets.basketLine) {
       if (line.productId === productId) {
         if (line.amount <= 0) {
-          console.log('inferieur a ZERO');
           this.$store.commit('baskets/removeBasketLine', productId);
         }
       }
     }
-    // if (this.$store.state.baskets.basketLine[0].amount <= 0) {
-    // }
   }
 
   removeProduct(productId: number) {
@@ -407,34 +394,19 @@ export default class extends mixins(validationMixin) {
     }
 
     let existingOrders;
-    // let isSameOrder: boolean = false;
     let value: number = 0;
 
     for (const line of responseOrders.data) {
       if (line.status === 'waiting_for_payment') {
-        console.log('WAITING');
-
         if (
           line.orderLines.length === this.$store.state.baskets.basketLine.length
         ) {
-          console.log('LENGTH');
           for (let i = 0; i < line.orderLines.length; i++) {
             for (
               let j = 0;
               j < this.$store.state.baskets.basketLine.length;
               j++
             ) {
-              // console.log('PRODUCT LOOP ORDER', line.orderLines[i].productId);
-              // console.log('QUANTITY LOOP ORDER', line.orderLines[i].amount);
-              // console.log(
-              //   'PRODUCT LOOP STORE',
-              //   this.$store.state.baskets.basketLine[j].productId
-              // );
-              // console.log(
-              //   'QUANTITY LOOP STORE',
-              //   this.$store.state.baskets.basketLine[j].amount
-              // );
-
               if (
                 line.orderLines[i].productId ===
                   this.$store.state.baskets.basketLine[j].productId &&
@@ -442,7 +414,6 @@ export default class extends mixins(validationMixin) {
                   this.$store.state.baskets.basketLine[j].amount
               ) {
                 value++;
-                // console.log('VALUES', value);
               }
               if (value === line.orderLines.length) {
                 existingOrders = line;
@@ -451,7 +422,6 @@ export default class extends mixins(validationMixin) {
           }
         }
       }
-      console.log('EXISTIBNG ORDERS ', existingOrders);
     }
 
     let order;
@@ -473,15 +443,11 @@ export default class extends mixins(validationMixin) {
       }
 
       addId = responseAddress.data.id;
-      console.log('ADRESSES IF', this.addresses);
     } else {
-      console.log('ADRESSES ELSE', this.addresses);
       addId = parseInt(this.addresses);
     }
 
     if (!existingOrders) {
-      console.log('CREATED ORDER');
-
       const response = await API.addOrder(
         this.$store.state.users.basketId,
         addId
@@ -493,8 +459,6 @@ export default class extends mixins(validationMixin) {
 
       order = response.data;
     } else {
-      console.log('FIND ORDER');
-
       order = existingOrders;
     }
 
@@ -506,7 +470,6 @@ export default class extends mixins(validationMixin) {
       );
 
       if (responseConfirmPayment.status !== 200) {
-        console.log('ERROR CONFIRM PAYMENT');
         return;
       }
     } catch (error) {
@@ -515,28 +478,21 @@ export default class extends mixins(validationMixin) {
       setTimeout(() => {
         this.submitOrder = submitOrderType.NONE;
         this.errorMsg = '';
+        this.stepOrder = stepOrderType.NONE;
       }, 4000);
       return;
     }
-
-    // if (responseConfirmPayment.status === 500) {
-    //   this.submitOrder = submitOrderType.ERROR;
-    //   this.errorMsg = this.$tc('pages.basket.stripe.insufficantsFunds');
-    // }
 
     // CONFIRM SHIPMENT
     const responseConfirmeShipment = await API.confirmShipment(order.id);
 
     if (responseConfirmeShipment.status !== 200) {
-      console.log('ERRROR CONFIRM SHIPMENT');
-
       return;
     }
 
     // RESET STORE BASKET & DELETE BASKET LINES IN DB
     this.$store.commit('baskets/resetBasket');
     this.deleteBasket();
-    console.log('ORDER FINISH');
     this.stepOrder = stepOrderType.NONE;
     this.submitOrder = submitOrderType.SUCCESS;
     this.errorMsg = this.$tc('pages.basket.success.order');
@@ -548,8 +504,6 @@ export default class extends mixins(validationMixin) {
 
   async deleteBasket() {
     if (this.$store.state.users.currentUser === null) {
-      console.log('PAS CONNECTE');
-
       return;
     }
 
@@ -562,16 +516,6 @@ export default class extends mixins(validationMixin) {
     }
 
     const lastUpdated = formatDate(new Date().toString());
-    console.log('STORE BL:', this.$store.state.baskets.basketLine);
-
-    // const basketLines: any = this.$store.state.baskets.basketLine.map(
-    //   (line: any) => ({
-    //     id: line.id,
-    //     basketId: line.basketId,
-    //     productId: line.productId,
-    //     amount: line.amount,
-    //   })
-    // );
 
     const responseUpdateBasket = await API.updateBasket(
       responseBasket.data.id,
@@ -591,8 +535,6 @@ export default class extends mixins(validationMixin) {
       return;
     }
 
-    console.log('LINES', responseBasketLines.data);
-
     for (let i = 0; i < responseBasketLines.data.length; i++) {
       const responseRemoveExistingLines = await API.removeBasketLine(
         responseBasketLines.data[i].id as number
@@ -603,80 +545,6 @@ export default class extends mixins(validationMixin) {
     }
   }
 
-  // async saveBasket() {
-  //   if (this.$store.state.users.currentUser === null) {
-  //     console.log('PAS CONNECTE');
-
-  //     return;
-  //   }
-
-  //   const responseBasket = await API.getBasketByUserId(
-  //     this.$store.state.users.currentUser.id
-  //   );
-
-  //   if (responseBasket.status !== 200) {
-  //     return;
-  //   }
-
-  //   const lastUpdated = formatDate(new Date().toString());
-  //   console.log('STORE BL:', this.$store.state.baskets.basketLine);
-
-  //   // const basketLines: any = this.$store.state.baskets.basketLine.map(
-  //   //   (line: any) => ({
-  //   //     id: line.id,
-  //   //     basketId: line.basketId,
-  //   //     productId: line.productId,
-  //   //     amount: line.amount,
-  //   //   })
-  //   // );
-
-  //   const responseUpdateBasket = await API.updateBasket(
-  //     responseBasket.data.id,
-  //     lastUpdated,
-  //     responseBasket.data.userId
-  //   );
-
-  //   if (responseUpdateBasket.status !== 200) {
-  //     return;
-  //   }
-
-  //   const responseBasketLines = await API.getBasketLinesByBasketId(
-  //     responseBasket.data.id
-  //   );
-
-  //   if (responseBasketLines.status !== 200) {
-  //     return;
-  //   }
-
-  //   console.log('LINES', responseBasketLines.data);
-
-  //   for (let i = 0; i < responseBasketLines.data.length; i++) {
-  //     const responseRemoveExistingLines = await API.removeBasketLine(
-  //       responseBasketLines.data[i].id as number
-  //     );
-  //     if (responseRemoveExistingLines.status !== 200) {
-  //       return;
-  //     }
-  //   }
-
-  //   for (let i = 0; i < this.$store.state.baskets.basketLine.length; i++) {
-  //     const responseCreateBasketLine = await API.addBasketLine(
-  //       responseBasket.data.id,
-  //       this.$store.state.baskets.basketLine[i].productId,
-  //       this.$store.state.baskets.basketLine[i].amount
-  //     );
-
-  //     if (responseCreateBasketLine.status !== 200) {
-  //       return;
-  //     }
-  //   }
-  //   console.log('UPDATED BASKET OK');
-
-  //   // this.$store.commit('baskets/resetBasket');
-
-  //   // const responseAdress = await API.get;
-  // }
-
   createOrder() {
     if (this.$store.state.users.currentUser === null) {
       this.submitOrder = submitOrderType.ERROR;
@@ -685,7 +553,6 @@ export default class extends mixins(validationMixin) {
         this.submitOrder = submitOrderType.NONE;
         this.errorMsg = '';
       }, 4000);
-      console.log('PAS CONNECTE');
 
       return;
     }
@@ -697,7 +564,6 @@ export default class extends mixins(validationMixin) {
         this.submitOrder = submitOrderType.NONE;
         this.errorMsg = '';
       }, 4000);
-      console.log('PANIUER VIDE');
 
       return;
     }
@@ -718,10 +584,6 @@ export default class extends mixins(validationMixin) {
     }
     this.stepOrder = stepOrderType.STEP2;
   }
-
-  // async payOrder() {
-  //   const response = await API.addOrder();
-  // }
 
   goToUrl(url: string) {
     this.$router.push(url);

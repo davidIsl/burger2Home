@@ -188,6 +188,13 @@ export default class extends mixins(validationMixin) {
     console.log('USER ID', this.user);
 
     this.$store.dispatch('users/getUser', parseInt(this.user));
+    setTimeout(() => {
+      this.$store.dispatch(
+        'baskets/saveBasket',
+        this.$store.state.users.currentUser.id
+      );
+    }, 1000);
+
     return this.$router.push(`/${this.$i18n.locale}/`);
   }
 }

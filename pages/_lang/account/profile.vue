@@ -254,13 +254,12 @@ import {
 import { SelectOption, submitStateType } from '@/utils/utils';
 
 import alert from '@/components/global/alert.vue';
-import uploadAvatar from '@/components/global/uploadAvatar.vue';
 import { API } from '~/utils/javaBack';
 
 const zipRegex = helpers.regex('zipRegex', /^(?:(?:[1-9])(?:\d{3}))$/);
 
 @Component({
-  components: { alert, uploadAvatar },
+  components: { alert },
 })
 export default class extends mixins(validationMixin) {
   @Validate({ required }) avatar: string = '';
@@ -323,7 +322,6 @@ export default class extends mixins(validationMixin) {
   }
 
   async handleChangeAddress() {
-    console.log('ADDRESS', this.addresses);
     const responseAddress = await API.getAddressById(parseInt(this.addresses));
 
     if (responseAddress.status !== 200) {

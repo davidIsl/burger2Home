@@ -68,7 +68,7 @@ export default class extends Vue {
     } else {
       const response = await API.productAvailableListByLang(
         this.$i18n.locale,
-        1
+        this.type
       );
 
       if (response.status !== 200) {

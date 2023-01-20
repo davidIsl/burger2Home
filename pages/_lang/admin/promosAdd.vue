@@ -9,6 +9,7 @@ b-container.p-3.bg-gray(fluid)
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder2")'
+          @input='handleSearchFilter(filterSearch)'
         )
       b-col.mt-3(offset-lg='2' lg='20')
         .p-3.content.text-secondary
@@ -455,9 +456,9 @@ import alert from '@/components/global/alert.vue';
   components: { alert },
 })
 export default class extends mixins(validationMixin) {
-  @Validate({ required }) language1: string = '';
+  @Validate({ required }) language1: string = '1';
   @Validate({ required }) description: string = '';
-  @Validate({ required }) language2: string = '';
+  @Validate({ required }) language2: string = '2';
   @Validate({ required }) frenchDescription: string = '';
   @Validate({ required }) amount: number = 0;
   @Validate({ required }) product: Product[] = [];
@@ -481,7 +482,9 @@ export default class extends mixins(validationMixin) {
   currentEnTranslationId: number = 0;
   currentFrTranslationId: number = 0;
   creationDate: string = '';
+
   filterSearch: string = '';
+  filterPromos: Promo[] = [];
 
   perPage: number = 8;
   currentPage: number = 1;
@@ -593,6 +596,7 @@ export default class extends mixins(validationMixin) {
     // const promoTab: any = responsePromo.data;
 
     this.promos = responsePromo.data;
+    this.filterPromos = this.promos;
     this.totalPromos = responsePromo.data.length;
 
     for (let i = 0; i < responsePromo.data.length; i++) {
@@ -725,6 +729,14 @@ export default class extends mixins(validationMixin) {
   handleChangePage(e: number) {
     this.currentPage = e;
     // this.getBurgers();
+  }
+
+  handleSearchFilter(str: string) {
+    const searchTab = (this.filterPromos as Promo[]).filter((item) => {
+      return item.description.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.promos = searchTab;
   }
 
   async createPromo() {
