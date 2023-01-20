@@ -1,31 +1,24 @@
 <template lang="pug">
 b-container.p-4.bg-gray(fluid)
   // ADMIN 
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "admin"'
+  )
     b-row
       b-col.pb-3.text-md-left(
-        :offset-lg='filters ? "0" : "2"'
-        offset-xl='2'
+        offset-lg='2'
         sm='16'
-        :md='filters ? "18" : "16"'
-        :lg='filters ? "18" : "14"'
+        :lg='14'
         xl='16'
       )
         h2.text-secondary {{ $t('pages.admin.title1') }}
-      b-col.pb-3.text-center(
-        sm='8'
-        :md='filters ? "6" : "8"'
-        lg='6'
-        xl='4'
-      )
+      b-col.pb-3.text-center(sm='8' lg='6' xl='4')
         b-button.button.w-100(:to='`/${$i18n.locale}/admin/productsAdd/`') {{ $t('pages.admin.button1') }}
     b-row
       b-col(
         offset-sm='16'
-        :offset-md='filters ? "18" : "16"'
         offset-xl='18'
         sm='8'
-        :md='filters ? "6" : "8"'
         lg='6'
         xl='4'
       )
@@ -37,35 +30,13 @@ b-container.p-4.bg-gray(fluid)
           :to='`/${$i18n.locale}/admin/allergensAdd/`'
         ) {{ $t('pages.admin.button5') }}
     b-row
-      b-col(
-        :offset-lg='filters ? "0" : "2"'
-        :offset-xl='filters ? "2" : "2"'
-        sm='16'
-        :md='filters ? "18" : "16"'
-        :lg='filters ? "18" : "14"'
-        xl='16'
-      )
+      b-col(offset-lg='2' lg='14' xl='16')
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder1")'
+          @input='handleSearchFilterProducts(filterSearch)'
         )
-      b-col.mt-3.mt-sm-0(
-        sm='8'
-        :md='filters ? "6" : "8"'
-        lg='6'
-        xl='4'
-      )
-        b-button.button.w-100(variant='secondary' @click='filters = !filters') {{ $t('pages.filters.button1') }}
-    b-row
-      b-col.mt-3(v-if='filters' :offset-xl='filters ? "2" : "0"' xl='4')
-        filters
-      b-col.mt-3(
-        :offset-lg='filters ? "0" : "2"'
-        :lg='filters ? "24" : "20"'
-        :xl='filters ? "16" : "20"'
-      )
-        //- div(v-if='itemSelected.length > 0')
-        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
+      b-col.mt-3(offset-lg='2' lg='20')
         .p-3.content.text-secondary
           .m-3
             b-table(
@@ -79,7 +50,6 @@ b-container.p-4.bg-gray(fluid)
               :items='products'
               :fields='fields'
               :totalProducts='totalProducts'
-              @pageChange='handleChangePage'
             )
               template(#head(image)='data')
                 p {{ $t('pages.admin.products.table.image') }}
@@ -109,10 +79,11 @@ b-container.p-4.bg-gray(fluid)
               :total-rows='totalProducts'
               :per-page='perPage'
               align='right'
-              @change='handleChangePage'
             )
   // ADMIN ROLES
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "admin"'
+  )
     b-row
       b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title7') }}
@@ -120,12 +91,11 @@ b-container.p-4.bg-gray(fluid)
       b-col(offset-lg='2' sm='16' lg='14')
         b-form-input.input(
           v-model='filterSearch'
-          :placeholder='$t("pages.admin.placeholder1")'
+          :placeholder='$t("pages.admin.placeholder4")'
+          @input='handleSearchFilterUsers(filterSearch)'
         )
     b-row
       b-col.mt-3(offset-lg='2' lg='20')
-        //- div(v-if='itemSelected.length > 0')
-        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-3
             b-table(
@@ -152,7 +122,6 @@ b-container.p-4.bg-gray(fluid)
                 p {{ $t('pages.admin.users.table.role') }}
               template(#head(details)='data')
                 p {{ $t('pages.admin.users.table.details') }}
-
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
                   :icon='["fa", "pencil-alt"]'
@@ -167,24 +136,23 @@ b-container.p-4.bg-gray(fluid)
               align='right'
             )
   // MARKETING
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "marketing"'
+  )
     b-row
       b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title2') }}
-      //- b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
-      //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/promoAdd/`') {{ $t('pages.admin.button2') }}
     b-row
       b-col(offset-lg='2' sm='16' lg='16')
         b-form-input.input(
           v-model='filterSearch'
           :placeholder='$t("pages.admin.placeholder2")'
+          @input='handleSearchFilterPromo(filterSearch)'
         )
       b-col.mt-3.mt-sm-0(sm='8' lg='4')
         b-button.button.w-100(:to='`/${$i18n.locale}/admin/promosAdd/`') {{ $t('pages.admin.button2') }}
     b-row
       b-col.mt-3(offset-lg='2' lg='20')
-        //- div(v-if='itemSelected.length > 0')
-        //-   b-button.mb-3(variant='outline-danger' @click='handleDelete') {{ $t('pages.admin.button3') }}
         .p-3.content.text-secondary
           .m-2
             b-table(
@@ -197,7 +165,6 @@ b-container.p-4.bg-gray(fluid)
               :items='promos'
               :fields='fieldsPromo'
               :current-page='currentPagePromos'
-              @pageChange='handleChangePagePromos'
             )
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
@@ -210,21 +177,21 @@ b-container.p-4.bg-gray(fluid)
               v-model='currentPagePromos'
               :total-rows='totalPromos'
               :per-page='perPagePromos'
-              @pageChange='handleChangePagePromos'
               align='right'
             )
   // STOCK
-  .p-2
+  .p-2(
+    v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name === "stock"'
+  )
     b-row
       b-col.pb-3.text-md-left(offset-lg='2' sm='16' lg='14')
         h2.text-secondary {{ $t('pages.admin.title3') }}
-      //- b-col.pb-3.text-center(sm='8' :md='filters ? "6" : "8"' lg='6')
-      //-   b-button.button.w-100(:to='`/${$i18n.locale}/admin/stockAdd/`') {{ $t('pages.admin.button6') }}
     b-row
       b-col(offset-lg='2' sm='16' lg='14')
         b-form-input.input(
           v-model='filterSearch'
-          :placeholder='$t("pages.admin.placeholder2")'
+          :placeholder='$t("pages.admin.placeholder3")'
+          @input='handleSearchFilter(filterSearch)'
         )
 
     b-row
@@ -241,7 +208,6 @@ b-container.p-4.bg-gray(fluid)
               :items='stocks'
               :fields='fieldsStock'
               :current-page='currentPageStocks'
-              @pageChange='handleChangePageStocks'
             )
               template(#cell(details)='data')
                 font-awesome-icon.mt-1(
@@ -254,18 +220,17 @@ b-container.p-4.bg-gray(fluid)
               v-model='currentPageStocks'
               :total-rows='totalStocks'
               :per-page='perPageStocks'
-              @pageChange='handleChangePageStocks'
               align='right'
             )
-    b-row.mt-3(align-h='center')
-      b-col.m-2(cols='20')
-        .p-5.content(v-if='submitProductAdd !== submitProductAddType.NONE')
-          alert(
-            :show='submitProductAdd === submitProductAddType.ERROR || submitProductAdd === submitProductAddType.SUCCESS'
-            :variant='submitProductAdd === submitProductAddType.ERROR ? "error" : "success"'
-            :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
-          )
-            h6.m-0.mb-2.text-center {{ errorMsg }}
+  b-row.mt-3(align-h='center')
+    b-col.m-2(cols='20')
+      .p-5.content(v-if='submitProductAdd !== submitProductAddType.NONE')
+        alert(
+          :show='submitProductAdd === submitProductAddType.ERROR || submitProductAdd === submitProductAddType.SUCCESS'
+          :variant='submitProductAdd === submitProductAddType.ERROR ? "error" : "success"'
+          :icon='submitProductAdd === submitProductAddType.ERROR ? ["fa", "exclamation-triangle"] : ["fa", "check-circle"]'
+        )
+          h6.m-0.mb-2.text-center {{ errorMsg }}
   // MODAL DETAILS PRODUCT
   b-modal(
     body-bg-variant='gray'
@@ -473,31 +438,12 @@ b-container.p-4.bg-gray(fluid)
       h5 {{ errorMsg }}
     template(#modal-footer)
       b-button.w-48(variant='outline-danger' @click='errorAlert = false') {{ $t('pages.admin.stock.alert.button3') }}
-  //- // DELETE MODAL
-  //- b-modal(
-  //-   body-bg-variant='gray'
-  //-   header-bg-variant='gray'
-  //-   footer-bg-variant='gray'
-  //-   v-model='deleteAlert'
-  //-   centered
-  //- )
-  //-   template(#modal-title)
-  //-     div {{ $t('pages.admin.alert.title1') }}
-  //-   .d-flex.align-items-center.gap-1
-  //-     div
-  //-       .modal-error
-  //-         font-awesome-icon(:icon='["fa", "exclamation-triangle"]')
-  //-     h5 {{ $t('pages.admin.alert.text1') }}
-  //-   template(#modal-footer)
-  //-     b-button.w-48(variant='outline-danger' @click='deleteProduct()') {{ $t('pages.admin.alert.button1') }}
-  //-     b-button.w-48(variant='primary' @click='deleteAlert = false') {{ $t('pages.admin.alert.button1') }}
 </template>
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
 import { validationMixin } from 'vuelidate';
 import { Validate } from 'vuelidate-property-decorators';
 import { required } from 'vuelidate/lib/validators';
-// import { rolesType } from '@/utils/utils';
 import filters from '@/components/global/filters.vue';
 import alert from '@/components/global/alert.vue';
 import {
@@ -519,9 +465,6 @@ import { API } from '@/utils/javaBack';
   },
 })
 export default class extends mixins(validationMixin) {
-  // user: rolesType = rolesType.ADMIN;
-  // roleType = rolesType;
-  // role = rolesType.NONE;
   @Validate({ required }) name: string = '';
   @Validate({ required }) newQuantity: number = 0;
   @Validate({ required }) newRole: string = '';
@@ -561,6 +504,11 @@ export default class extends mixins(validationMixin) {
   currentUser: UserCurrent | null = null;
   currentStockId: number = 0;
   currentIngredientId: number = 0;
+
+  filterStocks: Stock[] = [];
+  filterProducts: Product[] = [];
+  filterUsers: UserCurrent[] = [];
+  filterPromos: Promo[] = [];
 
   errorMsg: string = '';
   submitProductAddType = submitProductAddType;
@@ -670,17 +618,16 @@ export default class extends mixins(validationMixin) {
     },
   ];
 
-  stock: Stock[] = [
-    {
-      id: 1,
-      ingredientId: 10,
-      name: 'TEST',
-      creationDate: '2023-12-05 18:00:00',
-      amount: 159,
-    },
-  ];
+  beforeMounted() {
+    if (!this.$store.state.users.currentUser) {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
+  }
 
   mounted() {
+    if (this.$store.state.users.currentUser.role.name === 'customer') {
+      return this.$router.push(`/${this.$i18n.locale}/error`);
+    }
     this.updateData();
   }
 
@@ -707,20 +654,14 @@ export default class extends mixins(validationMixin) {
     const response = await API.productList();
 
     if (response.status !== 200) {
-      console.log('LOG ERROR');
-      console.log('RESPONSE', response.data);
-
       return null;
     }
     this.products = response.data;
     this.totalProducts = response.data.length;
-    console.log('LOG SUCCESS');
-    console.log('RESPONSE', response.data);
+    this.filterProducts = this.products;
   }
 
   async getPromos() {
-    console.log('GET PTOMOS');
-
     const response = await API.getPromoList();
 
     if (response.status !== 200) {
@@ -746,34 +687,34 @@ export default class extends mixins(validationMixin) {
         }
       }
     }
-    console.log('PROMOS', this.promos);
+    this.filterPromos = this.promos;
   }
 
   async getIngredients() {
-    const response = await API.ingredientsListByLang(this.$i18n.locale);
+    const response = await API.getAllStocks();
 
     if (response.status !== 200) {
       return;
     }
+    this.stocks = response.data;
 
-    for (let i = 0; i < response.data.length; i++) {
-      const responseStock = await API.getStocks(response.data[i].ingredientId);
+    const tempTab = await Promise.all(
+      response.data.map((item) =>
+        API.getIngredientsTranslationByIdAndLang(
+          item.ingredientId,
+          this.$i18n.locale
+        )
+      )
+    );
 
-      if (responseStock.status !== 200) {
-        return;
+    for (const stock of this.stocks) {
+      for (const temp of tempTab) {
+        if (stock.ingredientId === temp.data[0].ingredientId) {
+          stock.name = temp.data[0].name;
+        }
       }
-      console.log('RESPONSE STOCK', responseStock);
-
-      this.stocks[i] = responseStock.data[0];
-      // this.stocks[i] = responseStock.data.sort(
-      //   (a, b) =>
-      //     new Date(b.creationDate).getTime() -
-      //     new Date(a.creationDate).getTime()
-      // )[0];
-      this.stocks[i].name = response.data[i].name;
-      console.log('STOCK ITEM', responseStock.data[0]);
     }
-    console.log('STOCK', this.stocks);
+    this.filterStocks = this.stocks;
     this.totalStocks = this.stocks.length;
   }
 
@@ -785,6 +726,7 @@ export default class extends mixins(validationMixin) {
     }
 
     this.users = response.data;
+    this.filterUsers = this.users;
     this.totalUsers = response.data.length;
   }
 
@@ -869,9 +811,12 @@ export default class extends mixins(validationMixin) {
 
     this.submitProductAdd = submitProductAddType.SUCCESS;
     this.errorMsg = this.$tc('pages.admin.stock.success.update');
+    setTimeout(() => {
+      this.submitProductAdd = submitProductAddType.NONE;
+      this.errorMsg = '';
+    }, 4000);
     this.editingStock = false;
     this.getIngredients();
-    console.log('FINISH UPDATE');
   }
 
   async updateRole() {
@@ -891,10 +836,6 @@ export default class extends mixins(validationMixin) {
       id: responseRole.data.id,
       name: responseRole.data.name,
     };
-
-    console.log('ROLE', role);
-    console.log('RESONSE ROLE', responseRole.data);
-    console.log('USER', this.currentUser);
 
     const responseUpdate = await API.updateUser(
       (this.currentUser as UserCurrent).id,
@@ -919,9 +860,41 @@ export default class extends mixins(validationMixin) {
     setTimeout(() => {
       this.submitProductAdd = submitProductAddType.NONE;
       this.errorMsg = '';
-    }, 2000);
+    }, 4000);
     this.newRole = '';
     this.$v.$reset();
+  }
+
+  handleSearchFilter(str: string) {
+    const searchTab = (this.filterStocks as Stock[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.stocks = searchTab;
+  }
+
+  handleSearchFilterProducts(str: string) {
+    const searchTab = (this.filterProducts as Product[]).filter((item) => {
+      return item.name.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.products = searchTab;
+  }
+
+  handleSearchFilterUsers(str: string) {
+    const searchTab = (this.filterUsers as UserCurrent[]).filter((item) => {
+      return item.lastname.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.users = searchTab;
+  }
+
+  handleSearchFilterPromo(str: string) {
+    const searchTab = (this.filterPromos as Promo[]).filter((item) => {
+      return item.description.toLowerCase().includes(str.toLowerCase());
+    });
+
+    this.promos = searchTab;
   }
 }
 </script>
@@ -939,11 +912,5 @@ export default class extends mixins(validationMixin) {
   @include for-md-desktop-only {
     width: 75%;
   }
-  // @include for-xl-desktop-only {
-  //   width: 50%;
-  // }
 }
-// .input {
-//   height: 40px !important;
-// }
 </style>

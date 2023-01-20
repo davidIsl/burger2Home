@@ -66,7 +66,7 @@ export default {
   // Router of the project: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-router/
   router: {
     base: config[process.env.NODE_ENV].base,
-    middleware: ['i18n'],
+    middleware: ['i18n', 'baskets'],
     trailingSlash: true,
   },
 
@@ -215,6 +215,7 @@ export default {
         'faEyeSlash',
         'faCamera',
         'faPencilAlt',
+        'faUserCheck',
         // 'fasBasketShopping',
       ],
       regular: [],

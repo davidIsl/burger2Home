@@ -15,6 +15,8 @@ import {
   Address,
   BasketLine,
   Role,
+  FamilyType,
+  Order,
 } from '@/utils/utils';
 const config =
   require('./../config.json')[process.env.NODE_ENV || 'development'];
@@ -29,7 +31,6 @@ export class API {
   private static async get(endpoint: string): Promise<APIResponse> {
     const { data, status } = await this.axios.get(config.api_url + endpoint, {
       withCredentials: true,
-      // validateStatus: () => true,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -45,17 +46,11 @@ export class API {
       config.api_url + endpoint,
       {
         ...body,
-        // lang: (body && body.lang) ?? Vue.prototype.i18n.locale,
       },
       {
-        // validateStatus: () => true,
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-
-          // 'x-antelopejs-namespace': config.datatable_namespace,
-          // 'x-antelopejs-webauth':
-          //   Vue.prototype.cookies.get('ANTELOPEJS_WEBAUTH') || '',
         },
       }
     );
@@ -72,7 +67,7 @@ export class API {
       {
         withCredentials: true,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data; boundary=test',
         },
       }
     );
@@ -165,11 +160,25 @@ export class API {
     lang: string,
     id: number
   ): Promise<APIResponse> {
-    return this.get(`/products/summaries/${id}?language=${lang}`);
+    return this.get(`/products/summaries/${id}?language=${lang.toUpperCase()}`);
   }
 
   /**
-   * PRODUCT SUMMARY AVAILABLE BY LANG
+   * GET ALL AVAILABLE PRODUCT ALL TYPE
+   * @param lang
+   * @returns PRODUCT LIST
+   */
+
+  static getAllProductAvailable(
+    lang: string
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true`
+    );
+  }
+
+  /**
+   * PRODUCT SUMMARY AVAILABLE BY LANG AND TYPE
    * @param lang
    * @returns PRODUCT SUMMARY
    */
@@ -235,17 +244,19 @@ export class API {
 
   static updateProducts(
     id: number,
-    imageName: string,
+    // imageName: string,
     ingredients: Ingredients[],
     productFamilies: Families[],
-    onMenu: boolean
+    onMenu: boolean,
+    typeId: number
   ): Promise<APIResponse> {
     return this.update(`/products`, {
       id,
-      imageName,
+      // imageName,
       ingredients,
       productFamilies,
       onMenu,
+      typeId,
     });
   }
 
@@ -275,6 +286,15 @@ export class API {
     });
   }
 
+  /************************
+   * ENDPOINT FAMILY TYPE *
+   *                      *
+   ***********************/
+
+  static getTypesList(): Promise<APIDataResponse<FamilyType>> {
+    return this.get(`/types/translations`);
+  }
+
   /**
    * ENDPOINT FAMILY
    */
@@ -289,8 +309,38 @@ export class API {
     );
   }
 
-  static getProductsByFamily(id: number): Promise<APIDataResponse<Product>> {
-    return this.get(`/products/${id}/families`);
+  /**
+   * GET PRODUCT BY FAMILY AND TYPE
+   * @param lang
+   * @param typeId
+   * @param familyId
+   * @returns FILTERS PRODUCT LIST BY FAMILY AND TYPE
+   */
+
+  static getProductsSumByLangAndFamilies(
+    lang: string,
+    typeId: number,
+    familyId: number
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true&productFamily=${familyId}&type=${typeId}`
+    );
+  }
+
+  /**
+   * GET PRODUCT BY FAMILY
+   * @param lang
+   * @param familyId
+   * @returns FILTERS PRODUCT LIST BY FAMILY
+   */
+
+  static getProductListByFamily(
+    lang: string,
+    familyId: number
+  ): Promise<APIDataResponse<Product>> {
+    return this.get(
+      `/products/summaries?language=${lang.toUpperCase()}&availableProductsOnly=true&mustBeOnMenu=true&productFamily=${familyId}`
+    );
   }
 
   /**
@@ -303,6 +353,17 @@ export class API {
     return this.get(`/products/families/${id}`);
   }
 
+  /**
+   * GET MULTIPLE FAMILIES BY PRODUCT ID
+   * @param productId
+   * @returns FAMILIES[]
+   */
+
+  static getFamiliesByProductId(
+    productId: number
+  ): Promise<APIDataResponse<Families>> {
+    return this.get(`/products/${productId}/families`);
+  }
   /**
    * GET ALL FAMILY TRANSLATION
    * @returns Family TRANSLATION []
@@ -322,6 +383,22 @@ export class API {
     id: number
   ): Promise<APIDataResponse<Families>> {
     return this.get(`/products/families/${id}/translations`);
+  }
+
+  /**
+   * GET FAMILY TRANSLATION BY LANG & ID
+   * @param lang
+   * @param familyId
+   * @returns FAMILY TRANSLATION
+   */
+
+  static getFamilyTranslationByIdAndLang(
+    lang: string,
+    familyId: number
+  ): Promise<APIResponse> {
+    return this.get(
+      `/products/families/${familyId}/translations?language=${lang.toUpperCase()}`
+    );
   }
 
   /**
@@ -392,16 +469,28 @@ export class API {
     return this.del(`/products/families/${id}`);
   }
 
-  /*
-   * CREATE PRODUCTS
+  /**
+   * CREATE A NEW PRODUCT
+   * @param ingredients
+   * @param productFamilies
+   * @param typeId
+   * @param imageName
+   * @param onMenu
+   * @returns PRODUCTS CREATED
    */
 
   static addProducts(
     ingredients: Ingredients[],
     productFamilies: Families[],
+    typeId: number,
     onMenu: boolean
   ): Promise<APIResponse> {
-    return this.post('/products', { ingredients, productFamilies, onMenu });
+    return this.post('/products', {
+      ingredients,
+      productFamilies,
+      typeId,
+      onMenu,
+    });
   }
 
   /**
@@ -432,6 +521,16 @@ export class API {
   }
 
   /**
+   * GET PRICE BY ID
+   * @param priceId
+   * @returns PRICE
+   */
+
+  static getPriceById(priceId: number): Promise<APIResponse> {
+    return this.get(`/prices/${priceId}`);
+  }
+
+  /**
    *
    * ENDPOINT UPLOAD PRODUCT IMAGE
    */
@@ -440,12 +539,26 @@ export class API {
     productId: number,
     imageName: FormData
   ): Promise<APIResponse> {
-    return this.postFormData(`/products/${productId}/image`, { imageName });
+    return this.postFormData(`/products/${productId}/image`, imageName);
+  }
+
+  /************************
+   * ENDPOINT INGREDIENTS *
+   *                      *
+   ***********************/
+
+  /**
+   * GET INGREDIENTS LIST
+   * @returns LIST INGREDIENTS
+   */
+
+  static getIngredientsList(): Promise<APIDataResponse<Ingredients>> {
+    return this.get(`/ingredients`);
   }
 
   /**
    * INGREDIENTS LIST TRANSLATION
-   * @returns LIST INGREDIENTS
+   * @returns LIST INGREDIENTS TRANSLATION
    */
 
   static ingredientsList(): Promise<APIDataResponse<Ingredients>> {
@@ -487,7 +600,25 @@ export class API {
   }
 
   /**
-   * ENDPOINT CREATE INGREDIENTS
+   * GET INGREDIENTS TRANSLATION BY ID AND BY LANG
+   * @param ingredientId
+   * @param lang
+   * @returns INGREDIENT TRANSLATION
+   */
+
+  static getIngredientsTranslationByIdAndLang(
+    ingredientId: number,
+    lang: string
+  ): Promise<APIResponse> {
+    return this.get(
+      `/ingredients/${ingredientId}/translations?language=${lang.toUpperCase()}`
+    );
+  }
+
+  /**
+   * CREATE A NEW INGREDIENTS
+   * @param allergens
+   * @returns INGREDIENTS CREATED
    */
 
   static addIngredient(allergens: Allergens[]): Promise<APIResponse> {
@@ -495,7 +626,11 @@ export class API {
   }
 
   /**
-   * ENDPOINT CREATE INGREDIENTS TRANSLATION
+   * CREATE A NEW INGREDIENT TRANSLATION
+   * @param name
+   * @param language
+   * @param ingredientId
+   * @returns INGREDIENTS TRANSLATION CREATED
    */
 
   static addIngredientTranslation(
@@ -570,6 +705,48 @@ export class API {
 
   static deleteIngredients(id: number): Promise<APIResponse> {
     return this.del(`/ingredients/${id}`);
+  }
+
+  /******************
+   * STOCK ENDPOINT *
+   *                *
+   *****************/
+
+  /**
+   * GET ALL STOCKS
+   * @returns STOCK LIST
+   */
+
+  static getAllStocks(): Promise<APIDataResponse<Stock>> {
+    return this.get(`/stocks`);
+  }
+
+  /**
+   * GET STOCK BY INGREDIENTS
+   * @param id
+   * @returns STOCK
+   */
+
+  static getStocks(id: number): Promise<APIDataResponse<Stock>> {
+    return this.get(`/ingredients/${id}/stocks`);
+  }
+
+  /**
+   * UPDATE STOCK INGREDIENTS
+   * @param id
+   * @param ingredientId
+   * @param amount
+   * @param creationDate
+   * @returns STOCK UPDATED
+   */
+
+  static updateStock(
+    id: number,
+    ingredientId: number,
+    amount: number,
+    creationDate: string
+  ): Promise<APIResponse> {
+    return this.update(`/stocks`, { id, ingredientId, amount, creationDate });
   }
 
   /**********************
@@ -709,7 +886,7 @@ export class API {
    */
 
   static getPromoTranslationListByLang(lang: string) {
-    return this.get(`/promotions/translations?language=${lang}`);
+    return this.get(`/promotions/translations?language=${lang.toUpperCase()}`);
   }
 
   static getPromoTranslationByPromoId(id: number) {
@@ -815,39 +992,6 @@ export class API {
   }
 
   /******************
-   * STOCK ENDPOINT *
-   *                *
-   *****************/
-
-  /**
-   * GET STOCK BY INGREDIENTS
-   * @param id
-   * @returns STOCK
-   */
-
-  static getStocks(id: number): Promise<APIDataResponse<Stock>> {
-    return this.get(`/ingredients/${id}/stocks`);
-  }
-
-  /**
-   * UPDATE STOCK INGREDIENTS
-   * @param id
-   * @param ingredientId
-   * @param amount
-   * @param creationDate
-   * @returns STOCK UPDATED
-   */
-
-  static updateStock(
-    id: number,
-    ingredientId: number,
-    amount: number,
-    creationDate: string
-  ): Promise<APIResponse> {
-    return this.update(`/stocks`, { id, ingredientId, amount, creationDate });
-  }
-
-  /******************
    * USERS ENDPOINT *
    *                *
    *****************/
@@ -869,6 +1013,32 @@ export class API {
 
   static getUserById(userId: number): Promise<APIResponse> {
     return this.get(`/users/${userId}`);
+  }
+
+  /**
+   * CREATE A NEW USER
+   * @param email
+   * @param firstname
+   * @param lastname
+   * @param password
+   * @param username
+   * @returns CREATED USER
+   */
+
+  static addUser(
+    email: string,
+    firstname: string,
+    lastname: string,
+    password: string,
+    username: string
+  ): Promise<APIResponse> {
+    return this.post(`/users`, {
+      email,
+      firstname,
+      lastname,
+      password,
+      username,
+    });
   }
 
   /**
@@ -958,19 +1128,85 @@ export class API {
     return this.get(`/users/${userId}/addresses`);
   }
 
+  /**
+   * CREATE A NEW ADDRESS
+   * @param userId
+   * @param city
+   * @param zipcode
+   * @param street
+   * @param number
+   * @param label
+   * @param extension
+   * @returns CREATED ADDRESS
+   */
+
+  static addAddress(
+    userId: number,
+    city: string,
+    zipcode: number,
+    street: string,
+    number: number,
+    label: string,
+    extension: number
+  ): Promise<APIResponse> {
+    return this.post(`/addresses`, {
+      userId,
+      city,
+      zipcode,
+      street,
+      number,
+      label,
+      extension,
+    });
+  }
+
+  /**
+   * UPDATE AN ADDRESS
+   * @param addressId
+   * @param city
+   * @param zipcode
+   * @param street
+   * @param number
+   * @param extension
+   * @param label
+   * @returns UPDATED ADDRESS
+   */
+
+  static updateAddress(
+    id: number,
+    city: string,
+    zipcode: number,
+    street: string,
+    number: number,
+    extension: number,
+    label: string,
+    userId: number
+  ): Promise<APIResponse> {
+    return this.update(`/addresses`, {
+      id,
+      city,
+      zipcode,
+      street,
+      number,
+      extension,
+      label,
+      userId,
+    });
+  }
+
   /********************
    * ENDPOINT BASKET  *
    *                  *
    *******************/
 
   /**
-   * GET BASKET BY USER ID
-   * @param userId
+   * GET BASKET BY ID
+   * @param basketId
    * @returns BASKET
    */
 
-  static getBasketByUser(userId: number): Promise<APIResponse> {
-    return this.get(`/users/${userId}/basket`);
+  static getBasketById(basketId: number): Promise<APIResponse> {
+    return this.get(`/baskets/${basketId}`);
   }
 
   /**
@@ -988,6 +1224,16 @@ export class API {
     userId: number
   ): Promise<APIResponse> {
     return this.update(`/baskets`, { id, lastUpdate, userId });
+  }
+
+  /**
+   * GET BASKET BY USER ID
+   * @param userId
+   * @returns BASKET
+   */
+
+  static getBasketByUserId(userId: number): Promise<APIResponse> {
+    return this.get(`/users/${userId}/basket`);
   }
 
   /************************
@@ -1023,6 +1269,29 @@ export class API {
   }
 
   /**
+   * UPDATE BASKET LINE
+   * @param basketLineId
+   * @param basketId
+   * @param productId
+   * @param amount
+   * @returns BASKET LINE UPDATED
+   */
+
+  static updateBasketLine(
+    basketLineId: number,
+    basketId: number,
+    productId: number,
+    amount: number
+  ) {
+    return this.update(`/basketLines`, {
+      basketLineId,
+      basketId,
+      productId,
+      amount,
+    });
+  }
+
+  /**
    * DELETE BASKETLINE
    * @param basketLineId
    * @returns DELETED BASKETLINE
@@ -1031,4 +1300,69 @@ export class API {
   static removeBasketLine(basketLineId: number): Promise<APIResponse> {
     return this.del(`/basketLines/${basketLineId}`);
   }
+
+  /******************
+   * ENDPOINT ORDER *
+   *                *
+   *****************/
+
+  /**
+   * GET ALL ORDERS BY USER ID
+   * @param userId
+   * @returns ORDERS LIST
+   */
+
+  static getAllOrdersByUserId(userId: number): Promise<APIDataResponse<Order>> {
+    return this.get(`/users/${userId}/orders`);
+  }
+
+  /**
+   * ADD A NEW ORDER
+   * @param basketId
+   * @param addressId
+   * @returns ORDER CREATED
+   */
+
+  static addOrder(basketId: number, addressId: number): Promise<APIResponse> {
+    return this.get(
+      `/orders/create-order?addressIdentifier=${addressId}&basketIdentifier=${basketId}`
+    );
+  }
+
+  /**
+   * GET STRIPE PAYMENT METHOD
+   * @returns PAYMENT METHOD
+   */
+
+  static getStripePaymentMethod(): Promise<APIResponse> {
+    return this.get(`/orders/stripe/create-payment-method`);
+  }
+
+  /**
+   * CONFIRM PAYMENT
+   * @param orderId
+   * @param paymentMethod
+   * @returns
+   */
+
+  static confirmPayment(
+    orderId: number,
+    paymentMethod: string
+  ): Promise<APIResponse> {
+    return this.get(
+      `/orders/confirm-order?orderIdentifier=${orderId}&paymentMethodIdentifier=${paymentMethod}`
+    );
+  }
+
+  /**
+   * CONFIRM SHIPMENT
+   * @param orderId
+   * @returns
+   */
+
+  static confirmShipment(orderId: number) {
+    return this.get(`/orders/confirm-delivery?orderIdentifier=${orderId}`);
+  }
+
+  // static getClientSecret(order)
 }

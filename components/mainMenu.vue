@@ -36,28 +36,21 @@ b-container.m-0.p-0(fluid)
                     :to='`/${$i18n.locale}/products/`'
                     :class='{ "active-menu": "/" + $i18n.locale + "/products/" == $route.path || "/" + $i18n.locale + "/table/" == $route.path || "/" + $i18n.locale + "/form/" == $route.path || "/" + $i18n.locale + "/account/" == $route.path }'
                   ) {{ $t('menu.title2') }}
-                b-dropdown-item(:to='`/${$i18n.locale}/products/menu/`') {{ $t('menu.title2sub1') }}
+
                 b-dropdown-item(:to='`/${$i18n.locale}/products/burgers/`') {{ $t('menu.title2sub2') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/products/fries/`') {{ $t('menu.title2sub3') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/products/drinks/`') {{ $t('menu.title2sub4') }}
               // ADMIN
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-                v-if='this.$store.state.users.currentUser !== null'
+                v-if='this.$store.state.users.currentUser !== null && this.$store.state.users.currentUser.role.name !== "customer"'
                 left
                 no-caret
                 menu-class='p-0'
               )
                 nuxt-link.menu-color(
                   :to='`/${$i18n.locale}/admin/`'
-                  :class='{ "active-menu": "/" + $i18n.locale + "/admin/" == $route.path || "/" + $i18n.locale + "/plugins/aos/" == $route.path || "/" + $i18n.locale + "/plugins/swal/" == $route.path || "/" + $i18n.locale + "/plugins/gmaps/" == $route.path }'
+                  :class='{ "active-menu": "/" + $i18n.locale + "/admin/" == $route.path }'
                 ) {{ $t('menu.title3') }}
-              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-                :to='`/${$i18n.locale}/layout-error/`'
-                :link-attrs='{ "aria-label": $t("menu.title4") }'
-              )
-                span.menu-color(
-                  :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
-                ) {{ $t('menu.title4') }}
               b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
                 :to='`/${$i18n.locale}/`'
                 :link-attrs='{ "aria-label": $t("menu.title5") }'
@@ -65,13 +58,6 @@ b-container.m-0.p-0(fluid)
                 span.menu-color(
                   :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
                 ) {{ $t('menu.title5') }}
-              b-nav-item.ml-2.ml-md-0.mr-2.mb-1.mb-md-0(
-                :to='`/${$i18n.locale}/`'
-                :link-attrs='{ "aria-label": $t("menu.title6") }'
-              )
-                span.menu-color(
-                  :class='{ "active-menu": "/" + $i18n.locale + "/layout-error/" == $route.path }'
-                ) {{ $t('menu.title6') }}
               b-nav-item-dropdown.ml-2.ml-md-0.mr-3.mb-2.mb-md-0(
                 right
                 no-caret
@@ -103,10 +89,12 @@ b-container.m-0.p-0(fluid)
                 menu-class='p-0'
               )
                 template(v-slot:button-content)
-                  b-badge(variant='darkRed')
                   b-avatar(variant='secondary')
+                    b-badge(variant='darkRed')
+                      font-awesome-icon(:icon='["fa", "user-check"]') 
                 b-dropdown-item(:to='`/${$i18n.locale}/account/profile/`') {{ $t('menu.title7') }}
                 b-dropdown-item(:to='`/${$i18n.locale}/account/historyOrder/`') {{ $t('menu.title8') }}
+                b-dropdown-item(@click='reset') {{ $t('menu.title9') }}
               //- .basket.text-center.ml-md-2.mt-2.mt-md-0
               b-avatar(
                 v-if='!$store.state.users.currentUser'
@@ -114,7 +102,7 @@ b-container.m-0.p-0(fluid)
                 button
                 @click='goToUrl("/" + $i18n.locale + "/account/")'
               )
-              b-button.basket.ml-0.ml-md-2.mr-2.mb-1.mb-md-0.mt-2(
+              b-button.basket.p-0.mt-2.ml-2.my-auto(
                 @click='goToUrl("/" + $i18n.locale + "/basket/")'
               )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
@@ -126,8 +114,8 @@ b-container.m-0.p-0(fluid)
               //-   @click='goToUrl("/" + $i18n.locale + "/basket/")'
               //- )
                 font-awesome-icon(:icon='["fa", "shopping-basket"]')
-              b-button.button.w-50.mr-2(@click='connect') Connect
-              b-button.button.w-50(@click='reset') RESET
+              //- b-button.button.w-50.mr-2(@click='connect') Connect
+              //- b-button.button.w-50(@click='reset') RESET
               //- b-button.ml-2 Identify
               //- .pl-2
               //-   themeSwitcher
@@ -137,8 +125,8 @@ b-container.m-0.p-0(fluid)
 // https://github.com/nuxt-community/nuxt-property-decorator
 import { Vue, Component, Watch } from 'nuxt-property-decorator';
 import logoAntelopeBanner from '~/components/svg/logoAntelopeBanner.vue';
-import themeSwitcher from '~/components/themeSwitcher.vue';
-import { API } from '~/utils/javaBack';
+// import themeSwitcher from '~/components/themeSwitcher.vue';
+// import { API } from '~/utils/javaBack';
 
 export interface Lang {
   lang: string;
@@ -151,7 +139,7 @@ export interface BCollapse {
 }
 
 @Component({
-  components: { logoAntelopeBanner, themeSwitcher },
+  components: { logoAntelopeBanner },
 })
 export default class extends Vue {
   isMenuOpen: boolean = false;
@@ -201,26 +189,24 @@ export default class extends Vue {
     this.$router.push(url);
   }
 
-  async getUser(userId: number) {
-    const response = await API.getUserById(userId);
+  // async getUser(userId: number) {
+  //   const response = await API.getUserById(userId);
 
-    if (response.status !== 200) {
-      return;
-    }
+  //   if (response.status !== 200) {
+  //     return;
+  //   }
 
-    this.$store.commit('users/setCurrentUser', response.data);
-    console.log('GETUSER', response.data);
-    console.log('STORE USER', this.$store.state.users.currentUser);
-  }
+  //   this.$store.commit('users/setCurrentUser', response.data);
+  //   console.log('GETUSER', response.data);
+  //   console.log('STORE USER', this.$store.state.users.currentUser);
+  // }
 
   getRole() {
     return this.$store.getters['users/getRoles'];
   }
 
   connect() {
-    this.getUser(1);
-    console.log('ROLE', this.getRole());
-    console.log('USER', this.$store.state.users.currentUser);
+    this.$store.dispatch('users/getUser');
   }
 
   reset() {

@@ -16,7 +16,6 @@ import { Families } from '@/utils/utils';
 @Component({})
 export default class extends Vue {
   @Prop() filters!: Families[];
-  @Prop() type!: number;
 
   checked: boolean = false;
 
@@ -28,21 +27,21 @@ export default class extends Vue {
 
   async selectFilters(familyId: number) {
     if (this.checked) {
-      const response = await API.getProductsSumByLangAndFamilies(
+      const response = await API.getProductListByFamily(
         this.$i18n.locale,
-        this.type,
         familyId
       );
 
       if (response.status !== 200) {
         return null;
       }
+      console.log('FAMILY ID', familyId);
 
       this.$emit('change', response.data);
     } else {
       const response = await API.productAvailableListByLang(
         this.$i18n.locale,
-        this.type
+        1
       );
 
       if (response.status !== 200) {

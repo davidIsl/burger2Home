@@ -11,7 +11,8 @@
     "title5": "Contacts",
     "title6": "A propos",
     "title7": "Mon compte",
-    "title8": "Mes commandes"
+    "title8": "Mes commandes",
+    "title9": "Se déconnecter"
   },
   "footer": {
     "title1": "Informations",
@@ -37,29 +38,12 @@
     "viewOnMap": "Voir sur Google Maps",
     "contacts": "Contactez-nous"
   },
-  "country": {
-    "belgium": "Belgique",
-    "france": "France",
-    "netherlands": "Pays-Bas",
-    "germany": "Allemagne",
-    "spain": "Espagne",
-    "italy": "Italie"
-  },
-  "swal": {
-    "confirmDelete": {
-      "title": "Êtes-vous sûr ?",
-      "text": "Vous ne pourrez pas revenir en arrière !",
-      "confirButton": "Oui, supprimez !",
-      "cancelButton": "Annuler",
-      "nextTitle": "Supprimé !",
-      "nextText": "Votre saisie a été supprimée."
-    }
-  },
   "pages": {
     "login": {
       "title1": "Se connecter à Burger2Home",
       "label1": "Adresse Email",
       "label2": "Mot de passe",
+      "label3": "Utilisateurs",
       "button1": "Se connecter",
       "placeholder1": "you@example.com",
       "placeholder2": "********",
@@ -72,14 +56,19 @@
     "register": {
       "title1": "S'inscrire à Burger2Home",
       "button1": "S'inscrire",
+      "button2": "Suivant",
       "label1": "Adresse Email",
       "label2": "Mot de passe",
       "label3": "Confirmer mot de passe",
       "label4": "Nom",
       "label5": "Prénom",
-      "label6": "Adresse",
-      "label7": "Code Postal",
-      "label8": "Localité",
+      "label6": "Pseudos",
+      "label7": "Addresse",
+      "label8": "Numéro",
+      "label9": "Boite",
+      "label10": "Code Postal",
+      "label11": "Localité",
+      "label12": "Dénomination",
       "text1": "Ou ",
       "text2": "Se connecter si vous avez déjà un compte",
       "text3": "S'inscrire avec",
@@ -92,7 +81,14 @@
       "placeholder4": "John",
       "placeholder5": "Rue de la station 15",
       "placeholder6": "4280",
-      "placeholder7": "Hannut"
+      "placeholder7": "Hannut",
+      "errors": {
+        "fields": "Attention, vous devez remplir tous les champs"
+      },
+      "success": {
+        "create": "Votre compte a été crée avec succès",
+        "update": "Votre compte a été mis à jour avec succès"
+      }
     },
     "forgot": {
       "title1": "Mot de passe oublié ?",
@@ -120,23 +116,30 @@
       "label9": "Code Postal",
       "label10": "Localité",
       "label14": "Numéro de carte",
-      "label11": "Titulaire de la carte",
-      "label12": "DAte de validité",
-      "label13": "CVV",
+      "label11": "Dénomination",
+      "label12": "Sélectionnez une adresse",
       "placeholder1": "Joe",
       "placeholder2": "Doe",
       "placeholder3": "you@example.com",
-      "placeholder4": "0495/45.56.65",
       "placeholder5": "Entrez un pseudo",
       "placeholder6": "Entrez une adresse",
       "placeholder7": "Entrez un numéro",
       "placeholder8": "Entrez une boite",
       "placeholder9": "Entrez un code postal",
       "placeholder10": "Entrez une localité",
-      "button1": "Enregistrer",
-      "button2": "Reset données",
-      "button3": "Ajouter une adresse",
-      "button4": "Ajouter une carte"
+      "placeholder11": "Dénomination",
+      "button1": "Modifier Adresse",
+      "button2": "Ajouter une adresse",
+      "errors": {
+        "fields": "Attention, vous devez remplir tous les champs",
+        "addressSelected": "Attenion, vous avez sélectionné une adresse existante. Veuillez la déselectionner !",
+        "noAddress": "Attention, vous n'avez pas sélectionné d'adresse afin de la mettre à jour",
+        "zipcode": "Veuillez entrer un code postal valide"
+      },
+      "success": {
+        "createAddress": "Nouvelle adresse crée avec SUCCES",
+        "update": "Adresse mise à jour avec SUCCES"
+      }
     },
     "history": {
       "title1": "Mes Commandes",
@@ -144,9 +147,22 @@
       "title3": "Listing des commandes",
       "placeholder1": "Chercher une commande",
       "text1": "Bonjour, ",
+      "table": {
+        "date": "Date Commande",
+        "price": "Montant Total Commande",
+        "status": "Statut Commande",
+        "details": "Détails Commande"
+      },
       "modal": {
+        "title1": "Commande du ",
         "text1": "Livré à",
-        "text2": "Montant Total"
+        "text2": "Montant Total",
+        "table": {
+          "image": "Image",
+          "name": "Nom du Produit",
+          "price": "Prix",
+          "quantity": "Quantité"
+        }
       }
     },
     "home": {
@@ -156,14 +172,14 @@
       "text3": "Dégustez nos burgers tout en regardant la TV depuis votre canapé"
     },
     "products": {
-      "title1": "Top 10 de nos meilleures ventes",
+      "title1": "Voici la liste de tous nos produits",
       "title2": "Promotions",
       "filters1": "Filtres",
       "filters2": "Beef",
       "filters3": "Chicken",
       "filters4": "Fish",
       "filters5": "Vegan",
-      "button1": "Ajouter panier",
+      "button1": "Ajouter5",
       "button2": "Voir Infos",
       "menu": {
         "title1": "Here is a listing with our Burgers Menus"
@@ -187,6 +203,7 @@
     "basket": {
       "title1": "Mon panier",
       "title2": "Informations de livraison",
+      "text1": "Montant Total",
       "label1": "Selectionnez une adresse",
       "label2": "Adresse",
       "label3": "Numéro",
@@ -194,6 +211,7 @@
       "label5": "Code postal",
       "label6": "Localité",
       "label7": "Note",
+      "label8": "Dénomination",
       "placeholder1": "Choisir une adresse",
       "placeholder2": "Entrez une adresse",
       "placeholder3": "Entrez un numéro de rue",
@@ -201,10 +219,29 @@
       "placeholder5": "Entrez un code postal",
       "placeholder6": "Entrez une localité",
       "placeholder7": "Entrez une note",
+      "placeholder8": "Entrez une dénomination",
       "button1": "Commander",
       "button2": "Se connecter",
       "button3": "S'inscrire",
-      "button4": "Suivant"
+      "button4": "Suivant",
+      "errors": {
+        "address": "Attention, veuillez ajouter une adresse de livraison",
+        "notLog": "Attention, vous devez être connecté pour passer une commande"
+      },
+      "table": {
+        "image": "Image",
+        "name": "Nom Produit",
+        "price": "Prix",
+        "amount": "Quantité",
+        "trash": "Trash"
+      },
+      "stripe": {
+        "button1": "Payer Commande ",
+        "funds": "Fonds insuffisants sur votre carte"
+      },
+      "success": {
+        "order": "Commande payée et validée avec SUCCES"
+      }
     },
     "filters": {
       "title1": "Filtres",
@@ -219,6 +256,8 @@
       "title6": "Allergèness",
       "placeholder1": "Chercher un produit",
       "placeholder2": "Chercher une promotion",
+      "placeholder3": "Chercher un ingrédient",
+      "placeholder4": "Chercher un utilisateur",
       "button1": "Ajouter Produit",
       "button2": "Ajouter Promotion",
       "button3": "Ajouter Ingrédients",
@@ -270,6 +309,8 @@
           "label5": "Ingrédients",
           "label6": "Famille",
           "label7": "Image",
+          "label8": "Type Produit",
+          "label9": "Sélectionnez un type de produit",
           "placeholder1": "Choississez une langue",
           "placeholder2": "Entrez un nom",
           "placeholder3": "Entrez une description",
@@ -308,6 +349,7 @@
           "label6": "Famille",
           "label7": "Image",
           "label8": "Visible",
+          "placeholder": "Chercher un pproduit",
           "placeholder1": "Choisir une langue",
           "placeholder2": "Entrez un nom",
           "placeholder3": "Entrez une description",
@@ -353,7 +395,8 @@
           "delete": "Erreur lors de la suppression du produit",
           "fields": "Attention, vous devez remplir tous les champs",
           "lang1": "Vous devez choisir Anglais / English comme première langue",
-          "lang2": "Vous devez choisir Français / French comme deuxième langue"
+          "lang2": "Vous devez choisir Français / French comme deuxième langue",
+          "type": "Veuillez sélectionner un type"
         }
       },
       "ingredients": {
@@ -374,6 +417,7 @@
           "placeholder2": "Entrez un nom anglais",
           "placeholder3": "Entrez un nom français",
           "placeholder4": "Selectionné un ou plusieurs allergène",
+          "placeholder5": "Chercher un ingrédient",
           "button1": "Ajouter Allergène",
           "button2": "Créer Ingrédient"
         },
@@ -397,6 +441,13 @@
           "button1": "Maj Ingrédient",
           "button2": "Annuler"
         },
+        "table": {
+          "id": "Ingrédients Id",
+          "langage": "Langue",
+          "name": "Nom",
+          "details": "Details",
+          "trash": "Trash"
+        },
         "alert": {
           "title1": "Alerte de suppression",
           "title2": "Annuler Mise à jour",
@@ -414,7 +465,7 @@
         "success": {
           "create": "Ingrédient crée avec SUCCES",
           "update": "Ingrédient mis à jour avec SUCCES",
-          "delete": "Ingrédient effacé SUCCES"
+          "delete": "Ingrédient effacé avec SUCCES"
         },
         "errors": {
           "create": "Erreur pendant la création de l'ingrédient",
@@ -456,6 +507,13 @@
           "placeholder3": "Entrez un nom français",
           "button1": "Modifier Allergène",
           "button2": "Annuler"
+        },
+        "table": {
+          "id": "Allergène Id",
+          "langage": "Langue",
+          "name": "Nom",
+          "details": "Details",
+          "trash": "Trash"
         },
         "alert": {
           "title1": "Alerte de suppression",
@@ -522,6 +580,14 @@
           "button1": "Modifier Famille",
           "button2": "Annuler"
         },
+        "table": {
+          "id": "Famille Id",
+          "langage": "Langue",
+          "name": "Nom",
+          "description": "Description",
+          "details": "Details",
+          "trash": "Trash"
+        },
         "alert": {
           "title1": "Alerte de suppression",
           "title2": "Annuler Mise à jour",
@@ -537,7 +603,7 @@
         "success": {
           "create": "Famille crée avec SUCCES",
           "update": "Famille mise à jour avec SUCCES",
-          "delete": "Famille effacée SUCCES"
+          "delete": "Famille effacée avec SUCCES"
         },
         "errors": {
           "create": "Erreur pendant la création de la famille",
@@ -668,42 +734,14 @@
       }
     },
     "errors": {
-      "required": "This field is required",
-      "invalidEmail": "Please, enter a valid Email",
-      "invalidPasswordFormat": "The password must contain 8 characters including at least one upper case, one lower case and one digit.",
-      "invalidConfirmPassword": "The confirm password must be the same as the password."
-    },
-    "email": {
-      "placeHolder": "Adresse e-mail",
-      "error": "L'adresse e-mail doit être valide."
-    },
-    "password": {
-      "placeHolder": "Mot de passe",
-      "error": "Le mot de passe doit contenir 8 caractères dont au moins une majuscule, une minuscule et un chiffre."
-    },
-
-    "success": "Merci, vous êtes maintenant identifié. Vous allez être redirigé dans quelques instants...",
-    "pending": "Identification en cours...",
-    "error": {
       "required": "Ce champ est requis.",
-      "form": "Veuillez remplir le formulaire de connexion correctement.",
-      "notMatch": "L'e-mail et le mot de passe ne correspondent pas, veuillez réessayer.",
-      "mailNotExist": "L'e-mail n'existe pas dans notre base de données, veuillez-vous inscrire via le lien ci-dessous.",
-      "mailNotActive": "Veuillez valider votre adresse e-mail avant de pouvoir vous connecter."
+      "invalidEmail": "Entrez un email valide",
+      "invalidPasswordFormat": "Le mot de pass doit contenir 8 caractères incluant 1 majuscule, 1 minuscule et 1 chiffre",
+      "invalidConfirmPassword": "Le mot de passe de confirmation doit etre le meme que le mot de passe",
+      "maxLength": "Ce champ doit contenir 45 caractères MAX",
+      "zipcode": "Veuillez entrer un code postal valide",
+      "buttonBack": "Vers la page Accueil",
+      "404": "Erreur 404"
     }
-  },
-  "error": {
-    "title": "Une erreur est survenue",
-    "label": "ERREUR",
-    "buttonBack": "Retour à la page d'accueil",
-    "404": "Cette page est introuvable ..."
-  },
-
-  "gdpr": {
-    "text": "AntelopeJS utilise des cookies pour personnaliser les fonctions relatives au marketing et aux réseaux sociaux.",
-    "readMore": "En savoir plus sur les cookies.",
-    "button": "ACCEPTER"
-  },
-  "copyright": "© 2020-2021 AntelopeJS - Tous droits réservés - ",
-  "privacy_link": "Politique de confidentialité"
+  }
 }

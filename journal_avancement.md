@@ -110,3 +110,21 @@
 - [x] 2023/01/04: Admin index update stock and alert , personnal profile, basket adress informations, i18n Fr translation
 - [x] 2023/01/05: i18n Fr translation, store vuex
 - [x] 2023/01/06: Installation vuex persist to save store & configuration
+- [x] 2023/01/07: Stripe documentation
+- [x] 2023/01/08: Merge to main
+
+## Semaine 2
+
+- [x] 2023/01/09: fix store users & addbasket card buttons, vuelidate maxLength on address
+- [x] 2023/01/10: Stripe Elements Doc
+- [x] 2023/01/11: Stripe Elements Doc, middleware basket, Stripe confirmPayment, problem with middleware store basket save
+- [x] 2023/01/12: Fix basket middlwere save to DB (add, remove, quantity), stripe ok
+- [x] 2023/01/13: Fix Add products types, ingredients stock(admin), inscription
+- [x] 2023/01/14: profiles pages, history orders
+- [x] 2023/01/15: history order et details orders, responsive basket, filters burgers
+
+## Semaine 3
+
+- [x] 2023/01/16: filters burgers just one family, drinks and fries pages,
+- [x] 2023/01/17: admin roles on page admin, filterSearch Burgers & filters burgers by family
+- [x] 2023/01/18: fake login, and update basket pages for more users, filters all products, secure admin

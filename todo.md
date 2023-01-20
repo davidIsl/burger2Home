@@ -32,6 +32,8 @@
 - [] Reorganiser les pages productsADD i18N
 - [] Activer la recherche sur les multiselect
 - [] Checker tout le responsive
+- [] Vuelidate max length & errormsg é regex zip & minvalue
+- [] Set Timeout message succes et error
 
 ## Store
 
@@ -39,4 +41,4 @@
 
 ## Basket
 
--[] READONLY ADDRESS
+-[x] READONLY ADDRESS

@@ -13,6 +13,7 @@ export default ({ store }) => {
         // order: state.order,
         // stripe: { paymentId: state.stripe.paymentId },
         baskets: state.baskets,
+        users: state.users,
       }),
     }).plugin(store);
   });

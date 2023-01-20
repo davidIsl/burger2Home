@@ -1,5 +1,5 @@
 /**
- * DATE FORMATER FUNCTION
+ * DATE FORMATER FUNCTION WITH TIME
  * @param sDate
  * @returns FORMATED DATE STRING
  */
@@ -18,6 +18,20 @@ export const formatDate = (sDate: string) => {
     .padStart(2, '0')}`;
 };
 
+/**
+ * DATE FORMATER FUNCTION WITHOUT TIME
+ * @param sDate
+ * @returns
+ */
+
+export const formatDateWithoutTime = (sDate: string) => {
+  const date = new Date(sDate);
+
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+};
+
 /*
  *   INTERFACE
  */
@@ -31,6 +45,7 @@ export interface APIDataResponse<T = any> {
   data: T[];
   status: number;
 }
+
 export interface SelectOption {
   value: number;
   text?: string;
@@ -48,8 +63,14 @@ export interface Allergens {
   language: Language;
 }
 
+export interface FamilyType {
+  id: number;
+  name: string;
+  typeId: number;
+  language: Language;
+}
+
 export interface Families {
-  // TODO if TRANSLATION ??? ou INTERFACE TRANSLATION ???
   id: number;
   productFamilyId: number;
   name: string;
@@ -57,6 +78,11 @@ export interface Families {
   language: Language;
 }
 
+export interface Filter {
+  id: number;
+  name: string;
+  productFamilyId: number;
+}
 export interface Price {
   amount: number;
 }
@@ -104,18 +130,26 @@ export interface Stock {
   id: number;
 }
 
-export interface orderDetails {
-  number: number | string;
-  product: string;
+export interface orderLines {
+  id: number;
+  orderId: number;
+  productId: number;
+  amount: number;
+  priceId: number;
+  promotionId: number;
+  productName: string;
   productPrice: number;
-  quantity: number;
-  status: string;
+  imageName: string;
 }
 export interface Order {
-  date: string;
-  price: number;
+  id: number;
+  userId: number;
+  creditCardId?: number;
+  addressId: number;
+  orderDate: string;
+  totalPrice?: number;
   status: string;
-  details: orderDetails[];
+  orderLines: orderLines[];
 }
 
 export interface Role {
@@ -140,6 +174,7 @@ export interface Address {
   zipcode: number;
   street: string;
   number: number;
+  extension?: number;
   userId: number;
   active: boolean;
   label: string;
@@ -159,10 +194,6 @@ export interface Basket {
   basketLines: BasketLine[];
 }
 
-export interface Filters {
-  id: number;
-  name: string[];
-}
 /*
  * ENUM
  */

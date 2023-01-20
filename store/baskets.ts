@@ -1,68 +1,63 @@
 import { Action, Module, VuexModule, Mutation } from 'vuex-module-decorators';
 import { store } from '.';
-import { BasketLine, Product } from '~/utils/utils';
+import { BasketLine, formatDate, Product } from '~/utils/utils';
 import { API } from '~/utils/javaBack';
 
 @Module({
-  name: 'basket',
+  name: 'baskets',
   namespaced: true,
-  stateFactory: true,
+
   store,
 })
 export default class Baskets extends VuexModule {
-  // basket: Basket | {} = {};
   basketLine: BasketLine[] = [];
   totalPrice: number = 0;
   quantity: number = 0;
   amountToAdd: number = 1;
 
-  @Mutation
-  addBasketLine(product: Product) {
-    console.log('PRoducut', product);
+  get getBasketLine(): BasketLine[] {
+    return this.basketLine;
+  }
 
+  @Mutation
+  addBasket(basketLines: BasketLine[]) {
+    this.basketLine = basketLines;
+  }
+
+  @Mutation
+  addBasketLine({ product, quantity }: { product: Product; quantity: number }) {
     const existingBasketLine = this.basketLine.find(
       (line) => line.productId === product.id
     );
-    console.log('LINE', existingBasketLine);
 
     if (existingBasketLine) {
-      existingBasketLine.amount += this.amountToAdd;
-      console.log('SAME ID');
+      existingBasketLine.amount += quantity;
     } else {
       const item: BasketLine = {
         id: null,
         basketId: 1,
         productId: product.id,
-        amount: this.amountToAdd,
+        amount: quantity,
         product,
       };
       this.basketLine.push(item);
-      console.log('OTHER ID', item);
     }
 
-    this.quantity += this.amountToAdd;
+    this.totalPrice += product.actualPrice * quantity;
+    this.quantity += quantity;
     this.amountToAdd = 1;
-    // this.context.dispatch('getProduct', productId);
-    // this.basketLine
-    console.log('QUANTITY', this.quantity);
-    console.log('BasketLine', this.basketLine);
   }
-
-  // @Mutation
-  // addProduct(product: Product) {
-
-  // }
 
   @Mutation
   incrementAmount(productId: number) {
     const lineToIncrement = this.basketLine.find(
       (line) => line.productId === productId
     );
-    console.log('BL', lineToIncrement);
 
     if (lineToIncrement) {
       lineToIncrement.amount++;
       this.quantity++;
+      this.totalPrice += lineToIncrement.product.actualPrice;
     }
   }
 
@@ -71,11 +66,11 @@ export default class Baskets extends VuexModule {
     const lineToDecrement = this.basketLine.find(
       (line) => line.productId === productId
     );
-    console.log('BL', lineToDecrement);
 
     if (lineToDecrement) {
       lineToDecrement.amount--;
       this.quantity--;
+      this.totalPrice -= lineToDecrement.product.actualPrice;
     }
   }
 
@@ -94,7 +89,6 @@ export default class Baskets extends VuexModule {
 
   @Mutation
   removeBasketLine(productId: number) {
-    console.log('PRODUCTID', productId);
     const index = this.basketLine.findIndex(
       (line) => line.productId === productId
     );
@@ -106,38 +100,95 @@ export default class Baskets extends VuexModule {
       this.basketLine.splice(index, 1);
     }
     this.quantity -= amountToRemove?.amount as number;
-    console.log('BL REMOVE', this.basketLine);
-    // }
+    this.totalPrice -=
+      (amountToRemove?.product.actualPrice as number) *
+      (amountToRemove?.amount as number);
   }
 
-  @Action
-  async addProduct(id: number) {
+  @Mutation
+  resetBasket() {
+    this.basketLine = [];
+    this.quantity = 0;
+    this.totalPrice = 0;
+    this.amountToAdd = 1;
+  }
+
+  @Action({ rawError: true })
+  async addProduct({ id, quantity }: { id: number; quantity: number }) {
     const response = await API.getProductSummaryById(id); // TODO BY LANG
 
     if (response.status !== 200) {
       return;
     }
 
-    this.context.commit('addBasketLine', response.data);
-    console.log('END ACTION');
+    this.context.commit('addBasketLine', {
+      product: response.data,
+      quantity,
+    });
   }
 
-  // removeProduct(productId: number) {}
+  @Action
+  async getUserBasket(userId: number) {
+    const response = await API.getBasketByUserId(userId);
 
-  increment() {
-    this.quantity++;
+    if (response.status !== 200) {
+      return;
+    }
+
+    this.context.commit('addBasket', response.data.basketLines);
   }
 
-  decrement() {
-    this.quantity--;
-  }
+  @Action({ rawError: true })
+  async saveBasket(userId: number) {
+    if (userId === null || userId === 0) {
+      return;
+    }
 
-  @Mutation
-  resetBasket() {
-    // this.basket = {};
-    this.basketLine = [];
-    this.quantity = 0;
-    this.totalPrice = 0;
-    this.amountToAdd = 1;
+    const responseBasket = await API.getBasketByUserId(userId);
+
+    if (responseBasket.status !== 200) {
+      return;
+    }
+
+    const lastUpdated = formatDate(new Date().toString());
+
+    const responseUpdateBasket = await API.updateBasket(
+      responseBasket.data.id,
+      lastUpdated,
+      responseBasket.data.userId
+    );
+
+    if (responseUpdateBasket.status !== 200) {
+      return;
+    }
+
+    const responseBasketLines = await API.getBasketLinesByBasketId(
+      responseBasket.data.id
+    );
+
+    if (responseBasketLines.status !== 200) {
+      return;
+    }
+
+    for (let i = 0; i < responseBasketLines.data.length; i++) {
+      const responseRemoveExistingLines = await API.removeBasketLine(
+        responseBasketLines.data[i].id as number
+      );
+      if (responseRemoveExistingLines.status !== 200) {
+        return;
+      }
+    }
+
+    for (let i = 0; i < (this.context.state as any).basketLine.length; i++) {
+      const responseCreateBasketLine = await API.addBasketLine(
+        responseBasket.data.id,
+        (this.context.state as any).basketLine[i].productId,
+        (this.context.state as any).basketLine[i].amount
+      );
+
+      if (responseCreateBasketLine.status !== 200) {
+        return;
+      }
+    }
   }
 }
